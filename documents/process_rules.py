@@ -31,6 +31,7 @@ block_source_urls = {
 "GOODBYEADS":"https://raw.githubusercontent.com/8680/GOODBYEADS/master/data/rules/dns.txt",
 "10007_auto":"https://raw.githubusercontent.com/lingeringsound/10007_auto/master/reward",
 "AWAvenue-Ads-Rule":"https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/AWAvenue-Ads-Rule.txt",
+"github520":"https://raw.hellogithub.com/hosts",
 "Menghuibanxian":"https://raw.githubusercontent.com/Menghuibanxian/AdguardHome/refs/heads/main/Black.txt"
 }
 
