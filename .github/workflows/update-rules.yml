@@ -12,28 +12,17 @@ on:
     - cron: '0 */6 * * *'
 
 jobs:
-  update-both-branches:
+  build-and-commit-main:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        branch: [main, radical]
-        include:
-          - branch: main
-            block_file: Black.txt
-            white_file: White.txt
-            readme_title: 平稳的规则
-            release_tag: stable-latest
-          - branch: radical
-            block_file: radical-Black.txt
-            white_file: radical-White.txt
-            readme_title: 激进的规则
-            release_tag: radical-latest
+    concurrency:
+      group: ${{ github.workflow }}-main
+      cancel-in-progress: true
 
     steps:
-      - name: Checkout repository (target branch)
+      - name: Checkout repository (main)
         uses: actions/checkout@v4
         with:
-          ref: ${{ matrix.branch }}
+          ref: main
           fetch-depth: 0
 
       - name: Set up Python
@@ -46,52 +35,54 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Run script to build lists and update README
+      - name: Build lists and update README
         env:
           GITHUB_REPOSITORY: ${{ github.repository }}
-          GITHUB_REF_NAME: ${{ matrix.branch }}
-          OUTPUT_BLOCK_FILENAME: ${{ matrix.block_file }}
-          OUTPUT_WHITE_FILENAME: ${{ matrix.white_file }}
-          README_TITLE: ${{ matrix.readme_title }}
-          RELEASE_TAG: ${{ matrix.release_tag }}
+          GITHUB_REF_NAME: main
+          OUTPUT_BLOCK_FILENAME: Black.txt
+          OUTPUT_WHITE_FILENAME: White.txt
+          README_TITLE: 平稳的规则
+          RELEASE_TAG: stable-latest
         run: python documents/process_rules.py
 
       - name: Upload lists to GitHub Release
         uses: ncipollo/release-action@v1
         with:
-          tag: ${{ matrix.release_tag }}
-          name: "${{ matrix.readme_title }} Latest"
+          tag: stable-latest
+          name: "平稳的规则 Latest"
           makeLatest: true
           allowUpdates: true
           replacesArtifacts: true
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: "${{ matrix.block_file }},${{ matrix.white_file }}"
+          artifacts: "Black.txt,White.txt"
 
-      - name: Commit and push README only
-        env:
-          BRANCH: ${{ matrix.branch }}
-          BLOCK_FILE: ${{ matrix.block_file }}
-          WHITE_FILE: ${{ matrix.white_file }}
+      - name: Commit and push README only (safe rebase)
         run: |
-          # 配置 Git 身份
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
 
-          # 仅添加 README，避免将超大文件加入 Git 历史
-          git add README.md
+          git fetch origin main
+          git config --global pull.rebase true
+          git config --global rebase.autoStash true
+          git pull --rebase origin main || true
 
-          # 若 README 没变化则跳过提交
+          git add README.md
           if git diff --cached --quiet; then
             echo "No README changes to commit."
             exit 0
           fi
 
-          # 统计最新文件的规则数（用于日志）
-          BLOCK_COUNT=$(grep -v -c '^!' "$BLOCK_FILE" || echo 0)
-          WHITE_COUNT=$(grep -v -c '^!' "$WHITE_FILE" || echo 0)
+          BLOCK_COUNT=$(grep -v -c '^!' Black.txt || echo 0)
+          WHITE_COUNT=$(grep -v -c '^!' White.txt || echo 0)
 
-          git commit -m "chore: 更新 README ($BRANCH)" \
+          git commit -m "chore: 更新 README (main)" \
                      -m "黑名单规则: ${BLOCK_COUNT} 条" \
                      -m "白名单规则: ${WHITE_COUNT} 条"
 
-          git push origin "HEAD:${BRANCH}"
+          git fetch origin main
+          git pull --rebase origin main || true
+
+          git push origin "HEAD:main" || {
+            echo "First push failed, attempting with --force-with-lease"
+            git push --force-with-lease origin "HEAD:main"
+          }
