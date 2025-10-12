@@ -1,8 +1,8 @@
 ! Title: AdGuard Custom Whitelist
 ! Description: 自动合并的白名单规则
 ! Author: zhuanshenlikaini
-! Version: 20251012180012
-! Last Updated: 2025-10-12 18:00:12 (UTC+8)
+! Version: 20251012180253
+! Last Updated: 2025-10-12 18:02:53 (UTC+8)
 ! Total Rules: 6404
 !
 *-cdn-tos.bytegeckoext.com # From: Custom Whitelist
