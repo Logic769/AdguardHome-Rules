@@ -29,7 +29,6 @@ block_source_urls = {
     "10007_auto": "https://raw.githubusercontent.com/lingeringsound/10007_auto/master/reward",
     "AWAvenue-Ads-Rule": "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/AWAvenue-Ads-Rule.txt",
     "github520": "https://raw.hellogithub.com/hosts",
-    "冷漠的黑名单pro": "https://github.com/Potterli20/file/releases/download/ad-hosts-pro/ad-adguardhome.txt",
     "Menghuibanxian": "https://raw.githubusercontent.com/Menghuibanxian/AdguardHome/refs/heads/main/Black.txt"
 }
 
