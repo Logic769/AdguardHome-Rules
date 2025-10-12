@@ -1,6 +1,4 @@
-# .github/workflows/update-rules.yml
-
-name: 稳定的规则
+name: 平稳的规则
 
 permissions:
   contents: write
@@ -14,12 +12,26 @@ on:
     - cron: '0 */6 * * *'
 
 jobs:
-  build-and-commit:
+  update-both-branches:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        branch: [main, radical]
+        include:
+          - branch: main
+            block_file: Black.txt
+            white_file: White.txt
+            readme_title: 平稳的规则
+          - branch: radical
+            block_file: radical-Black.txt
+            white_file: radical-White.txt
+            readme_title: 激进的规则
     steps:
-      - name: Checkout repository
+      - name: Checkout repository (target branch)
         uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.branch }}
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -34,28 +46,33 @@ jobs:
       - name: Run script to process rules and update README
         env:
           GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_REF_NAME: ${{ matrix.branch }}
+          OUTPUT_BLOCK_FILENAME: ${{ matrix.block_file }}
+          OUTPUT_WHITE_FILENAME: ${{ matrix.white_file }}
+          README_TITLE: ${{ matrix.readme_title }}
         run: python documents/process_rules.py
 
       - name: Commit and push if changes
+        env:
+          BRANCH: ${{ matrix.branch }}
+          BLOCK_FILE: ${{ matrix.block_file }}
+          WHITE_FILE: ${{ matrix.white_file }}
         run: |
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
-          
-          # 检查是否有文件变动
+
           if [ -z "$(git status --porcelain)" ]; then
             echo "No changes to commit."
             exit 0
           fi
-          
-          git add Black.txt White.txt README.md
-          
-          BLOCK_COUNT=$(grep -v -c '^!' Black.txt || echo 0)
-          WHITE_COUNT=$(grep -v -c '^!' White.txt || echo 0)
 
-          # ✨ 语法修正 ✨
-          # 将多行 commit 消息拆分为多个 -m 参数，以避免 YAML 解析错误
-          git commit -m "chore: 自动更新规则列表" \
+          git add "$BLOCK_FILE" "$WHITE_FILE" README.md
+
+          BLOCK_COUNT=$(grep -v -c '^!' "$BLOCK_FILE" || echo 0)
+          WHITE_COUNT=$(grep -v -c '^!' "$WHITE_FILE" || echo 0)
+
+          git commit -m "chore: 自动更新规则列表 ($BRANCH)" \
                      -m "黑名单规则: ${BLOCK_COUNT} 条" \
                      -m "白名单规则: ${WHITE_COUNT} 条"
-          
-          git push
+
+          git push origin "HEAD:${BRANCH}"
