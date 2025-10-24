@@ -6,9 +6,9 @@
 
 本项目通过 GitHub Actions 自动合并、去重多个来源的 AdGuard Home 规则，并排除白名单。
 
-最后更新时间: 2025-10-24 21:16:15 (UTC+8)
+最后更新时间: 2025-10-24 21:20:10 (UTC+8)
 
-最终黑名单规则数: 341290
+最终黑名单规则数: 347848
 
 最终白名单规则数: 6406
 
@@ -48,6 +48,8 @@ https://github.com/zhuanshenlikaini/AdguardHome-Rules/releases/download/stable-l
 - 10007_auto
 - AWAvenue-Ads-Rule
 - github520
+- GitHub Hosts
+- Malicious URL Blocklist
 - Menghuibanxian
 - Custom Blocklist (本地)
 
