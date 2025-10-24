@@ -13,9 +13,8 @@ on:
     - cron: '0 */6 * * *'  # 每 6 小时
 
 jobs:
-  # 构建并发布 radical 分支（激进的规则）
   build-and-commit-radical:
-    # Push 时仅在 radical 分支触发；schedule/手动触发则照常执行
+    # push 时仅在 radical 分支触发；schedule/手动触发则照常执行
     if: github.event_name != 'push' || github.ref_name == 'radical'
     runs-on: ubuntu-latest
     concurrency:
@@ -54,16 +53,30 @@ jobs:
         run: |
           echo "cn_time=$(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M:%S (UTC+8)')" >> $GITHUB_OUTPUT
 
+      - name: Prepare release body (radical)
+        run: |
+          BLOCK_COUNT=$(grep -v -c '^!' radical-Black.txt || echo 0)
+          WHITE_COUNT=$(grep -v -c '^!' radical-White.txt || echo 0)
+          cat > release_body_radical.md <<EOF
+激进的规则（radical 分支）本次构建统计
+
+- 黑名单规则: ${BLOCK_COUNT} 条
+- 白名单规则: ${WHITE_COUNT} 条
+EOF
+
       - name: Upload radical lists to GitHub Release
         uses: ncipollo/release-action@v1
         with:
           tag: aggressive-latest
           name: "激进的规则 ${{ steps.time_radical.outputs.cn_time }}"
+          bodyFile: release_body_radical.md
           makeLatest: false
           allowUpdates: true
           replacesArtifacts: true
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: "radical-Black.txt,radical-White.txt"
+          omitBodyDuringUpdate: false
+          omitNameDuringUpdate: false
 
       - name: Commit and push README only to radical (safe rebase)
         run: |
@@ -81,12 +94,7 @@ jobs:
             exit 0
           fi
 
-          BLOCK_COUNT=$(grep -v -c '^!' radical-Black.txt || echo 0)
-          WHITE_COUNT=$(grep -v -c '^!' radical-White.txt || echo 0)
-
-          git commit -m "chore: 更新 README (radical)" \
-                     -m "黑名单规则: ${BLOCK_COUNT} 条" \
-                     -m "白名单规则: ${WHITE_COUNT} 条"
+          git commit -m "docs(radical): 更新 README"
 
           git fetch origin radical
           git pull --rebase origin radical || true
@@ -96,9 +104,8 @@ jobs:
             git push --force-with-lease origin "HEAD:radical"
           }
 
-  # 构建并发布 main 分支（平稳的规则）
   build-and-commit-main:
-    # Push 时仅在 main 分支触发；schedule/手动触发则照常执行
+    # push 时仅在 main 分支触发；schedule/手动触发则照常执行
     if: github.event_name != 'push' || github.ref_name == 'main'
     runs-on: ubuntu-latest
     concurrency:
@@ -137,16 +144,30 @@ jobs:
         run: |
           echo "cn_time=$(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M:%S (UTC+8)')" >> $GITHUB_OUTPUT
 
+      - name: Prepare release body (main)
+        run: |
+          BLOCK_COUNT=$(grep -v -c '^!' Black.txt || echo 0)
+          WHITE_COUNT=$(grep -v -c '^!' White.txt || echo 0)
+          cat > release_body_main.md <<EOF
+平稳的规则（main 分支）本次构建统计
+
+- 黑名单规则: ${BLOCK_COUNT} 条
+- 白名单规则: ${WHITE_COUNT} 条
+EOF
+
       - name: Upload lists to GitHub Release (main)
         uses: ncipollo/release-action@v1
         with:
           tag: stable-latest
           name: "平稳的规则 ${{ steps.time_main.outputs.cn_time }}"
+          bodyFile: release_body_main.md
           makeLatest: true
           allowUpdates: true
           replacesArtifacts: true
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: "Black.txt,White.txt"
+          omitBodyDuringUpdate: false
+          omitNameDuringUpdate: false
 
       - name: Commit and push README only to main (safe rebase)
         run: |
@@ -164,12 +185,7 @@ jobs:
             exit 0
           fi
 
-          BLOCK_COUNT=$(grep -v -c '^!' Black.txt || echo 0)
-          WHITE_COUNT=$(grep -v -c '^!' White.txt || echo 0)
-
-          git commit -m "chore: 更新 README (main)" \
-                     -m "黑名单规则: ${BLOCK_COUNT} 条" \
-                     -m "白名单规则: ${WHITE_COUNT} 条"
+          git commit -m "docs(main): 更新 README"
 
           git fetch origin main
           git pull --rebase origin main || true
