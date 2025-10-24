@@ -29,6 +29,8 @@ block_source_urls = {
     "10007_auto": "https://raw.githubusercontent.com/lingeringsound/10007_auto/master/reward",
     "AWAvenue-Ads-Rule": "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/AWAvenue-Ads-Rule.txt",
     "github520": "https://raw.hellogithub.com/hosts",
+    "GitHub Hosts": "https://github-hosts.tinsfox.com/hosts",
+    "Malicious URL Blocklist": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_11.txt",
     "Menghuibanxian": "https://raw.githubusercontent.com/Menghuibanxian/AdguardHome/refs/heads/main/Black.txt"
 }
 
