@@ -1,4 +1,4 @@
-name: 平稳的规则
+name: 同时更新 平稳 与 激进 规则
 
 permissions:
   contents: write
@@ -7,19 +7,106 @@ on:
   push:
     branches:
       - main
+      - radical
   workflow_dispatch:
   schedule:
-    - cron: '0 */6 * * *'
+    - cron: '0 */6 * * *'  # 每 6 小时
 
 jobs:
+  # 构建并发布 radical 分支（激进的规则）
+  build-and-commit-radical:
+    # Push 时仅在 radical 分支触发；schedule/手动触发则照常执行
+    if: github.event_name != 'push' || github.ref_name == 'radical'
+    runs-on: ubuntu-latest
+    concurrency:
+      group: ${{ github.workflow }}-radical
+      cancel-in-progress: true
+
+    steps:
+      - name: Checkout radical branch
+        uses: actions/checkout@v4
+        with:
+          ref: radical
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Build radical lists and update README
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_REF_NAME: radical
+          OUTPUT_BLOCK_FILENAME: radical-Black.txt
+          OUTPUT_WHITE_FILENAME: radical-White.txt
+          README_TITLE: 激进的规则
+          RELEASE_TAG: aggressive-latest
+        run: python documents/process_rules.py
+
+      - name: Compute Beijing time for release title (radical)
+        id: time_radical
+        run: |
+          echo "cn_time=$(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M:%S (UTC+8)')" >> $GITHUB_OUTPUT
+
+      - name: Upload radical lists to GitHub Release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: aggressive-latest
+          name: "激进的规则 ${{ steps.time_radical.outputs.cn_time }}"
+          makeLatest: false
+          allowUpdates: true
+          replacesArtifacts: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: "radical-Black.txt,radical-White.txt"
+
+      - name: Commit and push README only to radical (safe rebase)
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+
+          git fetch origin radical
+          git config --global pull.rebase true
+          git config --global rebase.autoStash true
+          git pull --rebase origin radical || true
+
+          git add README.md
+          if git diff --cached --quiet; then
+            echo "No README changes to commit."
+            exit 0
+          fi
+
+          BLOCK_COUNT=$(grep -v -c '^!' radical-Black.txt || echo 0)
+          WHITE_COUNT=$(grep -v -c '^!' radical-White.txt || echo 0)
+
+          git commit -m "chore: 更新 README (radical)" \
+                     -m "黑名单规则: ${BLOCK_COUNT} 条" \
+                     -m "白名单规则: ${WHITE_COUNT} 条"
+
+          git fetch origin radical
+          git pull --rebase origin radical || true
+
+          git push origin "HEAD:radical" || {
+            echo "First push failed, attempting with --force-with-lease"
+            git push --force-with-lease origin "HEAD:radical"
+          }
+
+  # 构建并发布 main 分支（平稳的规则）
   build-and-commit-main:
+    # Push 时仅在 main 分支触发；schedule/手动触发则照常执行
+    if: github.event_name != 'push' || github.ref_name == 'main'
     runs-on: ubuntu-latest
     concurrency:
       group: ${{ github.workflow }}-main
       cancel-in-progress: true
 
     steps:
-      - name: Checkout repository (main)
+      - name: Checkout main branch
         uses: actions/checkout@v4
         with:
           ref: main
@@ -35,7 +122,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests
 
-      - name: Build lists and update README
+      - name: Build lists and update README (main)
         env:
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_REF_NAME: main
@@ -45,23 +132,23 @@ jobs:
           RELEASE_TAG: stable-latest
         run: python documents/process_rules.py
 
-      - name: Compute Beijing time for release title
-        id: time
+      - name: Compute Beijing time for release title (main)
+        id: time_main
         run: |
           echo "cn_time=$(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M:%S (UTC+8)')" >> $GITHUB_OUTPUT
 
-      - name: Upload lists to GitHub Release
+      - name: Upload lists to GitHub Release (main)
         uses: ncipollo/release-action@v1
         with:
           tag: stable-latest
-          name: "平稳的规则 ${{ steps.time.outputs.cn_time }}"
+          name: "平稳的规则 ${{ steps.time_main.outputs.cn_time }}"
           makeLatest: true
           allowUpdates: true
           replacesArtifacts: true
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: "Black.txt,White.txt"
 
-      - name: Commit and push README only (safe rebase)
+      - name: Commit and push README only to main (safe rebase)
         run: |
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
