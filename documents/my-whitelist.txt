@@ -1202,4 +1202,12 @@
 #钉钉打卡及钉钉助手的定位规则
 @@||restsdk.amap.com^$important
 @@||dualstack-arestapi.amap.com^$important
-
+#针对动漫共和国的放行规则
+@@||yximgs.com^$important
+@@||aliyuncs.com^$important
+@@||videocloud.cn-hangzhou.log.aliyuncs.com^$important
+@@||bfbk.xn--qfsx5xvnik06b.com^$important
+@@||new.jx.xn--qfsx5xvnik06b.com^$important
+@@||dasndsb.xn--qfsx5xvnik06b.com^$important
+@@||dns.alidns.com^$important
+@@||adukwai.com^$important
