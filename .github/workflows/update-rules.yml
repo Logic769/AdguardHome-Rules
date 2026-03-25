@@ -1,4 +1,4 @@
-name: 更新 平稳 与 激进 规则
+name: 激进规则
 
 permissions:
   contents: write
@@ -12,95 +12,6 @@ on:
     - cron: '0 */6 * * *'  # 每 6 小时
 
 jobs:
-  build-and-commit-radical:
-    # push 时仅在 radical 分支触发；schedule/手动触发则照常执行
-    if: github.event_name != 'push' || github.ref_name == 'radical'
-    runs-on: ubuntu-latest
-    concurrency:
-      group: ${{ github.workflow }}-radical
-      cancel-in-progress: true
-
-    steps:
-      - name: Checkout radical branch
-        uses: actions/checkout@v4
-        with:
-          ref: radical
-          fetch-depth: 0
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install requests
-
-      - name: Build radical lists and update README
-        env:
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          GITHUB_REF_NAME: radical
-          OUTPUT_BLOCK_FILENAME: radical-Black.txt
-          OUTPUT_WHITE_FILENAME: radical-White.txt
-          README_TITLE: 激进的规则
-          RELEASE_TAG: aggressive-latest
-        run: python documents/process_rules.py
-
-      - name: Compute Beijing time for release title (radical)
-        id: time_radical
-        run: |
-          echo "cn_time=$(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M:%S (UTC+8)')" >> $GITHUB_OUTPUT
-
-      - name: Prepare release body (radical)
-        run: |
-          BLOCK_COUNT=$(grep -v -c '^!' radical-Black.txt || echo 0)
-          WHITE_COUNT=$(grep -v -c '^!' radical-White.txt || echo 0)
-          {
-            echo "激进的规则（radical 分支）本次构建统计"
-            echo
-            echo "- 黑名单规则: ${BLOCK_COUNT} 条"
-            echo "- 白名单规则: ${WHITE_COUNT} 条"
-          } > release_body_radical.md
-
-      - name: Upload radical lists to GitHub Release
-        uses: ncipollo/release-action@v1
-        with:
-          tag: aggressive-latest
-          name: "激进的规则 ${{ steps.time_radical.outputs.cn_time }}"
-          bodyFile: release_body_radical.md
-          makeLatest: false
-          allowUpdates: true
-          replacesArtifacts: true
-          token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: "radical-Black.txt,radical-White.txt"
-
-      - name: Commit and push README only to radical (safe rebase)
-        run: |
-          git config --global user.name "GitHub Actions Bot"
-          git config --global user.email "actions@github.com"
-
-          git fetch origin radical
-          git config --global pull.rebase true
-          git config --global rebase.autoStash true
-          git pull --rebase origin radical || true
-
-          git add README.md
-          if git diff --cached --quiet; then
-            echo "No README changes to commit."
-            exit 0
-          fi
-
-          git commit -m "docs(radical): 更新 README"
-
-          git fetch origin radical
-          git pull --rebase origin radical || true
-
-          git push origin "HEAD:radical" || {
-            echo "First push failed, attempting with --force-with-lease"
-            git push --force-with-lease origin "HEAD:radical"
-          }
-
   build-and-commit-main:
     # push 时仅在 main 分支触发；schedule/手动触发则照常执行
     if: github.event_name != 'push' || github.ref_name == 'main'
@@ -132,7 +43,7 @@ jobs:
           GITHUB_REF_NAME: main
           OUTPUT_BLOCK_FILENAME: Black.txt
           OUTPUT_WHITE_FILENAME: White.txt
-          README_TITLE: 平稳的规则
+          README_TITLE: 激进的规则
           RELEASE_TAG: stable-latest
         run: python documents/process_rules.py
 
@@ -146,7 +57,7 @@ jobs:
           BLOCK_COUNT=$(grep -v -c '^!' Black.txt || echo 0)
           WHITE_COUNT=$(grep -v -c '^!' White.txt || echo 0)
           {
-            echo "平稳的规则（main 分支）本次构建统计"
+            echo "激进的规则（main 分支）本次构建统计"
             echo
             echo "- 黑名单规则: ${BLOCK_COUNT} 条"
             echo "- 白名单规则: ${WHITE_COUNT} 条"
@@ -156,7 +67,7 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           tag: stable-latest
-          name: "平稳的规则 ${{ steps.time_main.outputs.cn_time }}"
+          name: "激进的规则 ${{ steps.time_main.outputs.cn_time }}"
           bodyFile: release_body_main.md
           makeLatest: true
           allowUpdates: true
