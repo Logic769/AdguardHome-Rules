@@ -44,7 +44,6 @@ white_source_urls = {
     "茯苓允许列表": "https://raw.githubusercontent.com/Kuroba-Sayuki/FuLing-AdRules/main/FuLingRules/FuLingAllowList.txt",
     "666": "https://raw.githubusercontent.com/qq5460168/666/master/allow.txt",
     "个人自用白名单": "https://raw.githubusercontent.com/qq5460168/dangchu/main/white.txt",
-    "冷漠白名单": "https://file-git.trli.club/file-hosts/allow/Domains",
     "BlueSkyXN": "https://raw.githubusercontent.com/BlueSkyXN/AdGuardHomeRules/master/ok.txt",
     "GOODBYEADS": "https://raw.githubusercontent.com/8680/GOODBYEADS/master/data/rules/allow.txt",
     "冷漠白名单2": "https://github.com/Potterli20/file/releases/download/github-hosts/allow.txt",
