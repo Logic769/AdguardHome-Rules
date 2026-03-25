@@ -6,9 +6,9 @@
 
 本项目通过 GitHub Actions 自动合并、去重多个来源的 AdGuard Home 规则，并排除白名单。
 
-最后更新时间: 2026-03-26 02:54:37 (UTC+8)
+最后更新时间: 2026-03-26 07:21:43 (UTC+8)
 
-最终黑名单规则数: 1054219
+最终黑名单规则数: 555617
 
 最终白名单规则数: 5098
 
@@ -52,7 +52,6 @@ https://github.com/Logic769/AdguardHome-Rules/releases/download/stable-latest/Wh
 - Malicious URL Blocklist
 - xndeye adblock_list
 - Menghuibanxian
-- BlueSkyXN
 - anti-AD
 - AdBlock DNS Filters
 - 冷莫规则1
