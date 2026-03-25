@@ -7,7 +7,6 @@ on:
   push:
     branches:
       - main
-      - radical
   workflow_dispatch:
   schedule:
     - cron: '0 */6 * * *'  # 每 6 小时
