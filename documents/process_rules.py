@@ -87,7 +87,7 @@ def process_line(line: str) -> str:
     """清洗单行规则，提取域名"""
     line = line.strip()
 
-    if not line or line.startswith(('!', '#', '/', '[', '@')):
+    if not line or line.startswith(('!', '#', '/', '[')):
         return ""
 
     line = line.replace("@@", "").replace("||", "").replace("^", "")
