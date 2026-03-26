@@ -9,7 +9,7 @@ on:
       - main
   workflow_dispatch:
   schedule:
-    - cron: '0 */6 * * *'  # 每 6 小时
+    - cron: '0 3 * * *'  # 每天 3:00 执行
 
 jobs:
   build-and-commit-main:
