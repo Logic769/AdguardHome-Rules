@@ -1,4 +1,4 @@
-# 平稳的规则
+# 激进的规则
 
 # 自动更新的 AdGuard Home 规则
 
@@ -6,24 +6,24 @@
 
 本项目通过 GitHub Actions 自动合并、去重多个来源的 AdGuard Home 规则，并排除白名单。
 
-最后更新时间: 2026-03-26 10:23:59 (UTC+8)
+最后更新时间: 2026-03-26 10:27:27 (UTC+8)
 
-最终黑名单规则数: 559416
+最终黑名单规则数: 553450
 
-最终白名单规则数: 8622
+最终白名单规则数: 71664
 
 订阅链接
 
 拦截规则 (Blocklist)
 
 ```
-https://raw.githubusercontent.com/your_username/your_repo/main/Black.txt
+https://github.com/Logic769/AdguardHome-Rules/releases/download/stable-latest/Black.txt
 ```
 
 允许规则 (Whitelist)
 
 ```
-https://raw.githubusercontent.com/your_username/your_repo/main/White.txt
+https://github.com/Logic769/AdguardHome-Rules/releases/download/stable-latest/White.txt
 ```
 
 规则来源
