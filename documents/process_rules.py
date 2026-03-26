@@ -41,6 +41,7 @@ block_source_urls = {
 # 白名单规则源（网络）
 white_source_urls = {
     "茯苓允许列表": "https://raw.githubusercontent.com/Kuroba-Sayuki/FuLing-AdRules/main/FuLingRules/FuLingAllowList.txt",
+"冷漠白名单": "https://file-git.trli.club/file-hosts/allow/Domains",
     "666": "https://raw.githubusercontent.com/qq5460168/666/master/allow.txt",
     "个人自用白名单": "https://raw.githubusercontent.com/qq5460168/dangchu/main/white.txt",
     "BlueSkyXN": "https://raw.githubusercontent.com/BlueSkyXN/AdGuardHomeRules/master/ok.txt",
