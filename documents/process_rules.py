@@ -15,7 +15,6 @@ block_source_urls = {
     "GitHub加速": "https://raw.githubusercontent.com/521xueweihan/GitHub520/refs/heads/main/hosts",
     "广告规则": "https://raw.githubusercontent.com/huantian233/HT-AD/main/AD.txt",
     "DD自用": "https://raw.githubusercontent.com/afwfv/DD-AD/main/rule/DD-AD.txt",
-    "消失DD": "https://raw.githubusercontent.com/afwfv/DD-AD/main/rule/dns.txt",
     "大萌主": "https://raw.githubusercontent.com/damengzhu/banad/main/jiekouAD.txt",
     "逆向涉猎": "https://raw.githubusercontent.com/790953214/qy-Ads-Rule/main/black.txt",
     "下个ID见": "https://raw.githubusercontent.com/2Gardon/SM-Ad-FuckU-hosts/master/SMAdHosts",
@@ -29,7 +28,6 @@ block_source_urls = {
     "10007_auto": "https://raw.githubusercontent.com/lingeringsound/10007_auto/master/reward",
     "AWAvenue-Ads-Rule": "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/AWAvenue-Ads-Rule.txt",
     "github520": "https://raw.hellogithub.com/hosts",
-    "GitHub Hosts": "https://github-hosts.tinsfox.com/hosts",
     "Malicious URL Blocklist": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_11.txt",
     "xndeye adblock_list": "https://raw.githubusercontent.com/xndeye/adblock_list/refs/heads/release/easylist.txt",
     "Menghuibanxian": "https://raw.githubusercontent.com/Menghuibanxian/AdguardHome/refs/heads/main/Black.txt",
@@ -41,7 +39,7 @@ block_source_urls = {
 # 白名单规则源（网络）
 white_source_urls = {
     "茯苓允许列表": "https://raw.githubusercontent.com/Kuroba-Sayuki/FuLing-AdRules/main/FuLingRules/FuLingAllowList.txt",
-"冷漠白名单": "https://file-git.trli.club/file-hosts/allow/Domains",
+    "冷漠白名单": "https://file-git.trli.club/file-hosts/allow/Domains",
     "666": "https://raw.githubusercontent.com/qq5460168/666/master/allow.txt",
     "个人自用白名单": "https://raw.githubusercontent.com/qq5460168/dangchu/main/white.txt",
     "BlueSkyXN": "https://raw.githubusercontent.com/BlueSkyXN/AdGuardHomeRules/master/ok.txt",
