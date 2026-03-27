@@ -42,6 +42,9 @@ white_source_urls = {
     "个人自用白名单": "https://raw.githubusercontent.com/qq5460168/dangchu/main/white.txt",
     "BlueSkyXN": "https://raw.githubusercontent.com/BlueSkyXN/AdGuardHomeRules/master/ok.txt",
     "GOODBYEADS": "https://raw.githubusercontent.com/8680/GOODBYEADS/master/data/rules/allow.txt",
+    "冷漠白名单": "https://file-git.trli.club/file-hosts/allow/Domains",
+    "冷漠白名单2": "https://github.com/Potterli20/file/releases/download/github-hosts/allow.txt",
+    "冷漠白名单3": "https://github.com/Potterli20/file/releases/download/github-hosts/ad-edge-hosts.txt"
 }
 
 # 本地自定义规则文件（与脚本同目录）
