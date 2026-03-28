@@ -6,9 +6,9 @@
 
 本项目通过 GitHub Actions 自动合并、去重多个来源的 AdGuard Home 规则，并排除白名单。
 
-最后更新时间: 2026-03-28 03:03:09 (UTC+8)
+最后更新时间: 2026-03-28 08:03:55 (UTC+8)
 
-最终黑名单规则数: 551082
+最终黑名单规则数: 747880
 
 最终白名单规则数: 71672
 
@@ -52,6 +52,7 @@ https://github.com/Logic769/AdguardHome-Rules/releases/download/stable-latest/Wh
 - anti-AD
 - AdBlock DNS Filters
 - 冷莫规则1
+- bigoisdnl
 - Custom Blocklist (本地)
 
 白名单来源 (Whitelist Sources)
