@@ -31,9 +31,7 @@ block_source_urls = {
     "xndeye adblock_list": "https://raw.githubusercontent.com/xndeye/adblock_list/refs/heads/release/easylist.txt",
     "Menghuibanxian": "https://raw.githubusercontent.com/Menghuibanxian/AdguardHome/refs/heads/main/Black.txt",
     "anti-AD": "https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-easylist.txt",
-    "AdBlock DNS Filters": "https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblockdns.txt",
-    "冷莫规则1": "https://github.com/Potterli20/file/releases/download/cn-blocked-domain/raw.txt",
-"bigoisdnl": "https://big.oisd.nl/"
+    "AdBlock DNS Filters": "https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblockdns.txt"
 }
 
 # 白名单规则源（网络）
