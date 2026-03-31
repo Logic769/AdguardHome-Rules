@@ -12,7 +12,6 @@ root_dir = os.path.dirname(script_dir)
 # 黑名单规则源（网络）
 block_source_urls = {
     "秋风的规则": "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/AWAvenue-Ads-Rule.txt",
-    "GitHub加速": "https://raw.githubusercontent.com/521xueweihan/GitHub520/refs/heads/main/hosts",
     "广告规则": "https://raw.githubusercontent.com/huantian233/HT-AD/main/AD.txt",
     "DD自用": "https://raw.githubusercontent.com/afwfv/DD-AD/main/rule/DD-AD.txt",
     "大萌主": "https://raw.githubusercontent.com/damengzhu/banad/main/jiekouAD.txt",
@@ -26,7 +25,6 @@ block_source_urls = {
     "Ad-set-hosts": "https://raw.githubusercontent.com/rentianyu/Ad-set-hosts/master/adguard",
     "GOODBYEADS": "https://raw.githubusercontent.com/8680/GOODBYEADS/master/data/rules/dns.txt",
     "10007_auto": "https://raw.githubusercontent.com/lingeringsound/10007_auto/master/reward",
-    "github520": "https://raw.hellogithub.com/hosts",
     "Malicious URL Blocklist": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_11.txt",
     "xndeye adblock_list": "https://raw.githubusercontent.com/xndeye/adblock_list/refs/heads/release/easylist.txt",
     "Menghuibanxian": "https://raw.githubusercontent.com/Menghuibanxian/AdguardHome/refs/heads/main/Black.txt",
