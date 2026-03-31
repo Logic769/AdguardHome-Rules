@@ -33,6 +33,8 @@ block_source_urls = {
 "ABP":  "https://raw.githubusercontent.com/damengzhu/abpmerge/refs/heads/main/abpmerge.txt"
 }
 
+# 白名单规则源（网络）
+white_source_urls = {}
 
 # 本地自定义规则文件（与脚本同目录）
 custom_block_file = "my-blocklist.txt"
