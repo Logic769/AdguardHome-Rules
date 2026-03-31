@@ -6,11 +6,11 @@
 
 本项目通过 GitHub Actions 自动合并、去重多个来源的 AdGuard Home 规则，并排除白名单。
 
-最后更新时间: 2026-04-01 02:11:48 (UTC+8)
+最后更新时间: 2026-04-01 02:16:16 (UTC+8)
 
-最终黑名单规则数: 570045
+最终黑名单规则数: 574313
 
-最终白名单规则数: 7647
+最终白名单规则数: 87
 
 订阅链接
 
@@ -54,11 +54,6 @@ https://github.com/Logic769/AdguardHome-Rules/releases/download/stable-latest/Wh
 
 白名单来源 (Whitelist Sources)
 
-- 茯苓允许列表
-- 666
-- 个人自用白名单
-- BlueSkyXN
-- GOODBYEADS
 - Custom Whitelist (本地)
 
 由 GitHub Actions 自动构建。
