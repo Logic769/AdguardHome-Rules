@@ -34,7 +34,11 @@ block_source_urls = {
 }
 
 # 白名单规则源（网络）
-white_source_urls = {}
+white_source_urls = {  "茯苓允许列表": "https://raw.githubusercontent.com/Kuroba-Sayuki/FuLing-AdRules/main/FuLingRules/FuLingAllowList.txt",
+    "666": "https://raw.githubusercontent.com/qq5460168/666/master/allow.txt",
+    "个人自用白名单": "https://raw.githubusercontent.com/qq5460168/dangchu/main/white.txt",
+    "BlueSkyXN": "https://raw.githubusercontent.com/BlueSkyXN/AdGuardHomeRules/master/ok.txt",
+    "GOODBYEADS": "https://raw.githubusercontent.com/8680/GOODBYEADS/master/data/rules/allow.txt"}
 
 # 本地自定义规则文件（与脚本同目录）
 custom_block_file = "my-blocklist.txt"
