@@ -43,6 +43,7 @@ jobs:
           GITHUB_REF_NAME: main
           OUTPUT_BLOCK_FILENAME: Black.txt
           OUTPUT_WHITE_FILENAME: White.txt
+          OUTPUT_CONFLICT_FILENAME: Conflict.txt
           README_TITLE: 激进的规则
           RELEASE_TAG: stable-latest
         run: python documents/process_rules.py
@@ -56,11 +57,13 @@ jobs:
         run: |
           BLOCK_COUNT=$(grep -v -c '^!' Black.txt || echo 0)
           WHITE_COUNT=$(grep -v -c '^!' White.txt || echo 0)
+          CONFLICT_COUNT=$(grep -v -c '^!' Conflict.txt || echo 0)
           {
             echo "激进的规则（main 分支）本次构建统计"
             echo
             echo "- 黑名单规则: ${BLOCK_COUNT} 条"
             echo "- 白名单规则: ${WHITE_COUNT} 条"
+            echo "- 冲突规则: ${CONFLICT_COUNT} 条"
           } > release_body_main.md
 
       - name: Upload lists to GitHub Release (main)
@@ -73,7 +76,7 @@ jobs:
           allowUpdates: true
           replacesArtifacts: true
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: "Black.txt,White.txt"
+          artifacts: "Black.txt,White.txt,Conflict.txt"
 
       - name: Commit and push README only to main (safe rebase)
         run: |
