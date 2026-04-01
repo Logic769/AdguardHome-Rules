@@ -3,7 +3,7 @@ import datetime
 import time
 import os
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Optional
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -25,6 +25,7 @@ block_source_urls = {
     "GOODBYEADS": "https://raw.githubusercontent.com/8680/GOODBYEADS/master/data/rules/dns.txt",
     "10007_auto": "https://raw.githubusercontent.com/lingeringsound/10007_auto/master/reward",
     "Malicious URL Blocklist": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_11.txt",
+    "xndeye adblock_list": "https://raw.githubusercontent.com/xndeye/adblock_list/refs/heads/release/easylist.txt",
     "Menghuibanxian": "https://raw.githubusercontent.com/Menghuibanxian/AdguardHome/refs/heads/main/Black.txt",
     "anti-AD": "https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-easylist.txt",
     "AdBlock DNS Filters": "https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblockdns.txt",
@@ -58,31 +59,13 @@ AUTHOR = "logic769"
 class ParsedRule:
     domain: str
     is_whitelist: bool
-    modifiers: list[str] = field(default_factory=list)
-    original_line: str = ""
-    source: str = ""
-    
-    def to_adguard_rule(self) -> str:
-        rule = f"||{self.domain}^"
-        if self.modifiers:
-            rule += "$" + ",".join(self.modifiers)
-        return rule
-    
-    def get_domain_key(self) -> str:
-        return self.domain.lower()
+    modifiers: list[str]
+    original_line: str
+    source: str
 
 
 class RuleParser:
-    SUPPORTED_MODIFIERS = {
-        'important', 'badfilter', 'dnsrewrite', 'client', 
-        'script', 'image', 'stylesheet', 'object', 'xmlhttprequest',
-        'object-subrequest', 'subdocument', 'ping', 'websocket',
-        'third-party', '~third-party', 'match-case', 'cname',
-        'redirect', 'redirect-rule', 'removeparam', 'empty', 'mp4',
-        'media', 'popup', 'font', 'other', 'cookie', 'stealth',
-        'urlblock', 'extension', 'jsinject', 'content', 'generichide',
-        'genericblock', 'popunder', 'app', 'network', 'all'
-    }
+    SUPPORTED_MODIFIERS = {'important', 'dnsrewrite', 'client', 'badfilter'}
     
     @staticmethod
     def parse_line(line: str, source: str = "") -> Optional[ParsedRule]:
@@ -110,16 +93,10 @@ class RuleParser:
                     mod_lower = mod.lower().split('=')[0].lstrip('~')
                     if mod_lower in RuleParser.SUPPORTED_MODIFIERS:
                         modifiers.append(mod)
-                    elif mod_lower.startswith('dnsrewrite'):
-                        modifiers.append(mod)
-                    elif mod_lower.startswith('client'):
-                        modifiers.append(mod)
-                    elif mod_lower.startswith('redirect'):
-                        modifiers.append(mod)
         
         line = line.replace("||", "").replace("^", "")
         
-        if line.startswith("*."):
+        if line.startswith("*." ):
             line = line[2:]
         if line.startswith("."):
             line = line[1:]
@@ -171,41 +148,17 @@ def download_file(url: str, friendly_name: str) -> Optional[str]:
         return None
 
 
-@dataclass
-class RuleCollection:
-    rules: dict[str, ParsedRule] = field(default_factory=dict)
-    
-    def add_rule(self, rule: ParsedRule) -> bool:
-        key = rule.get_domain_key()
-        if key not in self.rules:
-            self.rules[key] = rule
-            return True
-        else:
-            existing = self.rules[key]
-            if rule.modifiers and not existing.modifiers:
-                self.rules[key] = rule
-                return True
-            elif rule.modifiers and existing.modifiers:
-                merged_modifiers = list(set(existing.modifiers + rule.modifiers))
-                if len(merged_modifiers) > len(existing.modifiers):
-                    existing.modifiers = merged_modifiers
-            return False
-    
-    def get_domains(self) -> set[str]:
-        return set(self.rules.keys())
-
-
-def process_source_to_rules(url: str, source_name: str) -> tuple[RuleCollection, RuleCollection]:
+def process_source_to_rules(url: str, source_name: str) -> tuple[dict[str, str], dict[str, str]]:
     """
-    处理单个规则源，返回 (黑名单集合, 白名单集合)
+    处理单个规则源，返回 (黑名单字典, 白名单字典)
     自动检测并分离混合的黑白名单规则
     """
     content = download_file(url, source_name)
     if not content:
-        return RuleCollection(), RuleCollection()
+        return {}, {}
     
-    block_rules = RuleCollection()
-    white_rules = RuleCollection()
+    block_rules: dict[str, str] = {}
+    white_rules: dict[str, str] = {}
     mixed_detected = False
     
     lines = content.splitlines()
@@ -215,56 +168,58 @@ def process_source_to_rules(url: str, source_name: str) -> tuple[RuleCollection,
             continue
         
         if parsed.is_whitelist:
-            white_rules.add_rule(parsed)
+            white_rules[parsed.domain] = source_name
             mixed_detected = True
         else:
-            block_rules.add_rule(parsed)
+            block_rules[parsed.domain] = source_name
     
     if mixed_detected:
         print(f"  [混合规则检测] {source_name} 包含混合的黑白名单规则，已自动分离")
     
-    print(f"  从 {source_name} 添加了 {len(block_rules.rules)} 条黑名单规则, {len(white_rules.rules)} 条白名单规则")
+    print(f"  从 {source_name} 添加了 {len(block_rules)} 条黑名单规则, {len(white_rules)} 条白名单规则")
     
     return block_rules, white_rules
 
 
-def process_all_sources(urls_dict: dict) -> tuple[RuleCollection, RuleCollection]:
+def process_all_sources(urls_dict: dict) -> tuple[dict[str, str], dict[str, str]]:
     """
     处理所有规则源，自动分离混合规则
-    返回 (合并后的黑名单集合, 合并后的白名单集合)
+    返回 (合并后的黑名单字典, 合并后的白名单字典)
     """
-    all_block_rules = RuleCollection()
-    all_white_rules = RuleCollection()
+    all_block_rules: dict[str, str] = {}
+    all_white_rules: dict[str, str] = {}
     
     for name, url in urls_dict.items():
         block_rules, white_rules = process_source_to_rules(url, name)
         
-        for rule in block_rules.rules.values():
-            all_block_rules.add_rule(rule)
+        for rule, source in block_rules.items():
+            if rule not in all_block_rules:
+                all_block_rules[rule] = source
         
-        for rule in white_rules.rules.values():
-            all_white_rules.add_rule(rule)
+        for rule, source in white_rules.items():
+            if rule not in all_white_rules:
+                all_white_rules[rule] = source
         
         time.sleep(1)
     
     return all_block_rules, all_white_rules
 
 
-def process_local_file(filename: str, source_name: str, is_whitelist_file: bool = False) -> tuple[RuleCollection, RuleCollection]:
+def process_local_file(filename: str, source_name: str, is_whitelist_file: bool = False) -> tuple[dict[str, str], dict[str, str]]:
     """
     处理本地规则文件
     is_whitelist_file: 标识该文件是否为白名单文件（用于默认分类）
-    返回 (黑名单集合, 白名单集合)
+    返回 (黑名单字典, 白名单字典)
     """
     full_path = os.path.join(script_dir, filename)
     if not os.path.exists(full_path):
         print(f"\n  本地文件 {filename} 不存在，跳过。")
-        return RuleCollection(), RuleCollection()
+        return {}, {}
     
     print(f"\n  正在处理本地文件: {filename}")
     
-    block_rules = RuleCollection()
-    white_rules = RuleCollection()
+    block_rules: dict[str, str] = {}
+    white_rules: dict[str, str] = {}
     
     with open(full_path, "r", encoding="utf-8") as f:
         for line in f:
@@ -273,49 +228,47 @@ def process_local_file(filename: str, source_name: str, is_whitelist_file: bool 
                 continue
             
             if parsed.is_whitelist:
-                white_rules.add_rule(parsed)
+                white_rules[parsed.domain] = source_name
             elif is_whitelist_file:
-                white_rules.add_rule(parsed)
+                white_rules[parsed.domain] = source_name
             else:
-                block_rules.add_rule(parsed)
+                block_rules[parsed.domain] = source_name
     
-    print(f"  从 {filename} 添加了 {len(block_rules.rules)} 条黑名单规则, {len(white_rules.rules)} 条白名单规则")
+    print(f"  从 {filename} 添加了 {len(block_rules)} 条黑名单规则, {len(white_rules)} 条白名单规则")
     
     return block_rules, white_rules
 
 
-def merge_collections(*collections: RuleCollection) -> RuleCollection:
+def merge_rules(*rule_dicts: dict[str, str]) -> dict[str, str]:
     """
-    合并多个规则集合
+    合并多个规则字典，后出现的规则会保留第一次出现的来源
     """
-    merged = RuleCollection()
-    for collection in collections:
-        for rule in collection.rules.values():
-            merged.add_rule(rule)
+    merged: dict[str, str] = {}
+    for rules_dict in rule_dicts:
+        for rule, source in rules_dict.items():
+            if rule not in merged:
+                merged[rule] = source
     return merged
 
 
-def find_conflict_rules(block_rules: RuleCollection, white_rules: RuleCollection) -> dict[str, tuple[ParsedRule, ParsedRule]]:
+def find_conflict_rules(block_rules: dict[str, str], white_rules: dict[str, str]) -> dict[str, tuple[str, str]]:
     """
     查找同时存在于黑名单和白名单中的规则
-    返回 {域名: (黑名单规则, 白名单规则)} 的字典
+    返回 {规则: (黑名单来源, 白名单来源)} 的字典
     """
-    conflict_rules: dict[str, tuple[ParsedRule, ParsedRule]] = {}
+    conflict_rules: dict[str, tuple[str, str]] = {}
     
-    block_domains = block_rules.get_domains()
-    white_domains = white_rules.get_domains()
-    
-    for domain in block_domains & white_domains:
-        conflict_rules[domain] = (block_rules.rules[domain], white_rules.rules[domain])
+    for rule, block_source in block_rules.items():
+        if rule in white_rules:
+            white_source = white_rules[rule]
+            conflict_rules[rule] = (block_source, white_source)
     
     return conflict_rules
 
 
-def write_rules_to_file(filename: str, rules_collection: RuleCollection, title: str, description: str, author: str):
+def write_rules_to_file(filename: str, rules_dict: dict, title: str, description: str, author: str):
     print(f"\n正在将规则写入到 {os.path.basename(filename)}...")
-    
-    sorted_domains = sorted(rules_collection.rules.keys())
-    
+    sorted_rules = sorted(rules_dict.keys())
     try:
         with open(filename, "w", encoding="utf-8") as f:
             beijing_tz = datetime.timezone(datetime.timedelta(hours=8))
@@ -326,47 +279,22 @@ def write_rules_to_file(filename: str, rules_collection: RuleCollection, title: 
             f.write(f"! Author: {author}\n")
             f.write(f"! Version: {now_beijing.strftime('%Y%m%d%H%M%S')}\n")
             f.write(f"! Last Updated: {now_beijing.strftime('%Y-%m-%d %H:%M:%S')} (UTC+8)\n")
-            f.write(f"! Total Rules: {len(sorted_domains)}\n")
+            f.write(f"! Total Rules: {len(sorted_rules)}\n")
             f.write("!\n")
 
-            for domain in sorted_domains:
-                rule = rules_collection.rules[domain]
-                adguard_rule = rule.to_adguard_rule()
-                f.write(f"{adguard_rule} # From: {rule.source}\n")
+            for rule in sorted_rules:
+                if isinstance(rules_dict[rule], tuple):
+                    block_source, white_source = rules_dict[rule]
+                    f.write(f"{rule} # Block from: {block_source}, White from: {white_source}\n")
+                else:
+                    source = rules_dict[rule]
+                    f.write(f"{rule} # From: {source}\n")
         print(f"文件 {os.path.basename(filename)} 写入成功！")
     except IOError as e:
         print(f"写入文件失败: {filename}, 错误: {e}")
 
 
-def write_conflict_to_file(filename: str, conflict_rules: dict, title: str, description: str, author: str):
-    print(f"\n正在将冲突规则写入到 {os.path.basename(filename)}...")
-    
-    sorted_domains = sorted(conflict_rules.keys())
-    
-    try:
-        with open(filename, "w", encoding="utf-8") as f:
-            beijing_tz = datetime.timezone(datetime.timedelta(hours=8))
-            now_beijing = datetime.datetime.now(beijing_tz)
-
-            f.write(f"! Title: {title}\n")
-            f.write(f"! Description: {description}\n")
-            f.write(f"! Author: {author}\n")
-            f.write(f"! Version: {now_beijing.strftime('%Y%m%d%H%M%S')}\n")
-            f.write(f"! Last Updated: {now_beijing.strftime('%Y-%m-%d %H:%M:%S')} (UTC+8)\n")
-            f.write(f"! Total Rules: {len(sorted_domains)}\n")
-            f.write("!\n")
-
-            for domain in sorted_domains:
-                block_rule, white_rule = conflict_rules[domain]
-                block_adguard = block_rule.to_adguard_rule()
-                white_adguard = white_rule.to_adguard_rule()
-                f.write(f"{domain} # Block: {block_adguard} (from {block_rule.source}), White: {white_adguard} (from {white_rule.source})\n")
-        print(f"文件 {os.path.basename(filename)} 写入成功！")
-    except IOError as e:
-        print(f"写入文件失败: {filename}, 错误: {e}")
-
-
-def update_readme(block_rules: RuleCollection, white_rules: RuleCollection, conflict_rules: dict):
+def update_readme(block_rules_dict: dict, white_rules_dict: dict, conflict_rules_dict: dict):
     print("\n正在更新 README.md...")
     repo_name = os.environ.get("GITHUB_REPOSITORY", "your_username/your_repo")
     branch_name = os.environ.get("GITHUB_REF_NAME") or "main"
@@ -400,16 +328,15 @@ def update_readme(block_rules: RuleCollection, white_rules: RuleCollection, conf
 
 本项目通过 GitHub Actions 自动合并、去重多个来源的 AdGuard Home 规则。
 支持自动检测并分离上游规则中的混合黑白名单。
-支持保留规则修饰符（如 $important, $script 等）以实现精准过滤。
 黑白名单完全独立，同时存在的规则会单独列在冲突规则中。
 
 最后更新时间: {now_beijing.strftime('%Y-%m-%d %H:%M:%S')} (UTC+8)
 
-最终黑名单规则数: {len(block_rules.rules)}
+最终黑名单规则数: {len(block_rules_dict)}
 
-最终白名单规则数: {len(white_rules.rules)}
+最终白名单规则数: {len(white_rules_dict)}
 
-冲突规则数: {len(conflict_rules)}
+冲突规则数: {len(conflict_rules_dict)}
 
 订阅链接
 
@@ -454,7 +381,7 @@ def update_readme(block_rules: RuleCollection, white_rules: RuleCollection, conf
 def main():
     print("=" * 60)
     print("AdGuard Home 规则处理脚本 (重构版)")
-    print("支持: 自动分离混合规则、规则去重、保留修饰符、黑白名单独立、冲突规则检测")
+    print("支持: 自动分离混合规则、规则去重、黑白名单独立、冲突规则检测")
     print("=" * 60)
     
     print("\n--- 第一步: 处理白名单规则源 ---")
@@ -468,7 +395,7 @@ def main():
     local_white_file_rules, _ = process_local_file(custom_white_file, "Custom Whitelist", is_whitelist_file=True)
     
     print("\n--- 第四步: 合并所有规则 ---")
-    all_white_rules = merge_collections(
+    all_white_rules = merge_rules(
         white_source_white,
         white_source_block,
         block_source_white,
@@ -476,38 +403,38 @@ def main():
         local_white_file_rules
     )
     
-    all_block_rules = merge_collections(
+    all_block_rules = merge_rules(
         block_source_block,
         local_block
     )
     
-    print(f"  合并后黑名单共: {len(all_block_rules.rules)} 条")
-    print(f"  合并后白名单共: {len(all_white_rules.rules)} 条")
+    print(f"  合并后黑名单共: {len(all_block_rules)} 条")
+    print(f"  合并后白名单共: {len(all_white_rules)} 条")
     
     print("\n--- 第五步: 检测冲突规则 ---")
     conflict_rules = find_conflict_rules(all_block_rules, all_white_rules)
     print(f"  检测到 {len(conflict_rules)} 条冲突规则（同时存在于黑名单和白名单）")
     
     print(f"\n最终统计:")
-    print(f"  最终黑名单: {len(all_block_rules.rules)} 条")
-    print(f"  最终白名单: {len(all_white_rules.rules)} 条")
+    print(f"  最终黑名单: {len(all_block_rules)} 条")
+    print(f"  最终白名单: {len(all_white_rules)} 条")
     print(f"  冲突规则: {len(conflict_rules)} 条")
     
     write_rules_to_file(
         block_output_file,
         all_block_rules,
         "AdGuard Custom Blocklist",
-        "自动合并的广告拦截规则（与白名单完全独立，保留修饰符）",
+        "自动合并的广告拦截规则（与白名单完全独立）",
         AUTHOR,
     )
     write_rules_to_file(
         white_output_file,
         all_white_rules,
         "AdGuard Custom Whitelist",
-        "自动合并的白名单规则（与黑名单完全独立，保留修饰符）",
+        "自动合并的白名单规则（与黑名单完全独立）",
         AUTHOR,
     )
-    write_conflict_to_file(
+    write_rules_to_file(
         conflict_output_file,
         conflict_rules,
         "AdGuard Conflict Rules",

@@ -1,7 +1,3640 @@
 ! Title: AdGuard Conflict Rules
 ! Description: 同时存在于黑名单和白名单的规则
 ! Author: logic769
-! Version: 20260402003422
-! Last Updated: 2026-04-02 00:34:22 (UTC+8)
-! Total Rules: 0
+! Version: 20260402004740
+! Last Updated: 2026-04-02 00:47:40 (UTC+8)
+! Total Rules: 1211
 !
+! Conflict: 
+!   Block: *$denyallow=123dua.com,domain=123dua.com,script,xmlhttprequest (from AdBlockDNSFilters2)
+!   White: @@*$app=com.kakao.talk,stealth=dpi (from GOODBYEADS)
+! Conflict: -728x90.
+!   Block: -728x90. (from AdBlockDNSFilters2)
+!   White: @@-728x90.$image,domain=elamigosgamez.com (from GOODBYEADS)
+! Conflict: /api/ad/
+!   Block: ||*/api/ad/*^ (from 那个谁520)
+!   White: @@/api/ad/*$domain=pinduoduo.com (from GOODBYEADS)
+! Conflict: 07c225f3.online
+!   Block: ||07c225f3.online^$document,popup (from ABP)
+!   White: @@||07c225f3.online^$stealth=referrer (from GOODBYEADS)
+! Conflict: 1sapp.com
+!   Block: ||1sapp.com^ (from AdBlockDNSFilters1)
+!   White: @@||1sapp.com^ (from 那个谁520)
+! Conflict: 2o7.net
+!   Block: ||2o7.net^ (from 那个谁520)
+!   White: @@||2o7.net^$domain=audiusa.com (from GOODBYEADS)
+! Conflict: 360.cn
+!   Block: ||360.cn^ (from Ad-set-hosts)
+!   White: @@||360.cn^ (from DD自用)
+! Conflict: 360buyimg.com
+!   Block: ||360buyimg.com^$domain=chdbits.co|qianggou5.com (from ABP)
+!   White: @@||360buyimg.com^ (from 那个谁520)
+! Conflict: 360kuai.com
+!   Block: ||360kuai.com^ (from AdBlockDNSFilters1)
+!   White: @@||360kuai.com^ (from 那个谁520)
+! Conflict: 40017.cn
+!   Block: ||40017.cn^ (from AdBlockDNSFilters1)
+!   White: @@||40017.cn^ (from 那个谁520)
+! Conflict: 79423.analytics.edgekey.net
+!   Block: ||79423.analytics.edgekey.net^ (from Ad-set-hosts)
+!   White: @@||79423.analytics.edgekey.net^ (from Menghuibanxian)
+! Conflict: 999d.com
+!   Block: ||999d.com^$third-party (from ABP)
+!   White: @@||999d.com^$domain=999d.com (from GOODBYEADS)
+! Conflict: ://..xyz//---/
+!   Block: ://*.*.xyz/*/*-*-*-*/$third-party,~media,~stylesheet,~image (from ABP)
+!   White: @@://*.*.xyz/*/*-*-*-*/$third-party,domain=njav.xyz (from ABP)
+! Conflict: ://yhdm./js/.js?ver=
+!   Block: ://*yhdm*.*/js/*.js?ver= (from ABP)
+!   White: @@://*yhdm*.*/js/*.js?ver=$domain=cn-yhdm.com (from ABP)
+! Conflict: _ad_300.
+!   Block: _ad_300.$image (from AdBlockDNSFilters2)
+!   White: @@_ad_300.$domain=bleacherreport.com (from GOODBYEADS)
+! Conflict: _prebid.js
+!   Block: _prebid.js$script (from AdBlockDNSFilters2)
+!   White: @@_prebid.js$domain=now.com (from GOODBYEADS)
+! Conflict: a.pub.network
+!   Block: ||a.pub.network^ (from Ad-set-hosts)
+!   White: @@||a.pub.network^$domain=automobile-catalog.com (from GOODBYEADS)
+! Conflict: a0.app.xiaomi.com
+!   Block: ||a0.app.xiaomi.com^ (from 秋风的规则)
+!   White: @@||a0.app.xiaomi.com^ (from 那个谁520)
+! Conflict: a2zapk.com
+!   Block: ||a2zapk.com^$script,subdocument,third-party,xmlhttprequest (from ABP)
+!   White: @@||a2zapk.com^$script,xmlhttprequest,third-party,domain=financemonk.net|rtxkeeda.com|houseofblogger.com|dropgalaxy.com|djxmaza.in (from GOODBYEADS)
+! Conflict: aa.online-metrix.net
+!   Block: ||aa.online-metrix.net^ (from Ad-set-hosts)
+!   White: @@||aa.online-metrix.net^ (from BlueSkyXN)
+! Conflict: aax.amazon-adsystem.com
+!   Block: 0.0.0.0 aax.amazon-adsystem.com (from 下个ID见)
+!   White: @@||aax.amazon-adsystem.com^$domain=mylifetime.com (from GOODBYEADS)
+! Conflict: abczdrowie.pl
+!   Block: ||abczdrowie.pl^$replace=/(<VAST[\s\S]*?>)[\s\S]*<\/VAST>/\$1<\/VAST>/,xmlhttprequest,other,~script (from AdBlockDNSFilters2)
+!   White: @@||abczdrowie.pl^$generichide (from GOODBYEADS)
+! Conflict: abt.nike.com
+!   Block: ||abt.nike.com^ (from 1hosts)
+!   White: @@||abt.nike.com^$domain=nike.com (from GOODBYEADS)
+! Conflict: abtest.mistat.xiaomi.com
+!   Block: 0.0.0.0 abtest.mistat.xiaomi.com (from 那个谁520)
+!   White: @@||abtest.mistat.xiaomi.com^ (from 那个谁520)
+! Conflict: abtest3-misc-lf.zijieapi.com
+!   Block: ||abtest3-misc-lf.zijieapi.com^ (from 广告规则)
+!   White: @@||abtest3-misc-lf.zijieapi.com^ (from DD自用)
+! Conflict: abtestvm.bytedance.com
+!   Block: ||abtestvm.bytedance.com^$important (from Custom Blocklist)
+!   White: @@||abtestvm.bytedance.com^ (from 那个谁520)
+! Conflict: ac.dun.163yun.com
+!   Block: ||ac.dun.163yun.com^ (from DD自用)
+!   White: @@||ac.dun.163yun.com^ (from 那个谁520)
+! Conflict: accaii.com
+!   Block: ||accaii.com^ (from 1hosts)
+!   White: @@||accaii.com^$domain=kyuusai2nd.net (from GOODBYEADS)
+! Conflict: access1.tpns.tencent.com
+!   Block: ||access1.tpns.tencent.com^ (from 逆向涉猎)
+!   White: @@||access1.tpns.tencent.com^ (from 那个谁520)
+! Conflict: accscdn.m.taobao.com
+!   Block: 0.0.0.0 accscdn.m.taobao.com (from 下个ID见)
+!   White: @@||accscdn.m.taobao.com^ (from 那个谁520)
+! Conflict: accscdn4public.m.taobao.com
+!   Block: 0.0.0.0 accscdn4public.m.taobao.com (from 下个ID见)
+!   White: @@||accscdn4public.m.taobao.com^ (from 那个谁520)
+! Conflict: acs.youku.com
+!   Block: 0.0.0.0 acs.youku.com  #信息流&弹窗 (from 下个ID见)
+!   White: @@||acs.youku.com^ (from 那个谁520)
+! Conflict: acs4baichuan.m.taobao.com
+!   Block: ||acs4baichuan.m.taobao.com^$important (from Custom Blocklist)
+!   White: @@||acs4baichuan.m.taobao.com^ (from 那个谁520)
+! Conflict: acs4public.m.taobao.com
+!   Block: 0.0.0.0 acs4public.m.taobao.com (from 下个ID见)
+!   White: @@||acs4public.m.taobao.com^ (from 那个谁520)
+! Conflict: act.vip.iqiyi.com
+!   Block: 0.0.0.0 act.vip.iqiyi.com (from 下个ID见)
+!   White: @@||act.vip.iqiyi.com^ (from 那个谁520)
+! Conflict: action.metaffiliation.com
+!   Block: ||action.metaffiliation.com^ (from Ad-set-hosts)
+!   White: @@||action.metaffiliation.com^ (from Menghuibanxian)
+! Conflict: activity.browser.intl.miui.com
+!   Block: 0.0.0.0 activity.browser.intl.miui.com (from 那个谁520)
+!   White: @@||activity.browser.intl.miui.com^ (from 那个谁520)
+! Conflict: activity.hdslb.com
+!   Block: ||activity.hdslb.com^ (from 逆向涉猎)
+!   White: @@||activity.hdslb.com^ (from 那个谁520)
+! Conflict: activity.tuiapple.com
+!   Block: ||activity.tuiapple.com^ (from 1hosts)
+!   White: @@||activity.tuiapple.com^ (from 那个谁520)
+! Conflict: ad-api-v01.uliza.jp
+!   Block: ||ad-api-v01.uliza.jp^ (from 1hosts)
+!   White: @@||ad-api-v01.uliza.jp^$script,xmlhttprequest,domain=golfnetwork.co.jp|tv-asahi.co.jp (from GOODBYEADS)
+! Conflict: ad-log-upload.mihoyo.com
+!   Block: ||ad-log-upload.mihoyo.com^$important (from Custom Blocklist)
+!   White: @@||ad-log-upload.mihoyo.com^ (from DD自用)
+! Conflict: ad-maven.com
+!   Block: ||ad-maven.com^$popup (from ABP)
+!   White: @@||ad-maven.com^$domain=ad-maven.com (from GOODBYEADS)
+! Conflict: ad.10010.com
+!   Block: ||ad.10010.com^ (from 那个谁520)
+!   White: @@||ad.10010.com^ (from GOODBYEADS)
+! Conflict: ad.12306.cn
+!   Block: ||ad.12306.cn^ (from 秋风的规则)
+!   White: @@||ad.12306.cn^$elemhide,subdocument,domain=95306.cn (from GOODBYEADS)
+! Conflict: ad.71i.de
+!   Block: ||ad.71i.de^ (from 1hosts)
+!   White: @@||ad.71i.de^$domain=video.sport1.de (from GOODBYEADS)
+! Conflict: ad.alimama.com
+!   Block: ||ad.alimama.com^ (from Ad-set-hosts)
+!   White: @@||ad.alimama.com^$genericblock (from GOODBYEADS)
+! Conflict: ad.crwdcntrl.net
+!   Block: 0.0.0.0 ad.crwdcntrl.net (from 下个ID见)
+!   White: @@||ad.crwdcntrl.net^$script,domain=rtl.nl (from GOODBYEADS)
+! Conflict: ad.doubleclick.net
+!   Block: ||ad.doubleclick.net^ (from 秋风的规则)
+!   White: @@||ad.doubleclick.net^ (from 那个谁520)
+! Conflict: ad.linksynergy.com
+!   Block: ||ad.linksynergy.com^ (from 1hosts)
+!   White: @@||ad.linksynergy.com^$image,domain=extrarebates.com (from GOODBYEADS)
+! Conflict: ad.mcloud.139.com
+!   Block: ||ad.mcloud.139.com^ (from DD自用)
+!   White: @@||ad.mcloud.139.com^ (from 那个谁520)
+! Conflict: ad.ourgame.com
+!   Block: ||ad.ourgame.com^ (from AdBlockDNSFilters1)
+!   White: @@||ad.ourgame.com^ (from GOODBYEADS)
+! Conflict: ad.tencentmusic.com
+!   Block: ||ad.tencentmusic.com^ (from 秋风的规则)
+!   White: @@||ad.tencentmusic.com^ (from Menghuibanxian)
+! Conflict: ad.vivo.com.cn
+!   Block: ||ad.vivo.com.cn^ (from Ad-set-hosts)
+!   White: @@||ad.vivo.com.cn^$~third-party (from GOODBYEADS)
+! Conflict: ad13.adfarm1.adition.com
+!   Block: ||ad13.adfarm1.adition.com^ (from Ad-set-hosts)
+!   White: @@||ad13.adfarm1.adition.com^$domain=1und1.de (from GOODBYEADS)
+! Conflict: ad3.adfarm1.adition.com
+!   Block: ||ad3.adfarm1.adition.com^ (from Ad-set-hosts)
+!   White: @@||ad3.adfarm1.adition.com^$domain=servustv.com,other (from GOODBYEADS)
+! Conflict: adash-emas.cn-hangzhou.aliyuncs.com
+!   Block: ||adash-emas.cn-hangzhou.aliyuncs.com^$important (from Custom Blocklist)
+!   White: @@||adash-emas.cn-hangzhou.aliyuncs.com^ (from DD自用)
+! Conflict: adashx.ut.dingtalk.com
+!   Block: ||adashx.ut.dingtalk.com^ (from DD自用)
+!   White: @@||adashx.ut.dingtalk.com^ (from anti-AD)
+! Conflict: adblockanalytics.com
+!   Block: ||adblockanalytics.com^ (from 1hosts)
+!   White: @@||adblockanalytics.com^$xmlhttprequest,domain=chd4.com (from GOODBYEADS)
+! Conflict: adcdn.tencentmusic.com
+!   Block: ||adcdn.tencentmusic.com^ (from 秋风的规则)
+!   White: @@||adcdn.tencentmusic.com^ (from Menghuibanxian)
+! Conflict: adclick.tencentmusic.com
+!   Block: ||adclick.tencentmusic.com^ (from 秋风的规则)
+!   White: @@||adclick.tencentmusic.com^ (from Menghuibanxian)
+! Conflict: adengine.rt.ru
+!   Block: ||adengine.rt.ru^ (from Ad-set-hosts)
+!   White: @@||adengine.rt.ru^$domain=rt.ru (from GOODBYEADS)
+! Conflict: adexpo.tencentmusic.com
+!   Block: ||adexpo.tencentmusic.com^ (from 秋风的规则)
+!   White: @@||adexpo.tencentmusic.com^ (from Menghuibanxian)
+! Conflict: adligature.com
+!   Block: ||adligature.com^ (from 1hosts)
+!   White: @@||adligature.com^$xmlhttprequest,domain=bigbuttshub2.top|bigbuttshubvideos.com|go.datapendidikan.com|insurance.tempatwisata.pro (from GOODBYEADS)
+! Conflict: adm.10jqka.com.cn
+!   Block: 0.0.0.0 adm.10jqka.com.cn  #开屏 (from 下个ID见)
+!   White: @@||adm.10jqka.com.cn^ (from anti-AD)
+! Conflict: adm.fwmrm.net
+!   Block: ||adm.fwmrm.net^ (from Ad-set-hosts)
+!   White: @@||adm.fwmrm.net^$domain=nhl.com (from GOODBYEADS)
+! Conflict: admin.dable.io
+!   Block: ||admin.dable.io^ (from Ad-set-hosts)
+!   White: @@||admin.dable.io^ (from Menghuibanxian)
+! Conflict: adnade.net
+!   Block: ||adnade.net^$third-party (from ABP)
+!   White: @@||adnade.net^$generichide (from GOODBYEADS)
+! Conflict: adnet.qq.com
+!   Block: ||adnet.qq.com^ (from Ad-set-hosts)
+!   White: @@||adnet.qq.com^$~third-party (from GOODBYEADS)
+! Conflict: adobe.com.ssl.d1.sc.omtrdc.net
+!   Block: ||adobe.com.ssl.d1.sc.omtrdc.net^ (from 1hosts)
+!   White: @@||adobe.com.ssl.d1.sc.omtrdc.net^$xmlhttprequest,domain=www.adobe.com (from GOODBYEADS)
+! Conflict: adobedc.demdex.net
+!   Block: ||adobedc.demdex.net^ (from 1hosts)
+!   White: @@||adobedc.demdex.net^$xmlhttprequest,domain=sc.com (from GOODBYEADS)
+! Conflict: adobetag.com
+!   Block: ||adobetag.com^ (from 1hosts)
+!   White: @@||adobetag.com^$domain=priceline.com.au (from GOODBYEADS)
+! Conflict: ads-api.twitter.com
+!   Block: ||ads-api.twitter.com^ (from 秋风的规则)
+!   White: @@||ads-api.twitter.com^$domain=ads.twitter.com|analytics.twitter.com (from GOODBYEADS)
+! Conflict: ads-static.conde.digital
+!   Block: ||ads-static.conde.digital^ (from Ad-set-hosts)
+!   White: @@||ads-static.conde.digital^$domain=wired.com (from GOODBYEADS)
+! Conflict: ads.95516.com
+!   Block: ||ads.95516.com^ (from 秋风的规则)
+!   White: @@||ads.95516.com^ (from anti-AD)
+! Conflict: ads.cdn.tvb.com
+!   Block: ||ads.cdn.tvb.com^ (from 1hosts)
+!   White: @@||ads.cdn.tvb.com^ (from anti-AD)
+! Conflict: ads.google.com
+!   Block: ||ads.google.com^$xmlhttprequest,domain=ynet.co.il (from ABP)
+!   White: @@||ads.google.com^$popup (from GOODBYEADS)
+! Conflict: ads.microsoft.com
+!   Block: ||ads.microsoft.com^ (from GOODBYEADS)
+!   White: @@||ads.microsoft.com^$generichide (from GOODBYEADS)
+! Conflict: ads.midwayusa.com
+!   Block: ||ads.midwayusa.com^ (from 1hosts)
+!   White: @@||ads.midwayusa.com^$popup (from GOODBYEADS)
+! Conflict: ads.pinterest.com
+!   Block: ||ads.pinterest.com^ (from 秋风的规则)
+!   White: @@||ads.pinterest.com^$popup (from GOODBYEADS)
+! Conflict: ads.privacy.qq.com
+!   Block: 0.0.0.0 ads.privacy.qq.com (from 下个ID见)
+!   White: @@||ads.privacy.qq.com^$domain=privacy.qq.com (from GOODBYEADS)
+! Conflict: ads.pubmatic.com
+!   Block: ||ads.pubmatic.com^ (from 秋风的规则)
+!   White: @@||ads.pubmatic.com^$xmlhttprequest,domain=exeygo.com (from GOODBYEADS)
+! Conflict: ads.reddit.com
+!   Block: ||ads.reddit.com^ (from Ad-set-hosts)
+!   White: @@||ads.reddit.com^$domain=ads.reddit.com (from GOODBYEADS)
+! Conflict: ads.snapchat.com
+!   Block: 0.0.0.0 ads.snapchat.com (from 下个ID见)
+!   White: @@||ads.snapchat.com^$popup (from GOODBYEADS)
+! Conflict: ads.spotify.com
+!   Block: 0.0.0.0 ads.spotify.com (from 下个ID见)
+!   White: @@||ads.spotify.com^$popup (from GOODBYEADS)
+! Conflict: ads.taboola.com
+!   Block: 0.0.0.0 ads.taboola.com (from 下个ID见)
+!   White: @@||ads.taboola.com^$popup (from GOODBYEADS)
+! Conflict: ads.tiktok.com
+!   Block: ||ads.tiktok.com^ (from 秋风的规则)
+!   White: @@||ads.tiktok.com^$generichide (from GOODBYEADS)
+! Conflict: ads.twitter.com
+!   Block: 0.0.0.0 ads.twitter.com (from 下个ID见)
+!   White: @@||ads.twitter.com^$popup (from GOODBYEADS)
+! Conflict: ads.vk.com
+!   Block: ||ads.vk.com^ (from GOODBYEADS)
+!   White: @@||ads.vk.com^$popup (from GOODBYEADS)
+! Conflict: ads.x.com
+!   Block: ||ads.x.com^ (from 逆向涉猎)
+!   White: @@||ads.x.com^$popup (from GOODBYEADS)
+! Conflict: adsatt.espn.starwave.com
+!   Block: ||adsatt.espn.starwave.com^ (from 那个谁520)
+!   White: @@||adsatt.espn.starwave.com^$domain=livenewschat.eu,~script (from GOODBYEADS)
+! Conflict: adsco.re
+!   Block: ||adsco.re^$popup (from ABP)
+!   White: @@||adsco.re^$domain=shinden.pl (from GOODBYEADS)
+! Conflict: adserver.
+!   Block: ||adserver.*^ (from anti-AD)
+!   White: @@.adserver.$domain=litv.tv (from GOODBYEADS)
+! Conflict: adservice.google./adsid/integrator.js?domain=dl.ccbluex.net
+!   Block: ||adservice.google.*/adsid/integrator.js?domain=dl.ccbluex.net$redirect=nooptext,important,domain=dl.ccbluex.net (from AdBlockDNSFilters2)
+!   White: @@||adservice.google.*/adsid/integrator.js?domain=dl.ccbluex.net$domain=dl.ccbluex.net (from GOODBYEADS)
+! Conflict: adserving.unibet.com
+!   Block: ||adserving.unibet.com^$popup (from ABP)
+!   White: @@||adserving.unibet.com^$domain=sportlemon.me (from GOODBYEADS)
+! Conflict: adshnk.com
+!   Block: ||adshnk.com^$third-party (from ABP)
+!   White: @@||adshnk.com^$generichide (from GOODBYEADS)
+! Conflict: adshrink.it
+!   Block: adshrink.it$$div[tag-content="Please enable / Bitte aktiviere JavaScript"][max-length="400"] (from AdBlockDNSFilters2)
+!   White: @@||adshrink.it^$generichide (from GOODBYEADS)
+! Conflict: adsmind.gdtimg.com
+!   Block: ||adsmind.gdtimg.com^ (from 秋风的规则)
+!   White: @@||adsmind.gdtimg.com^ (from Menghuibanxian)
+! Conflict: adsninja.ca
+!   Block: ||adsninja.ca^$third-party (from ABP)
+!   White: @@||adsninja.ca^$stylesheet,xmlhttprequest,domain=androidpolice.com|babygaga.com|backyardboss.net|carbuzz.com|cbr.com|collider.com|dualshockers.com|footballfancast.com|footballleagueworld.co.uk|gamerant.com|givemesport.com|hardcoregamer.com|hotcars.com|howtogeek.com|makeuseof.com|moms.com|movieweb.com|pocket-lint.com|pocketnow.com|screenrant.com|simpleflying.com|thegamer.com|therichest.com|thesportster.com|thethings.com|thetravel.com|topspeed.com|xda-developers.com (from GOODBYEADS)
+! Conflict: adspirit.de
+!   Block: ||adspirit.de^ (from 1hosts)
+!   White: @@||adspirit.de^$domain=kinopolis.de (from GOODBYEADS)
+! Conflict: adstats.tencentmusic.com
+!   Block: ||adstats.tencentmusic.com^ (from 秋风的规则)
+!   White: @@||adstats.tencentmusic.com^ (from Menghuibanxian)
+! Conflict: adswizz.com
+!   Block: ||adswizz.com^$third-party (from ABP)
+!   White: @@||adswizz.com^$domain=noz.de (from GOODBYEADS)
+! Conflict: adtraction.com
+!   Block: ||adtraction.com^$popup (from ABP)
+!   White: @@||adtraction.com^$image,domain=ebjudande.se (from GOODBYEADS)
+! Conflict: adv.ccb.com
+!   Block: ||adv.ccb.com^ (from 1hosts)
+!   White: @@||adv.ccb.com^ (from 那个谁520)
+! Conflict: adv.sec.miui.com
+!   Block: ||adv.sec.miui.com^ (from 秋风的规则)
+!   White: @@||adv.sec.miui.com^ (from 那个谁520)
+! Conflict: advertising.yahoo.com
+!   Block: ||advertising.yahoo.com^ (from 秋风的规则)
+!   White: @@||advertising.yahoo.com^$~third-party (from GOODBYEADS)
+! Conflict: adverts.1foo.com
+!   Block: ||adverts.1foo.com^ (from AdBlockDNSFilters1)
+!   White: @@||adverts.1foo.com^ (from anti-AD)
+! Conflict: advertserve.com
+!   Block: ||advertserve.com^$popup (from ABP)
+!   White: @@||advertserve.com^$domain=lewdninja.com (from GOODBYEADS)
+! Conflict: adwords.google.com
+!   Block: ||adwords.google.com^ (from Ad-set-hosts)
+!   White: @@||adwords.google.com^$domain=accounts.google.com (from GOODBYEADS)
+! Conflict: adx-bj-req.anythinktech.com
+!   Block: ||adx-bj-req.anythinktech.com^ (from 秋风的规则)
+!   White: @@||adx-bj-req.anythinktech.com^ (from Menghuibanxian)
+! Conflict: adx-bj.anythinktech.com
+!   Block: ||adx-bj.anythinktech.com^ (from 秋风的规则)
+!   White: @@||adx-bj.anythinktech.com^ (from Menghuibanxian)
+! Conflict: adx.anythinktech.com
+!   Block: 0.0.0.0 adx.anythinktech.com (from 下个ID见)
+!   White: @@||adx.anythinktech.com^ (from Menghuibanxian)
+! Conflict: aegis.qq.com
+!   Block: ||aegis.qq.com^ (from 秋风的规则)
+!   White: @@||aegis.qq.com^ (from 那个谁520)
+! Conflict: aff.bstatic.com
+!   Block: ||aff.bstatic.com^ (from 1hosts)
+!   White: @@||aff.bstatic.com^$image,domain=tonkosti.ru (from GOODBYEADS)
+! Conflict: affluentarmyequator.com
+!   Block: ||affluentarmyequator.com^ (from 1hosts)
+!   White: @@||affluentarmyequator.com^$domain=playhydrax.com|kissanime.com.ru (from GOODBYEADS)
+! Conflict: afi-b.com
+!   Block: ||afi-b.com^ (from 1hosts)
+!   White: @@||afi-b.com^ (from Menghuibanxian)
+! Conflict: aider-res.meizu.com
+!   Block: 0.0.0.0 aider-res.meizu.com (from 下个ID见)
+!   White: @@||aider-res.meizu.com^ (from 那个谁520)
+! Conflict: aikanvod.miguvideo.com
+!   Block: ||aikanvod.miguvideo.com^ (from Ad-set-hosts)
+!   White: @@||aikanvod.miguvideo.com^ (from 那个谁520)
+! Conflict: ali2.a.yximgs.com
+!   Block: ||ali2.a.yximgs.com^ (from DD自用)
+!   White: @@||ali2.a.yximgs.com^ (from 那个谁520)
+! Conflict: alicdn.com
+!   Block: ||alicdn.com^$image,domain=m.k1k.cc|thcdy.co|27k.cc|1024pa.com|hg6384.com-www.6u7u.com|dy686.net (from AdBlockDNSFilters2)
+!   White: @@||alicdn.com^$stealth=referrer,domain=developer.aliyun.com (from GOODBYEADS)
+! Conflict: alicdn.comyksdk/sdk.js
+!   Block: ||alicdn.com^*yksdk/*sdk.js$script,domain=youku.com (from AdBlockDNSFilters2)
+!   White: @@||alicdn.com^*yksdk/*sdk.js$script,domain=youku.com (from GOODBYEADS)
+! Conflict: alimama.com
+!   Block: ||alimama.com^$third-party (from AdBlockDNSFilters2)
+!   White: @@||alimama.com^$domain=tanx.com (from GOODBYEADS)
+! Conflict: alissl.ucdl.pp.uc.cn
+!   Block: 0.0.0.0 alissl.ucdl.pp.uc.cn (from 下个ID见)
+!   White: @@||alissl.ucdl.pp.uc.cn^ (from 那个谁520)
+! Conflict: alistgo.com
+!   Block: ||alistgo.com^$important (from Custom Blocklist)
+!   White: @@||alistgo.com^ (from 那个谁520)
+! Conflict: allawntech.com
+!   Block: 0.0.0.0 allawntech.com (from 那个谁520)
+!   White: @@||*.allawntech.com^ (from 那个谁520)
+! Conflict: allmath.com
+!   Block: ||allmath.com^ (from 1hosts)
+!   White: @@||allmath.com^$generichide (from GOODBYEADS)
+! Conflict: als.baidu.com
+!   Block: ||als.baidu.com^ (from 秋风的规则)
+!   White: @@||als.baidu.com^ (from 那个谁520)
+! Conflict: alwingulla.com
+!   Block: ||alwingulla.com^ (from 1hosts)
+!   White: @@||alwingulla.com^$domain=nhutgg.com (from GOODBYEADS)
+! Conflict: amazon-adsystem.com
+!   Block: ||amazon-adsystem.com^$popup,domain=twitch.tv (from ABP)
+!   White: @@||amazon-adsystem.com^$domain=weather.com (from GOODBYEADS)
+! Conflict: amazonaws.com
+!   Block: ||amazonaws.com^$domain=megaup.net|uploadhaven.com (from ABP)
+!   White: @@||amazonaws.com^$image,stealth=referrer,domain=help.nextdns.io (from GOODBYEADS)
+! Conflict: amazoncustomerservice.d2.sc.omtrdc.net
+!   Block: ||amazoncustomerservice.d2.sc.omtrdc.net^ (from Ad-set-hosts)
+!   White: @@||amazoncustomerservice.d2.sc.omtrdc.net^$domain=amazon.es (from GOODBYEADS)
+! Conflict: amdc.m.taobao.com
+!   Block: ||amdc.m.taobao.com^ (from 大萌主)
+!   White: @@||amdc.m.taobao.com^ (from 那个谁520)
+! Conflict: amdcopen.m.taobao.com
+!   Block: ||amdcopen.m.taobao.com^ (from 秋风的规则)
+!   White: @@||amdcopen.m.taobao.com^ (from 那个谁520)
+! Conflict: an.yandex.ru
+!   Block: ||an.yandex.ru^ (from 大萌主)
+!   White: @@||an.yandex.ru^$image,domain=aliexpress.ru (from GOODBYEADS)
+! Conflict: analysis.chatglm.cn
+!   Block: ||analysis.chatglm.cn^ (from 秋风的规则)
+!   White: @@||analysis.chatglm.cn^ (from 那个谁520)
+! Conflict: analysys.cn
+!   Block: ||analysys.cn^ (from 那个谁520)
+!   White: @@||analysys.cn^$domain=analysys.cn (from GOODBYEADS)
+! Conflict: analytics.amplitude.com
+!   Block: ||analytics.amplitude.com^ (from 1hosts)
+!   White: @@||analytics.amplitude.com^$~third-party (from GOODBYEADS)
+! Conflict: analytics.google.com
+!   Block: ||analytics.google.com^ (from 大萌主)
+!   White: @@||analytics.google.com (from BlueSkyXN)
+! Conflict: analytics.itunes.apple.com
+!   Block: ||analytics.itunes.apple.com^ (from AdBlock DNS Filters)
+!   White: @@||analytics.itunes.apple.com^$~third-party (from GOODBYEADS)
+! Conflict: analytics.twitter.com
+!   Block: 0.0.0.0 analytics.twitter.com (from 下个ID见)
+!   White: @@||analytics.twitter.com (from BlueSkyXN)
+! Conflict: analytics.yinxiang.com
+!   Block: ||analytics.yinxiang.com^ (from AdBlockDNSFilters1)
+!   White: @@||analytics.yinxiang.com^ (from 那个谁520)
+! Conflict: android.bugly.qq.com
+!   Block: ||android.bugly.qq.com^ (from 大萌主)
+!   White: @@||android.bugly.qq.com^ (from 那个谁520)
+! Conflict: androidcentral.com
+!   Block: androidcentral.com$$script[tag-content="tmntag.cmd.push"][max-length="200"] (from AdBlockDNSFilters2)
+!   White: @@||androidcentral.com^$csp=script-src 'self' * 'unsafe-inline' (from GOODBYEADS)
+! Conflict: anime-odcinki.pl
+!   Block: anime-odcinki.pl$$script[tag-content="zfgloadedpushopt"][min-length="30000"][max-length="50000"] (from AdBlockDNSFilters2)
+!   White: @@||anime-odcinki.pl^$generichide (from GOODBYEADS)
+! Conflict: animex.club
+!   Block: animex.club$$script[tag-content="document.getElementById('babasbmsgx')"][min-length="5000"][max-length="20000"] (from AdBlockDNSFilters2)
+!   White: @@||animex.club^$generichide (from GOODBYEADS)
+! Conflict: anquan.org
+!   Block: ||anquan.org^ (from 那个谁520)
+!   White: @@||anquan.org^ (from BlueSkyXN)
+! Conflict: anythinktech.com
+!   Block: ||anythinktech.com^$important (from Custom Blocklist)
+!   White: @@||anythinktech.com^ (from 那个谁520)
+! Conflict: apd-pcdnwxstat.teg.tencent-cloud.net
+!   Block: ||apd-pcdnwxstat.teg.tencent-cloud.net^ (from 秋风的规则)
+!   White: @@||apd-pcdnwxstat.teg.tencent-cloud.net^ (from 那个谁520)
+! Conflict: api-access.pangolin-sdk-toutiao-b.com
+!   Block: ||api-access.pangolin-sdk-toutiao-b.com^ (from 广告规则)
+!   White: @@||api-access.pangolin-sdk-toutiao-b.com^ (from Menghuibanxian)
+! Conflict: api-access.pangolin-sdk-toutiao.com
+!   Block: ||api-access.pangolin-sdk-toutiao.com^ (from 秋风的规则)
+!   White: @@||api-access.pangolin-sdk-toutiao.com^ (from Menghuibanxian)
+! Conflict: api-cn.cdo.heytapmobi.com
+!   Block: ||api-cn.cdo.heytapmobi.com^ (from 1hosts)
+!   White: @@||api-cn.cdo.heytapmobi.com^ (from 那个谁520)
+! Conflict: api-cn.store.heytapmobi.com
+!   Block: 0.0.0.0 api-cn.store.heytapmobi.com (from 那个谁520)
+!   White: @@||api-cn.store.heytapmobi.com^ (from 那个谁520)
+! Conflict: api-cn.theme.heytapmobi.com
+!   Block: 0.0.0.0 api-cn.theme.heytapmobi.com (from 那个谁520)
+!   White: @@||api-cn.theme.heytapmobi.com^ (from 那个谁520)
+! Conflict: api-game.meizu.com
+!   Block: 0.0.0.0 api-game.meizu.com (from 下个ID见)
+!   White: @@||api-game.meizu.com^ (from 那个谁520)
+! Conflict: api-push.meizu.com
+!   Block: 0.0.0.0 api-push.meizu.com (from 下个ID见)
+!   White: @@||api-push.meizu.com^ (from 那个谁520)
+! Conflict: api-shoulei-ssl.xunlei.com
+!   Block: ||api-shoulei-ssl.xunlei.com^ (from 大萌主)
+!   White: @@||api-shoulei-ssl.xunlei.com^ (from 那个谁520)
+! Conflict: api-unionid.meituan.com
+!   Block: ||api-unionid.meituan.com^ (from 1hosts)
+!   White: @@||api-unionid.meituan.com^ (from 那个谁520)
+! Conflict: api.ad.xiaomi.com
+!   Block: ||api.ad.xiaomi.com^ (from 秋风的规则)
+!   White: @@||api.ad.xiaomi.com^ (from Menghuibanxian)
+! Conflict: api.ads.tvb.com
+!   Block: ||api.ads.tvb.com^ (from 1hosts)
+!   White: @@||api.ads.tvb.com^ (from GOODBYEADS)
+! Conflict: api.airpush.com
+!   Block: ||api.airpush.com^ (from Ad-set-hosts)
+!   White: @@||api.airpush.com^ (from 那个谁520)
+! Conflict: api.amplitude.com
+!   Block: ||api.amplitude.com^ (from 1hosts)
+!   White: @@||api.amplitude.com^$xmlhttprequest,domain=insiderintelligence.com (from GOODBYEADS)
+! Conflict: api.chartbeat.com
+!   Block: ||api.chartbeat.com^ (from Ad-set-hosts)
+!   White: @@||api.chartbeat.com^$script,domain=financialpost.com|wcpo.com|couriermail.com.au|betabeat.com (from GOODBYEADS)
+! Conflict: api.comm.miui.com
+!   Block: 0.0.0.0 api.comm.miui.com  #小米日历广告 (from 下个ID见)
+!   White: @@||api.comm.miui.com^ (from 那个谁520)
+! Conflict: api.developer.xiaomi.com
+!   Block: 0.0.0.0 api.developer.xiaomi.com (from 下个ID见)
+!   White: @@||api.developer.xiaomi.com^ (from 那个谁520)
+! Conflict: api.device.xiaomi.net
+!   Block: ||api.device.xiaomi.net^ (from AdBlockDNSFilters1)
+!   White: @@||api.device.xiaomi.net^ (from 那个谁520)
+! Conflict: api.e.kuaishou.com
+!   Block: ||api.e.kuaishou.com^ (from 秋风的规则)
+!   White: @@||api.e.kuaishou.com^ (from Menghuibanxian)
+! Conflict: api.ipinfodb.com
+!   Block: ||api.ipinfodb.com^ (from Ad-set-hosts)
+!   White: @@||api.ipinfodb.com^$xmlhttprequest,domain=management30.com (from GOODBYEADS)
+! Conflict: api.jr.mi.com
+!   Block: 0.0.0.0 api.jr.mi.com  #小米钱包净化 (from 下个ID见)
+!   White: @@||api.jr.mi.com^ (from 那个谁520)
+! Conflict: api.kuaishouzt.com
+!   Block: 0.0.0.0 api.kuaishouzt.com (from 下个ID见)
+!   White: @@||api.kuaishouzt.com^ (from 那个谁520)
+! Conflict: api.kwaizt.com
+!   Block: ||api.kwaizt.com^ (from 大萌主)
+!   White: @@||api.kwaizt.com^ (from 那个谁520)
+! Conflict: api.lab.amplitude.com
+!   Block: ||api.lab.amplitude.com^ (from 1hosts)
+!   White: @@||api.lab.amplitude.com^ (from BlueSkyXN)
+! Conflict: api.miui.security.xiaomi.com
+!   Block: ||api.miui.security.xiaomi.com^ (from AdBlockDNSFilters1)
+!   White: @@||api.miui.security.xiaomi.com^ (from 那个谁520)
+! Conflict: api.open.uc.cn
+!   Block: 0.0.0.0 api.open.uc.cn (from 下个ID见)
+!   White: @@||api.open.uc.cn^ (from 那个谁520)
+! Conflict: api.sec.intl.miui.com
+!   Block: ||api.sec.intl.miui.com^ (from AdBlockDNSFilters1)
+!   White: @@||api.sec.intl.miui.com^ (from BlueSkyXN)
+! Conflict: api.sec.miui.com
+!   Block: 0.0.0.0 api.sec.miui.com (from 下个ID见)
+!   White: @@||api.sec.miui.com^ (from DD自用)
+! Conflict: api.toutiaoapi.com
+!   Block: ||api.toutiaoapi.com^ (from 广告规则)
+!   White: @@||api.toutiaoapi.com^ (from 那个谁520)
+! Conflict: api.ts.feedback.qy.net
+!   Block: ||api.ts.feedback.qy.net^ (from Ad-set-hosts)
+!   White: @@||api.ts.feedback.qy.net^ (from 那个谁520)
+! Conflict: api.tuisong.baidu.com
+!   Block: ||api.tuisong.baidu.com^ (from Ad-set-hosts)
+!   White: @@||api.tuisong.baidu.com^ (from 那个谁520)
+! Conflict: api.tv.sohu.com
+!   Block: ||api.tv.sohu.com (from 那个谁520)
+!   White: @@||api.tv.sohu.com^ (from 那个谁520)
+! Conflict: api.union.vip.com
+!   Block: ||api.union.vip.com^ (from Ad-set-hosts)
+!   White: @@||api.union.vip.com^ (from 那个谁520)
+! Conflict: api2.branch.io
+!   Block: 0.0.0.0 api2.branch.io (from 下个ID见)
+!   White: @@||api2.branch.io^ (from BlueSkyXN)
+! Conflict: api2.e.kuaishou.com
+!   Block: 0.0.0.0 api2.e.kuaishou.com (from 下个ID见)
+!   White: @@||api2.e.kuaishou.com^ (from Menghuibanxian)
+! Conflict: apissl.ksapisrv.com
+!   Block: 0.0.0.0 apissl.ksapisrv.com (from 那个谁520)
+!   White: @@||apissl.ksapisrv.com^ (from 那个谁520)
+! Conflict: apkmirror.com
+!   Block: apkmirror.com$$script[wildcard="*document.querySelector*.classList.add*.innerHTML*"][min-length="200"][max-length="700"] (from AdBlockDNSFilters2)
+!   White: @@||apkmirror.com^$generichide (from GOODBYEADS)
+! Conflict: app-advertise.zhihuishu.com
+!   Block: ||app-advertise.zhihuishu.com^ (from 那个谁520)
+!   White: @@||app-advertise.zhihuishu.com^ (from GOODBYEADS)
+! Conflict: app-api.smzdm.com
+!   Block: 0.0.0.0 app-api.smzdm.com (from 下个ID见)
+!   White: @@||app-api.smzdm.com^ (from 那个谁520)
+! Conflict: app-measurement.com
+!   Block: ||app-measurement.com^ (from 秋风的规则)
+!   White: @@||app-measurement.com^ (from BlueSkyXN)
+! Conflict: app-sjf.marketo.com
+!   Block: ||app-sjf.marketo.com^ (from 1hosts)
+!   White: @@||app-sjf.marketo.com^$domain=live.altium.com (from GOODBYEADS)
+! Conflict: app.adjust.com
+!   Block: 0.0.0.0 app.adjust.com (from 下个ID见)
+!   White: @@||app.adjust.com^ (from Menghuibanxian)
+! Conflict: app.appsflyer.com
+!   Block: 0.0.0.0 app.appsflyer.com (from 下个ID见)
+!   White: @@||app.appsflyer.com^ (from Menghuibanxian)
+! Conflict: app.chat.xiaomi.net
+!   Block: ||app.chat.xiaomi.net^$third-party (from AdBlockDNSFilters2)
+!   White: @@||app.chat.xiaomi.net^ (from 那个谁520)
+! Conflict: appapi.inspsearchapi.com
+!   Block: ||appapi.inspsearchapi.com^ (from 1hosts)
+!   White: @@||appapi.inspsearchapi.com^$domain=search.pch.com (from GOODBYEADS)
+! Conflict: appcenter.ms
+!   Block: ||appcenter.ms^$important (from Custom Blocklist)
+!   White: @@||appcenter.ms^ (from 那个谁520)
+! Conflict: appcloud.zhihu.com
+!   Block: 0.0.0.0 appcloud.zhihu.com (from 那个谁520)
+!   White: @@||appcloud.zhihu.com^ (from 那个谁520)
+! Conflict: appcloud2.zhihu.com
+!   Block: ||appcloud2.zhihu.com^ (from 逆向涉猎)
+!   White: @@||appcloud2.zhihu.com^ (from 那个谁520)
+! Conflict: appconf.heytapdownload.com
+!   Block: ||appconf.heytapdownload.com^ (from 1hosts)
+!   White: @@||appconf.heytapdownload.com^ (from 那个谁520)
+! Conflict: appdownload.alicdn.com
+!   Block: 0.0.0.0 appdownload.alicdn.com (from 那个谁520)
+!   White: @@||appdownload.alicdn.com^ (from 那个谁520)
+! Conflict: applog.lc.quark.cn
+!   Block: ||applog.lc.quark.cn^ (from 秋风的规则)
+!   White: @@||applog.lc.quark.cn^ (from 那个谁520)
+! Conflict: appmetrica.yandex.com
+!   Block: ||appmetrica.yandex.com^ (from 1hosts)
+!   White: @@||appmetrica.yandex.com^$domain=appmetrica.yandex.com (from GOODBYEADS)
+! Conflict: appstore.pandora.xiaomi.com
+!   Block: 0.0.0.0 appstore.pandora.xiaomi.com (from 下个ID见)
+!   White: @@||appstore.pandora.xiaomi.com^ (from 那个谁520)
+! Conflict: appsupport.qq.com
+!   Block: ||appsupport.qq.com^ (from 大萌主)
+!   White: @@||appsupport.qq.com^ (from 那个谁520)
+! Conflict: as.weixin.qq.com
+!   Block: ||as.weixin.qq.com^ (from 逆向涉猎)
+!   White: @@||as.weixin.qq.com^ (from 那个谁520)
+! Conflict: assets-jpcust.jwpsrv.com
+!   Block: ||assets-jpcust.jwpsrv.com^ (from Ad-set-hosts)
+!   White: @@||assets-jpcust.jwpsrv.com^$domain=destructoid.com (from GOODBYEADS)
+! Conflict: assets.adobedtm.com
+!   Block: ||assets.adobedtm.com^ (from Ad-set-hosts)
+!   White: @@||assets.adobedtm.com^$domain=wired.com (from GOODBYEADS)
+! Conflict: at.umeng.com
+!   Block: 0.0.0.0 at.umeng.com (from 下个ID见)
+!   White: @@||at.umeng.com^ (from 那个谁520)
+! Conflict: attservicesinc.tt.omtrdc.net
+!   Block: ||attservicesinc.tt.omtrdc.net^ (from 1hosts)
+!   White: @@||attservicesinc.tt.omtrdc.net^$domain=att.com (from GOODBYEADS)
+! Conflict: audid-api-sg.taobao.com
+!   Block: ||audid-api-sg.taobao.com^ (from 1hosts)
+!   White: @@||audid-api-sg.taobao.com^ (from 那个谁520)
+! Conflict: audid-api.taobao.com
+!   Block: ||audid-api.taobao.com^ (from 秋风的规则)
+!   White: @@||audid-api.taobao.com^ (from 那个谁520)
+! Conflict: audio-.scdn.co/audio/
+!   Block: ||audio-*.scdn.co/audio/$media,redirect=noopmp4-1s,app=Spotify.exe (from AdBlockDNSFilters2)
+!   White: @@||audio-*.scdn.co/audio/$redirect=noopmp4-1s,app=com.apple.Safari (from GOODBYEADS)
+! Conflict: auditude.com
+!   Block: ||auditude.com^ (from 1hosts)
+!   White: @@||auditude.com^ (from 那个谁520)
+! Conflict: auth.wosms.cn
+!   Block: ||auth.wosms.cn^ (from Ad-set-hosts)
+!   White: @@||auth.wosms.cn^ (from 那个谁520)
+! Conflict: autocentrum.pl
+!   Block: ||autocentrum.pl^$replace=/(<VAST[\s\S]*?>)[\s\S]*<\/VAST>/\$1<\/VAST>/,xmlhttprequest,other,~script (from AdBlockDNSFilters2)
+!   White: @@||autocentrum.pl^$generichide (from GOODBYEADS)
+! Conflict: autokult.pl
+!   Block: ||autokult.pl^$replace=/(<VAST[\s\S]*?>)[\s\S]*<\/VAST>/\$1<\/VAST>/,xmlhttprequest,other,~script (from AdBlockDNSFilters2)
+!   White: @@||autokult.pl^$generichide (from GOODBYEADS)
+! Conflict: autoscout24.
+!   Block: autoscout24.*$$script:contains(AdContent) (from AdBlockDNSFilters2)
+!   White: @@||autoscout24.*^$generichide (from GOODBYEADS)
+! Conflict: awaps.yandex.net
+!   Block: ||awaps.yandex.net^ (from 1hosts)
+!   White: @@||awaps.yandex.net^$domain=awaps.yandex.net (from GOODBYEADS)
+! Conflict: aweme.snssdk.com
+!   Block: 0.0.0.0 aweme.snssdk.com (from 下个ID见)
+!   White: @@||aweme.snssdk.com^ (from DD自用)
+! Conflict: awin1.com
+!   Block: ||awin1.com^ (from Ad-set-hosts)
+!   White: @@||awin1.com^$domain=bradsdeals.com|coupons.com|dealigg.com|dealnews.com|goodsearch.com|groupon.com|hotukdeals.com|moneysavingexpert.com|offers.com|retailmenot.com|slickdeals.net (from GOODBYEADS)
+! Conflict: b.bdstatic.com
+!   Block: 0.0.0.0 b.bdstatic.com (from 那个谁520)
+!   White: @@||b.bdstatic.com^ (from 那个谁520)
+! Conflict: baikebcs.bdimg.com
+!   Block: 0.0.0.0 baikebcs.bdimg.com (from 那个谁520)
+!   White: @@||baikebcs.bdimg.com^ (from 那个谁520)
+! Conflict: baixing.com
+!   Block: ||baixing.com^ (from AdBlockDNSFilters1)
+!   White: @@||baixing.com^ (from 那个谁520)
+! Conflict: bam.nr-data.net
+!   Block: ||bam.nr-data.net^ (from 那个谁520)
+!   White: @@||bam.nr-data.net^$script,domain=kapwing.com (from GOODBYEADS)
+! Conflict: bbs-static.miyoushe.com
+!   Block: 0.0.0.0 bbs-static.miyoushe.com (from 下个ID见)
+!   White: @@||bbs-static.miyoushe.com^ (from 那个谁520)
+! Conflict: bce.baidu.com
+!   Block: 0.0.0.0 bce.baidu.com (from 下个ID见)
+!   White: @@||bce.baidu.com^ (from 那个谁520)
+! Conflict: bdad.123pan.cn
+!   Block: ||bdad.123pan.cn^ (from 秋风的规则)
+!   White: @@||bdad.123pan.cn^ (from ABP)
+! Conflict: bea4.v.fwmrm.net
+!   Block: ||bea4.v.fwmrm.net^ (from Ad-set-hosts)
+!   White: @@||bea4.v.fwmrm.net^$domain=mylifetime.com (from GOODBYEADS)
+! Conflict: beacon-api.aliyuncs.com
+!   Block: ||beacon-api.aliyuncs.com^ (from 秋风的规则)
+!   White: @@||beacon-api.aliyuncs.com^ (from 那个谁520)
+! Conflict: beian.miit.gov.cn
+!   Block: 0.0.0.0 beian.miit.gov.cn (from 下个ID见)
+!   White: @@||beian.miit.gov.cn^ (from 那个谁520)
+! Conflict: bigleaguepolitics.com
+!   Block: ||bigleaguepolitics.com^ (from Menghuibanxian)
+!   White: @@||bigleaguepolitics.com^$csp=script-src 'self' *.leadpages.net *.gstatic.com *.google.com *.googleapis.com *.playwire.com *.facebook.com *.bootstrapcdn.com *.twitter.com *.spot.im (from GOODBYEADS)
+! Conflict: bing.com
+!   Block: ||bing.com^$cookie=ABDEF (from AdBlockDNSFilters2)
+!   White: @@||bing.com^$generichide (from GOODBYEADS)
+! Conflict: bit.ly
+!   Block: ||bit.ly^$image,domain=tooxclusive.com (from ABP)
+!   White: @@||bit.ly^ (from 那个谁520)
+! Conflict: bitsumactivationserver.com
+!   Block: ||bitsumactivationserver.com^ (from anti-AD)
+!   White: @@||bitsumactivationserver.com^ (from 那个谁520)
+! Conflict: bizx.info
+!   Block: ||bizx.info^$third-party (from ABP)
+!   White: @@||bizx.info$domain=sourceforge.net (from GOODBYEADS)
+! Conflict: bj.bcebos.com
+!   Block: 0.0.0.0 bj.bcebos.com (from 那个谁520)
+!   White: @@||bj.bcebos.com^ (from 那个谁520)
+! Conflict: bjfesdk.douyucdn.cn
+!   Block: ||bjfesdk.douyucdn.cn^ (from AdBlockDNSFilters1)
+!   White: @@||bjfesdk.douyucdn.cn^ (from DD自用)
+! Conflict: blockadblock.com
+!   Block: ||blockadblock.com^ (from 1hosts)
+!   White: @@||blockadblock.com^$generichide (from GOODBYEADS)
+! Conflict: boobausauhipsa.net
+!   Block: ||boobausauhipsa.net^ (from 1hosts)
+!   White: @@||boobausauhipsa.net^$domain=playhydrax.com|kissanime.com.ru (from GOODBYEADS)
+! Conflict: bootcdn.net
+!   Block: ||bootcdn.net^ (from Ad-set-hosts)
+!   White: @@||bootcdn.net^ (from DD自用)
+! Conflict: bootcss.com
+!   Block: ||bootcss.com^ (from AdBlockDNSFilters1)
+!   White: @@||bootcss.com^$script,domain=kan-tv.com (from GOODBYEADS)
+! Conflict: bossaudioandcomic-1252317822.image.myqcloud.com
+!   Block: ||bossaudioandcomic-1252317822.image.myqcloud.com^ (from 逆向涉猎)
+!   White: @@||bossaudioandcomic-1252317822.image.myqcloud.com^ (from 那个谁520)
+! Conflict: browser-intake-datadoghq.com
+!   Block: ||browser-intake-datadoghq.com^ (from 1hosts)
+!   White: @@||browser-intake-datadoghq.com^$xmlhttprequest,domain=grubhub.com|mightyape.co.nz (from GOODBYEADS)
+! Conflict: browser.events.data.msn.com
+!   Block: ||browser.events.data.msn.com^ (from 秋风的规则)
+!   White: @@||browser.events.data.msn.com^ (from 那个谁520)
+! Conflict: browser.pipe.aria.microsoft.com
+!   Block: ||browser.pipe.aria.microsoft.com^ (from 1hosts)
+!   White: @@||browser.pipe.aria.microsoft.com^ (from 那个谁520)
+! Conflict: browser.sentry-cdn.com
+!   Block: ||browser.sentry-cdn.com^$third-party (from 大萌主)
+!   White: @@||browser.sentry-cdn.com^$domain=acustica-audio.com|alphaxiv.org|dic.pixiv.net|doconcall.com.my|eco-clobber.co.uk|fundhero.io|marshmallow-qa.com|members.bifa.film|menshealth.com|ocado.com|pocketguard.com|podcasty.seznam.cz|roomster.com|shop.dns-net.de|spacemarket.com|timesprime.com|vivareal.com.br|womenshealthmag.com (from GOODBYEADS)
+! Conflict: btrace.qq.com
+!   Block: 0.0.0.0 btrace.qq.com (from 下个ID见)
+!   White: @@||btrace.qq.com^ (from 那个谁520)
+! Conflict: bucket-ynote-online-cdn.note.youdao.com
+!   Block: 0.0.0.0 bucket-ynote-online-cdn.note.youdao.com (from 下个ID见)
+!   White: @@||bucket-ynote-online-cdn.note.youdao.com^ (from 那个谁520)
+! Conflict: bugsnag.com
+!   Block: ||bugsnag.com^ (from Ad-set-hosts)
+!   White: @@||bugsnag.com^$~third-party,domain=app.bugsnag.com (from GOODBYEADS)
+! Conflict: c.adsco.re
+!   Block: ||c.adsco.re^ (from Ad-set-hosts)
+!   White: @@||c.adsco.re$script,domain=fc-lc.xyz (from GOODBYEADS)
+! Conflict: c.duomai.com
+!   Block: ||c.duomai.com^ (from Ad-set-hosts)
+!   White: @@||c.duomai.com^ (from 那个谁520)
+! Conflict: c.evidon.com
+!   Block: ||c.evidon.com^ (from 秋风的规则)
+!   White: @@||c.evidon.com^ (from 那个谁520)
+! Conflict: c.gdt.qq.com
+!   Block: 0.0.0.0 c.gdt.qq.com (from 下个ID见)
+!   White: @@||c.gdt.qq.com^ (from Menghuibanxian)
+! Conflict: c.gj.qq.com
+!   Block: ||c.gj.qq.com^ (from 秋风的规则)
+!   White: @@||c.gj.qq.com^ (from 那个谁520)
+! Conflict: c.pc.qq.com
+!   Block: ||c.pc.qq.com^ (from 那个谁520)
+!   White: @@||c.pc.qq.com^ (from DD自用)
+! Conflict: c.youdao.com
+!   Block: ||c.youdao.com^ (from AdBlockDNSFilters1)
+!   White: @@||c.youdao.com^ (from 那个谁520)
+! Conflict: c2.gdt.qq.com
+!   Block: ||c2.gdt.qq.com^ (from 秋风的规则)
+!   White: @@||c2.gdt.qq.com^ (from Menghuibanxian)
+! Conflict: c6.y.qq.com
+!   Block: 0.0.0.0 c6.y.qq.com (from 那个谁520)
+!   White: @@||c6.y.qq.com^$important (from 广告规则)
+! Conflict: calciomercato.com
+!   Block: calciomercato.com$$script[tag-content="new FuckAdBlock"][max-length="30000"] (from AdBlockDNSFilters2)
+!   White: @@||calciomercato.com^$generichide (from GOODBYEADS)
+! Conflict: callback.58.com
+!   Block: ||callback.58.com^ (from 1hosts)
+!   White: @@||callback.58.com^ (from 那个谁520)
+! Conflict: canyoublockit.com
+!   Block: ||canyoublockit.com^$popup,third-party (from ABP)
+!   White: @@||canyoublockit.com^$generichide (from GOODBYEADS)
+! Conflict: cards.iqiyi.com
+!   Block: ||cards.iqiyi.com^ (from 逆向涉猎)
+!   White: @@||cards.iqiyi.com^ (from 那个谁520)
+! Conflict: castatic.fengkongcloud.com
+!   Block: ||castatic.fengkongcloud.com^ (from Ad-set-hosts)
+!   White: @@||castatic.fengkongcloud.com^ (from 那个谁520)
+! Conflict: cbu01.alicdn.com
+!   Block: ||cbu01.alicdn.com^ (from 那个谁520)
+!   White: @@||cbu01.alicdn.com^ (from 那个谁520)
+! Conflict: cc.map.qq.com
+!   Block: 0.0.0.0 cc.map.qq.com (from 下个ID见)
+!   White: @@||cc.map.qq.com^ (from 那个谁520)
+! Conflict: cd001.www.duba.net
+!   Block: ||cd001.www.duba.net^ (from Ad-set-hosts)
+!   White: @@||cd001.www.duba.net^ (from 那个谁520)
+! Conflict: cdn.adligature.com
+!   Block: ||cdn.adligature.com^ (from Ad-set-hosts)
+!   White: @@||cdn.adligature.com^$script,xmlhttprequest,domain=work.ink (from GOODBYEADS)
+! Conflict: cdn.adsafeprotected.com
+!   Block: ||cdn.adsafeprotected.com^ (from Ad-set-hosts)
+!   White: @@||cdn.adsafeprotected.com^$domain=tio.ch (from GOODBYEADS)
+! Conflict: cdn.advertserve.com
+!   Block: ||cdn.advertserve.com^ (from Ad-set-hosts)
+!   White: @@||cdn.advertserve.com^$domain=hutchgo.com|hutchgo.com.cn|hutchgo.com.hk|hutchgo.com.sg|hutchgo.com.tw (from GOODBYEADS)
+! Conflict: cdn.ampproject.org
+!   Block: ||cdn.ampproject.org^$popup,badfilter (from AdBlockDNSFilters2)
+!   White: @@||cdn.ampproject.org^$script,domain=rocketnews24.com|soranews24.com|youpouch.com,stealth=referrer (from GOODBYEADS)
+! Conflict: cdn.bootcdn.net
+!   Block: ||cdn.bootcdn.net^ (from Ad-set-hosts)
+!   White: @@||cdn.bootcdn.net^$script,domain=38kanshu.net (from GOODBYEADS)
+! Conflict: cdn.branch.io
+!   Block: 0.0.0.0 cdn.branch.io (from 下个ID见)
+!   White: @@||cdn.branch.io^ (from BlueSkyXN)
+! Conflict: cdn.cnbj1.fds.api.mi-img.com
+!   Block: ||cdn.cnbj1.fds.api.mi-img.com^ (from Ad-set-hosts)
+!   White: @@||cdn.cnbj1.fds.api.mi-img.com^ (from 那个谁520)
+! Conflict: cdn.duurzaam.greenchoice.nl
+!   Block: ||cdn.duurzaam.greenchoice.nl^ (from AdBlock DNS Filters)
+!   White: @@||cdn.duurzaam.greenchoice.nl^ (from Menghuibanxian)
+! Conflict: cdn.dynamicyield.com
+!   Block: ||cdn.dynamicyield.com^ (from Ad-set-hosts)
+!   White: @@||cdn.dynamicyield.com^$domain=dafiti.com.co (from GOODBYEADS)
+! Conflict: cdn.ex.co
+!   Block: ||cdn.ex.co^$third-party (from ABP)
+!   White: @@||cdn.ex.co^$domain=mm-watch.com|theautopian.com (from GOODBYEADS)
+! Conflict: cdn.heapanalytics.com
+!   Block: ||cdn.heapanalytics.com^ (from Ad-set-hosts)
+!   White: @@||cdn.heapanalytics.com^$script,domain=libertymutual.com (from GOODBYEADS)
+! Conflict: cdn.kaizenplatform.net
+!   Block: ||cdn.kaizenplatform.net^ (from GOODBYEADS)
+!   White: @@||cdn.kaizenplatform.net^$script,domain=navi.onamae.com (from GOODBYEADS)
+! Conflict: cdn.petametrics.com
+!   Block: ||cdn.petametrics.com^ (from Ad-set-hosts)
+!   White: @@||cdn.petametrics.com^$script,domain=mechacomic.jp (from GOODBYEADS)
+! Conflict: cdn.plyr.io
+!   Block: ||cdn.plyr.io^ (from Ad-set-hosts)
+!   White: @@||cdn.plyr.io^ (from 那个谁520)
+! Conflict: cdn.polarbyte.com
+!   Block: ||cdn.polarbyte.com^ (from 1hosts)
+!   White: @@||cdn.polarbyte.com^$domain=bab.la (from GOODBYEADS)
+! Conflict: cdn.rozetka.com.ua
+!   Block: ||cdn.rozetka.com.ua^ (from AdBlock DNS Filters)
+!   White: @@||cdn.rozetka.com.ua^ (from Menghuibanxian)
+! Conflict: cdn.segmentify.com
+!   Block: ||cdn.segmentify.com^ (from Ad-set-hosts)
+!   White: @@||cdn.segmentify.com^$script,domain=gratis.com (from GOODBYEADS)
+! Conflict: cdn.siftscience.com
+!   Block: ||cdn.siftscience.com^ (from 1hosts)
+!   White: @@||cdn.siftscience.com^ (from BlueSkyXN)
+! Conflict: cdn.taboola.com
+!   Block: 0.0.0.0 cdn.taboola.com (from 下个ID见)
+!   White: @@||cdn.taboola.com^$domain=asianetnews.com (from GOODBYEADS)
+! Conflict: cdn.tagcommander.com
+!   Block: ||cdn.tagcommander.com^ (from Ad-set-hosts)
+!   White: @@||cdn.tagcommander.com^$domain=monespaceemprunteur.cnp.fr (from GOODBYEADS)
+! Conflict: cdn.ynuf.aliapp.org
+!   Block: ||cdn.ynuf.aliapp.org^ (from 秋风的规则)
+!   White: @@||cdn.ynuf.aliapp.org^ (from BlueSkyXN)
+! Conflict: cdn.yyb.gtimg.com
+!   Block: 0.0.0.0 cdn.yyb.gtimg.com  #应用宝开屏广告，误杀福利和少部分图标。 (from 下个ID见)
+!   White: @@||cdn.yyb.gtimg.com^$important (from 那个谁520)
+! Conflict: cfg.imtt.qq.com
+!   Block: ||cfg.imtt.qq.com^ (from 秋风的规则)
+!   White: @@||cfg.imtt.qq.com^ (from 那个谁520)
+! Conflict: channels.weixin.qq.com
+!   Block: 0.0.0.0 channels.weixin.qq.com (from 下个ID见)
+!   White: @@||channels.weixin.qq.com^ (from 那个谁520)
+! Conflict: chaturbate.com
+!   Block: ||chaturbate.com^$popup,domain=xxxbios.com (from ABP)
+!   White: @@||chaturbate.com^ (from GOODBYEADS)
+! Conflict: cheaterboss.com
+!   Block: ||cheaterboss.com^ (from AdBlock DNS Filters)
+!   White: @@||cheaterboss.com^$generichide (from GOODBYEADS)
+! Conflict: cibntv.net/youku/.mp4?
+!   Block: ||cibntv.net/youku/*.mp4?$media,redirect=noopmp4-1s,domain=v.youku.com,important (from AdBlockDNSFilters2)
+!   White: @@||cibntv.net/youku/*.mp4?$domain=v.youku.com (from GOODBYEADS)
+! Conflict: cj.dotomi.com
+!   Block: ||cj.dotomi.com^ (from Ad-set-hosts)
+!   White: @@||cj.dotomi.com^ (from Menghuibanxian)
+! Conflict: cl.k5a.io
+!   Block: ||cl*.k5a.io^ (from AdBlockDNSFilters2)
+!   White: @@||cl*.k5a.io^$script,xmlhttprequest,domain=finansavisen.no (from GOODBYEADS)
+! Conflict: cl2.webterren.com
+!   Block: ||cl2.webterren.com^ (from Ad-set-hosts)
+!   White: @@||cl2.webterren.com^ (from 那个谁520)
+! Conflict: clarins.com.cn
+!   Block: ||clarins.com.cn^ (from AdBlockDNSFilters1)
+!   White: @@||clarins.com.cn^ (from 那个谁520)
+! Conflict: clb.yahoo.co.jp
+!   Block: ||clb.yahoo.co.jp^ (from 1hosts)
+!   White: @@||clb.yahoo.co.jp^$app=jp.co.yahoo.android.weather.type1 (from GOODBYEADS)
+! Conflict: click.aliexpress.com
+!   Block: ||click.aliexpress.com^$subdocument,third-party (from ABP)
+!   White: @@||click.aliexpress.com^ (from 那个谁520)
+! Conflict: click.aliyun.com
+!   Block: 0.0.0.0 click.aliyun.com (from 下个ID见)
+!   White: @@||click.aliyun.com^ (from DD自用)
+! Conflict: click.allkeyshop.com
+!   Block: ||click.allkeyshop.com^ (from 1hosts)
+!   White: @@||click.allkeyshop.com^ (from 那个谁520)
+! Conflict: click.alternate.de
+!   Block: ||click.alternate.de^ (from Ad-set-hosts)
+!   White: @@||click.alternate.de^ (from 那个谁520)
+! Conflict: click.cptrack.de
+!   Block: ||click.cptrack.de^ (from 1hosts)
+!   White: @@||click.cptrack.de^ (from 那个谁520)
+! Conflict: click.discord.com
+!   Block: ||click.discord.com^ (from Ad-set-hosts)
+!   White: @@||click.discord.com^ (from 那个谁520)
+! Conflict: click.em.blizzard.com
+!   Block: ||click.em.blizzard.com^ (from Ad-set-hosts)
+!   White: @@||click.em.blizzard.com^ (from 那个谁520)
+! Conflict: click.email.sonos.com
+!   Block: ||click.email.sonos.com^ (from 1hosts)
+!   White: @@||click.email.sonos.com^ (from 那个谁520)
+! Conflict: click.icptrack.com
+!   Block: ||click.icptrack.com^ (from Ad-set-hosts)
+!   White: @@||click.icptrack.com^ (from 那个谁520)
+! Conflict: click.justwatch.com
+!   Block: ||click.justwatch.com^ (from 1hosts)
+!   White: @@||click.justwatch.com^ (from 那个谁520)
+! Conflict: click.mailing.ticketmaster.com
+!   Block: ||click.mailing.ticketmaster.com^ (from 1hosts)
+!   White: @@||click.mailing.ticketmaster.com^ (from 那个谁520)
+! Conflict: click.mz.simba.taobao.com
+!   Block: ||click.mz.simba.taobao.com^ (from Ad-set-hosts)
+!   White: @@||click.mz.simba.taobao.com^ (from 那个谁520)
+! Conflict: click.redditmail.com
+!   Block: ||click.redditmail.com^ (from Ad-set-hosts)
+!   White: @@||click.redditmail.com^ (from 那个谁520)
+! Conflict: click.taobao.com
+!   Block: ||click.taobao.com^$popup,domain=steamcn.com (from AdBlockDNSFilters2)
+!   White: @@||click*.taobao.com^ (from 那个谁520)
+! Conflict: click.uol.com.br
+!   Block: ||click.uol.com.br^ (from Ad-set-hosts)
+!   White: @@||click.uol.com.br^$domain=uol.com.br (from GOODBYEADS)
+! Conflict: click.zoom.us
+!   Block: ||click.zoom.us^ (from AdBlock DNS Filters)
+!   White: @@||click.zoom.us^ (from 那个谁520)
+! Conflict: clickcease.com
+!   Block: ||clickcease.com^ (from 1hosts)
+!   White: @@||clickcease.com^ (from 那个谁520)
+! Conflict: clickiocdn.com
+!   Block: ||clickiocdn.com^ (from 1hosts)
+!   White: @@||clickiocdn.com^ (from 那个谁520)
+! Conflict: clicks.pipaffiliates.com
+!   Block: ||clicks.pipaffiliates.com^ (from 1hosts)
+!   White: @@||clicks.pipaffiliates.com^ (from 那个谁520)
+! Conflict: clickserve.dartsearch.net
+!   Block: ||clickserve.dartsearch.net^ (from 1hosts)
+!   White: @@||clickserve.dartsearch.net^ (from 那个谁520)
+! Conflict: clicktale.net
+!   Block: ||clicktale.net^ (from Ad-set-hosts)
+!   White: @@||clicktale.net^ (from 那个谁520)
+! Conflict: client-uc.heytapmobi.com
+!   Block: ||client-uc.heytapmobi.com^ (from Ad-set-hosts)
+!   White: @@||client-uc.heytapmobi.com^ (from 那个谁520)
+! Conflict: clientlog.music.163.com
+!   Block: ||clientlog.music.163.com^ (from 那个谁520)
+!   White: @@||clientlog.music.163.com^ (from Menghuibanxian)
+! Conflict: clientlog3.music.163.com
+!   Block: ||clientlog3.music.163.com^ (from 那个谁520)
+!   White: @@||clientlog3.music.163.com^ (from 那个谁520)
+! Conflict: clips4sale.com
+!   Block: ||clips4sale.com^$domain=mrdeepfakes.com (from ABP)
+!   White: @@||clips4sale.com^ (from 那个谁520)
+! Conflict: clk.tradedoubler.com
+!   Block: ||clk.tradedoubler.com^ (from 1hosts)
+!   White: @@||clk*.tradedoubler.com^ (from Menghuibanxian)
+! Conflict: clouderrorreporting.googleapis.com
+!   Block: ||clouderrorreporting.googleapis.com^ (from 1hosts)
+!   White: @@||clouderrorreporting.googleapis.com^$domain=waze.com (from GOODBYEADS)
+! Conflict: cloudflareinsights.com
+!   Block: cloudflareinsights.com$third-party (from 大萌主)
+!   White: @@||cloudflareinsights.com^$important (from 那个谁520)
+! Conflict: cloudfront.net
+!   Block: ||cloudfront.net^$domain=6181029.xyz|6180074.xyz|618846.xyz|addic7ed.com|adshort.club|allmoviesforyou.net|anime-odcinki.pl|animeflv.net|animepahe.ru|avxhome.in|avxhome.se|baiscopelk.com|bluemediadownload.*|bluemediafile.*|bluemediafiles.*|bluemedialink.online|bluemediaurls.lol|ckk.ai|clickndownload.*|clicknupload.*|clicknupload.link|cloudyfiles.co|cpygames.com|dancingastronaut.com|drhtv.com.pl|feliratozz.hu|filescdn.com|gamesofpc.com|gounlimited.to|igg-games.co|igg-games.com|iir.ai|itdmusic.com|javgo.me|kanqite.com|katcr.co|katfile.com|keeplinks.eu|leporno.org|linkrex.net|lipstickalley.com|manganelo.tv|mastibaaz.com|megaup.net|milfnut.com|mixing.dj|mrpcgamer.co|multiup.org|newepisodes.co|newpct.com|newpct1.com|nhentai.net|nitroflare.com|oke.io|oxtorrent.sk|porn00.org|prefiles.com|psarips.com|rexdlbox.com|sadeemapk.com|sakurafile.com|sankakucomplex.com|send.cm|shink.in|soap2day.*|soap2day.ac|srt.am|streamtajm.com|tei.ai|thehouseofportable.com|tii.ai|tinyical.com|titantv.com|tmearn.com|torrentgalaxy.mx|torrentmac.net|unblocked.lol|uploadas.com|uplod.it|uplod.ws|uptostream.com|urlbluemedia.*|userscloud.com|vizer.tv|xmovies8.pl|xrivonet.info|y2mate.com|yesmovies.to|youtubemultidownloader.com|ziperto.com (from ABP)
+!   White: @@||cloudfront.net^$domain=postype.com,stealth=referrer,image (from GOODBYEADS)
+! Conflict: cm.bilibili.com
+!   Block: 0.0.0.0 cm.bilibili.com (from 那个谁520)
+!   White: @@||cm.bilibili.com^ (from 那个谁520)
+! Conflict: cmp.inmobi.com
+!   Block: 0.0.0.0 cmp.inmobi.com (from 下个ID见)
+!   White: @@||cmp.inmobi.com^$domain=glasgowlive.co.uk (from GOODBYEADS)
+! Conflict: cms-bucket.ws.126.net
+!   Block: ||cms-bucket.ws.126.net^ (from Ad-set-hosts)
+!   White: @@||cms-bucket.ws.126.net^ (from 那个谁520)
+! Conflict: cmts.iqiyi.com
+!   Block: 0.0.0.0 cmts.iqiyi.com (from 下个ID见)
+!   White: @@||cmts.iqiyi.com^ (from 那个谁520)
+! Conflict: cn-api.anythinktech.com
+!   Block: ||cn-api.anythinktech.com^ (from 秋风的规则)
+!   White: @@||cn-api.anythinktech.com^ (from Menghuibanxian)
+! Conflict: cn-tk.anythinktech.com
+!   Block: 0.0.0.0 cn-tk.anythinktech.com (from 下个ID见)
+!   White: @@||cn-tk.anythinktech.com^ (from Menghuibanxian)
+! Conflict: cn.app.chat.xiaomi.net
+!   Block: 127.0.0.1 cn.app.chat.xiaomi.net (from 下个ID见)
+!   White: @@||cn.app.chat.xiaomi.net^ (from DD自用)
+! Conflict: cn.ultraiso.net
+!   Block: ||cn.ultraiso.net^ (from Ad-set-hosts)
+!   White: @@||cn.ultraiso.net^ (from 那个谁520)
+! Conflict: cn/j/
+!   Block: .cn/j/*$script,third-party (from ABP)
+!   White: @@.cn/j/*$script,third-party,domain=weather.com.cn (from ABP)
+! Conflict: cn/k/
+!   Block: .cn/k/*$script,third-party (from ABP)
+!   White: @@.cn/k/*$script,third-party,domain=autohome.com.cn|qq.com (from ABP)
+! Conflict: cnbj1.fds.api.xiaomi.com
+!   Block: ||cnbj1.fds.api.xiaomi.com^ (from 1hosts)
+!   White: @@||cnbj1.fds.api.xiaomi.com^ (from 那个谁520)
+! Conflict: code.sms.mob.com
+!   Block: 0.0.0.0 code.sms.mob.com (from 下个ID见)
+!   White: @@||code.sms.mob.com^ (from anti-AD)
+! Conflict: coinadster.com
+!   Block: ||coinadster.com^ (from 1hosts)
+!   White: @@||coinadster.com^$script,stylesheet,xmlhttprequest,other,image,domain=coinadster.com (from GOODBYEADS)
+! Conflict: collect.hupu.com
+!   Block: ||collect.hupu.com^ (from AdBlockDNSFilters1)
+!   White: @@||collect.hupu.com^ (from 那个谁520)
+! Conflict: com/interstitial.js
+!   Block: .com/*interstitial*.js$third-party,script (from ABP)
+!   White: @@.com/*interstitial*.js$domain=reddit.com (from ABP)
+! Conflict: community.image.video.qpic.cn
+!   Block: 0.0.0.0 community.image.video.qpic.cn (from 那个谁520)
+!   White: @@||community.image.video.qpic.cn^ (from 那个谁520)
+! Conflict: conf.hpplay.cn
+!   Block: ||conf.hpplay.cn^ (from 秋风的规则)
+!   White: @@||conf.hpplay.cn^ (from DD自用)
+! Conflict: config.cmpassport.com
+!   Block: ||config.cmpassport.com^ (from 1hosts)
+!   White: @@||config.cmpassport.com^ (from 那个谁520)
+! Conflict: connatix.com
+!   Block: ||connatix.com^$third-party,domain=~accuweather.com|~businessinsider.de|~bz-berlin.de|~cheddar.tv|~deadline.com|~elnuevoherald.com|~finanzen.net|~fitbook.de|~heraldsun.com|~hollywoodreporter.com|~huffpost.com|~lmaoden.tv|~loot.tv|~miamiherald.com|~myhomebook.de|~olhardigital.com.br|~petbook.de|~sacbee.com|~stylebook.de|~techbook.de|~travelbook.de|~welt.de (from ABP)
+!   White: @@||connatix.com$domain=babycenter.com (from GOODBYEADS)
+! Conflict: content.ingbank.pl
+!   Block: ||content.ingbank.pl^ (from GOODBYEADS)
+!   White: @@||content.ingbank.pl^$xmlhttprequest,image,domain=ingksiegowosc.pl (from GOODBYEADS)
+! Conflict: convertexperiments.com
+!   Block: ||convertexperiments.com^ (from 1hosts)
+!   White: @@||convertexperiments.com^$domain=skratchlabs.com (from GOODBYEADS)
+! Conflict: corneey.com
+!   Block: ||corneey.com^ (from Ad-set-hosts)
+!   White: @@||corneey.com^$generichide (from GOODBYEADS)
+! Conflict: count.mail.163.com
+!   Block: 0.0.0.0 count.mail.163.com (from 下个ID见)
+!   White: @@||count.mail.163.com^ (from 那个谁520)
+! Conflict: cpro.baidu.com
+!   Block: 0.0.0.0 cpro.baidu.com (from 下个ID见)
+!   White: @@||cpro.baidu.com^$script,domain=rjno1.com (from GOODBYEADS)
+! Conflict: cps.kaola.com
+!   Block: ||cps.kaola.com^ (from Ad-set-hosts)
+!   White: @@||cps.kaola.com^ (from 那个谁520)
+! Conflict: cpu.baidu.com
+!   Block: ||cpu.baidu.com^$third-party (from ABP)
+!   White: @@||cpu.baidu.com^ (from 那个谁520)
+! Conflict: cpucdn.baidu.com
+!   Block: ||cpucdn.baidu.com^ (from 大萌主)
+!   White: @@||cpucdn.baidu.com^ (from 那个谁520)
+! Conflict: cqcounter.com
+!   Block: ||cqcounter.com^ (from 1hosts)
+!   White: @@||cqcounter.com^$domain=cqcounter.com (from GOODBYEADS)
+! Conflict: cracking.org
+!   Block: ||cracking.org^ (from AdBlock DNS Filters)
+!   White: @@||cracking.org^$generichide (from GOODBYEADS)
+! Conflict: cre.dp.sina.cn
+!   Block: ||cre.dp.sina.cn^ (from 1hosts)
+!   White: @@||cre.dp.sina.cn^ (from 那个谁520)
+! Conflict: crl4.digicert.com
+!   Block: 0.0.0.0 crl4.digicert.com (from 那个谁520)
+!   White: @@||crl4.digicert.com^ (from BlueSkyXN)
+! Conflict: crm-cdn.peek-cloppenburg.com
+!   Block: ||crm-cdn.peek-cloppenburg.com^ (from AdBlock DNS Filters)
+!   White: @@||crm-cdn.peek-cloppenburg.com^ (from Menghuibanxian)
+! Conflict: csi.gstatic.com
+!   Block: ||csi.gstatic.com^ (from AdBlockDNSFilters1)
+!   White: @@||csi.gstatic.com^ (from 那个谁520)
+! Conflict: css-load.com
+!   Block: ||css-load.com^$document,popup (from ABP)
+!   White: @@||css-load.com^$stealth=referrer (from GOODBYEADS)
+! Conflict: cxense.com
+!   Block: ||cxense.com^ (from 1hosts)
+!   White: @@||cxense.com^$domain=ikea.com (from GOODBYEADS)
+! Conflict: d.gdt.qq.com
+!   Block: 0.0.0.0 d.gdt.qq.com (from 下个ID见)
+!   White: @@||d.gdt.qq.com^ (from Menghuibanxian)
+! Conflict: d.ifengimg.com
+!   Block: ||d.ifengimg.com^ (from Ad-set-hosts)
+!   White: @@||d.ifengimg.com^ (from 那个谁520)
+! Conflict: d.line-scdn.net//torimochi.js//torimochi.js
+!   Block: ||d.line-scdn.net/*/torimochi.js/*/torimochi.js$script,redirect=googletagservices-gpt,domain=line.me (from ABP)
+!   White: @@||d.line-scdn.net/*/torimochi.js/*/torimochi.js$script,domain=line.me (from GOODBYEADS)
+! Conflict: d.toutiao.com
+!   Block: ||d.toutiao.com^ (from 大萌主)
+!   White: @@||d.toutiao.com^ (from 那个谁520)
+! Conflict: d13nu0oomnx5ti.cloudfront.net
+!   Block: ||d13nu0oomnx5ti.cloudfront.net^ (from GOODBYEADS)
+!   White: @@||d13nu0oomnx5ti.cloudfront.net^$domain=rethmic.com (from GOODBYEADS)
+! Conflict: d192r5l88wrng7.cloudfront.net
+!   Block: ||d192r5l88wrng7.cloudfront.net^ (from 1hosts)
+!   White: @@||d192r5l88wrng7.cloudfront.net^$subdocument,domain=bowfile.com (from GOODBYEADS)
+! Conflict: d1z2jf7jlzjs58.cloudfront.net
+!   Block: ||d1z2jf7jlzjs58.cloudfront.net^ (from 1hosts)
+!   White: @@||d1z2jf7jlzjs58.cloudfront.net^ (from 那个谁520)
+! Conflict: d2na2p72vtqyok.cloudfront.net
+!   Block: ||d2na2p72vtqyok.cloudfront.net^ (from 1hosts)
+!   White: @@||d2na2p72vtqyok.cloudfront.net^ (from 那个谁520)
+! Conflict: d2zf5gu5e5mp87.cloudfront.net
+!   Block: ||d2zf5gu5e5mp87.cloudfront.net^ (from 1hosts)
+!   White: @@||d2zf5gu5e5mp87.cloudfront.net^$script,domain=ebaticalfel.com (from ABP)
+! Conflict: d3lppnezw695ey.cloudfront.net
+!   Block: ||d3lppnezw695ey.cloudfront.net^ (from 1hosts)
+!   White: @@||d3lppnezw695ey.cloudfront.net^$xmlhttprequest,domain=ipacrack.com (from GOODBYEADS)
+! Conflict: da.mmarket.com
+!   Block: 0.0.0.0 da.mmarket.com (from 下个ID见)
+!   White: @@||da.mmarket.com^ (from 那个谁520)
+! Conflict: data.adxcel-ec2.com
+!   Block: ||data.adxcel-ec2.com^ (from Ad-set-hosts)
+!   White: @@||data.adxcel-ec2.com^$image,domain=laguardia.edu (from GOODBYEADS)
+! Conflict: data.bilibili.com
+!   Block: ||data.bilibili.com^ (from AdBlockDNSFilters1)
+!   White: @@||data.bilibili.com^ (from 那个谁520)
+! Conflict: data.digital.costco.ca
+!   Block: ||data.digital.costco.ca^ (from Ad-set-hosts)
+!   White: @@||data.digital.costco.ca^ (from Menghuibanxian)
+! Conflict: data.digital.costco.com
+!   Block: ||data.digital.costco.com^ (from Ad-set-hosts)
+!   White: @@||data.digital.costco.com^ (from Menghuibanxian)
+! Conflict: data.flurry.com
+!   Block: ||data.flurry.com^ (from 逆向涉猎)
+!   White: @@||data.flurry.com^ (from DD自用)
+! Conflict: data.mistat.intl.xiaomi.com
+!   Block: ||data.mistat.intl.xiaomi.com^$important (from Custom Blocklist)
+!   White: @@||data.mistat.intl.xiaomi.com^ (from 那个谁520)
+! Conflict: data.mistat.xiaomi.com
+!   Block: ||data.mistat.xiaomi.com^ (from 秋风的规则)
+!   White: @@||data.mistat.xiaomi.com^$app=com.tencent.mm (from GOODBYEADS)
+! Conflict: data.orders.costco.com
+!   Block: ||data.orders.costco.com^ (from 1hosts)
+!   White: @@||data.orders.costco.com^ (from Menghuibanxian)
+! Conflict: data.sec.miui.com
+!   Block: 0.0.0.0 data.sec.miui.com (from 下个ID见)
+!   White: @@||data.sec.miui.com^ (from GOODBYEADS)
+! Conflict: data.service.paypal.com
+!   Block: ||data.service.paypal.com^ (from Ad-set-hosts)
+!   White: @@||data.service.paypal.com^ (from GOODBYEADS)
+! Conflict: data.vod.itc.cn
+!   Block: ||data.vod.itc.cn^ (from Ad-set-hosts)
+!   White: @@||data.vod.itc.cn^ (from 那个谁520)
+! Conflict: datadoghq-browser-agent.com
+!   Block: ||datadoghq-browser-agent.com^ (from 1hosts)
+!   White: @@||datadoghq-browser-agent.com^$script,domain=bbcgoodfood.com|cdn.spatialbuzz.com|dashboard.getdriven.app|espn.com|goindigo.in|hungryroot.com|usa.experian.com (from GOODBYEADS)
+! Conflict: dataprajna.net
+!   Block: ||dataprajna.net^ (from Ad-set-hosts)
+!   White: @@||dataprajna.net^ (from 那个谁520)
+! Conflict: dc.sigmob.cn
+!   Block: ||dc.sigmob.cn^ (from 秋风的规则)
+!   White: @@||dc.sigmob.cn^ (from 那个谁520)
+! Conflict: dcbbwymp1bhlf.cloudfront.net
+!   Block: ||dcbbwymp1bhlf.cloudfront.net^ (from 1hosts)
+!   White: @@||dcbbwymp1bhlf.cloudfront.net^$script,domain=uploadmall.com (from GOODBYEADS)
+! Conflict: ddzswov1e84sp.cloudfront.net
+!   Block: ||ddzswov1e84sp.cloudfront.net^ (from 1hosts)
+!   White: @@||ddzswov1e84sp.cloudfront.net^$script,domain=free-content.pro (from GOODBYEADS)
+! Conflict: de.pandora.xiaomi.com
+!   Block: 0.0.0.0 de.pandora.xiaomi.com (from 下个ID见)
+!   White: @@||de.pandora.xiaomi.com^ (from 那个谁520)
+! Conflict: defaultts.tc.qq.com
+!   Block: 0.0.0.0 defaultts.tc.qq.com (from 那个谁520)
+!   White: @@||defaultts.tc.qq.com^ (from 那个谁520)
+! Conflict: destyy.com
+!   Block: ||destyy.com^ (from GOODBYEADS)
+!   White: @@||destyy.com^$generichide (from GOODBYEADS)
+! Conflict: dev.visualwebsiteoptimizer.com
+!   Block: ||dev.visualwebsiteoptimizer.com^ (from 1hosts)
+!   White: @@||dev.visualwebsiteoptimizer.com^$script,xmlhttprequest,domain=dominos.jp|dominos.com.my|dominos.com.sg|dominoslk.com (from GOODBYEADS)
+! Conflict: device-api.urbanairship.com
+!   Block: ||device-api.urbanairship.com^ (from Ad-set-hosts)
+!   White: @@||device-api.urbanairship.com^$app=com.caribou.caribouapp (from GOODBYEADS)
+! Conflict: dftoutiao.com
+!   Block: ||dftoutiao.com^ (from 1hosts)
+!   White: @@||dftoutiao.com^ (from 那个谁520)
+! Conflict: dig.bdurl.net
+!   Block: ||dig.bdurl.net^$important (from 广告规则)
+!   White: @@||dig.bdurl.net^ (from 那个谁520)
+! Conflict: dig.lianjia.com
+!   Block: ||dig.lianjia.com^ (from 1hosts)
+!   White: @@||dig.lianjia.com^ (from DD自用)
+! Conflict: dig.zjurl.cn
+!   Block: ||dig.zjurl.cn^ (from 广告规则)
+!   White: @@||dig.zjurl.cn^ (from 那个谁520)
+! Conflict: dimg04.c-ctrip.com
+!   Block: 0.0.0.0 dimg04.c-ctrip.com (from 下个ID见)
+!   White: @@||dimg04.c-ctrip.com^ (from 那个谁520)
+! Conflict: dinamalar.com
+!   Block: dinamalar.com$$script[wildcard="*document.getElementById*.style.display=*$*"][min-length="200"][max-length="1000"] (from AdBlockDNSFilters2)
+!   White: @@||dinamalar.com^$generichide (from GOODBYEADS)
+! Conflict: dingit.tv
+!   Block: ||dingit.tv^ (from 1hosts)
+!   White: @@||dingit.tv^$generichide (from GOODBYEADS)
+! Conflict: dir.minigame.qq.com
+!   Block: 0.0.0.0 dir.minigame.qq.com (from 下个ID见)
+!   White: @@||dir.minigame.qq.com^ (from 那个谁520)
+! Conflict: disqus.com
+!   Block: ||disqus.com^ (from Ad-set-hosts)
+!   White: @@||disqus.com^$script,domain=wccftech.com (from GOODBYEADS)
+! Conflict: dl.360safe.com
+!   Block: ||dl.360safe.com^ (from Ad-set-hosts)
+!   White: @@||dl.360safe.com^ (from 那个谁520)
+! Conflict: dl.reg.163.com
+!   Block: ||dl.reg.163.com^ (from DD自用)
+!   White: @@||dl.reg.163.com^ (from GOODBYEADS)
+! Conflict: dl.zuimeitianqi.com
+!   Block: 0.0.0.0 dl.zuimeitianqi.com (from 那个谁520)
+!   White: @@||dl.zuimeitianqi.com^ (from ABP)
+! Conflict: dldir3.qq.com
+!   Block: ||dldir3.qq.com^ (from 那个谁520)
+!   White: @@||dldir3.qq.com^ (from 那个谁520)
+! Conflict: dm.toutiao.com
+!   Block: ||dm.toutiao.com^ (from 秋风的规则)
+!   White: @@||dm.toutiao.com^ (from 那个谁520)
+! Conflict: dnet.mb.qq.com
+!   Block: 0.0.0.0 dnet.mb.qq.com (from 那个谁520)
+!   White: @@||dnet.mb.qq.com^ (from 那个谁520)
+! Conflict: dns.iqiyi.com
+!   Block: 0.0.0.0 dns.iqiyi.com (from 10007_auto)
+!   White: @@||dns.iqiyi.com^ (from 那个谁520)
+! Conflict: do0od.com
+!   Block: ||do0od.com^ (from Ad-set-hosts)
+!   White: @@||do0od.com^$generichide (from GOODBYEADS)
+! Conflict: doh.dns.apple.com
+!   Block: ||doh.dns.apple.com^$important (from Custom Blocklist)
+!   White: @@||doh.dns.apple.com^ (from BlueSkyXN)
+! Conflict: dolldivine.com
+!   Block: dolldivine.com$$script:contains(adrecover.com) (from AdBlockDNSFilters2)
+!   White: @@||dolldivine.com^$generichide (from GOODBYEADS)
+! Conflict: dood.watch
+!   Block: ||dood.watch^ (from Ad-set-hosts)
+!   White: @@||dood.watch^$subdocument (from GOODBYEADS)
+! Conflict: dood.yt
+!   Block: ||dood.yt^ (from Ad-set-hosts)
+!   White: @@||dood.yt^$generichide (from GOODBYEADS)
+! Conflict: doods.to
+!   Block: ||doods.to^$replace=/<head>([\s\S]*?)(\,)/<head><script>try{document.currentScript?.remove();(()=>{const t={apply:(t\$2n\$2e)=>{if(e[0]&&null===e[0].html?.detected&&"function"==typeof e[0].html?.instance?.start&&"function"==typeof e[0].env?.instance?.start&&"function"==typeof e[0].http?.instance?.start){const t=function(){Object.keys(this).forEach((t=>{"boolean"==typeof this[t]&&(this[t]=!1)}))};["html"\$2"env"\$2"http"].forEach((n=>{e[0][n].instance.start=t}))}return Reflect.apply(t\$2n\$2e)}};window.Object.keys=new Proxy(window.Object.keys\$2t)})();}catch(e){}<\/script>\$1\$2/,document,subdocument (from AdBlockDNSFilters2)
+!   White: @@||doods.to^$generichide (from GOODBYEADS)
+! Conflict: dooood.com
+!   Block: ||dooood.com^ (from Ad-set-hosts)
+!   White: @@||dooood.com^$generichide (from GOODBYEADS)
+! Conflict: dorado.xiaojukeji.com
+!   Block: ||dorado.xiaojukeji.com^ (from 1hosts)
+!   White: @@||dorado.xiaojukeji.com^ (from 那个谁520)
+! Conflict: dotomi.com
+!   Block: ||dotomi.com^$third-party (from ABP)
+!   White: @@||dotomi.com^$domain=bradsdeals.com|coupons.com|dealigg.com|dealnews.com|goodsearch.com|groupon.com|hotukdeals.com|moneysavingexpert.com|offers.com|retailmenot.com|slickdeals.net (from GOODBYEADS)
+! Conflict: doubleclick.net
+!   Block: ||doubleclick.net^$popup (from ABP)
+!   White: @@||doubleclick.net^$xmlhttprequest,domain=yyets.click (from GOODBYEADS)
+! Conflict: down.360safe.com
+!   Block: ||down.360safe.com^ (from Ad-set-hosts)
+!   White: @@down.360safe.com^ (from DD自用)
+! Conflict: down.sandai.net
+!   Block: ||down.sandai.net^ (from Ad-set-hosts)
+!   White: @@||down.sandai.net^ (from 那个谁520)
+! Conflict: download.uc.cn
+!   Block: 0.0.0.0 download.uc.cn (from 10007_auto)
+!   White: @@||download.uc.cn^ (from DD自用)
+! Conflict: dpbolvw.net
+!   Block: ||dpbolvw.net^ (from Ad-set-hosts)
+!   White: @@||dpbolvw.net^$domain=bradsdeals.com|coupons.com|dealigg.com|dealnews.com|goodsearch.com|groupon.com|hotukdeals.com|moneysavingexpert.com|offers.com|retailmenot.com|slickdeals.net (from GOODBYEADS)
+! Conflict: dpm.demdex.net
+!   Block: ||dpm.demdex.net^ (from 那个谁520)
+!   White: @@||dpm.demdex.net^$app=com.appseleration.android.selfcare (from GOODBYEADS)
+! Conflict: dragate-cn.dc.heytapmobi.com
+!   Block: ||dragate-cn.dc.heytapmobi.com^ (from 1hosts)
+!   White: @@||dragate-cn.dc.heytapmobi.com^ (from 那个谁520)
+! Conflict: dragate.dc.oppomobile.com
+!   Block: ||dragate.dc.oppomobile.com^ (from GOODBYEADS)
+!   White: @@||dragate.dc.oppomobile.com^ (from 那个谁520)
+! Conflict: dreport.meituan.net
+!   Block: ||dreport.meituan.net^$important (from Custom Blocklist)
+!   White: @@||dreport.meituan.net^ (from 那个谁520)
+! Conflict: dropgalaxy.com
+!   Block: ||dropgalaxy.com^$replace=/(\\$\(".*?"\)\.val\()'1'(\);)/\$1'0'\$2/,~script,~xmlhttprequest,~stylesheet (from AdBlockDNSFilters2)
+!   White: @@||dropgalaxy.com^$generichide (from GOODBYEADS)
+! Conflict: dsp.fcbox.com
+!   Block: ||dsp.fcbox.com^ (from 秋风的规则)
+!   White: @@||dsp.fcbox.com^ (from 那个谁520)
+! Conflict: dss0.bdstatic.com
+!   Block: ||dss0.bdstatic.com^$important (from Custom Blocklist)
+!   White: @@||dss0.bdstatic.com^ (from 那个谁520)
+! Conflict: dss2.bdstatic.com
+!   Block: 0.0.0.0 dss2.bdstatic.com (from 下个ID见)
+!   White: @@||dss2.bdstatic.com^ (from 那个谁520)
+! Conflict: du.163.com
+!   Block: 0.0.0.0 du.163.com (from 那个谁520)
+!   White: @@||du.163.com^ (from 那个谁520)
+! Conflict: duapps.com
+!   Block: ||duapps.com^ (from 1hosts)
+!   White: @@||duapps.com^ (from 那个谁520)
+! Conflict: duiba.com.cn
+!   Block: ||duiba.com.cn^ (from 1hosts)
+!   White: @@||duiba.com.cn^ (from 那个谁520)
+! Conflict: duote.com
+!   Block: ||duote.com^ (from Ad-set-hosts)
+!   White: @@||duote.com^ (from 那个谁520)
+! Conflict: dvdgayonline.com
+!   Block: ||dvdgayonline.com^ (from 1hosts)
+!   White: @@||dvdgayonline.com^$generichide (from GOODBYEADS)
+! Conflict: e.customeriomail.com
+!   Block: ||e.customeriomail.com^ (from Ad-set-hosts)
+!   White: @@||e.customeriomail.com^ (from Menghuibanxian)
+! Conflict: e.kuaishou.com
+!   Block: ||e.kuaishou.com^ (from 大萌主)
+!   White: @@||e.kuaishou.com^ (from Menghuibanxian)
+! Conflict: e.weather.com.cn
+!   Block: ||e.weather.com.cn^ (from AdBlockDNSFilters1)
+!   White: @@||e.weather.com.cn^ (from 那个谁520)
+! Conflict: ecma.bdimg.com
+!   Block: 0.0.0.0 ecma.bdimg.com (from 下个ID见)
+!   White: @@||ecma.bdimg.com^ (from Menghuibanxian)
+! Conflict: ecmb.bdimg.com
+!   Block: 0.0.0.0 ecmb.bdimg.com (from 下个ID见)
+!   White: @@||ecmb.bdimg.com^ (from 那个谁520)
+! Conflict: eco.taobao.com
+!   Block: ||eco.taobao.com^ (from 大萌主)
+!   White: @@||eco.taobao.com^ (from 那个谁520)
+! Conflict: effect.snssdk.com
+!   Block: ||effect.snssdk.com^ (from 广告规则)
+!   White: @@||effect.snssdk.com^ (from DD自用)
+! Conflict: eloqua.com
+!   Block: ||eloqua.com^ (from 1hosts)
+!   White: @@||eloqua.com^$domain=forms.progress.com (from GOODBYEADS)
+! Conflict: emathhelp.net
+!   Block: emathhelp.net$$script[tag-content="if (window.TextDecoder)return(new window.TextDecoder(""utf-8"")).decode("][max-length="30000"] (from AdBlockDNSFilters2)
+!   White: @@||emathhelp.net^$csp (from GOODBYEADS)
+! Conflict: embed.ex.co
+!   Block: ||embed.ex.co^$third-party (from ABP)
+!   White: @@||embed.ex.co^$xmlhttprequest,domain=espncricinfo.com (from GOODBYEADS)
+! Conflict: emjcd.com
+!   Block: ||emjcd.com^ (from Ad-set-hosts)
+!   White: @@||emjcd.com^$domain=bradsdeals.com|coupons.com|dealigg.com|dealnews.com|goodsearch.com|groupon.com|hotukdeals.com|moneysavingexpert.com|offers.com|retailmenot.com|slickdeals.net (from GOODBYEADS)
+! Conflict: emoji.uc.cn
+!   Block: 0.0.0.0 emoji.uc.cn (from 那个谁520)
+!   White: @@||emoji.uc.cn^ (from 那个谁520)
+! Conflict: ename.com.cn
+!   Block: ||ename.com.cn^ (from AdBlockDNSFilters1)
+!   White: @@||ename.com.cn^ (from 那个谁520)
+! Conflict: ename.net
+!   Block: ||ename.net^ (from AdBlockDNSFilters1)
+!   White: @@||ename.net^ (from 那个谁520)
+! Conflict: enrichgw.10010.com
+!   Block: ||enrichgw.10010.com^ (from 1hosts)
+!   White: @@||enrichgw.10010.com^ (from 那个谁520)
+! Conflict: ens.nzz.ch
+!   Block: ||ens.nzz.ch^ (from Ad-set-hosts)
+!   White: @@||ens.nzz.ch^$~third-party (from GOODBYEADS)
+! Conflict: entitlements.jwplayer.com
+!   Block: ||entitlements.jwplayer.com^ (from 1hosts)
+!   White: @@||entitlements.jwplayer.com^$xmlhttprequest,domain=iheart.com (from GOODBYEADS)
+! Conflict: eporner.com
+!   Block: ||eporner.com^$subdocument,~third-party (from ABP)
+!   White: @@||eporner.com^$~third-party (from ABP)
+! Conflict: ereg.adobe.com
+!   Block: ||ereg.adobe.com^ (from 1hosts)
+!   White: @@||ereg.adobe.com^ (from 那个谁520)
+! Conflict: err.taobao.com
+!   Block: ||err.taobao.com^ (from 1hosts)
+!   White: @@||err.taobao.com^ (from 那个谁520)
+! Conflict: etl-xlmc-ssl.sandai.net
+!   Block: 127.0.0.1 etl-xlmc-ssl.sandai.net (from 下个ID见)
+!   White: @@||etl-xlmc-ssl.sandai.net^ (from 那个谁520)
+! Conflict: ev.tpocdm.com
+!   Block: ||ev.tpocdm.com^ (from 1hosts)
+!   White: @@||ev.tpocdm.com^$xmlhttprequest,domain=wowma.jp (from GOODBYEADS)
+! Conflict: events.data.microsoft.com
+!   Block: ||events.data.microsoft.com^ (from Ad-set-hosts)
+!   White: @@||events.data.microsoft.com^ (from 那个谁520)
+! Conflict: evtubescms.phncdn.com
+!   Block: ||evtubescms.phncdn.com^ (from 大萌主)
+!   White: @@||evtubescms.phncdn.com^ (from 那个谁520)
+! Conflict: exoclick.com
+!   Block: ||exoclick.com^$popup (from ABP)
+!   White: @@||exoclick.com$domain=imgdino.com (from GOODBYEADS)
+! Conflict: extreme-ip-lookup.com
+!   Block: ||extreme-ip-lookup.com^ (from Ad-set-hosts)
+!   White: @@||extreme-ip-lookup.com^$script,domain=bulkbarn.ca (from GOODBYEADS)
+! Conflict: f-cashloan.snssdk.com
+!   Block: 0.0.0.0 f-cashloan.snssdk.com (from 下个ID见)
+!   White: @@||f-cashloan.snssdk.com^ (from DD自用)
+! Conflict: f-tra.com
+!   Block: ||f-tra.com^ (from 1hosts)
+!   White: @@||f-tra.com^$script,domain=pokemoncenter-online.com (from GOODBYEADS)
+! Conflict: f.baidu.com/it/u=,&fm=
+!   Block: ||f*.baidu.com/it/u=*,*&fm=$third-party,domain=~hao123.com|~haokan.com|~yoojia.com (from AdBlockDNSFilters2)
+!   White: @@||f*.baidu.com/it/u=*,*&fm=$domain=baidu.com (from 大萌主)
+! Conflict: f10.baidu.com
+!   Block: ||f10.baidu.com^ (from Ad-set-hosts)
+!   White: @@||f10.baidu.com^ (from 那个谁520)
+! Conflict: facebook.com
+!   Block: ||facebook.com^ (from Menghuibanxian)
+!   White: @@||facebook.com^$generichide (from GOODBYEADS)
+! Conflict: faktykaliskie.pl
+!   Block: faktykaliskie.pl$$script[wildcard="*(document.getElementById*babasbmsgx*"][min-length="5000"][max-length="40000"] (from AdBlockDNSFilters2)
+!   White: @@||faktykaliskie.pl^$generichide (from GOODBYEADS)
+! Conflict: fapcat.com
+!   Block: ||fapcat.com^$third-party (from ABP)
+!   White: @@||fapcat.com^$~third-party (from ABP)
+! Conflict: fc3tn.baidu.com
+!   Block: ||fc3tn.baidu.com^ (from 1hosts)
+!   White: @@||fc3tn.baidu.com^ (from 那个谁520)
+! Conflict: fc5tn.baidu.com
+!   Block: 0.0.0.0 fc5tn.baidu.com (from 下个ID见)
+!   White: @@||fc5tn.baidu.com^ (from 那个谁520)
+! Conflict: feed-image.baidu.com
+!   Block: ||feed-image.baidu.com^ (from 秋风的规则)
+!   White: @@||feed-image.baidu.com^ (from DD自用)
+! Conflict: feedback.miui.com
+!   Block: ||feedback.miui.com^ (from AdBlockDNSFilters1)
+!   White: @@||feedback.miui.com^ (from 那个谁520)
+! Conflict: festyy.com
+!   Block: ||festyy.com^ (from GOODBYEADS)
+!   White: @@||festyy.com^$generichide (from GOODBYEADS)
+! Conflict: fexclick.baidu.com
+!   Block: 0.0.0.0 fexclick.baidu.com (from 下个ID见)
+!   White: @@||fexclick.baidu.com^ (from 那个谁520)
+! Conflict: file-upload.com
+!   Block: file-upload.com$$script[tag-content="getElementById(""adblockinfo"")"][max-length="300"] (from AdBlockDNSFilters2)
+!   White: @@||file-upload.com^$generichide (from GOODBYEADS)
+! Conflict: filmweb.pl
+!   Block: filmweb.pl$$script[tag-content=".name)throw h=""ABP"","][max-length="7000"] (from AdBlockDNSFilters2)
+!   White: @@||filmweb.pl^$elemhide,important (from GOODBYEADS)
+! Conflict: fingerprintjs.com
+!   Block: ||fingerprintjs.com^ (from GOODBYEADS)
+!   White: @@||fingerprintjs.com^$generichide (from GOODBYEADS)
+! Conflict: firebase-settings.crashlytics.com
+!   Block: 0.0.0.0 firebase-settings.crashlytics.com (from 下个ID见)
+!   White: @@||firebase-settings.crashlytics.com^ (from BlueSkyXN)
+! Conflict: firebaseremoteconfig.googleapis.com
+!   Block: ||firebaseremoteconfig.googleapis.com^ (from 那个谁520)
+!   White: @@||firebaseremoteconfig.googleapis.com^$stealth=3p-cache,domain=app.smclinic.ru (from GOODBYEADS)
+! Conflict: flag.lab.amplitude.com
+!   Block: ||flag.lab.amplitude.com^ (from 1hosts)
+!   White: @@||flag.lab.amplitude.com^$domain=watch.outsideonline.com (from GOODBYEADS)
+! Conflict: flash.sec.intl.miui.com
+!   Block: ||flash.sec.intl.miui.com^ (from 1hosts)
+!   White: @@||flash.sec.intl.miui.com^ (from 那个谁520)
+! Conflict: flash.sec.miui.com
+!   Block: 0.0.0.0 flash.sec.miui.com (from 下个ID见)
+!   White: @@||flash.sec.miui.com^ (from 那个谁520)
+! Conflict: fls.doubleclick.net
+!   Block: 0.0.0.0 fls.doubleclick.net (from 下个ID见)
+!   White: @@||fls.doubleclick.net^$domain=usanetwork.com (from GOODBYEADS)
+! Conflict: fm.p0y.cn
+!   Block: ||fm.p0y.cn^ (from 那个谁520)
+!   White: @@||fm.p0y.cn^$domain=ipinyou.com.cn (from GOODBYEADS)
+! Conflict: fonts.googleapis.com
+!   Block: 0.0.0.0 fonts.googleapis.com (from 那个谁520)
+!   White: @@||fonts.googleapis.com^ (from 那个谁520)
+! Conflict: forexprostools.com
+!   Block: ||forexprostools.com^$third-party (from ABP)
+!   White: @@||forexprostools.com^$subdocument,domain=fx-rashinban.com (from GOODBYEADS)
+! Conflict: forms.anthology.com
+!   Block: ||forms.anthology.com^ (from Ad-set-hosts)
+!   White: @@||forms.anthology.com^$domain=anthology.com (from GOODBYEADS)
+! Conflict: forum.release-apk.com
+!   Block: ||forum.release-apk.com^$replace=/\(\n.*?window\.getComputedStyle[\s\S]*?\) \?/(!0) ?/,document (from AdBlockDNSFilters2)
+!   White: @@||forum.release-apk.com^$generichide (from GOODBYEADS)
+! Conflict: fotoblogia.pl
+!   Block: ||fotoblogia.pl^$replace=/(<VAST[\s\S]*?>)[\s\S]*<\/VAST>/\$1<\/VAST>/,xmlhttprequest,other,~script (from AdBlockDNSFilters2)
+!   White: @@||fotoblogia.pl^$generichide (from GOODBYEADS)
+! Conflict: foundation.youdao.com
+!   Block: ||foundation.youdao.com^ (from 1hosts)
+!   White: @@||foundation.youdao.com^ (from DD自用)
+! Conflict: fourier-videoclip-eu.allawnos.com
+!   Block: ||fourier-videoclip-eu.allawnos.com^ (from AdBlock DNS Filters)
+!   White: @@||fourier-videoclip-eu.allawnos.com^ (from 那个谁520)
+! Conflict: fourier-videoclip-in.allawnos.com
+!   Block: ||fourier-videoclip-in.allawnos.com^ (from AdBlock DNS Filters)
+!   White: @@||fourier-videoclip-in.allawnos.com^ (from 那个谁520)
+! Conflict: fp-it.fengkongcloud.com
+!   Block: ||fp-it.fengkongcloud.com^ (from 逆向涉猎)
+!   White: @@||fp-it.fengkongcloud.com^ (from GOODBYEADS)
+! Conflict: fp-upload.dun.163.com
+!   Block: ||fp-upload.dun.163.com^ (from 逆向涉猎)
+!   White: @@||fp-upload.dun.163.com^ (from 那个谁520)
+! Conflict: fp.tongdun.net
+!   Block: 0.0.0.0 fp.tongdun.net  #同盾科技 (from 下个ID见)
+!   White: @@||fp.tongdun.net^ (from 那个谁520)
+! Conflict: fr.register.xmpush.global.xiaomi.com
+!   Block: ||fr.register.xmpush.global.xiaomi.com^ (from 1hosts)
+!   White: @@||fr.register.xmpush.global.xiaomi.com^ (from 那个谁520)
+! Conflict: fraudmetrix.cn
+!   Block: ||fraudmetrix.cn^ (from 1hosts)
+!   White: @@||fraudmetrix.cn^ (from 那个谁520)
+! Conflict: freebitco.in
+!   Block: ||freebitco.in^ (from 1hosts)
+!   White: @@||freebitco.in^$generichide (from GOODBYEADS)
+! Conflict: freebitcoin.win
+!   Block: freebitcoin.win$$script[wildcard="*popunder_moon_ads*adblock*"][max-length="500"] (from AdBlockDNSFilters2)
+!   White: @@||freebitcoin.win^$generichide (from GOODBYEADS)
+! Conflict: friendbuy.com
+!   Block: ||friendbuy.com^ (from Ad-set-hosts)
+!   White: @@||friendbuy.com^$domain=butcherbox.com (from GOODBYEADS)
+! Conflict: frodo.douban.com
+!   Block: 0.0.0.0 frodo.douban.com (from 下个ID见)
+!   White: @@||frodo.douban.com^ (from 那个谁520)
+! Conflict: frosmo.com
+!   Block: ||frosmo.com^ (from 1hosts)
+!   White: @@||frosmo.com^$image,xmlhttprequest,domain=karkkainen.com (from GOODBYEADS)
+! Conflict: ftuapps.dev
+!   Block: ||ftuapps.dev^ (from AdBlock DNS Filters)
+!   White: @@||ftuapps.dev^$generichide (from GOODBYEADS)
+! Conflict: ftuapps.io
+!   Block: ||ftuapps.io^ (from AdBlock DNS Filters)
+!   White: @@||ftuapps.io^$generichide (from GOODBYEADS)
+! Conflict: fundingchoicesmessages.google.com
+!   Block: ||fundingchoicesmessages.google.com^$third-party (from ABP)
+!   White: @@||fundingchoicesmessages.google.com^$domain=rocketnews24.com|soranews24.com|youpouch.com,stealth=referrer (from GOODBYEADS)
+! Conflict: fvs.io
+!   Block: ||fvs.io^ (from Ad-set-hosts)
+!   White: @@||fvs.io^ (from BlueSkyXN)
+! Conflict: fwmrm.net
+!   Block: ||fwmrm.net^$popup (from ABP)
+!   White: @@||fwmrm.net^$domain=liiga.fi (from GOODBYEADS)
+! Conflict: g.msn.com
+!   Block: ||g.msn.com^ (from GOODBYEADS)
+!   White: @@||g.msn.com^ (from 那个谁520)
+! Conflict: gadzetomania.pl
+!   Block: ||gadzetomania.pl^$replace=/(<VAST[\s\S]*?>)[\s\S]*<\/VAST>/\$1<\/VAST>/,xmlhttprequest,other,~script (from AdBlockDNSFilters2)
+!   White: @@||gadzetomania.pl^$generichide (from GOODBYEADS)
+! Conflict: game.bilibili.com
+!   Block: ||game.bilibili.com^ (from 1hosts)
+!   White: @@||game.bilibili.com^ (from 那个谁520)
+! Conflict: game.html5.qq.com
+!   Block: 0.0.0.0 game.html5.qq.com (from 下个ID见)
+!   White: @@||game.html5.qq.com^ (from 那个谁520)
+! Conflict: game.qidian.com
+!   Block: ||game.qidian.com^ (from AdBlockDNSFilters1)
+!   White: @@||game.qidian.com^ (from 那个谁520)
+! Conflict: game.res.meizu.com
+!   Block: 0.0.0.0 game.res.meizu.com (from 下个ID见)
+!   White: @@||game.res.meizu.com^ (from 那个谁520)
+! Conflict: game.weixin.qq.com
+!   Block: ||game.weixin.qq.com^ (from 那个谁520)
+!   White: @@||game.weixin.qq.com^ (from 那个谁520)
+! Conflict: gamedrive.org
+!   Block: ||gamedrive.org^ (from AdBlock DNS Filters)
+!   White: @@||gamedrive.org^$generichide (from GOODBYEADS)
+! Conflict: gamezop.com
+!   Block: ||gamezop.com^$subdocument,third-party (from ABP)
+!   White: @@||gamezop.com^$domain=labgame.io (from GOODBYEADS)
+! Conflict: gateway.kugou.com
+!   Block: 0.0.0.0 gateway.kugou.com (from 下个ID见)
+!   White: @@||gateway.kugou.com^ (from 那个谁520)
+! Conflict: gator.volces.com
+!   Block: ||gator.volces.com^ (from 逆向涉猎)
+!   White: @@||gator.volces.com^ (from 那个谁520)
+! Conflict: gdfp.gifshow.com
+!   Block: ||gdfp.gifshow.com^ (from 秋风的规则)
+!   White: @@||gdfp.gifshow.com^ (from 那个谁520)
+! Conflict: gdtimg.com
+!   Block: ||gdtimg.com^ (from 1hosts)
+!   White: @@||gdtimg.com^ (from 那个谁520)
+! Conflict: gecko.zijieapi.com
+!   Block: 0.0.0.0 gecko.zijieapi.com (from 下个ID见)
+!   White: @@||gecko.zijieapi.com^ (from DD自用)
+! Conflict: geo.query.yahoo.com
+!   Block: 0.0.0.0 geo.query.yahoo.com (from 下个ID见)
+!   White: @@||geo.query.yahoo.com^$xmlhttprequest,domain=tw.autos.yahoo.com|tw.buy.yahoo.com (from GOODBYEADS)
+! Conflict: gestyy.com
+!   Block: ||gestyy.com^ (from AdBlock DNS Filters)
+!   White: @@||gestyy.com^$generichide (from GOODBYEADS)
+! Conflict: get.shouji.sogou.com
+!   Block: ||get.shouji.sogou.com^ (from 1hosts)
+!   White: @@||get.shouji.sogou.com^ (from 那个谁520)
+! Conflict: get.x-link.pl
+!   Block: ||get.x-link.pl^ (from Ad-set-hosts)
+!   White: @@||get.x-link.pl^$generichide (from GOODBYEADS)
+! Conflict: gia.jd.com
+!   Block: 0.0.0.0 gia.jd.com  #礼品卡？也能打开啊 (from 下个ID见)
+!   White: @@||gia.jd.com^ (from DD自用)
+! Conflict: gimg.baidu.com
+!   Block: ||gimg.baidu.com^ (from 那个谁520)
+!   White: @@||gimg*.baidu.com$domain=cz4k.com|czym.com|czzymovie.com (from ABP)
+! Conflict: giraff.io
+!   Block: ||giraff.io^ (from 1hosts)
+!   White: @@||giraff.io^$domain=vs.lv (from GOODBYEADS)
+! Conflict: gk.sina.cn
+!   Block: ||gk.sina.cn^ (from 1hosts)
+!   White: @@||gk.sina.cn^ (from 那个谁520)
+! Conflict: gl.zle.com
+!   Block: ||gl.zle.com^ (from 大萌主)
+!   White: @@||gl.zle.com^ (from 那个谁520)
+! Conflict: globalapi.ad.xiaomi.com
+!   Block: ||globalapi.ad.xiaomi.com^ (from 秋风的规则)
+!   White: @@||globalapi.ad.xiaomi.com^ (from 那个谁520)
+! Conflict: gm.mmstat.com
+!   Block: 0.0.0.0 gm.mmstat.com (from 下个ID见)
+!   White: @@||gm.mmstat.com^ (from DD自用)
+! Conflict: gma.alicdn.com
+!   Block: 0.0.0.0 gma.alicdn.com (from 下个ID见)
+!   White: @@||gma.alicdn.com^ (from GOODBYEADS)
+! Conflict: go-mpulse.net
+!   Block: ||go-mpulse.net^ (from 那个谁520)
+!   White: @@||go-mpulse.net^$domain=costcobusinessdelivery.com (from GOODBYEADS)
+! Conflict: go.bebi.com
+!   Block: ||go.bebi.com^ (from Ad-set-hosts)
+!   White: @@||go.bebi.com^$domain=bluemediafiles.*|bluemediafile.*|bluemediadownload.*|urlbluemedia.*|bluedownload.* (from GOODBYEADS)
+! Conflict: go.rakuten.com
+!   Block: ||go.rakuten.com^ (from Ad-set-hosts)
+!   White: @@||go.rakuten.com^ (from BlueSkyXN)
+! Conflict: go.redirectingat.com
+!   Block: ||go.redirectingat.com^ (from Ad-set-hosts)
+!   White: @@||go.redirectingat.com^$document (from GOODBYEADS)
+! Conflict: google-analytics.com
+!   Block: ||google-analytics.com$third-party (from 大萌主)
+!   White: @@||google-analytics.com^$app=jp.co.sej.app (from GOODBYEADS)
+! Conflict: googleads.g.doubleclick.net
+!   Block: ||googleads.g.doubleclick.net^ (from 秋风的规则)
+!   White: @@||googleads.g.doubleclick.net^$domain=fplstatistics.com (from GOODBYEADS)
+! Conflict: googleads.github.io
+!   Block: ||googleads.github.io^ (from 1hosts)
+!   White: @@||googleads.github.io^$domain=paribucineverse.com (from GOODBYEADS)
+! Conflict: googleads4.g.doubleclick.net
+!   Block: 0.0.0.0 googleads4.g.doubleclick.net (from 下个ID见)
+!   White: @@||googleads4.g.doubleclick.net^$domain=renfei.net (from GOODBYEADS)
+! Conflict: googleadservices.com
+!   Block: ||googleadservices.com^ (from 秋风的规则)
+!   White: @@||googleadservices.com^$domain=google.ae|google.at|google.be|google.by|google.ca|google.ch|google.cl|google.cn|google.co.id|google.co.in|google.co.jp|google.co.th|google.co.uk|google.co.ve|google.co.za|google.com|google.com.ar|google.com.au|google.com.bd|google.com.br|google.com.co|google.com.eg|google.com.hk|google.com.mx|google.com.my|google.com.ng|google.com.pe|google.com.ph|google.com.pk|google.com.sa|google.com.sg|google.com.tr|google.com.tw|google.com.ua|google.com.vn|google.de|google.dk|google.ee|google.es|google.fr|google.gr|google.hu|google.ie|google.it|google.nl|google.no|google.pl|google.pt|google.ro|google.rs|google.ru|google.se|google.sk|google.tn (from GOODBYEADS)
+! Conflict: googlesyndication.com
+!   Block: 0.0.0.0 googlesyndication.com (from 下个ID见)
+!   White: @@||googlesyndication.com^$script,xmlhttprequest,domain=financemonk.net|rtxkeeda.com|houseofblogger.com|dropgalaxy.com|djxmaza.in (from GOODBYEADS)
+! Conflict: googletagmanager.com
+!   Block: ||googletagmanager.com^ (from 大萌主)
+!   White: @@||googletagmanager.com^$domain=addons.opera.com (from GOODBYEADS)
+! Conflict: googletagservices.com
+!   Block: 0.0.0.0 googletagservices.com (from 那个谁520)
+!   White: @@||googletagservices.com^$script,domain=creaders.net (from GOODBYEADS)
+! Conflict: grpc.biliapi.net
+!   Block: 0.0.0.0 grpc.biliapi.net (from 那个谁520)
+!   White: @@||grpc.biliapi.net^ (from 那个谁520)
+! Conflict: gsp0.baidu.com
+!   Block: ||gsp0.baidu.com^ (from 逆向涉猎)
+!   White: @@||gsp0.baidu.com^ (from 那个谁520)
+! Conflict: gsp1.baidu.com
+!   Block: 0.0.0.0 gsp1.baidu.com (from 下个ID见)
+!   White: @@||gsp1.baidu.com^ (from 那个谁520)
+! Conflict: guanjia.qq.com
+!   Block: ||guanjia.qq.com^ (from 那个谁520)
+!   White: @@||guanjia.qq.com^ (from 那个谁520)
+! Conflict: guce.advertising.com
+!   Block: ||guce.advertising.com^ (from Ad-set-hosts)
+!   White: @@||guce.advertising.com^ (from Menghuibanxian)
+! Conflict: guid.tpns.tencent.com
+!   Block: ||guid.tpns.tencent.com^ (from 逆向涉猎)
+!   White: @@||guid.tpns.tencent.com^ (from 那个谁520)
+! Conflict: gumtree.com
+!   Block: ||gumtree.com^ (from Ad-set-hosts)
+!   White: @@||gumtree.com^$stealth=ip (from GOODBYEADS)
+! Conflict: gvt2.com
+!   Block: ||gvt2.com^ (from Ad-set-hosts)
+!   White: @@||gvt2.com^ (from BlueSkyXN)
+! Conflict: gw.365you.com
+!   Block: 0.0.0.0 gw.365you.com (from 那个谁520)
+!   White: @@||gw.365you.com^ (from Menghuibanxian)
+! Conflict: gx-target-experiments-frontend-api.gx.nvidia.com
+!   Block: ||gx-target-experiments-frontend-api.gx.nvidia.com^ (from GOODBYEADS)
+!   White: @@||gx-target-experiments-frontend-api.gx.nvidia.com^ (from 那个谁520)
+! Conflict: h-adashx.ut.dingtalk.com
+!   Block: ||h-adashx.ut.dingtalk.com^ (from DD自用)
+!   White: @@||h-adashx.ut.dingtalk.com^ (from anti-AD)
+! Conflict: h-adashx.ut.taobao.com
+!   Block: ||h-adashx.ut.taobao.com^ (from 秋风的规则)
+!   White: @@||h-adashx.ut.taobao.com^ (from 那个谁520)
+! Conflict: h-cast.jp
+!   Block: ||h-cast.jp^ (from 1hosts)
+!   White: @@||h-cast.jp^$script,domain=bookoffonline.co.jp (from GOODBYEADS)
+! Conflict: h.trace.qq.com
+!   Block: ||h.trace.qq.com^ (from 秋风的规则)
+!   White: @@||h.trace.qq.com^ (from 那个谁520)
+! Conflict: h35.ynodd.cn
+!   Block: ||h35.ynodd.cn^ (from 那个谁520)
+!   White: @@||h35.ynodd.cn^$ (from 那个谁520)
+! Conflict: h5.gdt.qq.com
+!   Block: ||h5.gdt.qq.com^ (from 逆向涉猎)
+!   White: @@||h5.gdt.qq.com^ (from Menghuibanxian)
+! Conflict: h5.hpplay.com.cn
+!   Block: ||h5.hpplay.com.cn^ (from 秋风的规则)
+!   White: @@||h5.hpplay.com.cn^ (from DD自用)
+! Conflict: h5.mse.360.cn
+!   Block: ||h5.mse.360.cn^ (from AdBlockDNSFilters1)
+!   White: @@||h5.mse.360.cn^ (from 那个谁520)
+! Conflict: haohuo.snssdk.com
+!   Block: ||haohuo.snssdk.com^ (from 那个谁520)
+!   White: @@||haohuo.snssdk.com^ (from 那个谁520)
+! Conflict: hb.afl.rakuten.co.jp
+!   Block: ||hb.afl.rakuten.co.jp^ (from Ad-set-hosts)
+!   White: @@||hb.afl.rakuten.co.jp^ (from Menghuibanxian)
+! Conflict: hclips.com
+!   Block: hclips.com$$script[tag-content="neverblock"][max-length="7000"] (from AdBlockDNSFilters2)
+!   White: @@||hclips.com^ (from 那个谁520)
+! Conflict: heatmap.it
+!   Block: ||heatmap.it^ (from 1hosts)
+!   White: @@||heatmap.it^$domain=heatmap.com (from GOODBYEADS)
+! Conflict: hectorstatic.baidu.com
+!   Block: ||hectorstatic.baidu.com^ (from 大萌主)
+!   White: @@||hectorstatic.baidu.com^ (from 那个谁520)
+! Conflict: hermes.hupu.com
+!   Block: ||hermes.hupu.com^ (from 1hosts)
+!   White: @@||hermes.hupu.com^ (from 那个谁520)
+! Conflict: heyi-acs.cp31.ott.cibntv.net
+!   Block: 0.0.0.0 heyi-acs.cp31.ott.cibntv.net (from 下个ID见)
+!   White: @@||heyi-acs.cp31.ott.cibntv.net^ (from 那个谁520)
+! Conflict: hmrz.wo.cn
+!   Block: ||hmrz.wo.cn^ (from Ad-set-hosts)
+!   White: @@||hmrz.wo.cn^ (from 那个谁520)
+! Conflict: hoanoola.net
+!   Block: ||hoanoola.net^ (from Ad-set-hosts)
+!   White: @@||hoanoola.net^$domain=nhutgg.com (from GOODBYEADS)
+! Conflict: hot.browser.intl.miui.com
+!   Block: ||hot.browser.intl.miui.com^ (from 1hosts)
+!   White: @@||hot.browser.intl.miui.com^ (from 那个谁520)
+! Conflict: hot.browser.miui.com
+!   Block: ||hot.browser.miui.com^ (from DD自用)
+!   White: @@||hot.browser.miui.com^ (from 那个谁520)
+! Conflict: howsmyssl.com
+!   Block: ||howsmyssl.com^ (from Ad-set-hosts)
+!   White: @@||howsmyssl.com^$script,domain=trenitalia.fr (from GOODBYEADS)
+! Conflict: hpplay.cn
+!   Block: ||hpplay.cn^ (from 1hosts)
+!   White: @@||hpplay.cn^ (from 那个谁520)
+! Conflict: html-load.com
+!   Block: ||html-load.com^$important,domain=nikkansports.com|j-cast.com|picksandparlays.net|ranking.net|minkou.jp|aucfree.com|motor-talk.de|373news.com|northantstelegraph.co.uk|tavovaikas.lt|agriculture.com|travelandleisure.com|learnreligions.com|verywellhealth.com|statecollege.com|dayspedia.com|aussieaudiomart.com|ukaudiomart.com|usaudiomart.com|canuckaudiomart.com|thestreet.com|kurashiru.com|micechat.com (from AdBlockDNSFilters2)
+!   White: @@||html-load.com^$stealth=referrer (from GOODBYEADS)
+! Conflict: hub5btmain.sandai.net
+!   Block: ||hub5btmain.sandai.net^ (from AdBlockDNSFilters1)
+!   White: @@||hub5btmain.sandai.net^ (from 那个谁520)
+! Conflict: hub5btmain.v6.shub.sandai.net
+!   Block: ||hub5btmain.v6.shub.sandai.net^ (from 1hosts)
+!   White: @@||hub5btmain.v6.shub.sandai.net^ (from 那个谁520)
+! Conflict: hub5idx.v6.shub.sandai.net
+!   Block: ||hub5idx.v6.shub.sandai.net^ (from 1hosts)
+!   White: @@||hub5idx.v6.shub.sandai.net^ (from 那个谁520)
+! Conflict: hub5pn.wap.sandai.net
+!   Block: 0.0.0.0 hub5pn.wap.sandai.net (from 下个ID见)
+!   White: @@||hub5pn.wap.sandai.net^ (from 那个谁520)
+! Conflict: hugelog.fcbox.com
+!   Block: ||hugelog.fcbox.com^ (from 秋风的规则)
+!   White: @@||hugelog.fcbox.com^ (from 那个谁520)
+! Conflict: hugo3c.tw
+!   Block: ||hugo3c.tw^$csp=script-src 'self' * 'unsafe-inline' (from AdBlockDNSFilters2)
+!   White: @@||hugo3c.tw^$generichide (from GOODBYEADS)
+! Conflict: huichuan-mc.sm.cn
+!   Block: ||huichuan-mc.sm.cn^ (from 秋风的规则)
+!   White: @@||huichuan-mc.sm.cn^ (from 那个谁520)
+! Conflict: huichuan.sm.cn
+!   Block: ||huichuan.sm.cn^ (from 秋风的规则)
+!   White: @@||huichuan.sm.cn^ (from 那个谁520)
+! Conflict: i.gdt.qq.com
+!   Block: 0.0.0.0 i.gdt.qq.com (from 下个ID见)
+!   White: @@||i.gdt.qq.com^ (from Menghuibanxian)
+! Conflict: i.ibb.co
+!   Block: ||i.ibb.co^$badfilter (from AdBlockDNSFilters2)
+!   White: @@||i.ibb.co^ (from 那个谁520)
+! Conflict: i.imgur.com
+!   Block: ||i.imgur.com^$domain=av.movie (from ABP)
+!   White: @@||i.imgur.com^ (from 那个谁520)
+! Conflict: i.meituan.com
+!   Block: ||i.meituan.com^$important (from Custom Blocklist)
+!   White: @@||i.meituan.com^ (from 那个谁520)
+! Conflict: i.onthe.io
+!   Block: ||i.onthe.io^ (from Ad-set-hosts)
+!   White: @@||i.onthe.io^$script,image,stylesheet,domain=nur.kz (from GOODBYEADS)
+! Conflict: i.snssdk.com
+!   Block: ||i.snssdk.com^ (from DD自用)
+!   White: @@||i.snssdk.com^ (from 那个谁520)
+! Conflict: i.tianqi.com
+!   Block: ||i.tianqi.com^ (from Ad-set-hosts)
+!   White: @@||i.tianqi.com^ (from 那个谁520)
+! Conflict: ib.adnxs.com
+!   Block: 0.0.0.0 ib.adnxs.com (from 下个ID见)
+!   White: @@||ib.adnxs.com^$image,domain=apkmaza.net (from GOODBYEADS)
+! Conflict: ib.snssdk.com
+!   Block: ||ib.snssdk.com^ (from 逆向涉猎)
+!   White: @@||ib.snssdk.com^ (from DD自用)
+! Conflict: ic.snssdk.com
+!   Block: 0.0.0.0 ic.snssdk.com (from 下个ID见)
+!   White: @@||ic.snssdk.com^ (from DD自用)
+! Conflict: ichnaea-web.netflix.com
+!   Block: ||ichnaea-web.netflix.com^ (from Ad-set-hosts)
+!   White: @@||ichnaea-web.netflix.com^ (from 那个谁520)
+! Conflict: icws.jb51.net
+!   Block: ||icws.jb51.net^ (from 1hosts)
+!   White: @@||icws.jb51.net^ (from 那个谁520)
+! Conflict: id.mail.wo.cn
+!   Block: ||id.mail.wo.cn^ (from Ad-set-hosts)
+!   White: @@||id.mail.wo.cn^ (from 那个谁520)
+! Conflict: id6.me
+!   Block: ||id6.me^ (from 1hosts)
+!   White: @@||id6.me^ (from 那个谁520)
+! Conflict: identity.mparticle.com
+!   Block: ||identity.mparticle.com^ (from Ad-set-hosts)
+!   White: @@||identity.mparticle.com^$xmlhttprequest (from GOODBYEADS)
+! Conflict: idmb.register.xmpush.global.xiaomi.com
+!   Block: ||idmb.register.xmpush.global.xiaomi.com^ (from 1hosts)
+!   White: @@||idmb.register.xmpush.global.xiaomi.com^ (from 那个谁520)
+! Conflict: ietheivaicai.com
+!   Block: ||ietheivaicai.com^$important (from Custom Blocklist)
+!   White: @@||ietheivaicai.com^ (from 那个谁520)
+! Conflict: iface2.iqiyi.com
+!   Block: 0.0.0.0 iface2.iqiyi.com  #一些弹窗和广告，误杀播放界面弹幕等功能按钮 (from 下个ID见)
+!   White: @@||iface2.iqiyi.com^ (from 那个谁520)
+! Conflict: iflow.uczzd.cn
+!   Block: 0.0.0.0 iflow.uczzd.cn (from 下个ID见)
+!   White: @@||iflow.uczzd.cn^ (from 那个谁520)
+! Conflict: ign.com
+!   Block: ign.com$$script[tag-content="'iframe-network'"][min-length="10000"][max-length="30000"] (from AdBlockDNSFilters2)
+!   White: @@||ign.com^$generichide (from GOODBYEADS)
+! Conflict: ii.gdt.qq.com
+!   Block: ||ii.gdt.qq.com^ (from 秋风的规则)
+!   White: @@||ii.gdt.qq.com^ (from 那个谁520)
+! Conflict: im-x.jd.com
+!   Block: ||im-x.jd.com^ (from 大萌主)
+!   White: @@||im-x.jd.com^ (from 那个谁520)
+! Conflict: imasdk.googleapis.com
+!   Block: ||imasdk.googleapis.com^$important,script,redirect=noopjs,domain=ampproject.net|debilizator.tv|dplay.dk|mojpieknyogrod.pl|news18.com|onnetwork.tv|shahid.mbc.net|tvzavr.ru|winknews.com (from ABP)
+!   White: @@||imasdk.googleapis.com^$stealth=referrer,domain=news.tvb.com (from GOODBYEADS)
+! Conflict: imasdk.googleapis.com/js/sdkloader/ima3.js
+!   Block: ||imasdk.googleapis.com/js/sdkloader/ima3*.js$script,redirect=google-ima3,domain=cbsnews.com,important (from AdBlockDNSFilters2)
+!   White: @@||imasdk.googleapis.com/js/sdkloader/ima3*.js$domain=cbsnews.com (from GOODBYEADS)
+! Conflict: img.ads.tvb.com
+!   Block: ||img.ads.tvb.com^ (from Ad-set-hosts)
+!   White: @@||img.ads.tvb.com^ (from GOODBYEADS)
+! Conflict: img.ssl.msdk.qq.com
+!   Block: 0.0.0.0 img.ssl.msdk.qq.com (from 那个谁520)
+!   White: @@||img.ssl.msdk.qq.com^ (from 那个谁520)
+! Conflict: img1.360buyimg.com
+!   Block: 0.0.0.0 img1.360buyimg.com (from 下个ID见)
+!   White: @@||img1.360buyimg.com^ (from 那个谁520)
+! Conflict: img14.360buyimg.com
+!   Block: 0.0.0.0 img14.360buyimg.com (from 那个谁520)
+!   White: @@||img14.360buyimg.com^ (from 那个谁520)
+! Conflict: imgs.signifyd.com
+!   Block: ||imgs.signifyd.com^ (from Ad-set-hosts)
+!   White: @@||imgs.signifyd.com^ (from BlueSkyXN)
+! Conflict: imgx.mediav.com
+!   Block: 0.0.0.0 imgx.mediav.com (from 下个ID见)
+!   White: @@||imgx.mediav.com^ (from 那个谁520)
+! Conflict: imop.com
+!   Block: ||imop.com^ (from 1hosts)
+!   White: @@||imop.com^ (from 那个谁520)
+! Conflict: in-addr.arpa
+!   Block: ||in-addr.arpa^ (from 那个谁520)
+!   White: @@||*.in-addr.arpa^ (from 那个谁520)
+! Conflict: in-page-push.com
+!   Block: ||in-page-push.com^ (from 大萌主)
+!   White: @@||in-page-push.com^$script,domain=mylink.*|my1ink.*|myl1nk.*|myli3k.* (from GOODBYEADS)
+! Conflict: in.appcenter.ms
+!   Block: 0.0.0.0 in.appcenter.ms  #好像是一些APP的更新，据说还和隐私有关。 (from 下个ID见)
+!   White: @@||in.appcenter.ms^ (from 那个谁520)
+! Conflict: in.getclicky.com
+!   Block: ||in.getclicky.com^ (from Ad-set-hosts)
+!   White: @@||in.getclicky.com^$xmlhttprequest,domain=wouterplanet.com (from GOODBYEADS)
+! Conflict: increase-openapi.soulapp.cn
+!   Block: 0.0.0.0 increase-openapi.soulapp.cn (from 那个谁520)
+!   White: @@||increase-openapi.soulapp.cn^ (from 那个谁520)
+! Conflict: inews.gtimg.com
+!   Block: ||inews.gtimg.com (from 那个谁520)
+!   White: @@||inews.gtimg.com^ (from GOODBYEADS)
+! Conflict: infowars.com
+!   Block: ||infowars.com^ (from Menghuibanxian)
+!   White: @@||infowars.com^$csp=script-src 'self' *.leadpages.net *.gstatic.com *.google.com *.googleapis.com *.playwire.com *.facebook.com *.bootstrapcdn.com *.twitter.com *.spot.im (from GOODBYEADS)
+! Conflict: input.shouji.sogou.com
+!   Block: ||input.shouji.sogou.com^ (from 1hosts)
+!   White: @@||input.shouji.sogou.com^ (from 那个谁520)
+! Conflict: intercom-clicks.com
+!   Block: ||intercom-clicks.com^ (from 1hosts)
+!   White: @@||intercom-clicks.com^ (from 那个谁520)
+! Conflict: interest.mix.sina.com.cn
+!   Block: 0.0.0.0 interest.mix.sina.com.cn (from 下个ID见)
+!   White: @@||interest.mix.sina.com.cn^ (from 那个谁520)
+! Conflict: ios.bugly.qq.com
+!   Block: ||ios.bugly.qq.com^ (from 秋风的规则)
+!   White: @@||ios.bugly.qq.com^ (from 那个谁520)
+! Conflict: ip.taobao.com
+!   Block: ||ip.taobao.com^ (from 1hosts)
+!   White: @@||ip.taobao.com^ (from 那个谁520)
+! Conflict: iprima.cz
+!   Block: iprima.cz$$script[wildcard="*getOwnPropertyDescriptor*contentWindow*ABP*"][min-length="5000"][max-length="8000"] (from AdBlockDNSFilters2)
+!   White: @@||iprima.cz^$stealth=referrer (from GOODBYEADS)
+! Conflict: ipv4.gdt.qq.com
+!   Block: ||ipv4.gdt.qq.com^ (from 逆向涉猎)
+!   White: @@||ipv4.gdt.qq.com^ (from Menghuibanxian)
+! Conflict: is-hl.snssdk.com
+!   Block: 0.0.0.0 is-hl.snssdk.com (from 下个ID见)
+!   White: @@||is-hl.snssdk.com^ (from 那个谁520)
+! Conflict: is.snssdk.com
+!   Block: ||is.snssdk.com^ (from 广告规则)
+!   White: @@||is.snssdk.com^ (from DD自用)
+! Conflict: isee.weishi.qq.com
+!   Block: ||isee.weishi.qq.com^ (from 那个谁520)
+!   White: @@||isee.weishi.qq.com^ (from 那个谁520)
+! Conflict: isite.baidu.com
+!   Block: ||isite.baidu.com^ (from Ad-set-hosts)
+!   White: @@||isite.baidu.com^ (from 那个谁520)
+! Conflict: issuecdn.baidupcs.com
+!   Block: 0.0.0.0 issuecdn.baidupcs.com (from 下个ID见)
+!   White: @@||issuecdn.baidupcs.com^ (from 那个谁520)
+! Conflict: jiayuan.com/pv.js
+!   Block: ||jiayuan.com^*/pv.js (from AdBlockDNSFilters2)
+!   White: @@||jiayuan.com^*/pv.js (from GOODBYEADS)
+! Conflict: jnn-pa.googleapis.com
+!   Block: 0.0.0.0 jnn-pa.googleapis.com (from 那个谁520)
+!   White: @@||jnn-pa.googleapis.com^ (from 那个谁520)
+! Conflict: jpush.cn
+!   Block: ||jpush.cn^ (from 秋风的规则)
+!   White: @@||jpush.cn^$domain=jiguang.cn (from GOODBYEADS)
+! Conflict: js-agent.newrelic.com
+!   Block: ||js-agent.newrelic.com^$third-party (from ABP)
+!   White: @@||js-agent.newrelic.com^$script,domain=abema.tv (from GOODBYEADS)
+! Conflict: js-sec.indexww.com
+!   Block: ||js-sec.indexww.com^ (from Ad-set-hosts)
+!   White: @@||js-sec.indexww.com^$script,domain=maxisciences.com|gentside.*|ohmymag.* (from GOODBYEADS)
+! Conflict: js.juicyads.com
+!   Block: ||js.juicyads.com^ (from Ad-set-hosts)
+!   White: @@||js.juicyads.com^$script,domain=badassdownloader.com (from GOODBYEADS)
+! Conflict: js.monitor.azure.com
+!   Block: ||js.monitor.azure.com^ (from 那个谁520)
+!   White: @@||js.monitor.azure.com^$app=com.microsoft.office.officehubrow (from GOODBYEADS)
+! Conflict: js.sentry-cdn.com
+!   Block: ||js.sentry-cdn.com^$important (from Custom Blocklist)
+!   White: @@||js.sentry-cdn.com^$script,domain=app.homebinder.com|bolt.new|book.dmm.com|etsy.com|interacty.me|jobs.ch|pizzahut.com.au (from GOODBYEADS)
+! Conflict: jspassport.ssl.qhimg.com
+!   Block: ||jspassport.ssl.qhimg.com^ (from AdBlockDNSFilters1)
+!   White: @@||jspassport.ssl.qhimg.com^ (from 那个谁520)
+! Conflict: juejin.cn
+!   Block: ||juejin.cn^$important (from Custom Blocklist)
+!   White: @@||juejin.cn^$important (from 那个谁520)
+! Conflict: jumpluna.58.com
+!   Block: ||jumpluna.58.com^ (from Ad-set-hosts)
+!   White: @@||jumpluna.58.com^ (from 那个谁520)
+! Conflict: jupiter.intl.sys.miui.com
+!   Block: ||jupiter.intl.sys.miui.com^ (from 1hosts)
+!   White: @@||jupiter.intl.sys.miui.com^ (from 那个谁520)
+! Conflict: jupiter.rus.sys.miui.com
+!   Block: ||jupiter.rus.sys.miui.com^ (from 1hosts)
+!   White: @@||jupiter.rus.sys.miui.com^ (from 那个谁520)
+! Conflict: jupiter.sys.miui.com
+!   Block: ||jupiter.sys.miui.com^ (from 1hosts)
+!   White: @@||jupiter.sys.miui.com^ (from 那个谁520)
+! Conflict: jwpcdn.com
+!   Block: ||jwpcdn.com^$script,domain=bgr.com|decider.com|dexerto.com (from ABP)
+!   White: @@||jwpcdn.com^ (from 那个谁520)
+! Conflict: jxdown.com
+!   Block: ||jxdown.com^$third-party (from ABP)
+!   White: @@||jxdown.com^ (from 那个谁520)
+! Conflict: kiplinger.112.2o7.net
+!   Block: ||kiplinger.112.2o7.net^ (from Ad-set-hosts)
+!   White: @@||kiplinger.112.2o7.net^ (from GOODBYEADS)
+! Conflict: klclick.com
+!   Block: ||klclick.com^ (from Ad-set-hosts)
+!   White: @@||klclick*.com^ (from 那个谁520)
+! Conflict: komorkomania.pl
+!   Block: ||komorkomania.pl^$replace=/(<VAST[\s\S]*?>)[\s\S]*<\/VAST>/\$1<\/VAST>/,xmlhttprequest,other,~script (from AdBlockDNSFilters2)
+!   White: @@||komorkomania.pl^$generichide (from GOODBYEADS)
+! Conflict: kqzyfj.com
+!   Block: ||kqzyfj.com^ (from 1hosts)
+!   White: @@||kqzyfj.com^$domain=bradsdeals.com|coupons.com|dealigg.com|dealnews.com|goodsearch.com|groupon.com|hotukdeals.com|moneysavingexpert.com|offers.com|retailmenot.com|slickdeals.net (from GOODBYEADS)
+! Conflict: kxcdn.com
+!   Block: ||kxcdn.com^$xmlhttprequest (from ABP)
+!   White: @@||kxcdn.com^$domain=wikiwand.com (from ABP)
+! Conflict: l.qq.com
+!   Block: 0.0.0.0 l.qq.com (from 下个ID见)
+!   White: @@||l.qq.com^ (from 那个谁520)
+! Conflict: laomaotao.net
+!   Block: ||laomaotao.net^ (from AdBlockDNSFilters1)
+!   White: @@||laomaotao.net^ (from 那个谁520)
+! Conflict: leanplum.com
+!   Block: ||leanplum.com^ (from 1hosts)
+!   White: @@||leanplum.com^$domain=arkadium.com (from GOODBYEADS)
+! Conflict: leechpremium.link
+!   Block: ||leechpremium.link^ (from GOODBYEADS)
+!   White: @@||leechpremium.link^$generichide (from GOODBYEADS)
+! Conflict: lens.zhihu.com
+!   Block: ||lens.zhihu.com^ (from 逆向涉猎)
+!   White: @@||lens.zhihu.com^ (from 那个谁520)
+! Conflict: lf-cdn-tos.bytescm.com
+!   Block: ||lf-cdn-tos.bytescm.com^$important (from Custom Blocklist)
+!   White: @@||lf-cdn-tos.bytescm.com^ (from DD自用)
+! Conflict: lf1-cdn-tos.bytegoofy.com
+!   Block: 0.0.0.0 lf1-cdn-tos.bytegoofy.com (from 下个ID见)
+!   White: @@||lf1-cdn-tos.bytegoofy.com^ (from DD自用)
+! Conflict: lf1-ttcdn-tos.pstatp.com
+!   Block: 0.0.0.0 lf1-ttcdn-tos.pstatp.com (from 下个ID见)
+!   White: @@||lf1-ttcdn-tos.pstatp.com^ (from 那个谁520)
+! Conflict: lf3-reading.fqnovelpic.com
+!   Block: ||lf3-reading.fqnovelpic.com^ (from 广告规则)
+!   White: @@||lf3-reading.fqnovelpic.com^ (from 那个谁520)
+! Conflict: lf3-short.ibytedapm.com
+!   Block: ||lf3-short.ibytedapm.com^ (from 广告规则)
+!   White: @@||lf3-short.ibytedapm.com^ (from DD自用)
+! Conflict: libs.baidu.com
+!   Block: ||libs.baidu.com^ (from AdBlockDNSFilters1)
+!   White: @@||libs.baidu.com^$domain=m.supfree.net (from GOODBYEADS)
+! Conflict: lightning.cnn.com
+!   Block: ||lightning.cnn.com^ (from 1hosts)
+!   White: @@||lightning.cnn.com^$script,domain=wfmz.com (from GOODBYEADS)
+! Conflict: linkconnector.com
+!   Block: ||linkconnector.com^ (from 1hosts)
+!   White: @@||linkconnector.com^$domain=bradsdeals.com|coupons.com|dealigg.com|dealnews.com|goodsearch.com|groupon.com|hotukdeals.com|moneysavingexpert.com|offers.com|retailmenot.com|slickdeals.net (from GOODBYEADS)
+! Conflict: linksynergy.com
+!   Block: ||linksynergy.com^ (from Ad-set-hosts)
+!   White: @@||linksynergy.com^$domain=bradsdeals.com|coupons.com|dealigg.com|dealnews.com|goodsearch.com|groupon.com|hotukdeals.com|moneysavingexpert.com|offers.com|retailmenot.com|slickdeals.net (from GOODBYEADS)
+! Conflict: linkvertise.com
+!   Block: ||linkvertise.com^ (from Ad-set-hosts)
+!   White: @@||linkvertise.com^$generichide (from GOODBYEADS)
+! Conflict: live.primis.tech
+!   Block: ||live.primis.tech^$third-party (from ABP)
+!   White: @@||live.primis.tech^$xmlhttprequest,domain=xxlmag.com (from GOODBYEADS)
+! Conflict: live.rezync.com
+!   Block: ||live.rezync.com^ (from Ad-set-hosts)
+!   White: @@||live.rezync.com^$script,domain=batteriesplus.com (from GOODBYEADS)
+! Conflict: liverail.com
+!   Block: ||liverail.com^$~object,third-party (from ABP)
+!   White: @@||liverail.com^$domain=spox.com|static.eplayer.performgroup.com (from GOODBYEADS)
+! Conflict: livere.com
+!   Block: ||livere.com^ (from AdBlock DNS Filters)
+!   White: @@||livere.com^ (from 那个谁520)
+! Conflict: livew.l.qq.com
+!   Block: 0.0.0.0 livew.l.qq.com (from 下个ID见)
+!   White: @@||livew.l.qq.com^ (from 那个谁520)
+! Conflict: lmlicenses.wip4.adobe.com
+!   Block: ||lmlicenses.wip4.adobe.com^ (from Ad-set-hosts)
+!   White: @@||lmlicenses.wip4.adobe.com^ (from 那个谁520)
+! Conflict: localads.chengzijianzhan.cn
+!   Block: ||localads.chengzijianzhan.cn^ (from DD自用)
+!   White: @@||localads.chengzijianzhan.cn^ (from 那个谁520)
+! Conflict: log-api.pangolin-sdk-toutiao-b.com
+!   Block: ||log-api.pangolin-sdk-toutiao-b.com^ (from 秋风的规则)
+!   White: @@||log-api.pangolin-sdk-toutiao-b.com^ (from DD自用)
+! Conflict: log-api.pangolin-sdk-toutiao.com
+!   Block: ||log-api.pangolin-sdk-toutiao.com^ (from 秋风的规则)
+!   White: @@||log-api.pangolin-sdk-toutiao.com^ (from DD自用)
+! Conflict: log-upload.mihoyo.com
+!   Block: ||log-upload.mihoyo.com^ (from 秋风的规则)
+!   White: @@||log-upload.mihoyo.com^ (from 那个谁520)
+! Conflict: log.mmstat.com
+!   Block: 0.0.0.0 log.mmstat.com (from 下个ID见)
+!   White: @@||log.mmstat.com^ (from AdBlockDNSFilters1)
+! Conflict: log.snssdk.com
+!   Block: ||log.snssdk.com^ (from 大萌主)
+!   White: @@||log.snssdk.com^ (from 那个谁520)
+! Conflict: log1.cmpassport.com
+!   Block: ||log1.cmpassport.com^ (from 秋风的规则)
+!   White: @@||log1.cmpassport.com^ (from 那个谁520)
+! Conflict: log5-applog-lf.fqnovel.com
+!   Block: ||log5-applog-lf.fqnovel.com^ (from 广告规则)
+!   White: @@||log5-applog-lf.fqnovel.com^ (from 那个谁520)
+! Conflict: log5-applog.fqnovel.com
+!   Block: ||log5-applog.fqnovel.com^ (from Ad-set-hosts)
+!   White: @@||log5-applog.fqnovel.com^ (from 那个谁520)
+! Conflict: logentries.com
+!   Block: ||logentries.com^ (from 1hosts)
+!   White: @@||logentries.com^ (from Menghuibanxian)
+! Conflict: logs.game.qq.com
+!   Block: ||logs.game.qq.com^ (from 1hosts)
+!   White: @@||logs.game.qq.com^ (from 那个谁520)
+! Conflict: lp.pinduoduo.com
+!   Block: ||lp.pinduoduo.com^$important (from Custom Blocklist)
+!   White: @@||lp.pinduoduo.com^ (from 那个谁520)
+! Conflict: lpcdn.pinduoduo.com
+!   Block: ||lpcdn.pinduoduo.com^ (from 1hosts)
+!   White: @@||lpcdn.pinduoduo.com^ (from 那个谁520)
+! Conflict: lptag.liveperson.net
+!   Block: ||lptag.liveperson.net^ (from Ad-set-hosts)
+!   White: @@||lptag.liveperson.net^$domain=yesstyle.com (from GOODBYEADS)
+! Conflict: m.gdt.qq.com
+!   Block: 0.0.0.0 m.gdt.qq.com (from 下个ID见)
+!   White: @@||m.gdt.qq.com^ (from Menghuibanxian)
+! Conflict: m.intl.taobao.com
+!   Block: ||m.intl.taobao.com^ (from Ad-set-hosts)
+!   White: @@||m.intl.taobao.com^ (from 那个谁520)
+! Conflict: m.jd.watbc.top
+!   Block: 0.0.0.0 m.jd.watbc.top (from 下个ID见)
+!   White: @@||m.jd.watbc.top^ (from 那个谁520)
+! Conflict: m.jd.watbe.top
+!   Block: 0.0.0.0 m.jd.watbe.top (from 下个ID见)
+!   White: @@||m.jd.watbe.top^ (from 那个谁520)
+! Conflict: m.uczzd.cn
+!   Block: 0.0.0.0 m.uczzd.cn (from 下个ID见)
+!   White: @@||m.uczzd.cn^ (from 那个谁520)
+! Conflict: m2.da.mgtv.com
+!   Block: 0.0.0.0 m2.da.mgtv.com (from 下个ID见)
+!   White: @@||m2.da.mgtv.com^ (from 那个谁520)
+! Conflict: maccms.com
+!   Block: ||maccms.com^ (from 1hosts)
+!   White: @@||maccms.com^ (from BlueSkyXN)
+! Conflict: mairuan.com
+!   Block: ||mairuan.com^ (from 那个谁520)
+!   White: @@||mairuan.com^ (from 那个谁520)
+! Conflict: mam.netease.com
+!   Block: ||mam.netease.com^ (from AdBlockDNSFilters1)
+!   White: @@||mam.netease.com^ (from 那个谁520)
+! Conflict: manhua.acimg.cn
+!   Block: 0.0.0.0 manhua.acimg.cn (from 下个ID见)
+!   White: @@||manhua.acimg.cn^$stealth=referrer,domain=ac.qq.com (from GOODBYEADS)
+! Conflict: map.baidu.com
+!   Block: ||map.baidu.com^$domain=laosiji.com (from AdBlockDNSFilters2)
+!   White: @@||map.baidu.com^ (from 那个谁520)
+! Conflict: mapi.m.jd.com
+!   Block: ||mapi.m.jd.com^ (from 秋风的规则)
+!   White: @@||mapi.m.jd.com^ (from 那个谁520)
+! Conflict: marketing.net.idealo-partner.com
+!   Block: ||marketing.net.idealo-partner.com^ (from Ad-set-hosts)
+!   White: @@||marketing.net.idealo-partner.com^ (from Menghuibanxian)
+! Conflict: marketingautomation.services
+!   Block: ||marketingautomation.services^ (from 1hosts)
+!   White: @@||marketingautomation.services^$script,domain=leeuwerik.nl (from GOODBYEADS)
+! Conflict: mars.jd.com
+!   Block: 0.0.0.0 mars.jd.com (from 下个ID见)
+!   White: @@||mars.jd.com^ (from 那个谁520)
+! Conflict: masterconn2.qq.com
+!   Block: ||masterconn2.qq.com^ (from 1hosts)
+!   White: @@||masterconn2.qq.com^ (from 那个谁520)
+! Conflict: mb.yidianzixun.com
+!   Block: ||mb.yidianzixun.com^ (from 1hosts)
+!   White: @@||mb.yidianzixun.com^ (from 那个谁520)
+! Conflict: mbdp02.bdstatic.com
+!   Block: 0.0.0.0 mbdp02.bdstatic.com (from 那个谁520)
+!   White: @@||mbdp02.bdstatic.com^ (from 那个谁520)
+! Conflict: mboxedge34.tt.omtrdc.net
+!   Block: ||mboxedge34.tt.omtrdc.net^ (from Ad-set-hosts)
+!   White: @@||mboxedge34.tt.omtrdc.net^ (from BlueSkyXN)
+! Conflict: mboxedge37.tt.omtrdc.net
+!   Block: ||mboxedge37.tt.omtrdc.net^ (from 1hosts)
+!   White: @@||mboxedge37.tt.omtrdc.net^$app=com.aa.android (from GOODBYEADS)
+! Conflict: mc.yandex.ru
+!   Block: ||mc.yandex.ru^ (from 1hosts)
+!   White: @@||mc.yandex.ru^$domain=planeta.ru (from GOODBYEADS)
+! Conflict: mcdn.bilivideo.cn
+!   Block: ||mcdn.bilivideo.cn^ (from 那个谁520)
+!   White: @@||mcdn.bilivideo.cn^$stealth=referrer,domain=bilibili.com (from GOODBYEADS)
+! Conflict: mcdn.bilivideo.com
+!   Block: ||mcdn.bilivideo.com^ (from AdBlockDNSFilters1)
+!   White: @@||*.mcdn.bilivideo.com^ (from 那个谁520)
+! Conflict: mcs.snssdk.com
+!   Block: 0.0.0.0 mcs.snssdk.com  #并非抖音验证码 (from 下个ID见)
+!   White: @@||mcs.snssdk.com^ (from 那个谁520)
+! Conflict: mcs.zijieapi.com
+!   Block: ||mcs.zijieapi.com^ (from 秋风的规则)
+!   White: @@||mcs.zijieapi.com^ (from 那个谁520)
+! Conflict: mdevstat.qqlive.qq.com
+!   Block: 0.0.0.0 mdevstat.qqlive.qq.com (from 那个谁520)
+!   White: @@||mdevstat.qqlive.qq.com^ (from 那个谁520)
+! Conflict: mdn.open.wo.cn
+!   Block: ||mdn.open.wo.cn^ (from Ad-set-hosts)
+!   White: @@||mdn.open.wo.cn^ (from 那个谁520)
+! Conflict: med-fe.cdn.bcebos.com
+!   Block: ||med-fe.cdn.bcebos.com^ (from Ad-set-hosts)
+!   White: @@||med-fe.cdn.bcebos.com^ (from 那个谁520)
+! Conflict: media-consumer365.desigual.com
+!   Block: ||media-consumer365.desigual.com^ (from AdBlock DNS Filters)
+!   White: @@||media-consumer365.desigual.com^ (from Menghuibanxian)
+! Conflict: mediaplex.com
+!   Block: ||mediaplex.com^ (from 那个谁520)
+!   White: @@||mediaplex.com$domain=cnet.com (from GOODBYEADS)
+! Conflict: mediation.adnxs.com
+!   Block: 0.0.0.0 mediation.adnxs.com  #据说是outlook的置顶广告，然而lite的还在 (from 下个ID见)
+!   White: @@||mediation.adnxs.com^ (from 那个谁520)
+! Conflict: mega-p2p.net
+!   Block: ||mega-p2p.net^ (from 1hosts)
+!   White: @@||mega-p2p.net^$generichide (from GOODBYEADS)
+! Conflict: meiqia.com
+!   Block: ||meiqia.com^$third-party (from AdBlockDNSFilters2)
+!   White: @@||meiqia.com^ (from DD自用)
+! Conflict: memangbau.com
+!   Block: ||memangbau.com^ (from Ad-set-hosts)
+!   White: @@||memangbau.com^$generichide (from GOODBYEADS)
+! Conflict: memoryhackers.org
+!   Block: memoryhackers.org$$script[tag-content="window.location.href"][max-length="500"] (from AdBlockDNSFilters2)
+!   White: @@||memoryhackers.org^$generichide (from GOODBYEADS)
+! Conflict: mesu.apple.com
+!   Block: ||mesu.apple.com^ (from 逆向涉猎)
+!   White: @@||mesu.apple.com^ (from BlueSkyXN)
+! Conflict: metok.sys.miui.com
+!   Block: ||metok.sys.miui.com^$important (from Custom Blocklist)
+!   White: @@||metok.sys.miui.com^ (from 那个谁520)
+! Conflict: metrics.apple.com
+!   Block: ||metrics.apple.com^$important (from Custom Blocklist)
+!   White: @@||metrics.apple.com^ (from 那个谁520)
+! Conflict: metrics.icloud.com
+!   Block: ||metrics.icloud.com^$important (from 广告规则)
+!   White: @@||metrics.icloud.com^ (from 那个谁520)
+! Conflict: metrics1-drcn.dt.dbankcloud.cn
+!   Block: ||metrics1-drcn.dt.dbankcloud.cn^ (from 那个谁520)
+!   White: @@||metrics1-drcn.dt.dbankcloud.cn^ (from 那个谁520)
+! Conflict: mhxk.com/main/entry.common.
+!   Block: ||mhxk.com^*/main/entry.common.$script (from AdBlockDNSFilters2)
+!   White: @@||mhxk.com^*/main/entry.common.$script (from GOODBYEADS)
+! Conflict: mi.gdt.qq.com
+!   Block: ||mi.gdt.qq.com^ (from 秋风的规则)
+!   White: @@||mi.gdt.qq.com^ (from Menghuibanxian)
+! Conflict: miaozhen.com
+!   Block: ||miaozhen.com^$third-party (from ABP)
+!   White: @@||miaozhen.com^$~third-party (from ABP)
+! Conflict: middleware.p7s1.io
+!   Block: ||middleware.p7s1.io^ (from AdBlock DNS Filters)
+!   White: @@||middleware.p7s1.io^$app=at.zappn (from GOODBYEADS)
+! Conflict: mime.baidu.com
+!   Block: ||mime.baidu.com^ (from 那个谁520)
+!   White: @@||mime.baidu.com^ (from 那个谁520)
+! Conflict: mini2015.qq.com
+!   Block: 0.0.0.0 mini2015.qq.com (from 那个谁520)
+!   White: @@||mini2015.qq.com^ (from 那个谁520)
+! Conflict: minigame.zijieapi.com
+!   Block: 0.0.0.0 minigame.zijieapi.com (from 下个ID见)
+!   White: @@||minigame.zijieapi.com^ (from 那个谁520)
+! Conflict: minigame5-normal-hl.zijieapi.com
+!   Block: 0.0.0.0 minigame5-normal-hl.zijieapi.com (from 下个ID见)
+!   White: @@||minigame5-normal-hl.zijieapi.com^ (from 那个谁520)
+! Conflict: minorshort.weixin.qq.com
+!   Block: 0.0.0.0 minorshort.weixin.qq.com (from 那个谁520)
+!   White: @@||minorshort.weixin.qq.com^$important (from 广告规则)
+! Conflict: mipcache.bdstatic.com
+!   Block: 0.0.0.0 mipcache.bdstatic.com (from 下个ID见)
+!   White: @@||mipcache.bdstatic.com^ (from 那个谁520)
+! Conflict: mivideo.g.mi.com
+!   Block: 0.0.0.0 mivideo.g.mi.com (from 那个谁520)
+!   White: @@||mivideo.g.mi.com^ (from 那个谁520)
+! Conflict: mixer.sina.cn
+!   Block: ||mixer.sina.cn^ (from 大萌主)
+!   White: @@||mixer.sina.cn^ (from 那个谁520)
+! Conflict: mixpanel.com
+!   Block: ||mixpanel.com^ (from Ad-set-hosts)
+!   White: @@||mixpanel.com^$domain=mixpanel.com (from GOODBYEADS)
+! Conflict: mm-syringe.com
+!   Block: ||mm-syringe.com^ (from 1hosts)
+!   White: @@||mm-syringe.com^$domain=spin.com (from GOODBYEADS)
+! Conflict: mmgame.qpic.cn
+!   Block: ||mmgame.qpic.cn^ (from 那个谁520)
+!   White: @@||mmgame.qpic.cn^ (from 那个谁520)
+! Conflict: mmocgame.qpic.cn
+!   Block: ||mmocgame.qpic.cn^ (from 那个谁520)
+!   White: @@||mmocgame.qpic.cn^ (from 那个谁520)
+! Conflict: mmstat.com
+!   Block: ||mmstat.com^ (from Ad-set-hosts)
+!   White: @@||mmstat.com^ (from 那个谁520)
+! Conflict: moatads.com
+!   Block: ||moatads.com^ (from 秋风的规则)
+!   White: @@||moatads.com^$script,domain=imsa.com|nascar.com (from GOODBYEADS)
+! Conflict: mobappconfig.securities.eastmoney.com
+!   Block: ||mobappconfig.securities.eastmoney.com^ (from 1hosts)
+!   White: @@||mobappconfig.securities.eastmoney.com^ (from 那个谁520)
+! Conflict: mobile-collector.newrelic.com
+!   Block: ||mobile-collector.newrelic.com^ (from 1hosts)
+!   White: @@||mobile-collector.newrelic.com^ (from BlueSkyXN)
+! Conflict: mobile.appchina.com
+!   Block: ||mobile.appchina.com^ (from AdBlockDNSFilters1)
+!   White: @@||mobile.appchina.com^ (from 那个谁520)
+! Conflict: mobile.controller.duokanbox.com
+!   Block: ||mobile.controller.duokanbox.com^ (from 1hosts)
+!   White: @@||mobile.controller.duokanbox.com^ (from 那个谁520)
+! Conflict: mobile.eum-appdynamics.com
+!   Block: ||mobile.eum-appdynamics.com^ (from 1hosts)
+!   White: @@||mobile.eum-appdynamics.com^ (from BlueSkyXN)
+! Conflict: mobile.launchdarkly.com
+!   Block: ||mobile.launchdarkly.com^ (from 1hosts)
+!   White: @@||mobile.launchdarkly.com^ (from BlueSkyXN)
+! Conflict: mobile.pipe.aria.microsoft.com
+!   Block: ||mobile.pipe.aria.microsoft.com^ (from 1hosts)
+!   White: @@||mobile.pipe.aria.microsoft.com^ (from 那个谁520)
+! Conflict: mobile.yangkeduo.com
+!   Block: ||mobile.yangkeduo.com^ (from 那个谁520)
+!   White: @@||mobile.yangkeduo.com^ (from 那个谁520)
+! Conflict: mobilelog.kugou.com
+!   Block: ||mobilelog.kugou.com^ (from 秋风的规则)
+!   White: @@||mobilelog.kugou.com^ (from 那个谁520)
+! Conflict: mon.isnssdk.com
+!   Block: 0.0.0.0 mon.isnssdk.com (from 下个ID见)
+!   White: @@||mon.isnssdk.com^ (from 那个谁520)
+! Conflict: mon.snssdk.com
+!   Block: ||mon.snssdk.com^ (from 广告规则)
+!   White: @@||mon.snssdk.com^ (from 那个谁520)
+! Conflict: mon.zijieapi.com
+!   Block: ||mon.zijieapi.com^ (from 广告规则)
+!   White: @@||mon.zijieapi.com^ (from 那个谁520)
+! Conflict: money.pl
+!   Block: ||money.pl^$replace=/(<VAST[\s\S]*?>)[\s\S]*<\/VAST>/\$1<\/VAST>/,xmlhttprequest,other,~script (from AdBlockDNSFilters2)
+!   White: @@||money.pl^$generichide (from GOODBYEADS)
+! Conflict: monsetting.toutiao.com
+!   Block: ||monsetting.toutiao.com^ (from 秋风的规则)
+!   White: @@||monsetting.toutiao.com^ (from DD自用)
+! Conflict: mos.m.taobao.com
+!   Block: ||mos.m.taobao.com^$important (from Custom Blocklist)
+!   White: @@||mos.m.taobao.com^ (from 那个谁520)
+! Conflict: mparticle.uc.cn
+!   Block: 0.0.0.0 mparticle.uc.cn (from 下个ID见)
+!   White: @@||mparticle.uc.cn^ (from 那个谁520)
+! Conflict: ms.bdimg.com
+!   Block: ||ms.bdimg.com^ (from 1hosts)
+!   White: @@||ms.bdimg.com^ (from DD自用)
+! Conflict: ms.vipstatic.com
+!   Block: ||ms.vipstatic.com^ (from Ad-set-hosts)
+!   White: @@||ms.vipstatic.com^ (from 那个谁520)
+! Conflict: msdk.qq.com
+!   Block: 0.0.0.0 msdk.qq.com (from 那个谁520)
+!   White: @@||msdk.qq.com^ (from 那个谁520)
+! Conflict: msg.video.qiyi.com
+!   Block: ||msg.video.qiyi.com^ (from 大萌主)
+!   White: @@||msg.video.qiyi.com^ (from 那个谁520)
+! Conflict: msg.youku.com
+!   Block: 0.0.0.0 msg.youku.com (from 下个ID见)
+!   White: @@||msg.youku.com^ (from 那个谁520)
+! Conflict: msgacs.m.taobao.com
+!   Block: 0.0.0.0 msgacs.m.taobao.com (from 那个谁520)
+!   White: @@||msgacs.m.taobao.com^ (from 那个谁520)
+! Conflict: mssdk3-normal-lf.zijieapi.com
+!   Block: 0.0.0.0 mssdk3-normal-lf.zijieapi.com (from 下个ID见)
+!   White: @@||mssdk3-normal-lf.zijieapi.com^ (from DD自用)
+! Conflict: msync-im1-vip6-std.easemob.com
+!   Block: ||msync-im1-vip6-std.easemob.com^$important (from 广告规则)
+!   White: @@||msync-im1-vip6-std.easemob.com^ (from 那个谁520)
+! Conflict: mtt.eve.mdt.qq.com
+!   Block: 0.0.0.0 mtt.eve.mdt.qq.com (from 下个ID见)
+!   White: @@||mtt.eve.mdt.qq.com^ (from Menghuibanxian)
+! Conflict: mtt.str.mdt.qq.com
+!   Block: 0.0.0.0 mtt.str.mdt.qq.com (from 下个ID见)
+!   White: @@||mtt.str.mdt.qq.com^ (from Menghuibanxian)
+! Conflict: mtvnetworks.tt.omtrdc.net
+!   Block: ||mtvnetworks.tt.omtrdc.net^ (from 1hosts)
+!   White: @@||mtvnetworks.tt.omtrdc.net^$script,domain=mtv.com (from GOODBYEADS)
+! Conflict: music.163.com
+!   Block: ||music.163.com^$domain=mvcat.com (from AdBlockDNSFilters2)
+!   White: @@||music.163.com^ (from 那个谁520)
+! Conflict: mvconf.f.360.cn
+!   Block: ||mvconf.f.360.cn^ (from 1hosts)
+!   White: @@||mvconf.f.360.cn^ (from 那个谁520)
+! Conflict: mxpnl.com
+!   Block: ||mxpnl.com^ (from 那个谁520)
+!   White: @@||mxpnl.com^$domain=dailysteals.com (from GOODBYEADS)
+! Conflict: myao.adocean.pl
+!   Block: ||myao.adocean.pl^ (from Ad-set-hosts)
+!   White: @@||myao.adocean.pl^$image,domain=tvp.pl (from GOODBYEADS)
+! Conflict: myfamilycominc.tt.omtrdc.net
+!   Block: ||myfamilycominc.tt.omtrdc.net^ (from 1hosts)
+!   White: @@||myfamilycominc.tt.omtrdc.net^$domain=ancestry.com|ancestry.co.uk|ancestry.ca|ancestry.de|ancestry.it|ancestry.fr|ancestry.se|ancestry.mx (from GOODBYEADS)
+! Conflict: myvidplay.com
+!   Block: ||myvidplay.com^$badfilter (from AdBlockDNSFilters2)
+!   White: @@||myvidplay.com^$generichide (from GOODBYEADS)
+! Conflict: na1r.services.adobe.com
+!   Block: ||na1r.services.adobe.com^ (from Ad-set-hosts)
+!   White: @@||na1r.services.adobe.com^ (from 那个谁520)
+! Conflict: na61-na62.wagbridge.alibaba.tanx.com
+!   Block: ||na61-na62.wagbridge.alibaba.tanx.com^ (from Ad-set-hosts)
+!   White: @@||na61-na62.wagbridge.alibaba.tanx.com^ (from DD自用)
+! Conflict: nadvideo.baidu.com
+!   Block: ||nadvideo*.baidu.com^ (from 那个谁520)
+!   White: @@||nadvideo.baidu.com^ (from Menghuibanxian)
+! Conflict: nadvideo2.baidu.com
+!   Block: ||nadvideo2.baidu.com^ (from 秋风的规则)
+!   White: @@||nadvideo2.baidu.com^ (from Menghuibanxian)
+! Conflict: nav.browser.miui.com
+!   Block: 0.0.0.0 nav.browser.miui.com (from 那个谁520)
+!   White: @@||nav.browser.miui.com^ (from 那个谁520)
+! Conflict: nc.gdt.qq.com
+!   Block: ||nc.gdt.qq.com^ (from 逆向涉猎)
+!   White: @@||nc.gdt.qq.com^ (from Menghuibanxian)
+! Conflict: nebula-cdn.kampyle.com
+!   Block: ||nebula-cdn.kampyle.com^ (from Ad-set-hosts)
+!   White: @@||nebula-cdn.kampyle.com^$domain=miclaro.com.gt (from GOODBYEADS)
+! Conflict: news-l.play.aiseet.atianqi.com
+!   Block: ||news-l.play.aiseet.atianqi.com^ (from 逆向涉猎)
+!   White: @@||news-l.play.aiseet.atianqi.com^ (from 那个谁520)
+! Conflict: nishub1.10010.com
+!   Block: ||nishub1.10010.com^ (from Ad-set-hosts)
+!   White: @@||nishub1.10010.com^ (from 那个谁520)
+! Conflict: nmobi.kuwo.cn
+!   Block: ||nmobi.kuwo.cn^ (from Ad-set-hosts)
+!   White: @@||nmobi.kuwo.cn^ (from 那个谁520)
+! Conflict: nsclick.baidu.com
+!   Block: ||nsclick.baidu.com^ (from 秋风的规则)
+!   White: @@||nsclick.baidu.com^ (from DD自用)
+! Conflict: nstool.netease.com
+!   Block: ||nstool.netease.com^$important (from Custom Blocklist)
+!   White: @@||nstool.netease.com^ (from 那个谁520)
+! Conflict: nuggad.net
+!   Block: ||nuggad.net^ (from 1hosts)
+!   White: @@||nuggad.net^$domain=sportdeutschland.tv (from GOODBYEADS)
+! Conflict: o2.pl
+!   Block: ||o2.pl^$replace=/(<VAST[\s\S]*?>)[\s\S]*<\/VAST>/\$1<\/VAST>/,xmlhttprequest,other,~script (from AdBlockDNSFilters2)
+!   White: @@||o2.pl^$generichide (from GOODBYEADS)
+! Conflict: o2o.api.xiaomi.com
+!   Block: ||o2o.api.xiaomi.com^ (from 秋风的规则)
+!   White: @@||o2o.api.xiaomi.com^ (from 那个谁520)
+! Conflict: oauth-login-drcn.platform.dbankcloud.com
+!   Block: 0.0.0.0 oauth-login-drcn.platform.dbankcloud.com (from 那个谁520)
+!   White: @@||oauth-login-drcn.platform.dbankcloud.com^ (from GOODBYEADS)
+! Conflict: obus-cn.dc.heytapmobi.com
+!   Block: ||obus-cn.dc.heytapmobi.com^ (from 1hosts)
+!   White: @@||obus-cn.dc.heytapmobi.com^ (from 那个谁520)
+! Conflict: ocsp.apple.com
+!   Block: ||ocsp.apple.com^ (from 那个谁520)
+!   White: @@||ocsp.apple.com^ (from BlueSkyXN)
+! Conflict: odb.outbrain.com
+!   Block: ||odb.outbrain.com^ (from 1hosts)
+!   White: @@||odb.outbrain.com^$domain=nypost.com (from GOODBYEADS)
+! Conflict: omniture.walmart.com
+!   Block: ||omniture.walmart.com^ (from Ad-set-hosts)
+!   White: @@||omniture.walmart.com^ (from Menghuibanxian)
+! Conflict: omsc.kpn.com
+!   Block: ||omsc.kpn.com^ (from 1hosts)
+!   White: @@||omsc.kpn.com^ (from Menghuibanxian)
+! Conflict: omtrdc.net
+!   Block: ||omtrdc.net^ (from 那个谁520)
+!   White: @@||omtrdc.net^$domain=abbyy.ru (from GOODBYEADS)
+! Conflict: omuzaani.me
+!   Block: ||omuzaani.me^$replace=/(window\.location\.(replace|href))/\/\/\$1/,document,subdocument (from AdBlockDNSFilters2)
+!   White: @@||omuzaani.me^$generichide (from GOODBYEADS)
+! Conflict: onewsvod.com
+!   Block: ||onewsvod.com^ (from 1hosts)
+!   White: @@||onewsvod.com^ (from 广告规则)
+! Conflict: online-metrix.net
+!   Block: ||online-metrix.net^ (from 1hosts)
+!   White: @@||online-metrix.net^$script,domain=eki-net.com (from GOODBYEADS)
+! Conflict: open.douyin.com
+!   Block: ||open.douyin.com^$important (from Custom Blocklist)
+!   White: @@||open.douyin.com^ (from 那个谁520)
+! Conflict: open.e.kuaishou.com
+!   Block: ||open.e.kuaishou.com^ (from 秋风的规则)
+!   White: @@||open.e.kuaishou.com^ (from Menghuibanxian)
+! Conflict: open.snssdk.com
+!   Block: ||open.snssdk.com^ (from 秋风的规则)
+!   White: @@||open.snssdk.com^ (from 那个谁520)
+! Conflict: opencloud.wostore.cn
+!   Block: ||opencloud.wostore.cn^ (from 广告规则)
+!   White: @@||opencloud.wostore.cn^ (from 那个谁520)
+! Conflict: optimize.webtrends.com
+!   Block: ||optimize.webtrends.com^ (from Ad-set-hosts)
+!   White: @@||optimize.webtrends.com^$domain=peterboroughtoday.co.uk (from GOODBYEADS)
+! Conflict: optimizely.com
+!   Block: ||optimizely.com^ (from Ad-set-hosts)
+!   White: @@||optimizely.com^$image,domain=marinco.navico.com (from GOODBYEADS)
+! Conflict: optimove.net
+!   Block: ||optimove.net^ (from Ad-set-hosts)
+!   White: @@||optimove.net^$domain=app.touchnote.com (from GOODBYEADS)
+! Conflict: orange-dc.alibaba.com
+!   Block: 0.0.0.0 orange-dc.alibaba.com (from 下个ID见)
+!   White: @@||orange-dc.alibaba.com^ (from 那个谁520)
+! Conflict: orbit.jd.com
+!   Block: ||orbit.jd.com^ (from 秋风的规则)
+!   White: @@||orbit.jd.com^ (from 那个谁520)
+! Conflict: oss-asq-static.11222.cn
+!   Block: ||oss-asq-static.11222.cn^ (from 1hosts)
+!   White: @@||oss-asq-static.11222.cn^ (from 那个谁520)
+! Conflict: oth.eve.mdt.qq.com
+!   Block: ||oth.eve.mdt.qq.com^ (from 秋风的规则)
+!   White: @@||oth.eve.mdt.qq.com^ (from Menghuibanxian)
+! Conflict: oth.str.mdt.qq.com
+!   Block: ||oth.str.mdt.qq.com^ (from 秋风的规则)
+!   White: @@||oth.str.mdt.qq.com^ (from Menghuibanxian)
+! Conflict: oth.update.mdt.qq.com
+!   Block: 0.0.0.0 oth.update.mdt.qq.com (from 下个ID见)
+!   White: @@||oth.update.mdt.qq.com^ (from Menghuibanxian)
+! Conflict: otheve.beacon.qq.com
+!   Block: ||otheve.beacon.qq.com^ (from 大萌主)
+!   White: @@||otheve.beacon.qq.com^ (from 那个谁520)
+! Conflict: ott.cibntv.net
+!   Block: 0.0.0.0 ott.cibntv.net (from 下个ID见)
+!   White: @@||ott.cibntv.net^ (from 那个谁520)
+! Conflict: outbrainimg.com
+!   Block: ||outbrainimg.com^ (from 1hosts)
+!   White: @@||outbrainimg.com^$third-party,domain=computerbild.de|fitbook.de|metal-hammer.de|rollingstone.de|stylebook.de (from GOODBYEADS)
+! Conflict: p-l.play.aiseet.atianqi.com
+!   Block: 0.0.0.0 p-l.play.aiseet.atianqi.com (from 下个ID见)
+!   White: @@||p-l.play.aiseet.atianqi.com^ (from 那个谁520)
+! Conflict: p.qlogo.cn
+!   Block: ||p.qlogo.cn^$domain=jumi.tv (from AdBlockDNSFilters2)
+!   White: @@||p.qlogo.cn^ (from 那个谁520)
+! Conflict: p1-lm.adukwai.com
+!   Block: ||p1-lm.adukwai.com^ (from DD自用)
+!   White: @@||p1-lm.adukwai.com^ (from 那个谁520)
+! Conflict: p11.techlab-cdn.com
+!   Block: ||p11.techlab-cdn.com^ (from 1hosts)
+!   White: @@||p11.techlab-cdn.com^$domain=wizzair.com (from GOODBYEADS)
+! Conflict: p2-lm.adukwai.com
+!   Block: ||p2-lm.adukwai.com^ (from 逆向涉猎)
+!   White: @@||p2-lm.adukwai.com^ (from 那个谁520)
+! Conflict: p26-sign.douyinpic.com
+!   Block: ||p26-sign.douyinpic.com^ (from 广告规则)
+!   White: @@||p26-sign.douyinpic.com^ (from 那个谁520)
+! Conflict: p2p.huya.com
+!   Block: ||*.p2p.huya.com^ (from 那个谁520)
+!   White: @@||p2p.huya.com^ (from 那个谁520)
+! Conflict: p3-novel.byteimg.com
+!   Block: 0.0.0.0 p3-novel.byteimg.com  #24.6.17测试 (from 下个ID见)
+!   White: @@||p3-novel.byteimg.com^ (from 那个谁520)
+! Conflict: p3-sign.douyinpic.com
+!   Block: ||p3-sign.douyinpic.com^ (from 广告规则)
+!   White: @@||p3-sign.douyinpic.com^ (from 那个谁520)
+! Conflict: p3-tt.byteimg.com
+!   Block: ||p3-tt.byteimg.com^ (from 秋风的规则)
+!   White: @@||p3-tt.byteimg.com^ (from 那个谁520)
+! Conflict: p3-webcast.douyinpic.com
+!   Block: 0.0.0.0 p3-webcast.douyinpic.com (from 下个ID见)
+!   White: @@||p3-webcast.douyinpic.com^ (from 那个谁520)
+! Conflict: p3.dcarimg.com
+!   Block: 0.0.0.0 p3.dcarimg.com (from 下个ID见)
+!   White: @@||p3.dcarimg.com^ (from 那个谁520)
+! Conflict: p4-ad.adukwai.com
+!   Block: ||p4-ad.adukwai.com^ (from 逆向涉猎)
+!   White: @@||p4-ad.adukwai.com^ (from 那个谁520)
+! Conflict: p6-novel.byteimg.com
+!   Block: 0.0.0.0 p6-novel.byteimg.com (from 下个ID见)
+!   White: @@||p6-novel.byteimg.com^ (from 那个谁520)
+! Conflict: p6-reading-sign.fqnovelpic.com
+!   Block: ||p6-reading-sign.fqnovelpic.com^ (from 广告规则)
+!   White: @@||p6-reading-sign.fqnovelpic.com^ (from 那个谁520)
+! Conflict: pacaio.match.qq.com
+!   Block: 0.0.0.0 pacaio.match.qq.com (from 下个ID见)
+!   White: @@||pacaio.match.qq.com^ (from 那个谁520)
+! Conflict: pagead.l.doubleclick.net
+!   Block: 0.0.0.0 pagead.l.doubleclick.net (from 下个ID见)
+!   White: @@||pagead.l.doubleclick.net^ (from AdBlockDNSFilters1)
+! Conflict: pagead2.googleadservices.com
+!   Block: ||pagead2.googleadservices.com^ (from 秋风的规则)
+!   White: @@||pagead2.googleadservices.com^$domain=sportshub.to (from GOODBYEADS)
+! Conflict: pagead2.googlesyndication.com
+!   Block: ||pagead2.googlesyndication.com^ (from 秋风的规则)
+!   White: @@||pagead2.googlesyndication.com^$domain=battlecats-db.com (from GOODBYEADS)
+! Conflict: parenting.pl
+!   Block: ||parenting.pl^$replace=/(<VAST[\s\S]*?>)[\s\S]*<\/VAST>/\$1<\/VAST>/,xmlhttprequest,other,~script (from AdBlockDNSFilters2)
+!   White: @@||parenting.pl^$generichide (from GOODBYEADS)
+! Conflict: parked-content.godaddy.com
+!   Block: ||parked-content.godaddy.com^ (from 1hosts)
+!   White: @@||parked-content.godaddy.com^ (from 那个谁520)
+! Conflict: partner.googleadservices.com
+!   Block: ||partner.googleadservices.com^$third-party (from ABP)
+!   White: @@||partner.googleadservices.com^$domain=popsugar.com (from GOODBYEADS)
+! Conflict: patchedfiles.com
+!   Block: ||patchedfiles.com^ (from AdBlock DNS Filters)
+!   White: @@||patchedfiles.com^$generichide (from GOODBYEADS)
+! Conflict: paydns.wechatpay.cn
+!   Block: ||paydns.wechatpay.cn^$important (from Custom Blocklist)
+!   White: @@||paydns.wechatpay.cn^ (from 那个谁520)
+! Conflict: penta.a.one.impact-ad.jp
+!   Block: ||penta.a.one.impact-ad.jp^ (from Ad-set-hosts)
+!   White: @@||penta.a.one.impact-ad.jp^$script,domain=www3.nissan.co.jp (from GOODBYEADS)
+! Conflict: pepperjamnetwork.com
+!   Block: ||pepperjamnetwork.com^$third-party (from ABP)
+!   White: @@||pepperjamnetwork.com^$domain=bradsdeals.com|coupons.com|dealigg.com|dealnews.com|goodsearch.com|groupon.com|hotukdeals.com|moneysavingexpert.com|offers.com|retailmenot.com|slickdeals.net (from GOODBYEADS)
+! Conflict: pepsico.com.cn
+!   Block: ||pepsico.com.cn^ (from 1hosts)
+!   White: @@||pepsico.com.cn^ (from 那个谁520)
+! Conflict: personaclick.com
+!   Block: ||personaclick.com^ (from 1hosts)
+!   White: @@||personaclick.com^ (from 那个谁520)
+! Conflict: pgdt.gtimg.cn
+!   Block: ||pgdt.gtimg.cn^ (from 秋风的规则)
+!   White: @@||pgdt.gtimg.cn^ (from 广告规则)
+! Conflict: pgdt.ugdtimg.com
+!   Block: ||pgdt.ugdtimg.com^ (from 秋风的规则)
+!   White: @@||pgdt.ugdtimg.com^ (from Menghuibanxian)
+! Conflict: pgpartner.com
+!   Block: ||pgpartner.com^ (from Ad-set-hosts)
+!   White: @@||pgpartner.com^ (from GOODBYEADS)
+! Conflict: pherotruth.com
+!   Block: pherotruth.com$$script[wildcard="*.shift()*void 0===*"][min-length="50000"][max-length="250000"] (from AdBlockDNSFilters2)
+!   White: @@||pherotruth.com^$generichide (from GOODBYEADS)
+! Conflict: pic.rmb.bdstatic.com
+!   Block: 0.0.0.0 pic.rmb.bdstatic.com (from 下个ID见)
+!   White: @@||pic.rmb.bdstatic.com^ (from 那个谁520)
+! Conflict: pic6.ajkimg.com
+!   Block: 0.0.0.0 pic6.ajkimg.com (from 下个ID见)
+!   White: @@||pic6.ajkimg.com^ (from 那个谁520)
+! Conflict: pic640.weishi.qq.com
+!   Block: 0.0.0.0 pic640.weishi.qq.com (from 下个ID见)
+!   White: @@||pic640.weishi.qq.com^ (from 那个谁520)
+! Conflict: pic7.iqiyipic.com
+!   Block: ||pic7.iqiyipic.com^ (from 逆向涉猎)
+!   White: @@||pic7.iqiyipic.com^ (from 那个谁520)
+! Conflict: pingfore.qq.com
+!   Block: ||pingfore.qq.com^$app=com.tencent.mm (from 那个谁520)
+!   White: @@||pingfore.qq.com^ (from 那个谁520)
+! Conflict: pinghot.qq.com
+!   Block: 0.0.0.0 pinghot.qq.com (from 下个ID见)
+!   White: @@||pinghot.qq.com^ (from 那个谁520)
+! Conflict: pingjs.qq.com
+!   Block: 0.0.0.0 pingjs.qq.com (from 那个谁520)
+!   White: @@||pingjs.qq.com^$~third-party (from GOODBYEADS)
+! Conflict: pingma.qq.com
+!   Block: ||pingma.qq.com^ (from 大萌主)
+!   White: @@||pingma.qq.com^ (from 那个谁520)
+! Conflict: pingtas.qq.com
+!   Block: 0.0.0.0 pingtas.qq.com (from 下个ID见)
+!   White: @@||pingtas.qq.com^ (from 那个谁520)
+! Conflict: pingtcss.qq.com
+!   Block: 0.0.0.0 pingtcss.qq.com (from 那个谁520)
+!   White: @@||pingtcss.qq.com^ (from 那个谁520)
+! Conflict: pinterest.com
+!   Block: ||pinterest.com^ (from Menghuibanxian)
+!   White: @@||pinterest.com^$generichide (from GOODBYEADS)
+! Conflict: pitaya.bytedance.com
+!   Block: ||pitaya.bytedance.com^$important (from Custom Blocklist)
+!   White: @@||pitaya.bytedance.com^ (from DD自用)
+! Conflict: pixel.adsafeprotected.com
+!   Block: 0.0.0.0 pixel.adsafeprotected.com (from 下个ID见)
+!   White: @@||pixel.adsafeprotected.com^$xmlhttprequest,domain=gentside.com|ohmymag.com (from GOODBYEADS)
+! Conflict: pixel.facebook.com
+!   Block: ||pixel.facebook.com^ (from 大萌主)
+!   White: @@||pixel.facebook.com^$domain=pixel.facebook.com (from GOODBYEADS)
+! Conflict: pixel.sitescout.com
+!   Block: ||pixel.sitescout.com^ (from Ad-set-hosts)
+!   White: @@||pixel.sitescout.com^$domain=mylifetime.com (from GOODBYEADS)
+! Conflict: pjtra.com
+!   Block: ||pjtra.com^$image,script (from ABP)
+!   White: @@||pjtra.com^$domain=bradsdeals.com|coupons.com|dealigg.com|dealnews.com|goodsearch.com|groupon.com|hotukdeals.com|moneysavingexpert.com|offers.com|retailmenot.com|slickdeals.net (from GOODBYEADS)
+! Conflict: pkg.sinaimg.cn
+!   Block: 0.0.0.0 pkg.sinaimg.cn (from 10007_auto)
+!   White: @@||pkg.sinaimg.cn^ (from 那个谁520)
+! Conflict: player.avplayer.com
+!   Block: ||player.avplayer.com^$third-party (from ABP)
+!   White: @@||player.avplayer.com^$script,domain=explosm.net|gamingbible.co.uk|justthenews.com|ladbible.com|tiz-cycling-live.io (from GOODBYEADS)
+! Conflict: player.ex.co
+!   Block: ||player.ex.co^$third-party (from ABP)
+!   White: @@||player.ex.co^$domain=reviewjournal.com (from GOODBYEADS)
+! Conflict: pleisty.com
+!   Block: ||pleisty.com^ (from Ad-set-hosts)
+!   White: @@||pleisty.com^$domain=evomag.ro (from GOODBYEADS)
+! Conflict: po.funshion.com
+!   Block: ||po.funshion.com^ (from 1hosts)
+!   White: @@||po.funshion.com^ (from DD自用)
+! Conflict: polarbyte.com
+!   Block: ||polarbyte.com^ (from AdBlock DNS Filters)
+!   White: @@||polarbyte.com^$domain=cambridgeenglish.org (from GOODBYEADS)
+! Conflict: polaris.zijieapi.com
+!   Block: ||polaris.zijieapi.com^ (from 广告规则)
+!   White: @@||polaris.zijieapi.com^ (from DD自用)
+! Conflict: policy.jd.com
+!   Block: 0.0.0.0 policy.jd.com (from 下个ID见)
+!   White: @@||policy.jd.com^ (from 那个谁520)
+! Conflict: policy.video.iqiyi.com
+!   Block: ||policy.video.iqiyi.com^ (from 那个谁520)
+!   White: @@||policy.video.iqiyi.com^ (from 那个谁520)
+! Conflict: port.sec.miui.com
+!   Block: ||port.sec.miui.com^ (from 1hosts)
+!   White: @@||port.sec.miui.com^ (from 那个谁520)
+! Conflict: pos.baidu.com
+!   Block: ||pos.baidu.com^ (from 秋风的规则)
+!   White: @@||pos.baidu.com^$script,domain=fxpan.com|htqyy.com (from GOODBYEADS)
+! Conflict: pp.myapp.com
+!   Block: 0.0.0.0 pp.myapp.com (from 那个谁520)
+!   White: @@||pp.myapp.com^ (from 那个谁520)
+! Conflict: prebid.adnxs.com
+!   Block: 0.0.0.0 prebid.adnxs.com (from 下个ID见)
+!   White: @@||prebid.adnxs.com^$xmlhttprequest,domain=go.cnn.com (from GOODBYEADS)
+! Conflict: primis.tech
+!   Block: ||primis.tech^ (from 1hosts)
+!   White: @@||primis.tech^$domain=sportsmole.co.uk (from GOODBYEADS)
+! Conflict: pro.bugly.qq.com
+!   Block: ||pro.bugly.qq.com^ (from 逆向涉猎)
+!   White: @@||pro.bugly.qq.com^ (from 那个谁520)
+! Conflict: promipool.com
+!   Block: promipool.com$$script[tag-content="Flags.autoRecov"][min-length="20000"][max-length="300000"] (from AdBlockDNSFilters2)
+!   White: @@||promipool.com^$generichide (from GOODBYEADS)
+! Conflict: proto2ad.durasite.net
+!   Block: ||proto2ad.durasite.net^ (from 1hosts)
+!   White: @@||proto2ad.durasite.net^ (from Menghuibanxian)
+! Conflict: pub.idqqimg.com
+!   Block: ||pub.idqqimg.com^ (from 1hosts)
+!   White: @@||pub.idqqimg.com^ (from 那个谁520)
+! Conflict: pub.network
+!   Block: ||pub.network^ (from 1hosts)
+!   White: @@||pub.network^$script,domain=creaders.net (from GOODBYEADS)
+! Conflict: pubads.g.doubleclick.net
+!   Block: 0.0.0.0 pubads.g.doubleclick.net (from 下个ID见)
+!   White: @@||pubads.g.doubleclick.net^$domain=popsugar.com (from GOODBYEADS)
+! Conflict: pubads.g.doubleclick.net/gampad/ads?&description_url=https%3a%2f%2fani.gamer.com.tw
+!   Block: ||pubads.g.doubleclick.net/gampad/ads?*&description_url=https%3A%2F%2Fani.gamer.com.tw$xmlhttprequest,redirect=noopvast-3.0,important (from ABP)
+!   White: @@||pubads.g.doubleclick.net/gampad/ads?*&description_url=https%3A%2F%2Fani.gamer.com.tw$domain=imasdk.googleapis.com (from GOODBYEADS)
+! Conflict: public.gdtimg.com
+!   Block: ||public.gdtimg.com^ (from 秋风的规则)
+!   White: @@||public.gdtimg.com^ (from 那个谁520)
+! Conflict: publish-pic-cpu.baidu.com
+!   Block: ||publish-pic-cpu.baidu.com^ (from AdBlockDNSFilters1)
+!   White: @@||publish-pic-cpu.baidu.com^ (from 那个谁520)
+! Conflict: pudelek.pl
+!   Block: ||pudelek.pl^$replace=/(<VAST[\s\S]*?>)[\s\S]*<\/VAST>/\$1<\/VAST>/,xmlhttprequest,other,~script (from AdBlockDNSFilters2)
+!   White: @@||pudelek.pl^$generichide (from GOODBYEADS)
+! Conflict: puds.ucweb.com
+!   Block: 0.0.0.0 puds.ucweb.com (from 下个ID见)
+!   White: @@||puds.ucweb.com^ (from 那个谁520)
+! Conflict: puma.112.2o7.net
+!   Block: ||puma.112.2o7.net^ (from Ad-set-hosts)
+!   White: @@||puma.112.2o7.net^ (from GOODBYEADS)
+! Conflict: push.m.youku.com
+!   Block: ||push.m.youku.com^ (from 大萌主)
+!   White: @@||push.m.youku.com^ (from 那个谁520)
+! Conflict: puui.qpic.cn
+!   Block: ||puui.qpic.cn^ (from Ad-set-hosts)
+!   White: @@||puui.qpic.cn^ (from GOODBYEADS)
+! Conflict: pv.sohu.com
+!   Block: 0.0.0.0 pv.sohu.com (from 下个ID见)
+!   White: @@||pv.sohu.com^ (from 那个谁520)
+! Conflict: pvtag.yahoo.co.jp
+!   Block: ||pvtag.yahoo.co.jp^ (from 1hosts)
+!   White: @@||pvtag.yahoo.co.jp^$script,domain=paypayfleamarket.yahoo.co.jp (from GOODBYEADS)
+! Conflict: px.a8.net
+!   Block: ||px.a8.net^ (from Ad-set-hosts)
+!   White: @@||px.a8.net^ (from Menghuibanxian)
+! Conflict: px.wpk.quark.cn
+!   Block: ||px.wpk.quark.cn^ (from 1hosts)
+!   White: @@||px.wpk.quark.cn^ (from 那个谁520)
+! Conflict: q.i.gdt.qq.com
+!   Block: ||q.i.gdt.qq.com^ (from 秋风的规则)
+!   White: @@||q.i.gdt.qq.com^ (from Menghuibanxian)
+! Conflict: qappcenterv6.3g.qq.com
+!   Block: ||qappcenterv6.3g.qq.com^ (from 大萌主)
+!   White: @@||qappcenterv6.3g.qq.com^ (from 那个谁520)
+! Conflict: qlogo.cn
+!   Block: ||qlogo.cn^$domain=chichiav1.xyz (from ABP)
+!   White: @@||qlogo.cn^ (from GOODBYEADS)
+! Conflict: qr.cp31.ott.cibntv.net
+!   Block: ||qr.cp31.ott.cibntv.net^ (from Ad-set-hosts)
+!   White: @@||qr.cp31.ott.cibntv.net^ (from 那个谁520)
+! Conflict: query.petametrics.com
+!   Block: ||query*.petametrics.com^ (from AdBlockDNSFilters2)
+!   White: @@||query.petametrics.com^$image,xmlhttprequest,domain=mechacomic.jp (from GOODBYEADS)
+! Conflict: qzs.qq.com
+!   Block: 0.0.0.0 qzs.qq.com (from 下个ID见)
+!   White: @@||qzs.qq.com^ (from 那个谁520)
+! Conflict: raw.githubusercontent.com
+!   Block: ||raw.githubusercontent.com^$media,redirect=noopmp3-0.1s,domain=vidify.top (from AdBlockDNSFilters2)
+!   White: @@||raw.githubusercontent.com^$domain=viewscreen.githubusercontent.com (from GOODBYEADS)
+! Conflict: rcm-na.amazon-adsystem.com
+!   Block: ||rcm-na.amazon-adsystem.com^ (from 1hosts)
+!   White: @@||rcm-na.amazon-adsystem.com^$domain=sixsave.com (from GOODBYEADS)
+! Conflict: rdelivery.qq.com
+!   Block: ||rdelivery.qq.com^ (from 1hosts)
+!   White: @@||rdelivery.qq.com^ (from 那个谁520)
+! Conflict: reactandshare.com
+!   Block: ||reactandshare.com^ (from Ad-set-hosts)
+!   White: @@||reactandshare.com^$domain=maanmittauslaitos.fi (from GOODBYEADS)
+! Conflict: read.amazon./ads-prebid.js
+!   Block: ||read.amazon.*/ads-prebid.js$script,redirect=prebid-ads,important (from AdBlockDNSFilters2)
+!   White: @@||read.amazon.*/ads-prebid.js (from GOODBYEADS)
+! Conflict: reader.browser.miui.com
+!   Block: 0.0.0.0 reader.browser.miui.com (from 那个谁520)
+!   White: @@||reader.browser.miui.com^ (from 那个谁520)
+! Conflict: reading.snssdk.com
+!   Block: 0.0.0.0 reading.snssdk.com (from 那个谁520)
+!   White: @@||reading.snssdk.com^ (from 那个谁520)
+! Conflict: realsrv.com
+!   Block: ||realsrv.com^$popup (from ABP)
+!   White: @@||realsrv.com^$domain=4khd.com|uuss.uk|xxtt.ink (from ABP)
+! Conflict: recmd.html5.qq.com
+!   Block: 0.0.0.0 recmd.html5.qq.com (from 下个ID见)
+!   White: @@||recmd.html5.qq.com^ (from 那个谁520)
+! Conflict: recommender.scarabresearch.com
+!   Block: ||recommender.scarabresearch.com^ (from Ad-set-hosts)
+!   White: @@||recommender.scarabresearch.com^ (from Menghuibanxian)
+! Conflict: redirect.appmetrica.yandex.com
+!   Block: ||redirect.appmetrica.yandex.com^ (from Ad-set-hosts)
+!   White: @@||redirect.appmetrica.yandex.com^ (from Menghuibanxian)
+! Conflict: redirector.gvt1.com/videoplayback/id//source/gfp_video_ads/
+!   Block: ||redirector.gvt1.com/videoplayback/id/*/source/gfp_video_ads/$media,redirect=noopmp4-1s,domain=poki-gdn.com|repuls.io,important (from AdBlockDNSFilters2)
+!   White: @@||redirector.gvt1.com/videoplayback/id/*/source/gfp_video_ads/$media,domain=poki-gdn.com|repuls.io (from GOODBYEADS)
+! Conflict: refer.discover.com
+!   Block: ||refer.discover.com^ (from AdBlock DNS Filters)
+!   White: @@||refer.discover.com^ (from Menghuibanxian)
+! Conflict: referrer.disqus.com
+!   Block: ||referrer.disqus.com^ (from 那个谁520)
+!   White: @@||referrer.disqus.com^ (from BlueSkyXN)
+! Conflict: register.xmpush.global.xiaomi.com
+!   Block: ||register.xmpush.global.xiaomi.com^ (from AdBlockDNSFilters1)
+!   White: @@||register.xmpush.global.xiaomi.com^ (from 那个谁520)
+! Conflict: relevant-digital.com
+!   Block: ||relevant-digital.com^ (from 1hosts)
+!   White: @@||relevant-digital.com^$script,domain=20min.ch (from GOODBYEADS)
+! Conflict: remote-data.urbanairship.com
+!   Block: ||remote-data.urbanairship.com^ (from 1hosts)
+!   White: @@||remote-data.urbanairship.com^$app=com.caribou.caribouapp (from GOODBYEADS)
+! Conflict: res.mi.baidu.com
+!   Block: ||res.mi.baidu.com^ (from 那个谁520)
+!   White: @@||res.mi.baidu.com^ (from DD自用)
+! Conflict: res.openinstall.com
+!   Block: 0.0.0.0 res.openinstall.com (from 那个谁520)
+!   White: @@||res.openinstall.com^ (from 那个谁520)
+! Conflict: resolver.gslb.mi-idc.com
+!   Block: 0.0.0.0 resolver.gslb.mi-idc.com (from 那个谁520)
+!   White: @@||resolver.gslb.mi-idc.com^ (from 那个谁520)
+! Conflict: resolver.msg.xiaomi.net
+!   Block: ||resolver.msg.xiaomi.net^ (from 广告规则)
+!   White: @@||resolver.msg.xiaomi.net^ (from 那个谁520)
+! Conflict: richmedia.video.qq.com
+!   Block: ||richmedia.video.qq.com^ (from 那个谁520)
+!   White: @@||richmedia.video.qq.com^ (from 那个谁520)
+! Conflict: rm.gdt.qq.com
+!   Block: 0.0.0.0 rm.gdt.qq.com (from 下个ID见)
+!   White: @@||rm.gdt.qq.com^ (from Menghuibanxian)
+! Conflict: rootzaffiliates.com
+!   Block: ||rootzaffiliates.com^$popup (from ABP)
+!   White: @@||rootzaffiliates.com^$domain=rootzaffiliates.com (from GOODBYEADS)
+! Conflict: rpt.gdt.qq.com
+!   Block: ||rpt.gdt.qq.com^ (from 秋风的规则)
+!   White: @@||rpt.gdt.qq.com^ (from Menghuibanxian)
+! Conflict: rt.rtoaster.jp
+!   Block: ||rt.rtoaster.jp^ (from Ad-set-hosts)
+!   White: @@||rt.rtoaster.jp^$image,domain=ec-store.net (from GOODBYEADS)
+! Conflict: rtoaster.jp
+!   Block: ||rtoaster.jp^ (from 1hosts)
+!   White: @@||rtoaster.jp^$script,domain=animate-onlineshop.jp|brainpad.co.jp|hikaritv.net|lexus.jp|peachjohn.co.jp|rurubu.jp|melonbooks.co.jp (from GOODBYEADS)
+! Conflict: ruten.com.tw
+!   Block: ||ruten.com.tw^ (from Ad-set-hosts)
+!   White: @@||ruten.com.tw^$stealth=referrer (from GOODBYEADS)
+! Conflict: s.click.alimama.com
+!   Block: ||s.click.alimama.com^ (from 1hosts)
+!   White: @@||s.click.alimama.com^ (from 那个谁520)
+! Conflict: s.click.taobao.com
+!   Block: ||s.click.taobao.com^ (from DD自用)
+!   White: @@||s.click.taobao.com^$popup (from GOODBYEADS)
+! Conflict: s.img.mix.sina.com.cn
+!   Block: ||s.img.mix.sina.com.cn^ (from 1hosts)
+!   White: @@||s.img.mix.sina.com.cn^ (from 那个谁520)
+! Conflict: s.optnx.com
+!   Block: ||s.optnx.com^ (from 1hosts)
+!   White: @@||s.optnx.com^ (from GOODBYEADS)
+! Conflict: s0.2mdn.net
+!   Block: 0.0.0.0 s0.2mdn.net (from 下个ID见)
+!   White: @@||s0.2mdn.net^$image,domain=client.falixnodes.net (from GOODBYEADS)
+! Conflict: s1.wp.com
+!   Block: ||s1.wp.com^$subdocument,third-party (from ABP)
+!   White: @@||s1.wp.com^ (from GOODBYEADS)
+! Conflict: sarapbeh.com
+!   Block: ||sarapbeh.com^ (from Menghuibanxian)
+!   White: @@||sarapbeh.com^$generichide (from GOODBYEADS)
+! Conflict: sax.sina.com.cn
+!   Block: ||sax.sina.com.cn^$important (from Custom Blocklist)
+!   White: @@||sax.sina.com.cn^ (from 那个谁520)
+! Conflict: sc.omtrdc.net
+!   Block: ||sc.omtrdc.net^ (from Ad-set-hosts)
+!   White: @@||sc.omtrdc.net^$domain=cibc.com (from GOODBYEADS)
+! Conflict: scorecardresearch.com
+!   Block: ||scorecardresearch.com^ (from 那个谁520)
+!   White: @@||scorecardresearch.com^$third-party,domain=nissan.ru (from GOODBYEADS)
+! Conflict: scs.openspeech.cn
+!   Block: ||scs.openspeech.cn^ (from 秋风的规则)
+!   White: @@||scs.openspeech.cn^ (from 那个谁520)
+! Conflict: sd.360.cn
+!   Block: ||sd.360.cn^ (from Ad-set-hosts)
+!   White: @@||sd.360.cn^ (from 那个谁520)
+! Conflict: sdk-api.beizi.biz
+!   Block: ||sdk-api.beizi.biz^ (from 逆向涉猎)
+!   White: @@||sdk-api.beizi.biz^ (from 那个谁520)
+! Conflict: sdk.alibaba.com.ailbaba.me
+!   Block: ||sdk.alibaba.com.ailbaba.me^ (from DD自用)
+!   White: @@||sdk.alibaba.com.ailbaba.me^ (from 那个谁520)
+! Conflict: sdk.e.qq.com
+!   Block: ||sdk.e.qq.com^ (from 秋风的规则)
+!   White: @@||sdk.e.qq.com^ (from Menghuibanxian)
+! Conflict: sdk.open.talk.gepush.com
+!   Block: 0.0.0.0 sdk.open.talk.gepush.com (from 下个ID见)
+!   White: @@||sdk.open.talk.gepush.com^ (from DD自用)
+! Conflict: sdk.ptqy.gitv.tv
+!   Block: ||sdk.ptqy.gitv.tv^ (from 1hosts)
+!   White: @@||sdk.ptqy.gitv.tv^ (from 那个谁520)
+! Conflict: sdkapi.sms.mob.com
+!   Block: 0.0.0.0 sdkapi.sms.mob.com (from 下个ID见)
+!   White: @@||sdkapi.sms.mob.com^ (from 那个谁520)
+! Conflict: se.360.cn
+!   Block: ||se.360.cn^ (from Ad-set-hosts)
+!   White: @@||se.360.cn^ (from 那个谁520)
+! Conflict: sec-cdn.static.xiaomi.net
+!   Block: ||sec-cdn.static.xiaomi.net^ (from 1hosts)
+!   White: @@||sec-cdn.static.xiaomi.net^ (from 那个谁520)
+! Conflict: sec.resource.xiaomi.net
+!   Block: ||sec.resource.xiaomi.net^ (from AdBlockDNSFilters1)
+!   White: @@||sec.resource.xiaomi.net^ (from BlueSkyXN)
+! Conflict: secureimage.securedataimages.com
+!   Block: ||secureimage.securedataimages.com^ (from Ad-set-hosts)
+!   White: @@||secureimage.securedataimages.com^ (from Menghuibanxian)
+! Conflict: securemetrics.apple.com
+!   Block: ||securemetrics.apple.com^ (from 秋风的规则)
+!   White: @@||securemetrics.apple.com^ (from 那个谁520)
+! Conflict: securepubads.g.doubleclick.net
+!   Block: ||securepubads.g.doubleclick.net^ (from 秋风的规则)
+!   White: @@||securepubads.g.doubleclick.net^$domain=hoyts.com.au (from GOODBYEADS)
+! Conflict: sedge.nfl.com
+!   Block: ||sedge.nfl.com^ (from 1hosts)
+!   White: @@||sedge.nfl.com^ (from Menghuibanxian)
+! Conflict: segmentify.com
+!   Block: ||segmentify.com^ (from 那个谁520)
+!   White: @@||segmentify.com^$script,stylesheet,xmlhttprequest,domain=puma.com (from GOODBYEADS)
+! Conflict: serve.popads.net
+!   Block: ||serve.popads.net^ (from 那个谁520)
+!   White: @@||serve.popads.net^$script,domain=shinden.pl (from GOODBYEADS)
+! Conflict: services.bilsyndication.com
+!   Block: ||services.bilsyndication.com^ (from Ad-set-hosts)
+!   White: @@||services.bilsyndication.com^$domain=atozmath.com,~media (from GOODBYEADS)
+! Conflict: serving-sys.com
+!   Block: ||serving-sys.com^ (from 那个谁520)
+!   White: @@||serving-sys.com^$domain=mylifetime.com (from GOODBYEADS)
+! Conflict: settings-win.data.microsoft.com
+!   Block: ||settings-win.data.microsoft.com^ (from 那个谁520)
+!   White: @@||settings-win.data.microsoft.com^ (from anti-AD)
+! Conflict: sf3-pitaya-tos.pstatp.com
+!   Block: 0.0.0.0 sf3-pitaya-tos.pstatp.com (from 下个ID见)
+!   White: @@||sf3-pitaya-tos.pstatp.com^ (from 那个谁520)
+! Conflict: sf3-ttcdn-tos.pstatp.com
+!   Block: ||sf3-ttcdn-tos.pstatp.com^$important (from 广告规则)
+!   White: @@||sf3-ttcdn-tos.pstatp.com^ (from 那个谁520)
+! Conflict: sf6-fe-tos.pglstatp-toutiao.com
+!   Block: 0.0.0.0 sf6-fe-tos.pglstatp-toutiao.com (from 10007_auto)
+!   White: @@||sf6-fe-tos.pglstatp-toutiao.com^ (from 那个谁520)
+! Conflict: sfp.safe.baidu.com
+!   Block: ||sfp.safe.baidu.com^ (from 大萌主)
+!   White: @@||sfp.safe.baidu.com^ (from 那个谁520)
+! Conflict: sgtm.farmasave.it
+!   Block: ||sgtm.farmasave.it^ (from AdBlock DNS Filters)
+!   White: @@||sgtm.farmasave.it^$script,~third-party (from GOODBYEADS)
+! Conflict: sh.st
+!   Block: ||sh.st^ (from AdBlock DNS Filters)
+!   White: @@||sh.st$generichide (from GOODBYEADS)
+! Conflict: share.baidu.com
+!   Block: 0.0.0.0 share.baidu.com (from 下个ID见)
+!   White: @@||share.baidu.com^$script,stylesheet,domain=k73.com (from GOODBYEADS)
+! Conflict: sharethis.com
+!   Block: ||sharethis.com^ (from Ad-set-hosts)
+!   White: @@||sharethis.com^$third-party,domain=gamesradar.com (from GOODBYEADS)
+! Conflict: shouji.360.cn
+!   Block: ||shouji.360.cn^$important (from Custom Blocklist)
+!   White: @@||shouji.360.cn^ (from DD自用)
+! Conflict: shrtfly.com
+!   Block: ||shrtfly.com^$third-party (from ABP)
+!   White: @@||shrtfly.com^$generichide (from GOODBYEADS)
+! Conflict: simg.sinajs.cn
+!   Block: ||simg.sinajs.cn^ (from 1hosts)
+!   White: @@||simg.sinajs.cn^ (from 那个谁520)
+! Conflict: simpleanalyticsexternal.com
+!   Block: ||simpleanalyticsexternal.com^ (from 1hosts)
+!   White: @@||simpleanalyticsexternal.com^$script,domain=inleo.io (from GOODBYEADS)
+! Conflict: sinaimg.cn
+!   Block: ||sinaimg.cn^$image,domain=hg6384.com-www.6u7u.com (from AdBlockDNSFilters2)
+!   White: @@||sinaimg.cn^$stealth=referrer,domain=weibo.com (from GOODBYEADS)
+! Conflict: siteanalytics.compete.com
+!   Block: ||siteanalytics.compete.com^ (from 1hosts)
+!   White: @@||siteanalytics.compete.com^$~third-party (from GOODBYEADS)
+! Conflict: siteapps.com
+!   Block: ||siteapps.com^ (from Ad-set-hosts)
+!   White: @@||siteapps.com^$script,domain=netcombo.com.br (from GOODBYEADS)
+! Conflict: siteintercept.qualtrics.com
+!   Block: ||siteintercept.qualtrics.com^ (from 1hosts)
+!   White: @@||siteintercept.qualtrics.com^$domain=idealo.* (from GOODBYEADS)
+! Conflict: sjh.baidu.com
+!   Block: 0.0.0.0 sjh.baidu.com (from 下个ID见)
+!   White: @@||sjh.baidu.com^ (from 那个谁520)
+! Conflict: sl.hpplay.cn
+!   Block: ||sl.hpplay.cn^ (from 秋风的规则)
+!   White: @@||sl.hpplay.cn^ (from DD自用)
+! Conflict: smallseotools.com
+!   Block: ||smallseotools.com^ (from Ad-set-hosts)
+!   White: @@||smallseotools.com^$generichide (from GOODBYEADS)
+! Conflict: smetrics.aa.com
+!   Block: ||smetrics.aa.com^ (from 1hosts)
+!   White: @@||smetrics.aa.com^$app=com.aa.android (from GOODBYEADS)
+! Conflict: snigelweb.com
+!   Block: ||snigelweb.com^$third-party (from ABP)
+!   White: @@||snigelweb.com^$domain=editpad.org (from GOODBYEADS)
+! Conflict: snopes.com
+!   Block: snopes.com$$script:contains(adblock_notice) (from AdBlockDNSFilters2)
+!   White: @@||snopes.com^$generichide (from GOODBYEADS)
+! Conflict: snowflake.qq.com
+!   Block: ||snowflake.qq.com^ (from 秋风的规则)
+!   White: @@||snowflake.qq.com^ (from 那个谁520)
+! Conflict: snowplow.swm.digital
+!   Block: ||snowplow.swm.digital^ (from 1hosts)
+!   White: @@||snowplow.swm.digital^$domain=7plus.com.au (from GOODBYEADS)
+! Conflict: sobot.com
+!   Block: ||sobot.com^ (from AdBlockDNSFilters1)
+!   White: @@||sobot.com^ (from 大萌主)
+! Conflict: sofire.baidu.com
+!   Block: ||sofire.baidu.com^ (from 大萌主)
+!   White: @@||sofire.baidu.com^ (from 那个谁520)
+! Conflict: sofire.bdstatic.com
+!   Block: ||sofire.bdstatic.com^ (from 1hosts)
+!   White: @@||sofire.bdstatic.com^ (from 那个谁520)
+! Conflict: soft.tbs.imtt.qq.com
+!   Block: 0.0.0.0 soft.tbs.imtt.qq.com (from 下个ID见)
+!   White: @@||soft.tbs.imtt.qq.com^ (from 那个谁520)
+! Conflict: sonar.viously.com
+!   Block: ||sonar.viously.com^$domain=~aufeminin.com|~futura-sciences.com|~gamekult.com|~gbnews.com|~jeanmarcmorandini.com|~lesnumeriques.com|~marmiton.org|~melty.fr|~nextplz.fr|~the-race.com (from ABP)
+!   White: @@||sonar.viously.com^$domain=clubic.com (from GOODBYEADS)
+! Conflict: sonyliv.com
+!   Block: sonyliv.com$$meta[name="referrer"][content="never"] (from AdBlockDNSFilters2)
+!   White: @@||sonyliv.com^$generichide (from GOODBYEADS)
+! Conflict: soup.v.qq.com
+!   Block: 0.0.0.0 soup.v.qq.com (from 下个ID见)
+!   White: @@||soup.v.qq.com^ (from 那个谁520)
+! Conflict: sovrn.com
+!   Block: ||sovrn.com^$third-party (from ABP)
+!   White: @@||sovrn.com^$domain=3dpchip.com (from GOODBYEADS)
+! Conflict: sp0.baidu.com
+!   Block: 0.0.0.0 sp0.baidu.com (from 下个ID见)
+!   White: @@||sp0.baidu.com^ (from 那个谁520)
+! Conflict: sp1.baidu.com
+!   Block: ||sp1.baidu.com^ (from 大萌主)
+!   White: @@||sp1.baidu.com^ (from 那个谁520)
+! Conflict: sp2.baidu.com
+!   Block: ||sp2.baidu.com^ (from 1hosts)
+!   White: @@||sp2.baidu.com^ (from 那个谁520)
+! Conflict: spcsz.cdn.bcebos.com
+!   Block: ||spcsz.cdn.bcebos.com^ (from 逆向涉猎)
+!   White: @@||spcsz.cdn.bcebos.com^ (from 那个谁520)
+! Conflict: spxl.socy.es
+!   Block: ||spxl.socy.es^ (from GOODBYEADS)
+!   White: @@||spxl.socy.es^$script,xmlhttprequest,domain=3djuegosguias.com|3djuegospc.com|applesfera.com|compradiccion.com|directoalpaladar.com|espinof.com|genbeta.com|poprosa.com|trendencias.com|trendenciashombre.com|vidaextra.com|vitonica.com|xatakamovil.com (from GOODBYEADS)
+! Conflict: sqdd.myapp.com
+!   Block: 0.0.0.0 sqdd.myapp.com (from 那个谁520)
+!   White: @@||sqdd.myapp.com^ (from 那个谁520)
+! Conflict: squareup.com
+!   Block: ||squareup.com^ (from Ad-set-hosts)
+!   White: @@||squareup.com^ (from BlueSkyXN)
+! Conflict: srv.sec.miui.com
+!   Block: ||srv.sec.miui.com^ (from 1hosts)
+!   White: @@||srv.sec.miui.com^ (from 那个谁520)
+! Conflict: srvtrck.com
+!   Block: ||srvtrck.com^$popup (from ABP)
+!   White: @@||srvtrck.com^$xmlhttprequest,domain=bigbuttshub2.top|bigbuttshubvideos.com|go.datapendidikan.com|insurance.tempatwisata.pro (from GOODBYEADS)
+! Conflict: ssl.google-analytics.com
+!   Block: 0.0.0.0 ssl.google-analytics.com (from 下个ID见)
+!   White: @@||ssl.google-analytics.com^$domain=sportshub.to (from GOODBYEADS)
+! Conflict: ssl.msdk.qq.com
+!   Block: 0.0.0.0 ssl.msdk.qq.com (from 那个谁520)
+!   White: @@||ssl.msdk.qq.com^ (from 那个谁520)
+! Conflict: sstats.bitdefender.com
+!   Block: ||sstats.bitdefender.com^ (from AdBlock DNS Filters)
+!   White: @@||sstats.bitdefender.com^$~third-party (from GOODBYEADS)
+! Conflict: st.todesk.com
+!   Block: ||st.todesk.com^ (from 1hosts)
+!   White: @@||st.todesk.com^ (from 那个谁520)
+! Conflict: stackpathcdn.com
+!   Block: ||stackpathcdn.com^ (from Ad-set-hosts)
+!   White: @@||stackpathcdn.com^$stealth=referrer,domain=tympanus.net (from GOODBYEADS)
+! Conflict: stat.funshion.com
+!   Block: ||stat.funshion.com^ (from AdBlockDNSFilters1)
+!   White: @@||stat.funshion.com^ (from 那个谁520)
+! Conflict: stat.y.qq.com
+!   Block: ||stat.y.qq.com^ (from 秋风的规则)
+!   White: @@||stat.y.qq.com^ (from 那个谁520)
+! Conflict: stat.youku.com
+!   Block: 0.0.0.0 stat.youku.com (from 下个ID见)
+!   White: @@||stat.youku.com^ (from 那个谁520)
+! Conflict: stat6.y.qq.com
+!   Block: ||stat6.y.qq.com^ (from AdBlockDNSFilters1)
+!   White: @@||stat6.y.qq.com^ (from 那个谁520)
+! Conflict: static-cdn.hotjar.com
+!   Block: ||static-cdn.hotjar.com^ (from 1hosts)
+!   White: @@||static-cdn.hotjar.com^$script,domain=mercadopublico.cl (from GOODBYEADS)
+! Conflict: static-res.qq.com
+!   Block: 0.0.0.0 static-res.qq.com (from 下个ID见)
+!   White: @@||static-res.qq.com^ (from 那个谁520)
+! Conflict: static-s.iqiyi.com
+!   Block: ||static-s.iqiyi.com^ (from 秋风的规则)
+!   White: @@||static-s.iqiyi.com^ (from 那个谁520)
+! Conflict: static-tapad.tapdb.net
+!   Block: ||static-tapad.tapdb.net^ (from Ad-set-hosts)
+!   White: @@||static-tapad.tapdb.net^ (from 那个谁520)
+! Conflict: static.3001.net
+!   Block: ||static.3001.net^ (from Ad-set-hosts)
+!   White: @@||static.3001.net^$stealth=referrer,domain=freebuf.com (from GOODBYEADS)
+! Conflict: static.clmbtech.com
+!   Block: ||static.clmbtech.com^ (from Ad-set-hosts)
+!   White: @@||static.clmbtech.com^$domain=timesofindia.com,script (from ABP)
+! Conflict: static.cloudflareinsights.com
+!   Block: ||static.cloudflareinsights.com^ (from Ad-set-hosts)
+!   White: @@||static.cloudflareinsights.com^$important (from 那个谁520)
+! Conflict: static.doubleclick.net
+!   Block: 0.0.0.0 static.doubleclick.net (from 下个ID见)
+!   White: @@||static.doubleclick.net^$xmlhttprequest,domain=sgxnifty.org|comexlive.org|dowfutures.org (from GOODBYEADS)
+! Conflict: static.media.net
+!   Block: ||static.media.net^ (from Ad-set-hosts)
+!   White: @@||static.media.net^$domain=sportshub.to (from GOODBYEADS)
+! Conflict: static.parsely.com
+!   Block: ||static.parsely.com^ (from Ad-set-hosts)
+!   White: @@||static.parsely.com^$script,domain=dailystar.co.uk|express.co.uk|nydailynews.com (from GOODBYEADS)
+! Conflict: static.qiyi.com
+!   Block: ||static.qiyi.com^ (from AdBlockDNSFilters1)
+!   White: @@||static.qiyi.com^ (from 那个谁520)
+! Conflict: static.tieba.baidu.com
+!   Block: ||static.tieba.baidu.com^ (from 1hosts)
+!   White: @@||static.tieba.baidu.com^ (from 那个谁520)
+! Conflict: static.yximgs.com
+!   Block: 0.0.0.0 static.yximgs.com (from 下个ID见)
+!   White: @@||static.yximgs.com^ (from 那个谁520)
+! Conflict: staticsns.cdn.bcebos.com
+!   Block: ||staticsns.cdn.bcebos.com^$important (from Custom Blocklist)
+!   White: @@||staticsns.cdn.bcebos.com^ (from DD自用)
+! Conflict: stats.g.doubleclick.net
+!   Block: 0.0.0.0 stats.g.doubleclick.net (from 下个ID见)
+!   White: @@||stats.g.doubleclick.net^$domain=sportshub.to (from GOODBYEADS)
+! Conflict: stats.wp.com
+!   Block: ||stats.wp.com^ (from 秋风的规则)
+!   White: @@||stats.wp.com^$domain=sportshub.to (from GOODBYEADS)
+! Conflict: store.is.autonavi.com
+!   Block: 0.0.0.0 store.is.autonavi.com (from 下个ID见)
+!   White: @@||store.is.autonavi.com^ (from 那个谁520)
+! Conflict: storedl1.nearme.com.cn
+!   Block: ||storedl1.nearme.com.cn^ (from AdBlockDNSFilters1)
+!   White: @@||storedl1.nearme.com.cn^ (from 那个谁520)
+! Conflict: stpd.cloud
+!   Block: ||stpd.cloud^ (from 1hosts)
+!   White: @@||stpd.cloud^$domain=freemcserver.net (from GOODBYEADS)
+! Conflict: streamsb.net
+!   Block: ||streamsb.net^ (from Ad-set-hosts)
+!   White: @@||streamsb.net^ (from 那个谁520)
+! Conflict: streamtape.com
+!   Block: ||streamtape.com^ (from 那个谁520)
+!   White: @@||streamtape.com^$popup,domain=streamtape.to (from GOODBYEADS)
+! Conflict: studcat.infra.systems
+!   Block: ||studcat.infra.systems^ (from Ad-set-hosts)
+!   White: @@||studcat.infra.systems^ (from 那个谁520)
+! Conflict: subscription.iqiyi.com
+!   Block: ||subscription.iqiyi.com^ (from AdBlockDNSFilters1)
+!   White: @@||subscription.iqiyi.com^ (from 那个谁520)
+! Conflict: succeedscene.com
+!   Block: ||succeedscene.com^ (from 1hosts)
+!   White: @@||succeedscene.com^$script (from GOODBYEADS)
+! Conflict: sug.browser.miui.com
+!   Block: 0.0.0.0 sug.browser.miui.com  #小米浏览器搜索提示，上方的应用推广和下面的联想词一起干没 (from 下个ID见)
+!   White: @@||sug.browser.miui.com^ (from 那个谁520)
+! Conflict: sugar.zhihu.com
+!   Block: ||sugar.zhihu.com^ (from 大萌主)
+!   White: @@||sugar.zhihu.com^ (from 那个谁520)
+! Conflict: suggestion.baidu.com
+!   Block: ||suggestion.baidu.com^ (from AdBlockDNSFilters1)
+!   White: @@||suggestion.baidu.com^ (from 那个谁520)
+! Conflict: sugs.m.sm.cn
+!   Block: 0.0.0.0 sugs.m.sm.cn (from 下个ID见)
+!   White: @@||sugs.m.sm.cn^ (from 那个谁520)
+! Conflict: survey.g.doubleclick.net
+!   Block: 0.0.0.0 survey.g.doubleclick.net (from 下个ID见)
+!   White: @@||survey.g.doubleclick.net^$script,domain=sporcle.com (from GOODBYEADS)
+! Conflict: svtrd.com
+!   Block: ||svtrd.com^ (from 1hosts)
+!   White: @@||svtrd.com^$domain=moneyou.de|ns.nl (from GOODBYEADS)
+! Conflict: sysdk.cl2009.com
+!   Block: 0.0.0.0 sysdk.cl2009.com (from 下个ID见)
+!   White: @@||sysdk.cl2009.com^ (from 那个谁520)
+! Conflict: szbdyd.com
+!   Block: ||szbdyd.com^ (from 秋风的规则)
+!   White: @@||szbdyd.com^$stealth=referrer,domain=bilibili.com (from GOODBYEADS)
+! Conflict: szlong.weixin.qq.com
+!   Block: 0.0.0.0 szlong.weixin.qq.com (from 下个ID见)
+!   White: @@||szlong.weixin.qq.com^$important (from 广告规则)
+! Conflict: t.co
+!   Block: ||t.co^$popup,domain=hltv.org (from ABP)
+!   White: @@||t.co^ (from 那个谁520)
+! Conflict: t.gdt.qq.com
+!   Block: ||t.gdt.qq.com^ (from 逆向涉猎)
+!   White: @@||t.gdt.qq.com^ (from Menghuibanxian)
+! Conflict: t.uc.cn
+!   Block: ||t.uc.cn^ (from AdBlockDNSFilters1)
+!   White: @@||t.uc.cn^ (from 那个谁520)
+! Conflict: t7z.cupid.iqiyi.com
+!   Block: ||t7z.cupid.iqiyi.com^ (from 逆向涉猎)
+!   White: @@||t7z.cupid.iqiyi.com^ (from 那个谁520)
+! Conflict: tag.aticdn.net
+!   Block: ||tag.aticdn.net^ (from Ad-set-hosts)
+!   White: @@||tag.aticdn.net^$script,domain=gouv.fr|openservices.enedis.fr|rte.ie|tv5monde.com|uktvplay.co.uk|visaconcierge.eu|yourstory.com (from GOODBYEADS)
+! Conflict: tag.vlitag.com
+!   Block: ||tag.vlitag.com^ (from Ad-set-hosts)
+!   White: @@||tag.vlitag.com^$script,domain=orbispatches.com (from GOODBYEADS)
+! Conflict: tags.bluekai.com
+!   Block: ||tags.bluekai.com^ (from Ad-set-hosts)
+!   White: @@||tags.bluekai.com^$domain=netd.com (from GOODBYEADS)
+! Conflict: tags.crwdcntrl.net
+!   Block: 0.0.0.0 tags.crwdcntrl.net (from 下个ID见)
+!   White: @@||tags.crwdcntrl.net^$domain=weather.com (from GOODBYEADS)
+! Conflict: tagtic.cn
+!   Block: ||tagtic.cn^ (from 秋风的规则)
+!   White: @@||tagtic.cn^ (from BlueSkyXN)
+! Conflict: tangram.e.qq.com
+!   Block: ||tangram.e.qq.com^ (from 秋风的规则)
+!   White: @@||tangram.e.qq.com^ (from 那个谁520)
+! Conflict: taplytics.com
+!   Block: ||taplytics.com^ (from Ad-set-hosts)
+!   White: @@||taplytics.com^$domain=royalbank.com (from GOODBYEADS)
+! Conflict: target.my.com
+!   Block: ||target.my.com^ (from 1hosts)
+!   White: @@||target.my.com^$~third-party,document (from GOODBYEADS)
+! Conflict: tawk.to
+!   Block: ||tawk.to^$third-party (from ABP)
+!   White: @@||tawk.to^$stealth=referrer (from GOODBYEADS)
+! Conflict: tbsone.imtt.qq.com
+!   Block: ||tbsone.imtt.qq.com^ (from AdBlockDNSFilters1)
+!   White: @@||tbsone.imtt.qq.com^ (from 那个谁520)
+! Conflict: tcbox.baidu.com
+!   Block: ||tcbox.baidu.com^ (from 大萌主)
+!   White: @@||tcbox.baidu.com^ (from DD自用)
+! Conflict: tce.alicdn.com
+!   Block: ||tce.alicdn.com^ (from AdBlockDNSFilters1)
+!   White: @@||tce.alicdn.com^$domain=alimama.com (from GOODBYEADS)
+! Conflict: tdid.m.qq.com
+!   Block: ||tdid.m.qq.com^ (from 大萌主)
+!   White: @@||tdid.m.qq.com^ (from 那个谁520)
+! Conflict: team-rec.jp
+!   Block: ||team-rec.jp^ (from Ad-set-hosts)
+!   White: @@||team-rec.jp^$domain=search-voi.0101.co.jp|voi.0101.co.jp (from GOODBYEADS)
+! Conflict: technical-service.net
+!   Block: ||technical-service.net^ (from Ad-set-hosts)
+!   White: @@||technical-service.net^$xmlhttprequest,domain=n-tv.de|rtl.de|vip.de (from GOODBYEADS)
+! Conflict: temu.com
+!   Block: ||temu.com^$popup,domain=pornproxy.art (from ABP)
+!   White: @@||temu.com^$stealth=dpi (from GOODBYEADS)
+! Conflict: thirdwx.qlogo.cn
+!   Block: ||thirdwx.qlogo.cn^ (from Ad-set-hosts)
+!   White: @@||thirdwx.qlogo.cn^ (from 那个谁520)
+! Conflict: tianshu.gtimg.cn
+!   Block: ||tianshu.gtimg.cn^$important (from Custom Blocklist)
+!   White: @@||tianshu.gtimg.cn^ (from DD自用)
+! Conflict: tii.la
+!   Block: ||tii.la^ (from 1hosts)
+!   White: @@||tii.la^$generichide (from GOODBYEADS)
+! Conflict: tk.anythinktech.com
+!   Block: ||tk.anythinktech.com^ (from 秋风的规则)
+!   White: @@||tk.anythinktech.com^ (from Menghuibanxian)
+! Conflict: tkqlhce.com
+!   Block: ||tkqlhce.com^ (from 1hosts)
+!   White: @@||tkqlhce.com^$domain=bradsdeals.com|coupons.com|dealigg.com|dealnews.com|goodsearch.com|groupon.com|hotukdeals.com|moneysavingexpert.com|offers.com|retailmenot.com|slickdeals.net (from GOODBYEADS)
+! Conflict: tmead.y.qq.com
+!   Block: ||tmead.y.qq.com^ (from 秋风的规则)
+!   White: @@||tmead.y.qq.com^ (from Menghuibanxian)
+! Conflict: tmeadbak.y.qq.com
+!   Block: 0.0.0.0 tmeadbak.y.qq.com (from 下个ID见)
+!   White: @@||tmeadbak.y.qq.com^ (from Menghuibanxian)
+! Conflict: tmeadcomm.y.qq.com
+!   Block: ||tmeadcomm.y.qq.com^ (from 秋风的规则)
+!   White: @@||tmeadcomm.y.qq.com^ (from Menghuibanxian)
+! Conflict: tms.capitalone.com
+!   Block: ||tms.capitalone.com^ (from AdBlock DNS Filters)
+!   White: @@||tms.capitalone.com^ (from Menghuibanxian)
+! Conflict: tnc11-bjlgy.zijieapi.com
+!   Block: 0.0.0.0 tnc11-bjlgy.zijieapi.com (from 下个ID见)
+!   White: @@||tnc11-bjlgy.zijieapi.com^ (from 那个谁520)
+! Conflict: tnc16-platform-useast1a.tiktokv.com
+!   Block: ||tnc16-platform-useast1a.tiktokv.com^ (from AdBlock DNS Filters)
+!   White: @@||tnc16-platform-useast1a.tiktokv.com^ (from 那个谁520)
+! Conflict: tnc3-aliec2.snssdk.com
+!   Block: ||tnc3-aliec2.snssdk.com^ (from 秋风的规则)
+!   White: @@||tnc3-aliec2.snssdk.com^ (from 那个谁520)
+! Conflict: tnc3-bjlgy.zijieapi.com
+!   Block: ||tnc3-bjlgy.zijieapi.com^ (from 秋风的规则)
+!   White: @@||tnc3-bjlgy.zijieapi.com^ (from DD自用)
+! Conflict: toonily.me
+!   Block: toonily.me$$img[onerror="location.replace"] (from AdBlockDNSFilters2)
+!   White: @@||toonily.me^ (from 那个谁520)
+! Conflict: top-shop.ru
+!   Block: ||top-shop.ru^ (from 1hosts)
+!   White: @@||top-shop.ru^$domain=top-shop.ru (from GOODBYEADS)
+! Conflict: topsport.bg
+!   Block: topsport.bg$$script:contains(baitTest) (from AdBlockDNSFilters2)
+!   White: @@||topsport.bg^$generichide (from GOODBYEADS)
+! Conflict: torimochi.line-apps.com
+!   Block: ||torimochi.line-apps.com^ (from 1hosts)
+!   White: @@||torimochi.line-apps.com^ (from Menghuibanxian)
+! Conflict: tpc.googlesyndication.com
+!   Block: ||tpc.googlesyndication.com^ (from 秋风的规则)
+!   White: @@||tpc.googlesyndication.com^$domain=ads.google.com (from GOODBYEADS)
+! Conflict: tpstelemetry.tencent.com
+!   Block: 0.0.0.0 tpstelemetry.tencent.com (from 那个谁520)
+!   White: @@||tpstelemetry.tencent.com^ (from 那个谁520)
+! Conflict: tr.rdrtr.com
+!   Block: ||tr.rdrtr.com^ (from AdBlock DNS Filters)
+!   White: @@||tr.rdrtr.com^ (from Menghuibanxian)
+! Conflict: track.sohu.com
+!   Block: ||track.sohu.com^ (from 大萌主)
+!   White: @@||track.sohu.com^ (from 那个谁520)
+! Conflict: track.webgains.com
+!   Block: ||track.webgains.com^ (from Ad-set-hosts)
+!   White: @@||track.webgains.com^ (from Menghuibanxian)
+! Conflict: tracker.ai.xiaomi.com
+!   Block: ||tracker.ai.xiaomi.com^ (from 秋风的规则)
+!   White: @@||tracker.ai.xiaomi.com^ (from GOODBYEADS)
+! Conflict: tracker.didistatic.com
+!   Block: 0.0.0.0 tracker.didistatic.com (from 那个谁520)
+!   White: @@||tracker.didistatic.com^ (from 那个谁520)
+! Conflict: tracker.mattel.com
+!   Block: ||tracker.mattel.com^ (from Ad-set-hosts)
+!   White: @@||tracker.mattel.com^$domain=barbie.com (from GOODBYEADS)
+! Conflict: trafficmanager.anyclip.com
+!   Block: ||trafficmanager.anyclip.com^ (from 1hosts)
+!   White: @@||trafficmanager.anyclip.com^$domain=content.dictionary.com (from GOODBYEADS)
+! Conflict: trc-events.taboola.com
+!   Block: 0.0.0.0 trc-events.taboola.com (from 下个ID见)
+!   White: @@||trc-events.taboola.com^$domain=asianetnews.com (from GOODBYEADS)
+! Conflict: trc.taboola.com
+!   Block: ||trc.taboola.com^ (from 大萌主)
+!   White: @@||trc*.taboola.com^$domain=msnbc.com (from GOODBYEADS)
+! Conflict: trc.taboolasyndication.com
+!   Block: ||trc.taboolasyndication.com^ (from Ad-set-hosts)
+!   White: @@||trc.taboolasyndication.com^$domain=bloomberg.com|breitbart.com|nme.com|slatev.com (from GOODBYEADS)
+! Conflict: trojmiasto.pl
+!   Block: trojmiasto.pl$$script[tag-content="__adblockDetected "][min-length="2000"][max-length="5000"] (from AdBlockDNSFilters2)
+!   White: @@||trojmiasto.pl^$elemhide,jsinject,content,extension,~script,~stylesheet (from GOODBYEADS)
+! Conflict: try.abtasty.com
+!   Block: ||try.abtasty.com^ (from Ad-set-hosts)
+!   White: @@||try.abtasty.com^$script,domain=tickpick.com (from GOODBYEADS)
+! Conflict: tsis.jpush.cn
+!   Block: 0.0.0.0 tsis.jpush.cn (from 下个ID见)
+!   White: @@||tsis.jpush.cn^ (from 那个谁520)
+! Conflict: tunion-api.m.taobao.com
+!   Block: 0.0.0.0 tunion-api.m.taobao.com (from 下个ID见)
+!   White: @@||tunion-api.m.taobao.com^ (from 那个谁520)
+! Conflict: tvapp.hpplay.cn
+!   Block: ||tvapp.hpplay.cn^ (from 秋风的规则)
+!   White: @@||tvapp.hpplay.cn^ (from DD自用)
+! Conflict: u.oppomobile.com
+!   Block: ||u.oppomobile.com^ (from AdBlockDNSFilters1)
+!   White: @@||u.oppomobile.com^ (from 那个谁520)
+! Conflict: u1.img.mobile.sina.cn
+!   Block: 0.0.0.0 u1.img.mobile.sina.cn (from 下个ID见)
+!   White: @@||u1.img.mobile.sina.cn^ (from 那个谁520)
+! Conflict: uc.ucweb.com
+!   Block: 0.0.0.0 uc.ucweb.com (from 下个ID见)
+!   White: @@||uc.ucweb.com^ (from 那个谁520)
+! Conflict: uczzd.cn
+!   Block: ||uczzd.cn^ (from 1hosts)
+!   White: @@||uczzd.cn^ (from 那个谁520)
+! Conflict: udpolimenew.baidu.com
+!   Block: 0.0.0.0 udpolimenew.baidu.com (from 那个谁520)
+!   White: @@||udpolimenew.baidu.com^ (from 那个谁520)
+! Conflict: uee.me
+!   Block: ||uee.me^ (from Ad-set-hosts)
+!   White: @@||uee.me^ (from 那个谁520)
+! Conflict: umengjmacs.m.taobao.com
+!   Block: ||umengjmacs.m.taobao.com^ (from 秋风的规则)
+!   White: @@||umengjmacs.m.taobao.com^ (from DD自用)
+! Conflict: umiwi.com
+!   Block: ||umiwi.com^ (from 1hosts)
+!   White: @@||umiwi.com^ (from 那个谁520)
+! Conflict: unet.ucweb.com
+!   Block: 0.0.0.0 unet.ucweb.com (from 10007_auto)
+!   White: @@||unet.ucweb.com^ (from 那个谁520)
+! Conflict: unpkg.com
+!   Block: ||unpkg.com^$badfilter (from AdBlockDNSFilters2)
+!   White: @@||unpkg.com^$script,domain=vidsrc.stream (from GOODBYEADS)
+! Conflict: up-load.io
+!   Block: up-load.io$@$script[tag-content="zfgloaded"][min-length="30000"][max-length="80000"] (from AdBlockDNSFilters2)
+!   White: @@||up-load.io^$generichide (from GOODBYEADS)
+! Conflict: upage.imtt.qq.com
+!   Block: 0.0.0.0 upage.imtt.qq.com (from 10007_auto)
+!   White: @@||upage.imtt.qq.com^ (from 那个谁520)
+! Conflict: update.360safe.com
+!   Block: 0.0.0.0 update.360safe.com (from 下个ID见)
+!   White: @@||update.360safe.com^ (from 那个谁520)
+! Conflict: upgrade.ptmi.gitv.tv
+!   Block: 0.0.0.0 upgrade.ptmi.gitv.tv  #小米电视升级 (from 下个ID见)
+!   White: @@||upgrade.ptmi.gitv.tv^ (from 那个谁520)
+! Conflict: uri6.com
+!   Block: ||uri6.com^ (from 1hosts)
+!   White: @@||uri6.com^ (from 那个谁520)
+! Conflict: user1.game.qq.com
+!   Block: 0.0.0.0 user1.game.qq.com (from 下个ID见)
+!   White: @@||user1.game.qq.com^ (from 那个谁520)
+! Conflict: uxip.meizu.com
+!   Block: 0.0.0.0 uxip.meizu.com (from 下个ID见)
+!   White: @@||uxip.meizu.com^ (from 那个谁520)
+! Conflict: uzzf.com
+!   Block: ||uzzf.com^ (from 1hosts)
+!   White: @@||uzzf.com^ (from 那个谁520)
+! Conflict: v.gdt.qq.com
+!   Block: ||v.gdt.qq.com^ (from 逆向涉猎)
+!   White: @@||v.gdt.qq.com^ (from 那个谁520)
+! Conflict: v.miguvideo.com
+!   Block: ||v.miguvideo.com^ (from 1hosts)
+!   White: @@||v.miguvideo.com^ (from DD自用)
+! Conflict: v.smtcdns.com
+!   Block: ||v.smtcdns.com^$important (from Custom Blocklist)
+!   White: @@||v.smtcdns.com^ (from 那个谁520)
+! Conflict: v.uc.cn
+!   Block: 0.0.0.0 v.uc.cn (from 那个谁520)
+!   White: @@||v.uc.cn^ (from 那个谁520)
+! Conflict: v1-lm.adukwai.com
+!   Block: 0.0.0.0 v1-lm.adukwai.com (from 下个ID见)
+!   White: @@||v1-lm.adukwai.com^ (from Menghuibanxian)
+! Conflict: v2-lm.adukwai.com
+!   Block: 0.0.0.0 v2-lm.adukwai.com (from 下个ID见)
+!   White: @@||v2-lm.adukwai.com^ (from Menghuibanxian)
+! Conflict: v2.gdt.qq.com
+!   Block: ||v2.gdt.qq.com^ (from 秋风的规则)
+!   White: @@||v2.gdt.qq.com^ (from Menghuibanxian)
+! Conflict: v3.gdt.qq.com
+!   Block: ||v3.gdt.qq.com^ (from 秋风的规则)
+!   White: @@||v3.gdt.qq.com^ (from Menghuibanxian)
+! Conflict: v4-lm.adukwai.com
+!   Block: 0.0.0.0 v4-lm.adukwai.com (from 下个ID见)
+!   White: @@||v4-lm.adukwai.com^ (from Menghuibanxian)
+! Conflict: v5-novelapp.fqnovelvod.com
+!   Block: ||v5-novelapp.fqnovelvod.com^ (from 逆向涉猎)
+!   White: @@||v5-novelapp.fqnovelvod.com^ (from 那个谁520)
+! Conflict: v6ii.gdt.qq.com
+!   Block: 0.0.0.0 v6ii.gdt.qq.com (from 下个ID见)
+!   White: @@||v6ii.gdt.qq.com^ (from Menghuibanxian)
+! Conflict: vali-dns.cp31.ott.cibntv.net
+!   Block: 0.0.0.0 vali-dns.cp31.ott.cibntv.net (from 下个ID见)
+!   White: @@||vali-dns.cp31.ott.cibntv.net^ (from 那个谁520)
+! Conflict: vali-g1.cp31.ott.cibntv.net
+!   Block: ||vali-g1.cp31.ott.cibntv.net^ (from 逆向涉猎)
+!   White: @@||vali-g1.cp31.ott.cibntv.net^ (from 那个谁520)
+! Conflict: valuecommerce.com
+!   Block: ||valuecommerce.com^$third-party (from ABP)
+!   White: @@||valuecommerce.com^$image,domain=pointtown.com (from GOODBYEADS)
+! Conflict: vcs.snssdk.com
+!   Block: 0.0.0.0 vcs.snssdk.com  #并非抖音验证码 (from 下个ID见)
+!   White: @@||vcs.snssdk.com^ (from 那个谁520)
+! Conflict: vcs.zijieapi.com
+!   Block: ||vcs.zijieapi.com^ (from 广告规则)
+!   White: @@||vcs.zijieapi.com^ (from DD自用)
+! Conflict: vd.l.qq.com
+!   Block: 0.0.0.0 vd.l.qq.com (from 下个ID见)
+!   White: @@||vd.l.qq.com^ (from 那个谁520)
+! Conflict: veev.to
+!   Block: ||veev.to^$replace=/<head>([\s\S]*?)(\,)/<head><script>try{document.currentScript?.remove();(()=>{const t={apply:(t\$2n\$2e)=>{if(e[0]&&null===e[0].html?.detected&&"function"==typeof e[0].html?.instance?.start&&"function"==typeof e[0].env?.instance?.start&&"function"==typeof e[0].http?.instance?.start){const t=function(){Object.keys(this).forEach((t=>{"boolean"==typeof this[t]&&(this[t]=!1)}))};["html"\$2"env"\$2"http"].forEach((n=>{e[0][n].instance.start=t}))}return Reflect.apply(t\$2n\$2e)}};window.Object.keys=new Proxy(window.Object.keys\$2t)})();}catch(e){}<\/script>\$1\$2/,document,subdocument (from AdBlockDNSFilters2)
+!   White: @@||veev.to^$generichide (from GOODBYEADS)
+! Conflict: verify.snssdk.com
+!   Block: 0.0.0.0 verify.snssdk.com  #并非抖音验证码，据说是网页版抖音验证图片？ (from 下个ID见)
+!   White: @@||verify.snssdk.com^ (from 那个谁520)
+! Conflict: video.da.mgtv.com
+!   Block: 0.0.0.0 video.da.mgtv.com (from 那个谁520)
+!   White: @@||video.da.mgtv.com^ (from 那个谁520)
+! Conflict: vidlii.com
+!   Block: vidlii.com$$script[tag-content="|babasbmsgx|"][min-length="5000"][max-length="27000"] (from AdBlockDNSFilters2)
+!   White: @@||vidlii.com^$generichide (from GOODBYEADS)
+! Conflict: viglink.com
+!   Block: ||viglink.com^ (from 那个谁520)
+!   White: @@||viglink.com^$domain=dealsrunner.com (from GOODBYEADS)
+! Conflict: vitacost.122.2o7.net
+!   Block: ||vitacost.122.2o7.net^ (from Ad-set-hosts)
+!   White: @@||vitacost.122.2o7.net^ (from GOODBYEADS)
+! Conflict: vivo.sx
+!   Block: vivo.sx$$script[tag-content="encodeURIComponent(document"][min-length="5000"][max-length="15000"] (from AdBlockDNSFilters2)
+!   White: @@||vivo.sx^$generichide (from GOODBYEADS)
+! Conflict: vr.gdt.qq.com
+!   Block: ||vr.gdt.qq.com^ (from 逆向涉猎)
+!   White: @@||vr.gdt.qq.com^ (from Menghuibanxian)
+! Conflict: vv.video.qq.com
+!   Block: 0.0.0.0 vv.video.qq.com (from 那个谁520)
+!   White: @@||vv.video.qq.com^ (from 那个谁520)
+! Conflict: w1.kskwai.com
+!   Block: ||w1.kskwai.com^ (from 秋风的规则)
+!   White: @@||w1.kskwai.com^ (from 那个谁520)
+! Conflict: w2.kskwai.com
+!   Block: 0.0.0.0 w2.kskwai.com (from 下个ID见)
+!   White: @@||w2.kskwai.com^ (from 那个谁520)
+! Conflict: w8.com.cn
+!   Block: ||w8.com.cn^ (from AdBlockDNSFilters1)
+!   White: @@||w8.com.cn^ (from 那个谁520)
+! Conflict: w88.go.com
+!   Block: ||w88.go.com^ (from 那个谁520)
+!   White: @@||w88.go.com^$domain=abc.go.com (from GOODBYEADS)
+! Conflict: walla.co.il
+!   Block: walla.co.il$$script[wildcard="*<=0x0||*new Uint8Array*"][min-length="50000"][max-length="150000"] (from AdBlockDNSFilters2)
+!   White: @@||walla.co.il^$generichide (from GOODBYEADS)
+! Conflict: wan.douyu.com
+!   Block: ||wan.douyu.com^ (from 1hosts)
+!   White: @@||wan.douyu.com^ (from 大萌主)
+! Conflict: wbapp.mobile.sina.cn
+!   Block: 0.0.0.0 wbapp.mobile.sina.cn (from 下个ID见)
+!   White: @@||wbapp.mobile.sina.cn^ (from 那个谁520)
+! Conflict: webcast-open.douyin.com
+!   Block: ||webcast-open.douyin.com^ (from 逆向涉猎)
+!   White: @@||webcast-open.douyin.com^ (from 那个谁520)
+! Conflict: webfail.com
+!   Block: webfail.com$$script[tag-content="omi-service"][min-length="20000"][max-length="150000"] (from AdBlockDNSFilters2)
+!   White: @@||webfail.com^$generichide (from GOODBYEADS)
+! Conflict: webgains.com
+!   Block: ||webgains.com^$popup (from ABP)
+!   White: @@||webgains.com^$domain=bradsdeals.com|coupons.com|dealigg.com|dealnews.com|goodsearch.com|groupon.com|hotukdeals.com|moneysavingexpert.com|offers.com|retailmenot.com|slickdeals.net (from GOODBYEADS)
+! Conflict: wf.typesquare.com
+!   Block: ||wf.typesquare.com^ (from 1hosts)
+!   White: @@||wf.typesquare.com^$font,domain=morisawafonts.com (from GOODBYEADS)
+! Conflict: wgo.mmstat.com
+!   Block: 0.0.0.0 wgo.mmstat.com (from 下个ID见)
+!   White: @@||wgo.mmstat.com^ (from DD自用)
+! Conflict: widget.intercom.io
+!   Block: ||widget.intercom.io^ (from Ad-set-hosts)
+!   White: @@||widget.intercom.io^ (from anti-AD)
+! Conflict: widget.weibo.com
+!   Block: ||widget.weibo.com^ (from 1hosts)
+!   White: @@||widget.weibo.com^ (from anti-AD)
+! Conflict: win.gdt.qq.com
+!   Block: ||win.gdt.qq.com^ (from 秋风的规则)
+!   White: @@||win.gdt.qq.com^ (from Menghuibanxian)
+! Conflict: wl.jd.com
+!   Block: ||wl.jd.com^$third-party (from AdBlockDNSFilters2)
+!   White: @@||wl.jd.com^ (from BlueSkyXN)
+! Conflict: wm.makeding.com
+!   Block: ||wm.makeding.com^ (from Ad-set-hosts)
+!   White: @@||wm.makeding.com^ (from 那个谁520)
+! Conflict: woniu.com
+!   Block: ||woniu.com^ (from AdBlockDNSFilters1)
+!   White: @@||woniu.com^ (from 那个谁520)
+! Conflict: woocall.sina.com.cn
+!   Block: 0.0.0.0 woocall.sina.com.cn (from 下个ID见)
+!   White: @@||woocall.sina.com.cn^ (from 那个谁520)
+! Conflict: world.qpic.cn
+!   Block: 0.0.0.0 world.qpic.cn  #小世界的图片，视频的封面图。 (from 下个ID见)
+!   White: @@||world.qpic.cn^ (from 那个谁520)
+! Conflict: worldgravity.com
+!   Block: ||worldgravity.com^ (from Ad-set-hosts)
+!   White: @@||worldgravity.com^$script,domain=hotstar.com (from GOODBYEADS)
+! Conflict: worldwide.sogou.com
+!   Block: ||worldwide.sogou.com^ (from 大萌主)
+!   White: @@||worldwide.sogou.com^ (from 那个谁520)
+! Conflict: wp.pl
+!   Block: ||wp.pl^$replace=/(<VAST[\s\S]*?>)[\s\S]*<\/VAST>/\$1<\/VAST>/,xmlhttprequest,other,~script,app=~pl.videostar (from AdBlockDNSFilters2)
+!   White: @@||wp.pl^$generichide (from GOODBYEADS)
+! Conflict: wpnrtnmrewunrtok.xyz
+!   Block: ||wpnrtnmrewunrtok.xyz^ (from 1hosts)
+!   White: @@||wpnrtnmrewunrtok.xyz^$domain=camwhores.ru.com|camvideos.org (from GOODBYEADS)
+! Conflict: wtradv.market.xiaomi.com
+!   Block: ||wtradv.market.xiaomi.com^ (from 逆向涉猎)
+!   White: @@||wtradv.market.xiaomi.com^ (from 那个谁520)
+! Conflict: www.360.cn
+!   Block: ||www.360.cn^ (from Ad-set-hosts)
+!   White: @@||www.360.cn^ (from 那个谁520)
+! Conflict: www.bootcdn.cn
+!   Block: ||www.bootcdn.cn^ (from Ad-set-hosts)
+!   White: @@||www.bootcdn.cn^ (from 那个谁520)
+! Conflict: www.bootcss.com
+!   Block: ||www.bootcss.com^ (from Ad-set-hosts)
+!   White: @@||www.bootcss.com^ (from 那个谁520)
+! Conflict: www.bytedance.com
+!   Block: ||www.bytedance.com^$important (from Custom Blocklist)
+!   White: @@||www.bytedance.com^ (from 那个谁520)
+! Conflict: www.chemdraw.com.cn
+!   Block: ||www.chemdraw.com.cn^ (from 1hosts)
+!   White: @@||www.chemdraw.com.cn^ (from 那个谁520)
+! Conflict: www.crossoverchina.com
+!   Block: ||www.crossoverchina.com^ (from Ad-set-hosts)
+!   White: @@||www.crossoverchina.com^ (from 那个谁520)
+! Conflict: www.dxmpay.com
+!   Block: 0.0.0.0 www.dxmpay.com (from 下个ID见)
+!   White: @@||www.dxmpay.com^ (from 那个谁520)
+! Conflict: www.googleadservices.com
+!   Block: 0.0.0.0 www.googleadservices.com (from 下个ID见)
+!   White: @@||www.googleadservices.com^ (from 那个谁520)
+! Conflict: www.googletagmanager.com
+!   Block: ||www.googletagmanager.com^ (from 逆向涉猎)
+!   White: @@||www.googletagmanager.com^$domain=onlineshop.smt.docomo.ne.jp (from GOODBYEADS)
+! Conflict: www.ijinshan.com
+!   Block: ||www.ijinshan.com^ (from Ad-set-hosts)
+!   White: @@||www.ijinshan.com^ (from 那个谁520)
+! Conflict: www.jdoqocy.com
+!   Block: ||www.jdoqocy.com^ (from Ad-set-hosts)
+!   White: @@||www.jdoqocy.com^ (from Menghuibanxian)
+! Conflict: www.mairuan.com
+!   Block: ||www.mairuan.com^ (from Ad-set-hosts)
+!   White: @@||www.mairuan.com^ (from 那个谁520)
+! Conflict: www.statcounter.com
+!   Block: ||www.statcounter.com^ (from Ad-set-hosts)
+!   White: @@||www.statcounter.com^ (from Menghuibanxian)
+! Conflict: www.sygjx.com
+!   Block: 0.0.0.0 www.sygjx.com (from 10007_auto)
+!   White: @@||www.sygjx.com^ (from 那个谁520)
+! Conflict: www.youtube.com
+!   Block: ||www.youtube.com^$replace=/<script id="bc-def" nonce=".*?">/<script>\/\//,document (from AdBlockDNSFilters2)
+!   White: @@||www.youtube.com^$generichide (from GOODBYEADS)
+! Conflict: wxa.wxs.qq.com
+!   Block: ||wxa.wxs.qq.com^ (from 秋风的规则)
+!   White: @@||wxa.wxs.qq.com^ (from Menghuibanxian)
+! Conflict: wximg.wxs.qq.com
+!   Block: ||wximg.wxs.qq.com^ (from 秋风的规则)
+!   White: @@||wximg.wxs.qq.com^ (from Menghuibanxian)
+! Conflict: wxsmw.wxs.qq.com
+!   Block: ||wxsmw.wxs.qq.com^ (from 秋风的规则)
+!   White: @@||wxsmw.wxs.qq.com^ (from Menghuibanxian)
+! Conflict: wxsnsad.tc.qq.com
+!   Block: ||wxsnsad.tc.qq.com^ (from 秋风的规则)
+!   White: @@||wxsnsad.tc.qq.com^ (from Menghuibanxian)
+! Conflict: wxsnsdy.tc.qq.com
+!   Block: ||wxsnsdy.tc.qq.com^ (from 秋风的规则)
+!   White: @@||wxsnsdy.tc.qq.com^ (from Menghuibanxian)
+! Conflict: wxsnsdy.video.qq.com
+!   Block: 0.0.0.0 wxsnsdy.video.qq.com (from 下个ID见)
+!   White: @@||wxsnsdy.video.qq.com^ (from Menghuibanxian)
+! Conflict: wxsnsdy.wxs.qq.com
+!   Block: ||wxsnsdy.wxs.qq.com^ (from 秋风的规则)
+!   White: @@||wxsnsdy.wxs.qq.com^$important (from 广告规则)
+! Conflict: wxsnsdythumb.wxs.qq.com
+!   Block: ||wxsnsdythumb.wxs.qq.com^ (from 秋风的规则)
+!   White: @@||wxsnsdythumb.wxs.qq.com^$important (from 广告规则)
+! Conflict: x.adnet.qq.com
+!   Block: 0.0.0.0 x.adnet.qq.com (from 下个ID见)
+!   White: @@||x.adnet.qq.com^ (from Menghuibanxian)
+! Conflict: x6img.com
+!   Block: ||x6img.com^ (from AdBlock DNS Filters)
+!   White: @@||x6img.com^ (from 那个谁520)
+! Conflict: xc.gdt.qq.com
+!   Block: ||xc.gdt.qq.com^ (from 秋风的规则)
+!   White: @@||xc.gdt.qq.com^ (from Menghuibanxian)
+! Conflict: xiaoshuo.wtzw.com
+!   Block: 0.0.0.0 xiaoshuo.wtzw.com  #正文领红包广告图和底栏的福利中心没网 (from 下个ID见)
+!   White: @@||xiaoshuo.wtzw.com^ (from 那个谁520)
+! Conflict: xifuquan.com
+!   Block: ||xifuquan.com^ (from 1hosts)
+!   White: @@||xifuquan.com^ (from 那个谁520)
+! Conflict: xlivesex.com
+!   Block: ||xlivesex.com^ (from 1hosts)
+!   White: @@||xlivesex.com^ (from 那个谁520)
+! Conflict: xvideos.com
+!   Block: xvideos.com$$div[class="remove-ads"] (from AdBlockDNSFilters2)
+!   White: @@||xvideos.com^ (from 那个谁520)
+! Conflict: yixiu-abtest.alicdn.com
+!   Block: ||yixiu-abtest.alicdn.com^ (from 1hosts)
+!   White: @@||yixiu-abtest.alicdn.com^ (from 那个谁520)
+! Conflict: ylog.huya.com
+!   Block: ||ylog.huya.com^ (from 1hosts)
+!   White: @@||ylog.huya.com^ (from DD自用)
+! Conflict: yule.sohu.com
+!   Block: ||yule.sohu.com^ (from AdBlockDNSFilters1)
+!   White: @@||yule.sohu.com^ (from 那个谁520)
+! Conflict: yunjiasu.com
+!   Block: ||yunjiasu.com^ (from 1hosts)
+!   White: @@||yunjiasu.com^ (from 那个谁520)
+! Conflict: yybadaccess.3g.qq.com
+!   Block: 0.0.0.0 yybadaccess.3g.qq.com (from 下个ID见)
+!   White: @@||yybadaccess.3g.qq.com^ (from 那个谁520)
+! Conflict: zazhipu.com
+!   Block: ||zazhipu.com^ (from 1hosts)
+!   White: @@||zazhipu.com^ (from 那个谁520)
+! Conflict: zeperfs.com
+!   Block: zeperfs.com$$script:contains($(".adsbygoogle").length) (from AdBlockDNSFilters2)
+!   White: @@||zeperfs.com^$generichide (from GOODBYEADS)
+! Conflict: zergnet.com
+!   Block: ||zergnet.com^ (from 1hosts)
+!   White: @@||zergnet.com^$script,domain=zergnet.com (from GOODBYEADS)
+! Conflict: zhan.vivo.com.cn
+!   Block: ||zhan.vivo.com.cn^ (from Ad-set-hosts)
+!   White: @@||zhan.vivo.com.cn^ (from 那个谁520)
+! Conflict: |http://?
+!   Block: |http*://*?$popup,third-party,domain=forums.socialmediagirls.com|pornhub.com|redtube.com|tube8.com|youporn.com|youporngay.com (from AdBlockDNSFilters2)
+!   White: @@|http*://*?$third-party,domain=www.pornhub.com (from ABP)

@@ -7,15 +7,16 @@
 本项目通过 GitHub Actions 自动合并、去重多个来源的 AdGuard Home 规则。
 支持自动检测并分离上游规则中的混合黑白名单。
 支持保留规则修饰符（如 $important, $script 等）以实现精准过滤。
+支持通配符规则（如 `||ad*.example.com^`）。
 黑白名单完全独立，同时存在的规则会单独列在冲突规则中。
 
-最后更新时间: 2026-04-02 00:34:22 (UTC+8)
+最后更新时间: 2026-04-02 00:47:40 (UTC+8)
 
-最终黑名单规则数: 949
+最终黑名单规则数: 452806
 
-最终白名单规则数: 0
+最终白名单规则数: 9861
 
-冲突规则数: 0
+冲突规则数: 1211
 
 订阅链接
 
@@ -56,7 +57,6 @@ https://raw.githubusercontent.com/your_username/your_repo/main/Conflict.txt
 - GOODBYEADS
 - 10007_auto
 - Malicious URL Blocklist
-- xndeye adblock_list
 - Menghuibanxian
 - anti-AD
 - AdBlock DNS Filters
