@@ -8,13 +8,13 @@
 支持自动检测并分离上游规则中的混合黑白名单。
 黑白名单完全独立，同时存在的规则会单独列在冲突规则中。
 
-最后更新时间: 2026-04-02 01:18:04 (UTC+8)
+最后更新时间: 2026-04-02 01:45:42 (UTC+8)
 
-最终黑名单规则数: 531623
+最终黑名单规则数: 437071
 
-最终白名单规则数: 7778
+最终白名单规则数: 7606
 
-冲突规则数: 1339
+冲突规则数: 1108
 
 订阅链接
 
@@ -41,7 +41,7 @@ https://github.com/Logic769/AdguardHome-Rules/releases/download/stable-latest/Co
 黑名单来源 (Blocklist Sources)
 
 - 秋风的规则
-- 广告规则
+- 秋风的规则补充
 - DD自用
 - 大萌主
 - 逆向涉猎
@@ -49,11 +49,7 @@ https://github.com/Logic769/AdguardHome-Rules/releases/download/stable-latest/Co
 - 那个谁520
 - 1hosts
 - 茯苓的广告规则
-- AdBlockDNSFilters1
-- AdBlockDNSFilters2
-- Ad-set-hosts
 - GOODBYEADS
-- 10007_auto
 - Malicious URL Blocklist
 - xndeye adblock_list
 - Menghuibanxian
