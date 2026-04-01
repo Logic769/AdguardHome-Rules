@@ -2,16 +2,19 @@
 
 # 自动更新的 AdGuard Home 规则
 
-项目作者: zhuanshenlikaini
+项目作者: logic769
 
-本项目通过 GitHub Actions 自动合并、去重多个来源的 AdGuard Home 规则，并排除白名单。
+本项目通过 GitHub Actions 自动合并、去重多个来源的 AdGuard Home 规则。
 支持自动检测并分离上游规则中的混合黑白名单。
+黑白名单完全独立，同时存在的规则会单独列在冲突规则中。
 
-最后更新时间: 2026-04-02 00:05:51 (UTC+8)
+最后更新时间: 2026-04-02 00:23:46 (UTC+8)
 
-最终黑名单规则数: 522102
+最终黑名单规则数: 523403
 
 最终白名单规则数: 7442
+
+冲突规则数: 1301
 
 订阅链接
 
@@ -25,6 +28,12 @@ https://raw.githubusercontent.com/your_username/your_repo/main/Black.txt
 
 ```
 https://raw.githubusercontent.com/your_username/your_repo/main/White.txt
+```
+
+冲突规则 (Conflict)
+
+```
+https://raw.githubusercontent.com/your_username/your_repo/main/Conflict.txt
 ```
 
 规则来源

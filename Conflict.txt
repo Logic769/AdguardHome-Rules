@@ -1,0 +1,1308 @@
+! Title: AdGuard Conflict Rules
+! Description: 同时存在于黑名单和白名单的规则
+! Author: logic769
+! Version: 20260402002346
+! Last Updated: 2026-04-02 00:23:46 (UTC+8)
+! Total Rules: 1301
+!
+-728x90. # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+07c225f3.online # Block from: 1hosts, White from: GOODBYEADS
+1fichier.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+1sapp.com # Block from: AdBlockDNSFilters1, White from: 那个谁520
+2o7.net # Block from: 那个谁520, White from: GOODBYEADS
+360.cn # Block from: Ad-set-hosts, White from: DD自用
+360buyimg.com # Block from: xndeye adblock_list, White from: 那个谁520
+360kuai.com # Block from: AdBlockDNSFilters1, White from: 那个谁520
+40017.cn # Block from: AdBlockDNSFilters1, White from: 那个谁520
+79423.analytics.edgekey.net # Block from: Ad-set-hosts, White from: Menghuibanxian
+999d.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+_ad_300. # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+_prebid.js # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+a.pub.network # Block from: Ad-set-hosts, White from: GOODBYEADS
+a0.app.xiaomi.com # Block from: 秋风的规则, White from: 那个谁520
+a2zapk.com # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+aa.online-metrix.net # Block from: Ad-set-hosts, White from: BlueSkyXN
+aax.amazon-adsystem.com # Block from: 下个ID见, White from: GOODBYEADS
+abczdrowie.pl # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+abt.nike.com # Block from: 1hosts, White from: GOODBYEADS
+abtest.mistat.xiaomi.com # Block from: 那个谁520, White from: 那个谁520
+abtest3-misc-lf.zijieapi.com # Block from: 广告规则, White from: DD自用
+abtestvm.bytedance.com # Block from: Custom Blocklist, White from: 那个谁520
+ac.dun.163yun.com # Block from: DD自用, White from: 那个谁520
+accaii.com # Block from: 1hosts, White from: GOODBYEADS
+access1.tpns.tencent.com # Block from: 逆向涉猎, White from: 那个谁520
+accscdn.m.taobao.com # Block from: 下个ID见, White from: 那个谁520
+accscdn4public.m.taobao.com # Block from: 下个ID见, White from: 那个谁520
+acs.youku.com # Block from: 下个ID见, White from: 那个谁520
+acs4baichuan.m.taobao.com # Block from: 大萌主, White from: 那个谁520
+acs4public.m.taobao.com # Block from: 下个ID见, White from: 那个谁520
+act.vip.iqiyi.com # Block from: 下个ID见, White from: 那个谁520
+action.metaffiliation.com # Block from: Ad-set-hosts, White from: Menghuibanxian
+activity.browser.intl.miui.com # Block from: 那个谁520, White from: 那个谁520
+activity.hdslb.com # Block from: 逆向涉猎, White from: 那个谁520
+activity.tuiapple.com # Block from: 1hosts, White from: 那个谁520
+ad-api-v01.uliza.jp # Block from: 1hosts, White from: GOODBYEADS
+ad-log-upload.mihoyo.com # Block from: DD自用, White from: DD自用
+ad-maven.com # Block from: 1hosts, White from: GOODBYEADS
+ad.10010.com # Block from: 那个谁520, White from: GOODBYEADS
+ad.12306.cn # Block from: 秋风的规则, White from: GOODBYEADS
+ad.71i.de # Block from: 1hosts, White from: GOODBYEADS
+ad.alimama.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+ad.crwdcntrl.net # Block from: 下个ID见, White from: GOODBYEADS
+ad.doubleclick.net # Block from: 秋风的规则, White from: 那个谁520
+ad.linksynergy.com # Block from: 1hosts, White from: GOODBYEADS
+ad.mcloud.139.com # Block from: DD自用, White from: 那个谁520
+ad.ourgame.com # Block from: AdBlockDNSFilters1, White from: GOODBYEADS
+ad.tencentmusic.com # Block from: 秋风的规则, White from: Menghuibanxian
+ad.vivo.com.cn # Block from: Ad-set-hosts, White from: GOODBYEADS
+ad13.adfarm1.adition.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+ad3.adfarm1.adition.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+adash-emas.cn-hangzhou.aliyuncs.com # Block from: 下个ID见, White from: DD自用
+adashx.ut.dingtalk.com # Block from: DD自用, White from: anti-AD
+adblockanalytics.com # Block from: 1hosts, White from: GOODBYEADS
+adcdn.tencentmusic.com # Block from: 秋风的规则, White from: Menghuibanxian
+adclick.tencentmusic.com # Block from: 秋风的规则, White from: Menghuibanxian
+adengine.rt.ru # Block from: Ad-set-hosts, White from: GOODBYEADS
+adexpo.tencentmusic.com # Block from: 秋风的规则, White from: Menghuibanxian
+adj.st # Block from: Ad-set-hosts, White from: xndeye adblock_list
+adligature.com # Block from: 1hosts, White from: GOODBYEADS
+adm.10jqka.com.cn # Block from: 下个ID见, White from: anti-AD
+adm.fwmrm.net # Block from: Ad-set-hosts, White from: GOODBYEADS
+admin.dable.io # Block from: Ad-set-hosts, White from: Menghuibanxian
+adnade.net # Block from: 1hosts, White from: GOODBYEADS
+adnet.qq.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+adobe.com.ssl.d1.sc.omtrdc.net # Block from: 1hosts, White from: GOODBYEADS
+adobedc.demdex.net # Block from: 1hosts, White from: GOODBYEADS
+adobedtm.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+adobetag.com # Block from: 1hosts, White from: GOODBYEADS
+ads-api.twitter.com # Block from: 秋风的规则, White from: GOODBYEADS
+ads-interfaces.sc-cdn.net # Block from: 1hosts, White from: xndeye adblock_list
+ads-static.conde.digital # Block from: Ad-set-hosts, White from: GOODBYEADS
+ads.95516.com # Block from: 秋风的规则, White from: anti-AD
+ads.cdn.tvb.com # Block from: 1hosts, White from: anti-AD
+ads.google.com # Block from: 下个ID见, White from: GOODBYEADS
+ads.microsoft.com # Block from: GOODBYEADS, White from: GOODBYEADS
+ads.midwayusa.com # Block from: 1hosts, White from: GOODBYEADS
+ads.pinterest.com # Block from: 秋风的规则, White from: GOODBYEADS
+ads.privacy.qq.com # Block from: 下个ID见, White from: GOODBYEADS
+ads.pubmatic.com # Block from: 秋风的规则, White from: GOODBYEADS
+ads.reddit.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+ads.snapchat.com # Block from: 下个ID见, White from: GOODBYEADS
+ads.spotify.com # Block from: 下个ID见, White from: GOODBYEADS
+ads.taboola.com # Block from: 下个ID见, White from: GOODBYEADS
+ads.tiktok.com # Block from: 秋风的规则, White from: GOODBYEADS
+ads.twitter.com # Block from: 下个ID见, White from: GOODBYEADS
+ads.vk.com # Block from: GOODBYEADS, White from: GOODBYEADS
+ads.x.com # Block from: 逆向涉猎, White from: GOODBYEADS
+adsatt.espn.starwave.com # Block from: 那个谁520, White from: GOODBYEADS
+adsco.re # Block from: 大萌主, White from: GOODBYEADS
+adserving.unibet.com # Block from: 1hosts, White from: GOODBYEADS
+adshnk.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+adshrink.it # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+adsmind.gdtimg.com # Block from: 秋风的规则, White from: Menghuibanxian
+adsninja.ca # Block from: 1hosts, White from: GOODBYEADS
+adspirit.de # Block from: 1hosts, White from: GOODBYEADS
+adstats.tencentmusic.com # Block from: 秋风的规则, White from: Menghuibanxian
+adswizz.com # Block from: 1hosts, White from: GOODBYEADS
+adtraction.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+adv.ccb.com # Block from: 1hosts, White from: 那个谁520
+adv.sec.miui.com # Block from: 秋风的规则, White from: 那个谁520
+advertising.yahoo.com # Block from: 秋风的规则, White from: GOODBYEADS
+adverts.1foo.com # Block from: AdBlockDNSFilters1, White from: anti-AD
+advertserve.com # Block from: 1hosts, White from: GOODBYEADS
+adwolf.ru # Block from: 1hosts, White from: xndeye adblock_list
+adwords.google.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+adx-bj-req.anythinktech.com # Block from: 秋风的规则, White from: Menghuibanxian
+adx-bj.anythinktech.com # Block from: 秋风的规则, White from: Menghuibanxian
+adx.anythinktech.com # Block from: 下个ID见, White from: Menghuibanxian
+aegis.qq.com # Block from: 秋风的规则, White from: 那个谁520
+aff.bstatic.com # Block from: 1hosts, White from: GOODBYEADS
+affluentarmyequator.com # Block from: 1hosts, White from: GOODBYEADS
+afi-b.com # Block from: 1hosts, White from: Menghuibanxian
+aider-res.meizu.com # Block from: 下个ID见, White from: 那个谁520
+aikanvod.miguvideo.com # Block from: Ad-set-hosts, White from: 那个谁520
+ali2.a.yximgs.com # Block from: DD自用, White from: 那个谁520
+alicdn.com # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+alimama.com # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+alissl.ucdl.pp.uc.cn # Block from: 下个ID见, White from: 那个谁520
+alistgo.com # Block from: Custom Blocklist, White from: 那个谁520
+allawntech.com # Block from: 那个谁520, White from: 那个谁520
+allmath.com # Block from: 1hosts, White from: GOODBYEADS
+als.baidu.com # Block from: 秋风的规则, White from: 那个谁520
+alwingulla.com # Block from: 1hosts, White from: GOODBYEADS
+am730.com.hk # Block from: xndeye adblock_list, White from: GOODBYEADS
+amazon-adsystem.com # Block from: 下个ID见, White from: GOODBYEADS
+amazonaws.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+amazoncustomerservice.d2.sc.omtrdc.net # Block from: Ad-set-hosts, White from: GOODBYEADS
+amdc.m.taobao.com # Block from: 大萌主, White from: 那个谁520
+amdcopen.m.taobao.com # Block from: 秋风的规则, White from: 那个谁520
+an.yandex.ru # Block from: 大萌主, White from: GOODBYEADS
+analysis.chatglm.cn # Block from: 秋风的规则, White from: 那个谁520
+analysys.cn # Block from: 那个谁520, White from: GOODBYEADS
+analytics.amplitude.com # Block from: 1hosts, White from: GOODBYEADS
+analytics.google.com # Block from: 大萌主, White from: BlueSkyXN
+analytics.itunes.apple.com # Block from: AdBlock DNS Filters, White from: GOODBYEADS
+analytics.twitter.com # Block from: 下个ID见, White from: BlueSkyXN
+analytics.yinxiang.com # Block from: AdBlockDNSFilters1, White from: 那个谁520
+android.bugly.qq.com # Block from: 大萌主, White from: 那个谁520
+androidcentral.com # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+anime-odcinki.pl # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+animex.club # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+anquan.org # Block from: 那个谁520, White from: BlueSkyXN
+anythinktech.com # Block from: 那个谁520, White from: 那个谁520
+apd-pcdnwxstat.teg.tencent-cloud.net # Block from: 秋风的规则, White from: 那个谁520
+api-access.pangolin-sdk-toutiao-b.com # Block from: 广告规则, White from: Menghuibanxian
+api-access.pangolin-sdk-toutiao.com # Block from: 秋风的规则, White from: Menghuibanxian
+api-cn.cdo.heytapmobi.com # Block from: 1hosts, White from: 那个谁520
+api-cn.store.heytapmobi.com # Block from: 那个谁520, White from: 那个谁520
+api-cn.theme.heytapmobi.com # Block from: 那个谁520, White from: 那个谁520
+api-game.meizu.com # Block from: 下个ID见, White from: 那个谁520
+api-push.meizu.com # Block from: 下个ID见, White from: 那个谁520
+api-shoulei-ssl.xunlei.com # Block from: 大萌主, White from: 那个谁520
+api-unionid.meituan.com # Block from: 1hosts, White from: 那个谁520
+api.ad.xiaomi.com # Block from: 秋风的规则, White from: Menghuibanxian
+api.ads.tvb.com # Block from: 1hosts, White from: GOODBYEADS
+api.airpush.com # Block from: Ad-set-hosts, White from: 那个谁520
+api.amplitude.com # Block from: 1hosts, White from: GOODBYEADS
+api.chartbeat.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+api.comm.miui.com # Block from: 下个ID见, White from: 那个谁520
+api.developer.xiaomi.com # Block from: 下个ID见, White from: 那个谁520
+api.device.xiaomi.net # Block from: AdBlockDNSFilters1, White from: 那个谁520
+api.e.kuaishou.com # Block from: 秋风的规则, White from: Menghuibanxian
+api.ipinfodb.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+api.jr.mi.com # Block from: 下个ID见, White from: 那个谁520
+api.kuaishouzt.com # Block from: 下个ID见, White from: 那个谁520
+api.kwaizt.com # Block from: 大萌主, White from: 那个谁520
+api.lab.amplitude.com # Block from: 1hosts, White from: BlueSkyXN
+api.miui.security.xiaomi.com # Block from: AdBlockDNSFilters1, White from: 那个谁520
+api.open.uc.cn # Block from: 下个ID见, White from: 那个谁520
+api.sec.intl.miui.com # Block from: AdBlockDNSFilters1, White from: BlueSkyXN
+api.sec.miui.com # Block from: 下个ID见, White from: DD自用
+api.taboola.com # Block from: 下个ID见, White from: xndeye adblock_list
+api.toutiaoapi.com # Block from: 广告规则, White from: 那个谁520
+api.ts.feedback.qy.net # Block from: Ad-set-hosts, White from: 那个谁520
+api.tuisong.baidu.com # Block from: Ad-set-hosts, White from: 那个谁520
+api.tv.sohu.com # Block from: 那个谁520, White from: 那个谁520
+api.union.vip.com # Block from: Ad-set-hosts, White from: 那个谁520
+api.useinsider.com # Block from: xndeye adblock_list, White from: xndeye adblock_list
+api2.branch.io # Block from: 下个ID见, White from: BlueSkyXN
+api2.e.kuaishou.com # Block from: 下个ID见, White from: Menghuibanxian
+apissl.ksapisrv.com # Block from: 那个谁520, White from: 那个谁520
+apkmirror.com # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+app-advertise.zhihuishu.com # Block from: 那个谁520, White from: GOODBYEADS
+app-api.smzdm.com # Block from: 下个ID见, White from: 那个谁520
+app-measurement.com # Block from: 秋风的规则, White from: BlueSkyXN
+app-sjf.marketo.com # Block from: 1hosts, White from: GOODBYEADS
+app.adjust.com # Block from: 下个ID见, White from: Menghuibanxian
+app.appsflyer.com # Block from: 下个ID见, White from: Menghuibanxian
+app.chat.xiaomi.net # Block from: AdBlockDNSFilters2, White from: 那个谁520
+app.getbeamer.com # Block from: 1hosts, White from: xndeye adblock_list
+appapi.inspsearchapi.com # Block from: 1hosts, White from: GOODBYEADS
+appcenter.ms # Block from: Custom Blocklist, White from: 那个谁520
+appcloud.zhihu.com # Block from: 那个谁520, White from: 那个谁520
+appcloud2.zhihu.com # Block from: 逆向涉猎, White from: 那个谁520
+appconf.heytapdownload.com # Block from: 1hosts, White from: 那个谁520
+appdownload.alicdn.com # Block from: 那个谁520, White from: 那个谁520
+apple-relay.apple.com # Block from: xndeye adblock_list, White from: BlueSkyXN
+apple-relay.cloudflare.com # Block from: xndeye adblock_list, White from: BlueSkyXN
+apple.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+applog.lc.quark.cn # Block from: 秋风的规则, White from: 那个谁520
+appmetrica.yandex.com # Block from: 1hosts, White from: GOODBYEADS
+appstore.pandora.xiaomi.com # Block from: 下个ID见, White from: 那个谁520
+appsupport.qq.com # Block from: 大萌主, White from: 那个谁520
+as.weixin.qq.com # Block from: 逆向涉猎, White from: 那个谁520
+assets-jpcust.jwpsrv.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+assets.adobedtm.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+at.umeng.com # Block from: 下个ID见, White from: 那个谁520
+atlassian.net # Block from: xndeye adblock_list, White from: GOODBYEADS
+attservicesinc.tt.omtrdc.net # Block from: 1hosts, White from: GOODBYEADS
+audid-api-sg.taobao.com # Block from: 1hosts, White from: 那个谁520
+audid-api.taobao.com # Block from: 秋风的规则, White from: 那个谁520
+auditude.com # Block from: 1hosts, White from: 那个谁520
+auth.wosms.cn # Block from: Ad-set-hosts, White from: 那个谁520
+autocentrum.pl # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+autokult.pl # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+awaps.yandex.net # Block from: 1hosts, White from: GOODBYEADS
+aweme.snssdk.com # Block from: 下个ID见, White from: DD自用
+awin1.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+b.bdstatic.com # Block from: 那个谁520, White from: 那个谁520
+baikebcs.bdimg.com # Block from: 那个谁520, White from: 那个谁520
+baixing.com # Block from: AdBlockDNSFilters1, White from: 那个谁520
+bam.nr-data.net # Block from: 那个谁520, White from: GOODBYEADS
+bbs-static.miyoushe.com # Block from: 下个ID见, White from: 那个谁520
+bc.marfeel.com # Block from: Ad-set-hosts, White from: xndeye adblock_list
+bc.marfeelcache.com # Block from: Ad-set-hosts, White from: xndeye adblock_list
+bce.baidu.com # Block from: 下个ID见, White from: 那个谁520
+bdad.123pan.cn # Block from: 秋风的规则, White from: ABP
+bea4.v.fwmrm.net # Block from: Ad-set-hosts, White from: GOODBYEADS
+beacon-api.aliyuncs.com # Block from: 秋风的规则, White from: 那个谁520
+beian.miit.gov.cn # Block from: 下个ID见, White from: 那个谁520
+bigleaguepolitics.com # Block from: Menghuibanxian, White from: GOODBYEADS
+bild.de # Block from: xndeye adblock_list, White from: GOODBYEADS
+bing.com # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+bit.ly # Block from: xndeye adblock_list, White from: 那个谁520
+bitsumactivationserver.com # Block from: anti-AD, White from: 那个谁520
+bizx.info # Block from: 1hosts, White from: GOODBYEADS
+bj.bcebos.com # Block from: 那个谁520, White from: 那个谁520
+bjfesdk.douyucdn.cn # Block from: AdBlockDNSFilters1, White from: DD自用
+blockadblock.com # Block from: 1hosts, White from: GOODBYEADS
+boobausauhipsa.net # Block from: 1hosts, White from: GOODBYEADS
+bootcdn.net # Block from: Ad-set-hosts, White from: DD自用
+bootcss.com # Block from: AdBlockDNSFilters1, White from: GOODBYEADS
+bossaudioandcomic-1252317822.image.myqcloud.com # Block from: 逆向涉猎, White from: 那个谁520
+browser-intake-datadoghq.com # Block from: 1hosts, White from: GOODBYEADS
+browser.events.data.msn.com # Block from: 秋风的规则, White from: 那个谁520
+browser.pipe.aria.microsoft.com # Block from: 1hosts, White from: 那个谁520
+browser.sentry-cdn.com # Block from: 大萌主, White from: GOODBYEADS
+btrace.qq.com # Block from: 下个ID见, White from: 那个谁520
+bucket-ynote-online-cdn.note.youdao.com # Block from: 下个ID见, White from: 那个谁520
+bugsnag.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+c.adsco.re # Block from: Ad-set-hosts, White from: GOODBYEADS
+c.duomai.com # Block from: Ad-set-hosts, White from: 那个谁520
+c.evidon.com # Block from: 秋风的规则, White from: 那个谁520
+c.gdt.qq.com # Block from: 下个ID见, White from: Menghuibanxian
+c.gj.qq.com # Block from: 秋风的规则, White from: 那个谁520
+c.pc.qq.com # Block from: 那个谁520, White from: DD自用
+c.youdao.com # Block from: AdBlockDNSFilters1, White from: 那个谁520
+c2.gdt.qq.com # Block from: 秋风的规则, White from: Menghuibanxian
+c6.y.qq.com # Block from: 那个谁520, White from: 广告规则
+calciomercato.com # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+callback.58.com # Block from: 1hosts, White from: 那个谁520
+camcam.cc # Block from: xndeye adblock_list, White from: GOODBYEADS
+canyoublockit.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+cards.iqiyi.com # Block from: 逆向涉猎, White from: 那个谁520
+castatic.fengkongcloud.com # Block from: Ad-set-hosts, White from: 那个谁520
+cbu01.alicdn.com # Block from: 那个谁520, White from: 那个谁520
+cc.map.qq.com # Block from: 下个ID见, White from: 那个谁520
+cd001.www.duba.net # Block from: Ad-set-hosts, White from: 那个谁520
+cdn.adligature.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+cdn.adsafeprotected.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+cdn.adspirit.de # Block from: Ad-set-hosts, White from: xndeye adblock_list
+cdn.advertserve.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+cdn.ampproject.org # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+cdn.bootcdn.net # Block from: Ad-set-hosts, White from: GOODBYEADS
+cdn.branch.io # Block from: 下个ID见, White from: BlueSkyXN
+cdn.cnbj1.fds.api.mi-img.com # Block from: Ad-set-hosts, White from: 那个谁520
+cdn.cookie-script.com # Block from: 1hosts, White from: xndeye adblock_list
+cdn.cookielaw.org # Block from: Ad-set-hosts, White from: xndeye adblock_list
+cdn.duurzaam.greenchoice.nl # Block from: AdBlock DNS Filters, White from: Menghuibanxian
+cdn.dynamicyield.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+cdn.ex.co # Block from: 1hosts, White from: GOODBYEADS
+cdn.heapanalytics.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+cdn.kaizenplatform.net # Block from: GOODBYEADS, White from: GOODBYEADS
+cdn.opencmp.net # Block from: xndeye adblock_list, White from: xndeye adblock_list
+cdn.petametrics.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+cdn.plyr.io # Block from: Ad-set-hosts, White from: 那个谁520
+cdn.polarbyte.com # Block from: 1hosts, White from: GOODBYEADS
+cdn.privacy-mgmt.com # Block from: xndeye adblock_list, White from: xndeye adblock_list
+cdn.rozetka.com.ua # Block from: AdBlock DNS Filters, White from: Menghuibanxian
+cdn.segmentify.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+cdn.siftscience.com # Block from: 1hosts, White from: BlueSkyXN
+cdn.taboola.com # Block from: 下个ID见, White from: GOODBYEADS
+cdn.tagcommander.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+cdn.ynuf.aliapp.org # Block from: 秋风的规则, White from: BlueSkyXN
+cdn.yyb.gtimg.com # Block from: 下个ID见, White from: 那个谁520
+cdnt.netcoresmartech.com # Block from: xndeye adblock_list, White from: xndeye adblock_list
+cfg.imtt.qq.com # Block from: 秋风的规则, White from: 那个谁520
+channels.weixin.qq.com # Block from: 下个ID见, White from: 那个谁520
+chaturbate.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+cheaterboss.com # Block from: AdBlock DNS Filters, White from: GOODBYEADS
+cj.dotomi.com # Block from: Ad-set-hosts, White from: Menghuibanxian
+cl2.webterren.com # Block from: Ad-set-hosts, White from: 那个谁520
+clarins.com.cn # Block from: AdBlockDNSFilters1, White from: 那个谁520
+clb.yahoo.co.jp # Block from: 1hosts, White from: GOODBYEADS
+click.aliexpress.com # Block from: AdBlockDNSFilters1, White from: 那个谁520
+click.aliyun.com # Block from: 下个ID见, White from: DD自用
+click.allkeyshop.com # Block from: 1hosts, White from: 那个谁520
+click.alternate.de # Block from: Ad-set-hosts, White from: 那个谁520
+click.cptrack.de # Block from: 1hosts, White from: 那个谁520
+click.discord.com # Block from: Ad-set-hosts, White from: 那个谁520
+click.em.blizzard.com # Block from: Ad-set-hosts, White from: 那个谁520
+click.email.sonos.com # Block from: 1hosts, White from: 那个谁520
+click.icptrack.com # Block from: Ad-set-hosts, White from: 那个谁520
+click.justwatch.com # Block from: 1hosts, White from: 那个谁520
+click.mail.macmillan.com # Block from: xndeye adblock_list, White from: 那个谁520
+click.mailing.ticketmaster.com # Block from: 1hosts, White from: 那个谁520
+click.mz.simba.taobao.com # Block from: Ad-set-hosts, White from: 那个谁520
+click.redditmail.com # Block from: Ad-set-hosts, White from: 那个谁520
+click.uol.com.br # Block from: Ad-set-hosts, White from: GOODBYEADS
+click.zoom.us # Block from: AdBlock DNS Filters, White from: 那个谁520
+clickcease.com # Block from: 1hosts, White from: 那个谁520
+clickiocdn.com # Block from: 1hosts, White from: 那个谁520
+clicks.pipaffiliates.com # Block from: 1hosts, White from: 那个谁520
+clickserve.dartsearch.net # Block from: 1hosts, White from: 那个谁520
+clicktale.net # Block from: Ad-set-hosts, White from: 那个谁520
+client-uc.heytapmobi.com # Block from: Ad-set-hosts, White from: 那个谁520
+client.crisp.chat # Block from: xndeye adblock_list, White from: xndeye adblock_list
+clientlog.music.163.com # Block from: 那个谁520, White from: Menghuibanxian
+clientlog3.music.163.com # Block from: 那个谁520, White from: 那个谁520
+clips4sale.com # Block from: xndeye adblock_list, White from: 那个谁520
+clouderrorreporting.googleapis.com # Block from: 1hosts, White from: GOODBYEADS
+cloudflareinsights.com # Block from: 大萌主, White from: 那个谁520
+cloudfront.net # Block from: xndeye adblock_list, White from: GOODBYEADS
+cm.bilibili.com # Block from: 那个谁520, White from: 那个谁520
+cmp.dmgmediaprivacy.co.uk # Block from: 1hosts, White from: xndeye adblock_list
+cmp.inmobi.com # Block from: 下个ID见, White from: GOODBYEADS
+cmp.osano.com # Block from: Ad-set-hosts, White from: xndeye adblock_list
+cmp.quantcast.com # Block from: Ad-set-hosts, White from: xndeye adblock_list
+cms-bucket.ws.126.net # Block from: Ad-set-hosts, White from: 那个谁520
+cmts.iqiyi.com # Block from: 下个ID见, White from: 那个谁520
+cn-api.anythinktech.com # Block from: 秋风的规则, White from: Menghuibanxian
+cn-tk.anythinktech.com # Block from: 下个ID见, White from: Menghuibanxian
+cn.app.chat.xiaomi.net # Block from: 下个ID见, White from: DD自用
+cn.ultraiso.net # Block from: Ad-set-hosts, White from: 那个谁520
+cnbj1.fds.api.xiaomi.com # Block from: 1hosts, White from: 那个谁520
+code.sms.mob.com # Block from: 下个ID见, White from: anti-AD
+coinadster.com # Block from: 1hosts, White from: GOODBYEADS
+collect.hupu.com # Block from: AdBlockDNSFilters1, White from: 那个谁520
+collect.igodigital.com # Block from: Ad-set-hosts, White from: xndeye adblock_list
+community.image.video.qpic.cn # Block from: 那个谁520, White from: 那个谁520
+components.justanswer.com # Block from: 1hosts, White from: xndeye adblock_list
+conf.hpplay.cn # Block from: 秋风的规则, White from: DD自用
+config.cmpassport.com # Block from: 1hosts, White from: 那个谁520
+connatix.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+consent.cookiebot.com # Block from: Ad-set-hosts, White from: xndeye adblock_list
+consent.cookiefirst.com # Block from: 1hosts, White from: xndeye adblock_list
+consent.trustarc.com # Block from: Ad-set-hosts, White from: xndeye adblock_list
+consentmanager.net # Block from: Ad-set-hosts, White from: xndeye adblock_list
+content.ingbank.pl # Block from: GOODBYEADS, White from: GOODBYEADS
+content.jwplatform.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+convertexperiments.com # Block from: 1hosts, White from: GOODBYEADS
+cookie-cdn.cookiepro.com # Block from: Ad-set-hosts, White from: xndeye adblock_list
+cookiebot.com # Block from: Ad-set-hosts, White from: xndeye adblock_list
+cookielaw.org # Block from: xndeye adblock_list, White from: xndeye adblock_list
+cookiepro.com # Block from: xndeye adblock_list, White from: xndeye adblock_list
+corneey.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+count.mail.163.com # Block from: 下个ID见, White from: 那个谁520
+coupang.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+cp.gutefrage.net # Block from: 1hosts, White from: xndeye adblock_list
+cp4.cloudflare.com # Block from: xndeye adblock_list, White from: BlueSkyXN
+cpro.baidu.com # Block from: 下个ID见, White from: GOODBYEADS
+cps.kaola.com # Block from: Ad-set-hosts, White from: 那个谁520
+cpu.baidu.com # Block from: 1hosts, White from: 那个谁520
+cpucdn.baidu.com # Block from: 大萌主, White from: 那个谁520
+cqcounter.com # Block from: 1hosts, White from: GOODBYEADS
+cracking.org # Block from: AdBlock DNS Filters, White from: GOODBYEADS
+cre.dp.sina.cn # Block from: 1hosts, White from: 那个谁520
+crl4.digicert.com # Block from: 那个谁520, White from: BlueSkyXN
+crm-cdn.peek-cloppenburg.com # Block from: AdBlock DNS Filters, White from: Menghuibanxian
+csi.gstatic.com # Block from: AdBlockDNSFilters1, White from: 那个谁520
+csm.cxpublic.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+css-load.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+cxense.com # Block from: 1hosts, White from: GOODBYEADS
+d.gdt.qq.com # Block from: 下个ID见, White from: Menghuibanxian
+d.ifengimg.com # Block from: Ad-set-hosts, White from: 那个谁520
+d.toutiao.com # Block from: 大萌主, White from: 那个谁520
+d13nu0oomnx5ti.cloudfront.net # Block from: GOODBYEADS, White from: GOODBYEADS
+d192r5l88wrng7.cloudfront.net # Block from: 1hosts, White from: GOODBYEADS
+d1z2jf7jlzjs58.cloudfront.net # Block from: 1hosts, White from: 那个谁520
+d2na2p72vtqyok.cloudfront.net # Block from: 1hosts, White from: 那个谁520
+d2zf5gu5e5mp87.cloudfront.net # Block from: 1hosts, White from: ABP
+d3lppnezw695ey.cloudfront.net # Block from: 1hosts, White from: GOODBYEADS
+da.mmarket.com # Block from: 下个ID见, White from: 那个谁520
+dailymail.co.uk # Block from: xndeye adblock_list, White from: GOODBYEADS
+data.adxcel-ec2.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+data.bilibili.com # Block from: AdBlockDNSFilters1, White from: 那个谁520
+data.digital.costco.ca # Block from: Ad-set-hosts, White from: Menghuibanxian
+data.digital.costco.com # Block from: Ad-set-hosts, White from: Menghuibanxian
+data.flurry.com # Block from: 逆向涉猎, White from: DD自用
+data.mistat.intl.xiaomi.com # Block from: AdBlockDNSFilters1, White from: 那个谁520
+data.mistat.xiaomi.com # Block from: 秋风的规则, White from: GOODBYEADS
+data.orders.costco.com # Block from: 1hosts, White from: Menghuibanxian
+data.sec.miui.com # Block from: 下个ID见, White from: GOODBYEADS
+data.service.paypal.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+data.vod.itc.cn # Block from: Ad-set-hosts, White from: 那个谁520
+datadoghq-browser-agent.com # Block from: 1hosts, White from: GOODBYEADS
+dataprajna.net # Block from: Ad-set-hosts, White from: 那个谁520
+dc.sigmob.cn # Block from: 秋风的规则, White from: 那个谁520
+dcbbwymp1bhlf.cloudfront.net # Block from: 1hosts, White from: GOODBYEADS
+ddzswov1e84sp.cloudfront.net # Block from: 1hosts, White from: GOODBYEADS
+de.pandora.xiaomi.com # Block from: 下个ID见, White from: 那个谁520
+deezer.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+defaultts.tc.qq.com # Block from: 那个谁520, White from: 那个谁520
+delivery.consentmanager.net # Block from: xndeye adblock_list, White from: xndeye adblock_list
+destyy.com # Block from: GOODBYEADS, White from: GOODBYEADS
+detectportal.firefox.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+dev.visualwebsiteoptimizer.com # Block from: 1hosts, White from: GOODBYEADS
+device-api.urbanairship.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+dftoutiao.com # Block from: 1hosts, White from: 那个谁520
+dig.bdurl.net # Block from: 秋风的规则, White from: 那个谁520
+dig.lianjia.com # Block from: 1hosts, White from: DD自用
+dig.zjurl.cn # Block from: 广告规则, White from: 那个谁520
+dimg04.c-ctrip.com # Block from: 下个ID见, White from: 那个谁520
+dinamalar.com # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+dingit.tv # Block from: 1hosts, White from: GOODBYEADS
+dir.minigame.qq.com # Block from: 下个ID见, White from: 那个谁520
+disqus.com # Block from: Ad-set-hosts, White from: BlueSkyXN
+dl.360safe.com # Block from: Ad-set-hosts, White from: 那个谁520
+dl.reg.163.com # Block from: DD自用, White from: GOODBYEADS
+dl.zuimeitianqi.com # Block from: 那个谁520, White from: ABP
+dldir3.qq.com # Block from: 那个谁520, White from: 那个谁520
+dm.toutiao.com # Block from: 秋风的规则, White from: 那个谁520
+dmm.co.jp # Block from: xndeye adblock_list, White from: 那个谁520
+dnet.mb.qq.com # Block from: 那个谁520, White from: 那个谁520
+dns.iqiyi.com # Block from: 10007_auto, White from: 那个谁520
+do0od.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+doh.dns.apple.com # Block from: 下个ID见, White from: BlueSkyXN
+dolldivine.com # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+dood.watch # Block from: Ad-set-hosts, White from: GOODBYEADS
+dood.yt # Block from: Ad-set-hosts, White from: GOODBYEADS
+doods.to # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+dooood.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+dorado.xiaojukeji.com # Block from: 1hosts, White from: 那个谁520
+dotomi.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+doubleclick.net # Block from: 大萌主, White from: GOODBYEADS
+down.360safe.com # Block from: Ad-set-hosts, White from: DD自用
+down.sandai.net # Block from: Ad-set-hosts, White from: 那个谁520
+download.uc.cn # Block from: 10007_auto, White from: DD自用
+dpbolvw.net # Block from: Ad-set-hosts, White from: GOODBYEADS
+dpm.demdex.net # Block from: 那个谁520, White from: BlueSkyXN
+dragate-cn.dc.heytapmobi.com # Block from: 1hosts, White from: 那个谁520
+dragate.dc.oppomobile.com # Block from: GOODBYEADS, White from: 那个谁520
+dreport.meituan.net # Block from: 1hosts, White from: 那个谁520
+dropgalaxy.com # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+dsp.fcbox.com # Block from: 秋风的规则, White from: 那个谁520
+dss0.bdstatic.com # Block from: 逆向涉猎, White from: 那个谁520
+dss2.bdstatic.com # Block from: 下个ID见, White from: 那个谁520
+du.163.com # Block from: 那个谁520, White from: 那个谁520
+duapps.com # Block from: 1hosts, White from: 那个谁520
+duckduckgo.com # Block from: xndeye adblock_list, White from: 那个谁520
+duiba.com.cn # Block from: 1hosts, White from: 那个谁520
+duote.com # Block from: Ad-set-hosts, White from: 那个谁520
+dvdgayonline.com # Block from: 1hosts, White from: GOODBYEADS
+e.customeriomail.com # Block from: Ad-set-hosts, White from: Menghuibanxian
+e.kuaishou.com # Block from: 大萌主, White from: Menghuibanxian
+e.weather.com.cn # Block from: AdBlockDNSFilters1, White from: 那个谁520
+ecma.bdimg.com # Block from: 下个ID见, White from: Menghuibanxian
+ecmb.bdimg.com # Block from: 下个ID见, White from: 那个谁520
+eco.taobao.com # Block from: 大萌主, White from: 那个谁520
+edgeservices.bing.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+edx.org # Block from: xndeye adblock_list, White from: GOODBYEADS
+effect.snssdk.com # Block from: 广告规则, White from: DD自用
+eloqua.com # Block from: 1hosts, White from: GOODBYEADS
+em.dynamicyield.com # Block from: 1hosts, White from: xndeye adblock_list
+emathhelp.net # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+embed.ex.co # Block from: 1hosts, White from: GOODBYEADS
+emjcd.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+emoji.uc.cn # Block from: 那个谁520, White from: 那个谁520
+ename.com.cn # Block from: AdBlockDNSFilters1, White from: 那个谁520
+ename.net # Block from: AdBlockDNSFilters1, White from: 那个谁520
+enrichgw.10010.com # Block from: 1hosts, White from: 那个谁520
+ens.nzz.ch # Block from: Ad-set-hosts, White from: GOODBYEADS
+entitlements.jwplayer.com # Block from: 1hosts, White from: GOODBYEADS
+eporner.com # Block from: xndeye adblock_list, White from: ABP
+ereg.adobe.com # Block from: 1hosts, White from: 那个谁520
+err.taobao.com # Block from: 1hosts, White from: 那个谁520
+etl-xlmc-ssl.sandai.net # Block from: 下个ID见, White from: 那个谁520
+ev.tpocdm.com # Block from: 1hosts, White from: GOODBYEADS
+events.data.microsoft.com # Block from: Ad-set-hosts, White from: 那个谁520
+evtubescms.phncdn.com # Block from: 大萌主, White from: 那个谁520
+exacttarget.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+exoclick.com # Block from: 那个谁520, White from: GOODBYEADS
+exp.sug.browser.miui.com # Block from: xndeye adblock_list, White from: 那个谁520
+extreme-ip-lookup.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+f-cashloan.snssdk.com # Block from: 下个ID见, White from: DD自用
+f-tra.com # Block from: 1hosts, White from: GOODBYEADS
+f10.baidu.com # Block from: Ad-set-hosts, White from: 那个谁520
+facebook.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+faktykaliskie.pl # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+fapcat.com # Block from: Ad-set-hosts, White from: ABP
+fastmail.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+fc3tn.baidu.com # Block from: 1hosts, White from: 那个谁520
+fc5tn.baidu.com # Block from: 下个ID见, White from: 那个谁520
+feed-image.baidu.com # Block from: 秋风的规则, White from: DD自用
+feedback.miui.com # Block from: AdBlockDNSFilters1, White from: 那个谁520
+festyy.com # Block from: GOODBYEADS, White from: GOODBYEADS
+fexclick.baidu.com # Block from: 下个ID见, White from: 那个谁520
+file-upload.com # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+filmweb.pl # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+fingerprintjs.com # Block from: GOODBYEADS, White from: GOODBYEADS
+firebase-settings.crashlytics.com # Block from: 下个ID见, White from: BlueSkyXN
+firebase.googleapis.com # Block from: xndeye adblock_list, White from: 那个谁520
+firebaseremoteconfig.googleapis.com # Block from: 那个谁520, White from: GOODBYEADS
+flag.lab.amplitude.com # Block from: 1hosts, White from: GOODBYEADS
+flash.sec.intl.miui.com # Block from: 1hosts, White from: 那个谁520
+flash.sec.miui.com # Block from: 下个ID见, White from: 那个谁520
+fls.doubleclick.net # Block from: 下个ID见, White from: GOODBYEADS
+fm.p0y.cn # Block from: 那个谁520, White from: GOODBYEADS
+fonts.googleapis.com # Block from: 那个谁520, White from: 那个谁520
+forexprostools.com # Block from: 1hosts, White from: GOODBYEADS
+forms.anthology.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+forum.release-apk.com # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+fotoblogia.pl # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+foundation.youdao.com # Block from: 1hosts, White from: DD自用
+fourier-videoclip-eu.allawnos.com # Block from: AdBlock DNS Filters, White from: 那个谁520
+fourier-videoclip-in.allawnos.com # Block from: AdBlock DNS Filters, White from: 那个谁520
+fp-it.fengkongcloud.com # Block from: 逆向涉猎, White from: GOODBYEADS
+fp-upload.dun.163.com # Block from: 逆向涉猎, White from: 那个谁520
+fp.tongdun.net # Block from: 下个ID见, White from: 那个谁520
+fr.register.xmpush.global.xiaomi.com # Block from: 1hosts, White from: 那个谁520
+fraudmetrix.cn # Block from: 1hosts, White from: 那个谁520
+freebitco.in # Block from: 1hosts, White from: GOODBYEADS
+freebitcoin.win # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+friendbuy.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+frodo.douban.com # Block from: 下个ID见, White from: 那个谁520
+frosmo.com # Block from: 1hosts, White from: GOODBYEADS
+ftuapps.dev # Block from: AdBlock DNS Filters, White from: GOODBYEADS
+ftuapps.io # Block from: AdBlock DNS Filters, White from: GOODBYEADS
+fundingchoicesmessages.google.com # Block from: 大萌主, White from: GOODBYEADS
+fvs.io # Block from: Ad-set-hosts, White from: BlueSkyXN
+fwmrm.net # Block from: 那个谁520, White from: GOODBYEADS
+g.msn.com # Block from: GOODBYEADS, White from: 那个谁520
+gadzetomania.pl # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+game.bilibili.com # Block from: 1hosts, White from: 那个谁520
+game.html5.qq.com # Block from: 下个ID见, White from: 那个谁520
+game.qidian.com # Block from: AdBlockDNSFilters1, White from: 那个谁520
+game.res.meizu.com # Block from: 下个ID见, White from: 那个谁520
+game.weixin.qq.com # Block from: 那个谁520, White from: 那个谁520
+gamedrive.org # Block from: AdBlock DNS Filters, White from: GOODBYEADS
+gamezop.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+gateway.kugou.com # Block from: 下个ID见, White from: 那个谁520
+gator.volces.com # Block from: 逆向涉猎, White from: 那个谁520
+gdfp.gifshow.com # Block from: 秋风的规则, White from: 那个谁520
+gdtimg.com # Block from: 1hosts, White from: 那个谁520
+gecko.zijieapi.com # Block from: 下个ID见, White from: DD自用
+geo.query.yahoo.com # Block from: 下个ID见, White from: GOODBYEADS
+geolocation.onetrust.com # Block from: Ad-set-hosts, White from: xndeye adblock_list
+gestyy.com # Block from: AdBlock DNS Filters, White from: GOODBYEADS
+get.shouji.sogou.com # Block from: 1hosts, White from: 那个谁520
+get.x-link.pl # Block from: Ad-set-hosts, White from: GOODBYEADS
+gia.jd.com # Block from: 下个ID见, White from: DD自用
+giraff.io # Block from: 1hosts, White from: GOODBYEADS
+github.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+gk.sina.cn # Block from: 1hosts, White from: 那个谁520
+gl.zle.com # Block from: 大萌主, White from: 那个谁520
+globalapi.ad.xiaomi.com # Block from: 秋风的规则, White from: 那个谁520
+gm.mmstat.com # Block from: 下个ID见, White from: DD自用
+gma.alicdn.com # Block from: 下个ID见, White from: GOODBYEADS
+go-mpulse.net # Block from: 那个谁520, White from: GOODBYEADS
+go.bebi.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+go.rakuten.com # Block from: Ad-set-hosts, White from: BlueSkyXN
+go.redirectingat.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+google-analytics.com # Block from: 秋风的规则, White from: GOODBYEADS
+googleads.g.doubleclick.net # Block from: 秋风的规则, White from: GOODBYEADS
+googleads.github.io # Block from: 1hosts, White from: GOODBYEADS
+googleads4.g.doubleclick.net # Block from: 下个ID见, White from: GOODBYEADS
+googleadservices.com # Block from: 秋风的规则, White from: GOODBYEADS
+googlesyndication.com # Block from: 下个ID见, White from: GOODBYEADS
+googletagmanager.com # Block from: 大萌主, White from: GOODBYEADS
+googletagservices.com # Block from: 那个谁520, White from: GOODBYEADS
+grpc.biliapi.net # Block from: 那个谁520, White from: 那个谁520
+gsp0.baidu.com # Block from: 逆向涉猎, White from: 那个谁520
+gsp1.baidu.com # Block from: 下个ID见, White from: 那个谁520
+guanjia.qq.com # Block from: 那个谁520, White from: 那个谁520
+guce.advertising.com # Block from: Ad-set-hosts, White from: Menghuibanxian
+guid.tpns.tencent.com # Block from: 逆向涉猎, White from: 那个谁520
+gumtree.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+guzzoni.apple.com # Block from: xndeye adblock_list, White from: BlueSkyXN
+gvt2.com # Block from: Ad-set-hosts, White from: BlueSkyXN
+gw.365you.com # Block from: 那个谁520, White from: Menghuibanxian
+gx-target-experiments-frontend-api.gx.nvidia.com # Block from: GOODBYEADS, White from: 那个谁520
+h-adashx.ut.dingtalk.com # Block from: DD自用, White from: anti-AD
+h-adashx.ut.taobao.com # Block from: 秋风的规则, White from: 那个谁520
+h-cast.jp # Block from: 1hosts, White from: GOODBYEADS
+h.trace.qq.com # Block from: 秋风的规则, White from: 那个谁520
+h35.ynodd.cn # Block from: 那个谁520, White from: 那个谁520
+h5.gdt.qq.com # Block from: 逆向涉猎, White from: Menghuibanxian
+h5.hpplay.com.cn # Block from: 秋风的规则, White from: DD自用
+h5.mse.360.cn # Block from: AdBlockDNSFilters1, White from: 那个谁520
+haohuo.snssdk.com # Block from: 那个谁520, White from: 那个谁520
+hb.afl.rakuten.co.jp # Block from: Ad-set-hosts, White from: Menghuibanxian
+hclips.com # Block from: AdBlockDNSFilters2, White from: 那个谁520
+heatmap.it # Block from: 1hosts, White from: GOODBYEADS
+hectorstatic.baidu.com # Block from: 大萌主, White from: 那个谁520
+hermes.hupu.com # Block from: 1hosts, White from: 那个谁520
+heyi-acs.cp31.ott.cibntv.net # Block from: 下个ID见, White from: 那个谁520
+hmrz.wo.cn # Block from: Ad-set-hosts, White from: 那个谁520
+hoanoola.net # Block from: Ad-set-hosts, White from: GOODBYEADS
+hot.browser.intl.miui.com # Block from: 1hosts, White from: 那个谁520
+hot.browser.miui.com # Block from: DD自用, White from: 那个谁520
+howsmyssl.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+hpplay.cn # Block from: 1hosts, White from: 那个谁520
+html-load.com # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+hub5btmain.sandai.net # Block from: AdBlockDNSFilters1, White from: 那个谁520
+hub5btmain.v6.shub.sandai.net # Block from: 1hosts, White from: 那个谁520
+hub5idx.v6.shub.sandai.net # Block from: 1hosts, White from: 那个谁520
+hub5pn.wap.sandai.net # Block from: 下个ID见, White from: 那个谁520
+hugelog.fcbox.com # Block from: 秋风的规则, White from: 那个谁520
+hugo3c.tw # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+huichuan-mc.sm.cn # Block from: 秋风的规则, White from: 那个谁520
+huichuan.sm.cn # Block from: 秋风的规则, White from: 那个谁520
+hwcdn.net # Block from: xndeye adblock_list, White from: GOODBYEADS
+i.gdt.qq.com # Block from: 下个ID见, White from: Menghuibanxian
+i.ibb.co # Block from: AdBlockDNSFilters2, White from: 那个谁520
+i.imgur.com # Block from: xndeye adblock_list, White from: 那个谁520
+i.meituan.com # Block from: Custom Blocklist, White from: 那个谁520
+i.onthe.io # Block from: Ad-set-hosts, White from: GOODBYEADS
+i.snssdk.com # Block from: DD自用, White from: 那个谁520
+i.tianqi.com # Block from: Ad-set-hosts, White from: 那个谁520
+ib.adnxs.com # Block from: 下个ID见, White from: GOODBYEADS
+ib.snssdk.com # Block from: 逆向涉猎, White from: DD自用
+ic.snssdk.com # Block from: 下个ID见, White from: DD自用
+ichnaea-web.netflix.com # Block from: Ad-set-hosts, White from: 那个谁520
+icws.jb51.net # Block from: 1hosts, White from: 那个谁520
+id.mail.wo.cn # Block from: Ad-set-hosts, White from: 那个谁520
+id6.me # Block from: 1hosts, White from: 那个谁520
+identity.mparticle.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+idmb.register.xmpush.global.xiaomi.com # Block from: 1hosts, White from: 那个谁520
+ietheivaicai.com # Block from: Ad-set-hosts, White from: 那个谁520
+iface2.iqiyi.com # Block from: 下个ID见, White from: 那个谁520
+iflow.uczzd.cn # Block from: 下个ID见, White from: 那个谁520
+ign.com # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+ii.gdt.qq.com # Block from: 秋风的规则, White from: 那个谁520
+im-x.jd.com # Block from: 大萌主, White from: 那个谁520
+images-dl.taboola.com # Block from: 下个ID见, White from: xndeye adblock_list
+images.taboola.com # Block from: 下个ID见, White from: xndeye adblock_list
+imasdk.googleapis.com # Block from: 那个谁520, White from: GOODBYEADS
+img.ads.tvb.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+img.ssl.msdk.qq.com # Block from: 那个谁520, White from: 那个谁520
+img1.360buyimg.com # Block from: 下个ID见, White from: 那个谁520
+img14.360buyimg.com # Block from: 那个谁520, White from: 那个谁520
+imgs.signifyd.com # Block from: Ad-set-hosts, White from: BlueSkyXN
+imgx.mediav.com # Block from: 下个ID见, White from: 那个谁520
+imop.com # Block from: 1hosts, White from: 那个谁520
+in-addr.arpa # Block from: 那个谁520, White from: 那个谁520
+in-page-push.com # Block from: 大萌主, White from: GOODBYEADS
+in.appcenter.ms # Block from: 下个ID见, White from: 那个谁520
+in.getclicky.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+increase-openapi.soulapp.cn # Block from: 那个谁520, White from: 那个谁520
+inews.gtimg.com # Block from: 那个谁520, White from: GOODBYEADS
+infowars.com # Block from: Menghuibanxian, White from: GOODBYEADS
+input.shouji.sogou.com # Block from: 1hosts, White from: 那个谁520
+instagram.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+intercom-clicks.com # Block from: 1hosts, White from: 那个谁520
+interest.mix.sina.com.cn # Block from: 下个ID见, White from: 那个谁520
+ios.bugly.qq.com # Block from: 秋风的规则, White from: 那个谁520
+ip.taobao.com # Block from: 1hosts, White from: 那个谁520
+iprima.cz # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+ipv4.gdt.qq.com # Block from: 逆向涉猎, White from: Menghuibanxian
+is-hl.snssdk.com # Block from: 下个ID见, White from: 那个谁520
+is.snssdk.com # Block from: 广告规则, White from: DD自用
+isee.weishi.qq.com # Block from: 那个谁520, White from: 那个谁520
+isite.baidu.com # Block from: Ad-set-hosts, White from: 那个谁520
+issuecdn.baidupcs.com # Block from: 下个ID见, White from: 那个谁520
+jnn-pa.googleapis.com # Block from: 那个谁520, White from: 那个谁520
+jpush.cn # Block from: 秋风的规则, White from: GOODBYEADS
+js-agent.newrelic.com # Block from: 那个谁520, White from: BlueSkyXN
+js-sec.indexww.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+js.juicyads.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+js.monitor.azure.com # Block from: 那个谁520, White from: GOODBYEADS
+js.sentry-cdn.com # Block from: 1hosts, White from: GOODBYEADS
+jspassport.ssl.qhimg.com # Block from: AdBlockDNSFilters1, White from: 那个谁520
+juejin.cn # Block from: Custom Blocklist, White from: 那个谁520
+jumpluna.58.com # Block from: Ad-set-hosts, White from: 那个谁520
+jupiter.intl.sys.miui.com # Block from: 1hosts, White from: 那个谁520
+jupiter.rus.sys.miui.com # Block from: 1hosts, White from: 那个谁520
+jupiter.sys.miui.com # Block from: 1hosts, White from: 那个谁520
+jwpcdn.com # Block from: xndeye adblock_list, White from: 那个谁520
+jxdown.com # Block from: AdBlockDNSFilters1, White from: 那个谁520
+karte.io # Block from: xndeye adblock_list, White from: GOODBYEADS
+kiplinger.112.2o7.net # Block from: Ad-set-hosts, White from: GOODBYEADS
+komorkomania.pl # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+kqzyfj.com # Block from: 1hosts, White from: GOODBYEADS
+kxcdn.com # Block from: ABP, White from: ABP
+l.qq.com # Block from: 下个ID见, White from: 那个谁520
+laomaotao.net # Block from: AdBlockDNSFilters1, White from: 那个谁520
+leanplum.com # Block from: 1hosts, White from: GOODBYEADS
+leechpremium.link # Block from: GOODBYEADS, White from: GOODBYEADS
+lens.zhihu.com # Block from: 逆向涉猎, White from: 那个谁520
+lf-cdn-tos.bytescm.com # Block from: 逆向涉猎, White from: DD自用
+lf1-cdn-tos.bytegoofy.com # Block from: 下个ID见, White from: DD自用
+lf1-ttcdn-tos.pstatp.com # Block from: 下个ID见, White from: 那个谁520
+lf3-reading.fqnovelpic.com # Block from: 广告规则, White from: 那个谁520
+lf3-short.ibytedapm.com # Block from: 广告规则, White from: DD自用
+libs.baidu.com # Block from: AdBlockDNSFilters1, White from: GOODBYEADS
+lightning.cnn.com # Block from: 1hosts, White from: GOODBYEADS
+link.morningbrew.com # Block from: xndeye adblock_list, White from: Menghuibanxian
+linkconnector.com # Block from: 1hosts, White from: GOODBYEADS
+linksynergy.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+linkvertise.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+live.primis.tech # Block from: Ad-set-hosts, White from: GOODBYEADS
+live.rezync.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+liverail.com # Block from: 1hosts, White from: GOODBYEADS
+livere.com # Block from: AdBlock DNS Filters, White from: 那个谁520
+livew.l.qq.com # Block from: 下个ID见, White from: 那个谁520
+lmlicenses.wip4.adobe.com # Block from: Ad-set-hosts, White from: 那个谁520
+localads.chengzijianzhan.cn # Block from: DD自用, White from: 那个谁520
+log-api.pangolin-sdk-toutiao-b.com # Block from: 秋风的规则, White from: DD自用
+log-api.pangolin-sdk-toutiao.com # Block from: 秋风的规则, White from: DD自用
+log-upload.mihoyo.com # Block from: 秋风的规则, White from: 那个谁520
+log.mmstat.com # Block from: 下个ID见, White from: AdBlockDNSFilters1
+log.snssdk.com # Block from: 大萌主, White from: 那个谁520
+log1.cmpassport.com # Block from: 秋风的规则, White from: 那个谁520
+log5-applog-lf.fqnovel.com # Block from: 广告规则, White from: 那个谁520
+log5-applog.fqnovel.com # Block from: Ad-set-hosts, White from: 那个谁520
+logentries.com # Block from: 1hosts, White from: Menghuibanxian
+logs.game.qq.com # Block from: 1hosts, White from: 那个谁520
+lp.pinduoduo.com # Block from: 下个ID见, White from: 那个谁520
+lpcdn.pinduoduo.com # Block from: 1hosts, White from: 那个谁520
+lptag.liveperson.net # Block from: Ad-set-hosts, White from: GOODBYEADS
+m.gdt.qq.com # Block from: 下个ID见, White from: Menghuibanxian
+m.intl.taobao.com # Block from: Ad-set-hosts, White from: 那个谁520
+m.jd.watbc.top # Block from: 下个ID见, White from: 那个谁520
+m.jd.watbe.top # Block from: 下个ID见, White from: 那个谁520
+m.uczzd.cn # Block from: 下个ID见, White from: 那个谁520
+m2.da.mgtv.com # Block from: 下个ID见, White from: 那个谁520
+maccms.com # Block from: 1hosts, White from: BlueSkyXN
+mairuan.com # Block from: 那个谁520, White from: 那个谁520
+mam.netease.com # Block from: AdBlockDNSFilters1, White from: 那个谁520
+manhua.acimg.cn # Block from: 下个ID见, White from: GOODBYEADS
+map.baidu.com # Block from: AdBlockDNSFilters2, White from: 那个谁520
+mapi.m.jd.com # Block from: 秋风的规则, White from: 那个谁520
+marketing.net.idealo-partner.com # Block from: Ad-set-hosts, White from: Menghuibanxian
+marketingautomation.services # Block from: 1hosts, White from: GOODBYEADS
+mars.jd.com # Block from: 下个ID见, White from: 那个谁520
+masterconn2.qq.com # Block from: 1hosts, White from: 那个谁520
+mb.yidianzixun.com # Block from: 1hosts, White from: 那个谁520
+mbdp02.bdstatic.com # Block from: 那个谁520, White from: 那个谁520
+mboxedge34.tt.omtrdc.net # Block from: Ad-set-hosts, White from: BlueSkyXN
+mboxedge37.tt.omtrdc.net # Block from: 1hosts, White from: GOODBYEADS
+mc.yandex.ru # Block from: 1hosts, White from: GOODBYEADS
+mcdn.bilivideo.cn # Block from: 那个谁520, White from: GOODBYEADS
+mcdn.bilivideo.com # Block from: AdBlockDNSFilters1, White from: 那个谁520
+mcs.snssdk.com # Block from: 下个ID见, White from: 那个谁520
+mcs.zijieapi.com # Block from: 秋风的规则, White from: 那个谁520
+mdevstat.qqlive.qq.com # Block from: 那个谁520, White from: 那个谁520
+mdn.open.wo.cn # Block from: Ad-set-hosts, White from: 那个谁520
+med-fe.cdn.bcebos.com # Block from: Ad-set-hosts, White from: 那个谁520
+media-consumer365.desigual.com # Block from: AdBlock DNS Filters, White from: Menghuibanxian
+mediamarkt.com.tr # Block from: xndeye adblock_list, White from: GOODBYEADS
+mediaplex.com # Block from: 那个谁520, White from: GOODBYEADS
+mediation.adnxs.com # Block from: 下个ID见, White from: 那个谁520
+mega-p2p.net # Block from: 1hosts, White from: GOODBYEADS
+meiqia.com # Block from: AdBlockDNSFilters2, White from: DD自用
+memangbau.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+memoryhackers.org # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+mesu.apple.com # Block from: 逆向涉猎, White from: BlueSkyXN
+metok.sys.miui.com # Block from: 大萌主, White from: 那个谁520
+metrics.apple.com # Block from: 大萌主, White from: 那个谁520
+metrics.icloud.com # Block from: 秋风的规则, White from: 那个谁520
+metrics1-drcn.dt.dbankcloud.cn # Block from: 那个谁520, White from: 那个谁520
+mi.gdt.qq.com # Block from: 秋风的规则, White from: Menghuibanxian
+miaozhen.com # Block from: DD自用, White from: 大萌主
+microsoft.com # Block from: xndeye adblock_list, White from: BlueSkyXN
+middleware.p7s1.io # Block from: xndeye adblock_list, White from: GOODBYEADS
+mime.baidu.com # Block from: 那个谁520, White from: 那个谁520
+mini2015.qq.com # Block from: 那个谁520, White from: 那个谁520
+minigame.zijieapi.com # Block from: 下个ID见, White from: 那个谁520
+minigame5-normal-hl.zijieapi.com # Block from: 下个ID见, White from: 那个谁520
+minorshort.weixin.qq.com # Block from: 那个谁520, White from: GOODBYEADS
+mipcache.bdstatic.com # Block from: 下个ID见, White from: 那个谁520
+mivideo.g.mi.com # Block from: 那个谁520, White from: 那个谁520
+mixer.sina.cn # Block from: 大萌主, White from: 那个谁520
+mixpanel.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+mm-syringe.com # Block from: 1hosts, White from: GOODBYEADS
+mmgame.qpic.cn # Block from: 那个谁520, White from: 那个谁520
+mmocgame.qpic.cn # Block from: 那个谁520, White from: 那个谁520
+mmstat.com # Block from: Ad-set-hosts, White from: 那个谁520
+moatads.com # Block from: 秋风的规则, White from: GOODBYEADS
+mobappconfig.securities.eastmoney.com # Block from: 1hosts, White from: 那个谁520
+mobile-collector.newrelic.com # Block from: 1hosts, White from: BlueSkyXN
+mobile.appchina.com # Block from: AdBlockDNSFilters1, White from: 那个谁520
+mobile.controller.duokanbox.com # Block from: 1hosts, White from: 那个谁520
+mobile.eum-appdynamics.com # Block from: 1hosts, White from: BlueSkyXN
+mobile.launchdarkly.com # Block from: 1hosts, White from: BlueSkyXN
+mobile.pipe.aria.microsoft.com # Block from: 1hosts, White from: 那个谁520
+mobile.yangkeduo.com # Block from: 那个谁520, White from: 那个谁520
+mobilelog.kugou.com # Block from: 秋风的规则, White from: 那个谁520
+mon.isnssdk.com # Block from: 下个ID见, White from: 那个谁520
+mon.snssdk.com # Block from: 广告规则, White from: 那个谁520
+mon.zijieapi.com # Block from: 广告规则, White from: 那个谁520
+money.pl # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+monsetting.toutiao.com # Block from: 秋风的规则, White from: DD自用
+mootoon.co.kr # Block from: xndeye adblock_list, White from: xndeye adblock_list
+mos.m.taobao.com # Block from: DD自用, White from: 那个谁520
+mp.weixin.qq.com # Block from: xndeye adblock_list, White from: 广告规则
+mparticle.uc.cn # Block from: 下个ID见, White from: 那个谁520
+ms.bdimg.com # Block from: 1hosts, White from: DD自用
+ms.vipstatic.com # Block from: Ad-set-hosts, White from: 那个谁520
+msdk.qq.com # Block from: 那个谁520, White from: 那个谁520
+msg.video.qiyi.com # Block from: 大萌主, White from: 那个谁520
+msg.youku.com # Block from: 下个ID见, White from: 那个谁520
+msgacs.m.taobao.com # Block from: 那个谁520, White from: 那个谁520
+msn.com # Block from: AdBlockDNSFilters2, White from: xndeye adblock_list
+mssdk3-normal-lf.zijieapi.com # Block from: 下个ID见, White from: DD自用
+msync-im1-vip6-std.easemob.com # Block from: 广告规则, White from: 那个谁520
+mtt.eve.mdt.qq.com # Block from: 下个ID见, White from: Menghuibanxian
+mtt.str.mdt.qq.com # Block from: 下个ID见, White from: Menghuibanxian
+mtvnetworks.tt.omtrdc.net # Block from: 1hosts, White from: GOODBYEADS
+music.163.com # Block from: AdBlockDNSFilters2, White from: 那个谁520
+mvconf.f.360.cn # Block from: 1hosts, White from: 那个谁520
+mxpnl.com # Block from: 那个谁520, White from: GOODBYEADS
+myaccount.google.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+myao.adocean.pl # Block from: Ad-set-hosts, White from: GOODBYEADS
+myfamilycominc.tt.omtrdc.net # Block from: 1hosts, White from: GOODBYEADS
+myvidplay.com # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+mzstatic.com # Block from: xndeye adblock_list, White from: BlueSkyXN
+na1r.services.adobe.com # Block from: Ad-set-hosts, White from: 那个谁520
+na61-na62.wagbridge.alibaba.tanx.com # Block from: Ad-set-hosts, White from: DD自用
+nadvideo.baidu.com # Block from: 1hosts, White from: Menghuibanxian
+nadvideo2.baidu.com # Block from: 秋风的规则, White from: Menghuibanxian
+nav.browser.miui.com # Block from: 那个谁520, White from: 那个谁520
+nc.gdt.qq.com # Block from: 逆向涉猎, White from: Menghuibanxian
+nebula-cdn.kampyle.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+netflix.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+news-l.play.aiseet.atianqi.com # Block from: 逆向涉猎, White from: 那个谁520
+nishub1.10010.com # Block from: Ad-set-hosts, White from: 那个谁520
+nmobi.kuwo.cn # Block from: Ad-set-hosts, White from: 那个谁520
+nsclick.baidu.com # Block from: 秋风的规则, White from: DD自用
+nstool.netease.com # Block from: 下个ID见, White from: 那个谁520
+nuggad.net # Block from: 1hosts, White from: GOODBYEADS
+o2.pl # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+o2o.api.xiaomi.com # Block from: 秋风的规则, White from: 那个谁520
+oauth-login-drcn.platform.dbankcloud.com # Block from: 那个谁520, White from: GOODBYEADS
+obus-cn.dc.heytapmobi.com # Block from: 1hosts, White from: 那个谁520
+ocsp.apple.com # Block from: 那个谁520, White from: BlueSkyXN
+odb.outbrain.com # Block from: 1hosts, White from: GOODBYEADS
+omniture.walmart.com # Block from: Ad-set-hosts, White from: Menghuibanxian
+omsc.kpn.com # Block from: 1hosts, White from: Menghuibanxian
+omtrdc.net # Block from: 那个谁520, White from: GOODBYEADS
+omuzaani.me # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+onesignal.com # Block from: 大萌主, White from: xndeye adblock_list
+onetrust.com # Block from: Ad-set-hosts, White from: xndeye adblock_list
+onewsvod.com # Block from: 1hosts, White from: 广告规则
+online-metrix.net # Block from: 1hosts, White from: GOODBYEADS
+open.douyin.com # Block from: 逆向涉猎, White from: 那个谁520
+open.e.kuaishou.com # Block from: 秋风的规则, White from: Menghuibanxian
+open.snssdk.com # Block from: 秋风的规则, White from: 那个谁520
+open.spotify.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+opencloud.wostore.cn # Block from: 广告规则, White from: 那个谁520
+optimize.webtrends.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+optimizely.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+optimove.net # Block from: Ad-set-hosts, White from: GOODBYEADS
+orange-dc.alibaba.com # Block from: 下个ID见, White from: 那个谁520
+orbit.jd.com # Block from: 秋风的规则, White from: 那个谁520
+oss-asq-static.11222.cn # Block from: 1hosts, White from: 那个谁520
+oth.eve.mdt.qq.com # Block from: 秋风的规则, White from: Menghuibanxian
+oth.str.mdt.qq.com # Block from: 秋风的规则, White from: Menghuibanxian
+oth.update.mdt.qq.com # Block from: 下个ID见, White from: Menghuibanxian
+otheve.beacon.qq.com # Block from: 大萌主, White from: 那个谁520
+ott.cibntv.net # Block from: 下个ID见, White from: 那个谁520
+outbrainimg.com # Block from: 1hosts, White from: GOODBYEADS
+p-l.play.aiseet.atianqi.com # Block from: 下个ID见, White from: 那个谁520
+p.qlogo.cn # Block from: AdBlockDNSFilters2, White from: 那个谁520
+p1-lm.adukwai.com # Block from: DD自用, White from: 那个谁520
+p11.techlab-cdn.com # Block from: 1hosts, White from: GOODBYEADS
+p2-lm.adukwai.com # Block from: 逆向涉猎, White from: 那个谁520
+p26-sign.douyinpic.com # Block from: 广告规则, White from: 那个谁520
+p2p.huya.com # Block from: 那个谁520, White from: 那个谁520
+p3-novel.byteimg.com # Block from: 下个ID见, White from: 那个谁520
+p3-sign.douyinpic.com # Block from: 广告规则, White from: 那个谁520
+p3-tt.byteimg.com # Block from: 秋风的规则, White from: 那个谁520
+p3-webcast.douyinpic.com # Block from: 下个ID见, White from: 那个谁520
+p3.dcarimg.com # Block from: 下个ID见, White from: 那个谁520
+p4-ad.adukwai.com # Block from: 逆向涉猎, White from: 那个谁520
+p6-novel.byteimg.com # Block from: 下个ID见, White from: 那个谁520
+p6-reading-sign.fqnovelpic.com # Block from: 广告规则, White from: 那个谁520
+pacaio.match.qq.com # Block from: 下个ID见, White from: 那个谁520
+pagead.l.doubleclick.net # Block from: 下个ID见, White from: AdBlockDNSFilters1
+pagead2.googleadservices.com # Block from: 秋风的规则, White from: GOODBYEADS
+pagead2.googlesyndication.com # Block from: 秋风的规则, White from: GOODBYEADS
+parenting.pl # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+parked-content.godaddy.com # Block from: 1hosts, White from: 那个谁520
+partner.googleadservices.com # Block from: 下个ID见, White from: GOODBYEADS
+patchedfiles.com # Block from: AdBlock DNS Filters, White from: GOODBYEADS
+paydns.wechatpay.cn # Block from: Custom Blocklist, White from: 那个谁520
+paypal.com # Block from: xndeye adblock_list, White from: BlueSkyXN
+paypal.com.first-party-js.datadome.co # Block from: xndeye adblock_list, White from: GOODBYEADS
+peacocktv.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+penta.a.one.impact-ad.jp # Block from: Ad-set-hosts, White from: GOODBYEADS
+pepperjamnetwork.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+pepsico.com.cn # Block from: 1hosts, White from: 那个谁520
+personaclick.com # Block from: 1hosts, White from: 那个谁520
+pgdt.gtimg.cn # Block from: 秋风的规则, White from: 广告规则
+pgdt.ugdtimg.com # Block from: 秋风的规则, White from: Menghuibanxian
+pgpartner.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+pherotruth.com # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+pic.rmb.bdstatic.com # Block from: 下个ID见, White from: 那个谁520
+pic6.ajkimg.com # Block from: 下个ID见, White from: 那个谁520
+pic640.weishi.qq.com # Block from: 下个ID见, White from: 那个谁520
+pic7.iqiyipic.com # Block from: 逆向涉猎, White from: 那个谁520
+pingfore.qq.com # Block from: 那个谁520, White from: 那个谁520
+pinghot.qq.com # Block from: 下个ID见, White from: 那个谁520
+pingjs.qq.com # Block from: 那个谁520, White from: GOODBYEADS
+pingma.qq.com # Block from: 大萌主, White from: 那个谁520
+pingtas.qq.com # Block from: 下个ID见, White from: 那个谁520
+pingtcss.qq.com # Block from: 那个谁520, White from: 那个谁520
+pinterest.com # Block from: Menghuibanxian, White from: GOODBYEADS
+pitaya.bytedance.com # Block from: 下个ID见, White from: DD自用
+pixel.adsafeprotected.com # Block from: 下个ID见, White from: GOODBYEADS
+pixel.facebook.com # Block from: 大萌主, White from: GOODBYEADS
+pixel.sitescout.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+pjtra.com # Block from: 1hosts, White from: GOODBYEADS
+pkg.sinaimg.cn # Block from: 10007_auto, White from: 那个谁520
+player.avplayer.com # Block from: 1hosts, White from: GOODBYEADS
+player.ex.co # Block from: 1hosts, White from: GOODBYEADS
+player.glomex.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+pleisty.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+po.funshion.com # Block from: 1hosts, White from: DD自用
+polarbyte.com # Block from: AdBlock DNS Filters, White from: GOODBYEADS
+polaris.zijieapi.com # Block from: 广告规则, White from: DD自用
+policy.app.cookieinformation.com # Block from: xndeye adblock_list, White from: xndeye adblock_list
+policy.jd.com # Block from: 下个ID见, White from: 那个谁520
+policy.video.iqiyi.com # Block from: 那个谁520, White from: 那个谁520
+popads.net # Block from: 那个谁520, White from: xndeye adblock_list
+porntube.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+port.sec.miui.com # Block from: 1hosts, White from: 那个谁520
+pos.baidu.com # Block from: 秋风的规则, White from: GOODBYEADS
+pp.myapp.com # Block from: 那个谁520, White from: 那个谁520
+prebid.adnxs.com # Block from: 下个ID见, White from: GOODBYEADS
+primis.tech # Block from: 1hosts, White from: GOODBYEADS
+privacy-center.org # Block from: Ad-set-hosts, White from: xndeye adblock_list
+pro.bugly.qq.com # Block from: 逆向涉猎, White from: 那个谁520
+promipool.com # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+proto2ad.durasite.net # Block from: 1hosts, White from: Menghuibanxian
+proton.me # Block from: xndeye adblock_list, White from: GOODBYEADS
+pub.idqqimg.com # Block from: 1hosts, White from: 那个谁520
+pub.network # Block from: 1hosts, White from: GOODBYEADS
+pubads.g.doubleclick.net # Block from: 下个ID见, White from: GOODBYEADS
+public-cis.exponea.com # Block from: xndeye adblock_list, White from: Menghuibanxian
+public.gdtimg.com # Block from: 秋风的规则, White from: 那个谁520
+publish-pic-cpu.baidu.com # Block from: AdBlockDNSFilters1, White from: 那个谁520
+pudelek.pl # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+puds.ucweb.com # Block from: 下个ID见, White from: 那个谁520
+puma.112.2o7.net # Block from: Ad-set-hosts, White from: GOODBYEADS
+push.m.youku.com # Block from: 大萌主, White from: 那个谁520
+puui.qpic.cn # Block from: Ad-set-hosts, White from: GOODBYEADS
+pv.sohu.com # Block from: 下个ID见, White from: 那个谁520
+pvtag.yahoo.co.jp # Block from: 1hosts, White from: GOODBYEADS
+px.a8.net # Block from: Ad-set-hosts, White from: Menghuibanxian
+px.wpk.quark.cn # Block from: 1hosts, White from: 那个谁520
+q.i.gdt.qq.com # Block from: 秋风的规则, White from: Menghuibanxian
+qappcenterv6.3g.qq.com # Block from: 大萌主, White from: 那个谁520
+qlogo.cn # Block from: xndeye adblock_list, White from: GOODBYEADS
+qr.cp31.ott.cibntv.net # Block from: Ad-set-hosts, White from: 那个谁520
+quantcast.mgr.consensu.org # Block from: Ad-set-hosts, White from: xndeye adblock_list
+query.petametrics.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+quiz.marquiz.ru # Block from: xndeye adblock_list, White from: xndeye adblock_list
+qzs.qq.com # Block from: 下个ID见, White from: 那个谁520
+raw.githubusercontent.com # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+rcm-na.amazon-adsystem.com # Block from: 1hosts, White from: GOODBYEADS
+rd.bizrate.com # Block from: xndeye adblock_list, White from: xndeye adblock_list
+rdelivery.qq.com # Block from: 1hosts, White from: 那个谁520
+reactandshare.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+reader.browser.miui.com # Block from: 那个谁520, White from: 那个谁520
+reading.snssdk.com # Block from: 那个谁520, White from: 那个谁520
+realsrv.com # Block from: 大萌主, White from: ABP
+recmd.html5.qq.com # Block from: 下个ID见, White from: 那个谁520
+recommender.scarabresearch.com # Block from: Ad-set-hosts, White from: Menghuibanxian
+reddit.app.link # Block from: xndeye adblock_list, White from: GOODBYEADS
+reddit.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+redirect.appmetrica.yandex.com # Block from: Ad-set-hosts, White from: xndeye adblock_list
+refer.discover.com # Block from: AdBlock DNS Filters, White from: Menghuibanxian
+referrer.disqus.com # Block from: 那个谁520, White from: BlueSkyXN
+register.xmpush.global.xiaomi.com # Block from: AdBlockDNSFilters1, White from: 那个谁520
+relevant-digital.com # Block from: 1hosts, White from: GOODBYEADS
+remote-data.urbanairship.com # Block from: 1hosts, White from: GOODBYEADS
+res.mi.baidu.com # Block from: 那个谁520, White from: DD自用
+res.openinstall.com # Block from: 那个谁520, White from: 那个谁520
+resolver.gslb.mi-idc.com # Block from: 那个谁520, White from: 那个谁520
+resolver.msg.xiaomi.net # Block from: 广告规则, White from: 那个谁520
+richmedia.video.qq.com # Block from: 那个谁520, White from: 那个谁520
+rm.gdt.qq.com # Block from: 下个ID见, White from: Menghuibanxian
+rootzaffiliates.com # Block from: 1hosts, White from: GOODBYEADS
+rpt.gdt.qq.com # Block from: 秋风的规则, White from: Menghuibanxian
+rt.rtoaster.jp # Block from: Ad-set-hosts, White from: GOODBYEADS
+rtoaster.jp # Block from: 1hosts, White from: GOODBYEADS
+ruten.com.tw # Block from: Ad-set-hosts, White from: GOODBYEADS
+s.click.alimama.com # Block from: 1hosts, White from: 那个谁520
+s.click.taobao.com # Block from: DD自用, White from: GOODBYEADS
+s.img.mix.sina.com.cn # Block from: 1hosts, White from: 那个谁520
+s.optnx.com # Block from: 1hosts, White from: GOODBYEADS
+s0.2mdn.net # Block from: 下个ID见, White from: BlueSkyXN
+s1.wp.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+safeframe.googlesyndication.com # Block from: 1hosts, White from: xndeye adblock_list
+samsung.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+sarapbeh.com # Block from: Menghuibanxian, White from: GOODBYEADS
+sax.sina.com.cn # Block from: 下个ID见, White from: 那个谁520
+sc.omtrdc.net # Block from: Ad-set-hosts, White from: GOODBYEADS
+scorecardresearch.com # Block from: 那个谁520, White from: GOODBYEADS
+scs.openspeech.cn # Block from: 秋风的规则, White from: 那个谁520
+sd.360.cn # Block from: Ad-set-hosts, White from: 那个谁520
+sdk-api.beizi.biz # Block from: 逆向涉猎, White from: 那个谁520
+sdk.alibaba.com.ailbaba.me # Block from: DD自用, White from: 那个谁520
+sdk.e.qq.com # Block from: 秋风的规则, White from: Menghuibanxian
+sdk.open.talk.gepush.com # Block from: 下个ID见, White from: DD自用
+sdk.privacy-center.org # Block from: Ad-set-hosts, White from: xndeye adblock_list
+sdk.ptqy.gitv.tv # Block from: 1hosts, White from: 那个谁520
+sdkapi.sms.mob.com # Block from: 下个ID见, White from: 那个谁520
+se.360.cn # Block from: Ad-set-hosts, White from: 那个谁520
+sec-cdn.static.xiaomi.net # Block from: 1hosts, White from: 那个谁520
+sec.resource.xiaomi.net # Block from: AdBlockDNSFilters1, White from: BlueSkyXN
+secureimage.securedataimages.com # Block from: Ad-set-hosts, White from: Menghuibanxian
+securemetrics.apple.com # Block from: 秋风的规则, White from: 那个谁520
+securepubads.g.doubleclick.net # Block from: 秋风的规则, White from: GOODBYEADS
+sedge.nfl.com # Block from: 1hosts, White from: Menghuibanxian
+segmentify.com # Block from: 那个谁520, White from: GOODBYEADS
+serve.popads.net # Block from: 那个谁520, White from: GOODBYEADS
+services.bilsyndication.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+serving-sys.com # Block from: 那个谁520, White from: GOODBYEADS
+settings-win.data.microsoft.com # Block from: 那个谁520, White from: anti-AD
+sf3-pitaya-tos.pstatp.com # Block from: 下个ID见, White from: 那个谁520
+sf3-ttcdn-tos.pstatp.com # Block from: 广告规则, White from: 那个谁520
+sf6-fe-tos.pglstatp-toutiao.com # Block from: 10007_auto, White from: 那个谁520
+sfp.safe.baidu.com # Block from: 大萌主, White from: 那个谁520
+sgtm.farmasave.it # Block from: AdBlock DNS Filters, White from: GOODBYEADS
+sh.st # Block from: AdBlock DNS Filters, White from: GOODBYEADS
+share.baidu.com # Block from: 下个ID见, White from: GOODBYEADS
+sharethis.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+shouji.360.cn # Block from: 1hosts, White from: DD自用
+shrtfly.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+simg.sinajs.cn # Block from: 1hosts, White from: 那个谁520
+similarweb.com # Block from: xndeye adblock_list, White from: 那个谁520
+simpleanalyticsexternal.com # Block from: 1hosts, White from: GOODBYEADS
+simplelogin.io # Block from: xndeye adblock_list, White from: GOODBYEADS
+sinaimg.cn # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+siteanalytics.compete.com # Block from: 1hosts, White from: GOODBYEADS
+siteapps.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+siteintercept.qualtrics.com # Block from: 1hosts, White from: GOODBYEADS
+sjh.baidu.com # Block from: 下个ID见, White from: 那个谁520
+sl.hpplay.cn # Block from: 秋风的规则, White from: DD自用
+smallseotools.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+smetrics.aa.com # Block from: 1hosts, White from: GOODBYEADS
+snigelweb.com # Block from: 1hosts, White from: GOODBYEADS
+snopes.com # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+snowflake.qq.com # Block from: 秋风的规则, White from: 那个谁520
+snowplow.swm.digital # Block from: 1hosts, White from: GOODBYEADS
+sobot.com # Block from: AdBlockDNSFilters1, White from: 大萌主
+sofire.baidu.com # Block from: 大萌主, White from: 那个谁520
+sofire.bdstatic.com # Block from: 1hosts, White from: 那个谁520
+soft.tbs.imtt.qq.com # Block from: 下个ID见, White from: 那个谁520
+sonar.viously.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+sonyliv.com # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+soup.v.qq.com # Block from: 下个ID见, White from: 那个谁520
+sovrn.com # Block from: 1hosts, White from: GOODBYEADS
+sp0.baidu.com # Block from: 下个ID见, White from: 那个谁520
+sp1.baidu.com # Block from: 大萌主, White from: 那个谁520
+sp2.baidu.com # Block from: 1hosts, White from: 那个谁520
+spcsz.cdn.bcebos.com # Block from: 逆向涉猎, White from: 那个谁520
+speee-ad.akamaized.net # Block from: 1hosts, White from: xndeye adblock_list
+spxl.socy.es # Block from: GOODBYEADS, White from: GOODBYEADS
+sqdd.myapp.com # Block from: 那个谁520, White from: 那个谁520
+squareup.com # Block from: Ad-set-hosts, White from: BlueSkyXN
+srv.sec.miui.com # Block from: 1hosts, White from: 那个谁520
+srvtrck.com # Block from: 1hosts, White from: GOODBYEADS
+ssl.google-analytics.com # Block from: 下个ID见, White from: GOODBYEADS
+ssl.msdk.qq.com # Block from: 那个谁520, White from: 那个谁520
+sstats.bitdefender.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+st.todesk.com # Block from: 1hosts, White from: 那个谁520
+stackpathcdn.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+stacksocial.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+stat.funshion.com # Block from: AdBlockDNSFilters1, White from: 那个谁520
+stat.y.qq.com # Block from: 秋风的规则, White from: 那个谁520
+stat.youku.com # Block from: 下个ID见, White from: 那个谁520
+stat6.y.qq.com # Block from: AdBlockDNSFilters1, White from: 那个谁520
+static-cdn.hotjar.com # Block from: 1hosts, White from: GOODBYEADS
+static-res.qq.com # Block from: 下个ID见, White from: 那个谁520
+static-s.iqiyi.com # Block from: 秋风的规则, White from: 那个谁520
+static-tapad.tapdb.net # Block from: Ad-set-hosts, White from: 那个谁520
+static.3001.net # Block from: Ad-set-hosts, White from: GOODBYEADS
+static.clmbtech.com # Block from: Ad-set-hosts, White from: xndeye adblock_list
+static.cloudflareinsights.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+static.doubleclick.net # Block from: 下个ID见, White from: GOODBYEADS
+static.media.net # Block from: Ad-set-hosts, White from: GOODBYEADS
+static.parsely.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+static.qiyi.com # Block from: AdBlockDNSFilters1, White from: 那个谁520
+static.tieba.baidu.com # Block from: 1hosts, White from: 那个谁520
+static.yximgs.com # Block from: 下个ID见, White from: 那个谁520
+staticsns.cdn.bcebos.com # Block from: 下个ID见, White from: DD自用
+stats.g.doubleclick.net # Block from: 下个ID见, White from: GOODBYEADS
+stats.gc.apple.com # Block from: xndeye adblock_list, White from: 那个谁520
+stats.wp.com # Block from: 秋风的规则, White from: GOODBYEADS
+store.is.autonavi.com # Block from: 下个ID见, White from: 那个谁520
+storedl1.nearme.com.cn # Block from: AdBlockDNSFilters1, White from: 那个谁520
+stpd.cloud # Block from: 1hosts, White from: GOODBYEADS
+streamsb.net # Block from: Ad-set-hosts, White from: 那个谁520
+streamtape.com # Block from: 那个谁520, White from: GOODBYEADS
+studcat.infra.systems # Block from: Ad-set-hosts, White from: 那个谁520
+subscription.iqiyi.com # Block from: AdBlockDNSFilters1, White from: 那个谁520
+succeedscene.com # Block from: 1hosts, White from: GOODBYEADS
+sug.browser.miui.com # Block from: 下个ID见, White from: 那个谁520
+sugar.zhihu.com # Block from: 大萌主, White from: 那个谁520
+suggestion.baidu.com # Block from: AdBlockDNSFilters1, White from: 那个谁520
+sugs.m.sm.cn # Block from: 下个ID见, White from: 那个谁520
+sumologic.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+support-widget.nakanohito.jp # Block from: xndeye adblock_list, White from: Menghuibanxian
+survey.g.doubleclick.net # Block from: 下个ID见, White from: GOODBYEADS
+svtrd.com # Block from: 1hosts, White from: GOODBYEADS
+sysdk.cl2009.com # Block from: 下个ID见, White from: 那个谁520
+szbdyd.com # Block from: 秋风的规则, White from: GOODBYEADS
+szlong.weixin.qq.com # Block from: 下个ID见, White from: 广告规则
+t.co # Block from: xndeye adblock_list, White from: 那个谁520
+t.gdt.qq.com # Block from: 逆向涉猎, White from: Menghuibanxian
+t.uc.cn # Block from: AdBlockDNSFilters1, White from: 那个谁520
+t7z.cupid.iqiyi.com # Block from: 逆向涉猎, White from: 那个谁520
+tag.aticdn.net # Block from: Ad-set-hosts, White from: GOODBYEADS
+tag.vlitag.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+tags.bluekai.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+tags.crwdcntrl.net # Block from: 下个ID见, White from: GOODBYEADS
+tagtic.cn # Block from: 秋风的规则, White from: BlueSkyXN
+tangram.e.qq.com # Block from: 秋风的规则, White from: 那个谁520
+taplytics.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+target.my.com # Block from: 1hosts, White from: GOODBYEADS
+tawk.to # Block from: Ad-set-hosts, White from: GOODBYEADS
+tbsone.imtt.qq.com # Block from: AdBlockDNSFilters1, White from: 那个谁520
+tcbox.baidu.com # Block from: 大萌主, White from: DD自用
+tce.alicdn.com # Block from: AdBlockDNSFilters1, White from: GOODBYEADS
+tdid.m.qq.com # Block from: 大萌主, White from: 那个谁520
+team-rec.jp # Block from: Ad-set-hosts, White from: GOODBYEADS
+technical-service.net # Block from: Ad-set-hosts, White from: GOODBYEADS
+temu.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+th.bing.com # Block from: xndeye adblock_list, White from: 那个谁520
+thirdwx.qlogo.cn # Block from: Ad-set-hosts, White from: 那个谁520
+tianshu.gtimg.cn # Block from: 下个ID见, White from: DD自用
+tii.la # Block from: 1hosts, White from: GOODBYEADS
+tiktok.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+tk.anythinktech.com # Block from: 秋风的规则, White from: Menghuibanxian
+tkqlhce.com # Block from: 1hosts, White from: GOODBYEADS
+tmead.y.qq.com # Block from: 秋风的规则, White from: Menghuibanxian
+tmeadbak.y.qq.com # Block from: 下个ID见, White from: Menghuibanxian
+tmeadcomm.y.qq.com # Block from: 秋风的规则, White from: Menghuibanxian
+tms.capitalone.com # Block from: AdBlock DNS Filters, White from: Menghuibanxian
+tnc11-bjlgy.zijieapi.com # Block from: 下个ID见, White from: 那个谁520
+tnc16-platform-useast1a.tiktokv.com # Block from: AdBlock DNS Filters, White from: 那个谁520
+tnc3-aliec2.snssdk.com # Block from: 秋风的规则, White from: 那个谁520
+tnc3-bjlgy.zijieapi.com # Block from: 秋风的规则, White from: DD自用
+toonily.me # Block from: AdBlockDNSFilters2, White from: 那个谁520
+top-shop.ru # Block from: 1hosts, White from: GOODBYEADS
+topsport.bg # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+torimochi.line-apps.com # Block from: 1hosts, White from: Menghuibanxian
+tpc.googlesyndication.com # Block from: 秋风的规则, White from: GOODBYEADS
+tpstelemetry.tencent.com # Block from: 那个谁520, White from: 那个谁520
+tr.rdrtr.com # Block from: AdBlock DNS Filters, White from: Menghuibanxian
+track.sohu.com # Block from: 大萌主, White from: 那个谁520
+track.webgains.com # Block from: Ad-set-hosts, White from: Menghuibanxian
+tracker.ai.xiaomi.com # Block from: 秋风的规则, White from: GOODBYEADS
+tracker.didistatic.com # Block from: 那个谁520, White from: 那个谁520
+tracker.mattel.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+tradedoubler.com # Block from: Ad-set-hosts, White from: xndeye adblock_list
+tradingview.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+trafficmanager.anyclip.com # Block from: 1hosts, White from: GOODBYEADS
+trc-events.taboola.com # Block from: 下个ID见, White from: GOODBYEADS
+trc.taboola.com # Block from: 大萌主, White from: GOODBYEADS
+trc.taboolasyndication.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+trojmiasto.pl # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+try.abtasty.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+tsis.jpush.cn # Block from: 下个ID见, White from: 那个谁520
+tunion-api.m.taobao.com # Block from: 下个ID见, White from: 那个谁520
+tv.ads.spotx.tv # Block from: xndeye adblock_list, White from: GOODBYEADS
+tvapp.hpplay.cn # Block from: 秋风的规则, White from: DD自用
+u.oppomobile.com # Block from: AdBlockDNSFilters1, White from: 那个谁520
+u1.img.mobile.sina.cn # Block from: 下个ID见, White from: 那个谁520
+uc.ucweb.com # Block from: 下个ID见, White from: 那个谁520
+uczzd.cn # Block from: 1hosts, White from: 那个谁520
+udpolimenew.baidu.com # Block from: 那个谁520, White from: 那个谁520
+uee.me # Block from: Ad-set-hosts, White from: 那个谁520
+umengjmacs.m.taobao.com # Block from: 秋风的规则, White from: DD自用
+umiwi.com # Block from: 1hosts, White from: 那个谁520
+unet.ucweb.com # Block from: 10007_auto, White from: 那个谁520
+unpkg.com # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+up-load.io # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+upage.imtt.qq.com # Block from: 10007_auto, White from: 那个谁520
+update.360safe.com # Block from: 下个ID见, White from: 那个谁520
+upgrade.ptmi.gitv.tv # Block from: 下个ID见, White from: 那个谁520
+uri6.com # Block from: 1hosts, White from: 那个谁520
+user1.game.qq.com # Block from: 下个ID见, White from: 那个谁520
+usercentrics.eu # Block from: xndeye adblock_list, White from: xndeye adblock_list
+uxip.meizu.com # Block from: 下个ID见, White from: 那个谁520
+uzzf.com # Block from: 1hosts, White from: 那个谁520
+v.gdt.qq.com # Block from: 逆向涉猎, White from: 那个谁520
+v.miguvideo.com # Block from: 1hosts, White from: DD自用
+v.smtcdns.com # Block from: 逆向涉猎, White from: 那个谁520
+v.uc.cn # Block from: 那个谁520, White from: 那个谁520
+v.youku.com # Block from: xndeye adblock_list, White from: 那个谁520
+v1-lm.adukwai.com # Block from: 下个ID见, White from: Menghuibanxian
+v2-lm.adukwai.com # Block from: 下个ID见, White from: Menghuibanxian
+v2.gdt.qq.com # Block from: 秋风的规则, White from: Menghuibanxian
+v3.gdt.qq.com # Block from: 秋风的规则, White from: Menghuibanxian
+v4-lm.adukwai.com # Block from: 下个ID见, White from: Menghuibanxian
+v5-novelapp.fqnovelvod.com # Block from: 逆向涉猎, White from: 那个谁520
+v6ii.gdt.qq.com # Block from: 下个ID见, White from: Menghuibanxian
+vali-dns.cp31.ott.cibntv.net # Block from: 下个ID见, White from: 那个谁520
+vali-g1.cp31.ott.cibntv.net # Block from: 逆向涉猎, White from: 那个谁520
+valuecommerce.com # Block from: 1hosts, White from: GOODBYEADS
+vcs.snssdk.com # Block from: 下个ID见, White from: 那个谁520
+vcs.zijieapi.com # Block from: 广告规则, White from: DD自用
+vd.l.qq.com # Block from: 下个ID见, White from: 那个谁520
+veev.to # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+verify.snssdk.com # Block from: 下个ID见, White from: 那个谁520
+video.da.mgtv.com # Block from: 那个谁520, White from: 那个谁520
+vidlii.com # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+viglink.com # Block from: 那个谁520, White from: GOODBYEADS
+vitacost.122.2o7.net # Block from: Ad-set-hosts, White from: GOODBYEADS
+vivo.sx # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+vr.gdt.qq.com # Block from: 逆向涉猎, White from: Menghuibanxian
+vv.video.qq.com # Block from: 那个谁520, White from: 那个谁520
+w1.kskwai.com # Block from: 秋风的规则, White from: 那个谁520
+w2.kskwai.com # Block from: 下个ID见, White from: 那个谁520
+w8.com.cn # Block from: AdBlockDNSFilters1, White from: 那个谁520
+w88.go.com # Block from: 那个谁520, White from: GOODBYEADS
+walla.co.il # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+wan.douyu.com # Block from: 1hosts, White from: 大萌主
+wbapp.mobile.sina.cn # Block from: 下个ID见, White from: 那个谁520
+web.cmp.usercentrics.eu # Block from: 1hosts, White from: xndeye adblock_list
+webcast-open.douyin.com # Block from: 逆向涉猎, White from: 那个谁520
+webfail.com # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+webgains.com # Block from: 1hosts, White from: GOODBYEADS
+weidian.com # Block from: xndeye adblock_list, White from: 那个谁520
+wf.typesquare.com # Block from: 1hosts, White from: GOODBYEADS
+wgo.mmstat.com # Block from: 下个ID见, White from: DD自用
+widget.happyfoxchat.com # Block from: xndeye adblock_list, White from: xndeye adblock_list
+widget.intercom.io # Block from: Ad-set-hosts, White from: anti-AD
+widget.weibo.com # Block from: 1hosts, White from: anti-AD
+wikipedia.org # Block from: xndeye adblock_list, White from: GOODBYEADS
+win.gdt.qq.com # Block from: 秋风的规则, White from: Menghuibanxian
+wired.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+wl.jd.com # Block from: 下个ID见, White from: BlueSkyXN
+wm.makeding.com # Block from: Ad-set-hosts, White from: 那个谁520
+woniu.com # Block from: AdBlockDNSFilters1, White from: 那个谁520
+woocall.sina.com.cn # Block from: 下个ID见, White from: 那个谁520
+world.qpic.cn # Block from: 下个ID见, White from: 那个谁520
+worldgravity.com # Block from: Ad-set-hosts, White from: GOODBYEADS
+worldwide.sogou.com # Block from: 大萌主, White from: 那个谁520
+wp.pl # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+wpnrtnmrewunrtok.xyz # Block from: 1hosts, White from: GOODBYEADS
+wq.jd.com # Block from: xndeye adblock_list, White from: 那个谁520
+wtradv.market.xiaomi.com # Block from: 逆向涉猎, White from: 那个谁520
+www.360.cn # Block from: Ad-set-hosts, White from: 那个谁520
+www.bootcdn.cn # Block from: Ad-set-hosts, White from: 那个谁520
+www.bootcss.com # Block from: Ad-set-hosts, White from: 那个谁520
+www.bytedance.com # Block from: 那个谁520, White from: 那个谁520
+www.chemdraw.com.cn # Block from: 1hosts, White from: 那个谁520
+www.crossoverchina.com # Block from: Ad-set-hosts, White from: 那个谁520
+www.dxmpay.com # Block from: 下个ID见, White from: 那个谁520
+www.googleadservices.com # Block from: 下个ID见, White from: 那个谁520
+www.googletagmanager.com # Block from: 逆向涉猎, White from: GOODBYEADS
+www.ijinshan.com # Block from: Ad-set-hosts, White from: 那个谁520
+www.jdoqocy.com # Block from: Ad-set-hosts, White from: Menghuibanxian
+www.mairuan.com # Block from: Ad-set-hosts, White from: 那个谁520
+www.statcounter.com # Block from: Ad-set-hosts, White from: Menghuibanxian
+www.sygjx.com # Block from: 10007_auto, White from: 那个谁520
+www.youtube.com # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+wxa.wxs.qq.com # Block from: 秋风的规则, White from: Menghuibanxian
+wximg.wxs.qq.com # Block from: 秋风的规则, White from: Menghuibanxian
+wxsmw.wxs.qq.com # Block from: 秋风的规则, White from: Menghuibanxian
+wxsnsad.tc.qq.com # Block from: 秋风的规则, White from: Menghuibanxian
+wxsnsdy.tc.qq.com # Block from: 秋风的规则, White from: Menghuibanxian
+wxsnsdy.video.qq.com # Block from: 下个ID见, White from: Menghuibanxian
+wxsnsdy.wxs.qq.com # Block from: 秋风的规则, White from: 广告规则
+wxsnsdythumb.wxs.qq.com # Block from: 秋风的规则, White from: 广告规则
+x.adnet.qq.com # Block from: 下个ID见, White from: Menghuibanxian
+x6img.com # Block from: xndeye adblock_list, White from: 那个谁520
+xc.gdt.qq.com # Block from: 秋风的规则, White from: Menghuibanxian
+xhamster.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+xiaoshuo.wtzw.com # Block from: 下个ID见, White from: 那个谁520
+xifuquan.com # Block from: 1hosts, White from: 那个谁520
+xlivesex.com # Block from: 1hosts, White from: 那个谁520
+xvideos.com # Block from: AdBlockDNSFilters2, White from: 那个谁520
+yixiu-abtest.alicdn.com # Block from: 1hosts, White from: 那个谁520
+ylog.huya.com # Block from: 1hosts, White from: DD自用
+youtu.be # Block from: xndeye adblock_list, White from: 那个谁520
+youtube.com # Block from: xndeye adblock_list, White from: GOODBYEADS
+yule.sohu.com # Block from: AdBlockDNSFilters1, White from: 那个谁520
+yunjiasu.com # Block from: 1hosts, White from: 那个谁520
+yybadaccess.3g.qq.com # Block from: 下个ID见, White from: 那个谁520
+zazhipu.com # Block from: 1hosts, White from: 那个谁520
+zeperfs.com # Block from: AdBlockDNSFilters2, White from: GOODBYEADS
+zergnet.com # Block from: 1hosts, White from: GOODBYEADS
+zhan.vivo.com.cn # Block from: Ad-set-hosts, White from: 那个谁520

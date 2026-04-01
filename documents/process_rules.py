@@ -45,11 +45,14 @@ custom_white_file = "my-whitelist.txt"
 
 block_filename = os.environ.get("OUTPUT_BLOCK_FILENAME", "Black.txt")
 white_filename = os.environ.get("OUTPUT_WHITE_FILENAME", "White.txt")
+conflict_filename = os.environ.get("OUTPUT_CONFLICT_FILENAME", "Conflict.txt")
 block_output_file = os.path.join(root_dir, block_filename)
 white_output_file = os.path.join(root_dir, white_filename)
+conflict_output_file = os.path.join(root_dir, conflict_filename)
 
 readme_title = os.environ.get("README_TITLE", "平稳的规则")
 release_tag = os.environ.get("RELEASE_TAG")
+AUTHOR = "logic769"
 
 
 @dataclass
@@ -93,7 +96,7 @@ class RuleParser:
         
         line = line.replace("||", "").replace("^", "")
         
-        if line.startswith("*."):
+        if line.startswith("*." ):
             line = line[2:]
         if line.startswith("."):
             line = line[1:]
@@ -248,21 +251,19 @@ def merge_rules(*rule_dicts: dict[str, str]) -> dict[str, str]:
     return merged
 
 
-def apply_whitelist_exclusions(block_rules: dict[str, str], white_rules: dict[str, str]) -> dict[str, str]:
+def find_conflict_rules(block_rules: dict[str, str], white_rules: dict[str, str]) -> dict[str, tuple[str, str]]:
     """
-    从黑名单中排除白名单规则
+    查找同时存在于黑名单和白名单中的规则
+    返回 {规则: (黑名单来源, 白名单来源)} 的字典
     """
-    excluded_count = 0
-    final_block_rules: dict[str, str] = {}
+    conflict_rules: dict[str, tuple[str, str]] = {}
     
-    for rule, source in block_rules.items():
+    for rule, block_source in block_rules.items():
         if rule in white_rules:
-            excluded_count += 1
-        else:
-            final_block_rules[rule] = source
+            white_source = white_rules[rule]
+            conflict_rules[rule] = (block_source, white_source)
     
-    print(f"  从黑名单中移除了 {excluded_count} 条白名单规则")
-    return final_block_rules
+    return conflict_rules
 
 
 def write_rules_to_file(filename: str, rules_dict: dict, title: str, description: str, author: str):
@@ -282,14 +283,18 @@ def write_rules_to_file(filename: str, rules_dict: dict, title: str, description
             f.write("!\n")
 
             for rule in sorted_rules:
-                source = rules_dict[rule]
-                f.write(f"{rule} # From: {source}\n")
+                if isinstance(rules_dict[rule], tuple):
+                    block_source, white_source = rules_dict[rule]
+                    f.write(f"{rule} # Block from: {block_source}, White from: {white_source}\n")
+                else:
+                    source = rules_dict[rule]
+                    f.write(f"{rule} # From: {source}\n")
         print(f"文件 {os.path.basename(filename)} 写入成功！")
     except IOError as e:
         print(f"写入文件失败: {filename}, 错误: {e}")
 
 
-def update_readme(block_rules_dict: dict, white_rules_dict: dict):
+def update_readme(block_rules_dict: dict, white_rules_dict: dict, conflict_rules_dict: dict):
     print("\n正在更新 README.md...")
     repo_name = os.environ.get("GITHUB_REPOSITORY", "your_username/your_repo")
     branch_name = os.environ.get("GITHUB_REF_NAME") or "main"
@@ -319,16 +324,19 @@ def update_readme(block_rules_dict: dict, white_rules_dict: dict):
 
 # 自动更新的 AdGuard Home 规则
 
-项目作者: zhuanshenlikaini
+项目作者: {AUTHOR}
 
-本项目通过 GitHub Actions 自动合并、去重多个来源的 AdGuard Home 规则，并排除白名单。
+本项目通过 GitHub Actions 自动合并、去重多个来源的 AdGuard Home 规则。
 支持自动检测并分离上游规则中的混合黑白名单。
+黑白名单完全独立，同时存在的规则会单独列在冲突规则中。
 
 最后更新时间: {now_beijing.strftime('%Y-%m-%d %H:%M:%S')} (UTC+8)
 
 最终黑名单规则数: {len(block_rules_dict)}
 
 最终白名单规则数: {len(white_rules_dict)}
+
+冲突规则数: {len(conflict_rules_dict)}
 
 订阅链接
 
@@ -342,6 +350,12 @@ def update_readme(block_rules_dict: dict, white_rules_dict: dict):
 
 {code_fence}
 {base_url}/{os.path.basename(white_output_file)}
+{code_fence}
+
+冲突规则 (Conflict)
+
+{code_fence}
+{base_url}/{os.path.basename(conflict_output_file)}
 {code_fence}
 
 规则来源
@@ -367,7 +381,7 @@ def update_readme(block_rules_dict: dict, white_rules_dict: dict):
 def main():
     print("=" * 60)
     print("AdGuard Home 规则处理脚本 (重构版)")
-    print("支持: 自动分离混合规则、规则去重、白名单排除")
+    print("支持: 自动分离混合规则、规则去重、黑白名单独立、冲突规则检测")
     print("=" * 60)
     
     print("\n--- 第一步: 处理白名单规则源 ---")
@@ -397,29 +411,38 @@ def main():
     print(f"  合并后黑名单共: {len(all_block_rules)} 条")
     print(f"  合并后白名单共: {len(all_white_rules)} 条")
     
-    print("\n--- 第五步: 应用白名单排除 ---")
-    final_block_rules = apply_whitelist_exclusions(all_block_rules, all_white_rules)
+    print("\n--- 第五步: 检测冲突规则 ---")
+    conflict_rules = find_conflict_rules(all_block_rules, all_white_rules)
+    print(f"  检测到 {len(conflict_rules)} 条冲突规则（同时存在于黑名单和白名单）")
     
     print(f"\n最终统计:")
-    print(f"  最终生效黑名单: {len(final_block_rules)} 条")
+    print(f"  最终黑名单: {len(all_block_rules)} 条")
     print(f"  最终白名单: {len(all_white_rules)} 条")
+    print(f"  冲突规则: {len(conflict_rules)} 条")
     
     write_rules_to_file(
         block_output_file,
-        final_block_rules,
+        all_block_rules,
         "AdGuard Custom Blocklist",
-        "自动合并的广告拦截规则（已排除白名单）",
-        "zhuanshenlikaini",
+        "自动合并的广告拦截规则（与白名单完全独立）",
+        AUTHOR,
     )
     write_rules_to_file(
         white_output_file,
         all_white_rules,
         "AdGuard Custom Whitelist",
-        "自动合并的白名单规则",
-        "zhuanshenlikaini",
+        "自动合并的白名单规则（与黑名单完全独立）",
+        AUTHOR,
+    )
+    write_rules_to_file(
+        conflict_output_file,
+        conflict_rules,
+        "AdGuard Conflict Rules",
+        "同时存在于黑名单和白名单的规则",
+        AUTHOR,
     )
 
-    update_readme(final_block_rules, all_white_rules)
+    update_readme(all_block_rules, all_white_rules, conflict_rules)
     
     print("\n" + "=" * 60)
     print("规则处理完成！")

@@ -1,8 +1,8 @@
 ! Title: AdGuard Custom Whitelist
-! Description: 自动合并的白名单规则
-! Author: zhuanshenlikaini
-! Version: 20260402000551
-! Last Updated: 2026-04-02 00:05:51 (UTC+8)
+! Description: 自动合并的白名单规则（与黑名单完全独立）
+! Author: logic769
+! Version: 20260402002346
+! Last Updated: 2026-04-02 00:23:46 (UTC+8)
 ! Total Rules: 7442
 !
 -728x90. # From: GOODBYEADS
