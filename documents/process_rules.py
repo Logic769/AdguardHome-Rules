@@ -2,14 +2,13 @@ import requests
 import datetime
 import time
 import os
+import re
+from dataclasses import dataclass
+from typing import Optional
 
-# ===================== 配置区 =====================
-
-# 脚本与项目根路径
 script_dir = os.path.dirname(os.path.abspath(__file__))
 root_dir = os.path.dirname(script_dir)
 
-# 黑名单规则源（网络）
 block_source_urls = {
     "秋风的规则": "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/AWAvenue-Ads-Rule.txt",
     "广告规则": "https://raw.githubusercontent.com/huantian233/HT-AD/main/AD.txt",
@@ -30,36 +29,108 @@ block_source_urls = {
     "Menghuibanxian": "https://raw.githubusercontent.com/Menghuibanxian/AdguardHome/refs/heads/main/Black.txt",
     "anti-AD": "https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-easylist.txt",
     "AdBlock DNS Filters": "https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblockdns.txt",
-"ABP":  "https://raw.githubusercontent.com/damengzhu/abpmerge/refs/heads/main/abpmerge.txt"
+    "ABP": "https://raw.githubusercontent.com/damengzhu/abpmerge/refs/heads/main/abpmerge.txt"
 }
 
-# 白名单规则源（网络）
-white_source_urls = {  "茯苓允许列表": "https://raw.githubusercontent.com/Kuroba-Sayuki/FuLing-AdRules/main/FuLingRules/FuLingAllowList.txt",
+white_source_urls = {
+    "茯苓允许列表": "https://raw.githubusercontent.com/Kuroba-Sayuki/FuLing-AdRules/main/FuLingRules/FuLingAllowList.txt",
     "666": "https://raw.githubusercontent.com/qq5460168/666/master/allow.txt",
     "个人自用白名单": "https://raw.githubusercontent.com/qq5460168/dangchu/main/white.txt",
     "BlueSkyXN": "https://raw.githubusercontent.com/BlueSkyXN/AdGuardHomeRules/master/ok.txt",
-    "GOODBYEADS": "https://raw.githubusercontent.com/8680/GOODBYEADS/master/data/rules/allow.txt"}
+    "GOODBYEADS": "https://raw.githubusercontent.com/8680/GOODBYEADS/master/data/rules/allow.txt"
+}
 
-# 本地自定义规则文件（与脚本同目录）
 custom_block_file = "my-blocklist.txt"
 custom_white_file = "my-whitelist.txt"
 
-# 输出文件名（通过环境变量覆盖）
 block_filename = os.environ.get("OUTPUT_BLOCK_FILENAME", "Black.txt")
 white_filename = os.environ.get("OUTPUT_WHITE_FILENAME", "White.txt")
 block_output_file = os.path.join(root_dir, block_filename)
 white_output_file = os.path.join(root_dir, white_filename)
 
-# README 开头标题（通过环境变量覆盖）
 readme_title = os.environ.get("README_TITLE", "平稳的规则")
-
-# Release 标签（用于 README 直链）
 release_tag = os.environ.get("RELEASE_TAG")
 
-# ===================== 脚本区 =====================
 
-def download_file(url: str, friendly_name: str):
-    """下载指定 URL 的内容"""
+@dataclass
+class ParsedRule:
+    domain: str
+    is_whitelist: bool
+    modifiers: list[str]
+    original_line: str
+    source: str
+
+
+class RuleParser:
+    SUPPORTED_MODIFIERS = {'important', 'dnsrewrite', 'client', 'badfilter'}
+    
+    @staticmethod
+    def parse_line(line: str, source: str = "") -> Optional[ParsedRule]:
+        line = line.strip()
+        
+        if not line:
+            return None
+        
+        if line.startswith(('!', '#', '/', '[')):
+            return None
+        
+        is_whitelist = line.startswith('@@')
+        if is_whitelist:
+            line = line[2:]
+        
+        modifiers = []
+        if '$' in line:
+            parts = line.split('$', 1)
+            line = parts[0]
+            modifier_str = parts[1] if len(parts) > 1 else ""
+            
+            if modifier_str:
+                raw_modifiers = [m.strip() for m in modifier_str.split(',')]
+                for mod in raw_modifiers:
+                    mod_lower = mod.lower().split('=')[0].lstrip('~')
+                    if mod_lower in RuleParser.SUPPORTED_MODIFIERS:
+                        modifiers.append(mod)
+        
+        line = line.replace("||", "").replace("^", "")
+        
+        if line.startswith("*."):
+            line = line[2:]
+        if line.startswith("."):
+            line = line[1:]
+        
+        if line.startswith("0.0.0.0 ") or line.startswith("127.0.0.1 "):
+            parts = line.split()
+            if len(parts) >= 2:
+                line = parts[1]
+        
+        if "~" in line:
+            line = line.split("~")[0]
+        
+        line = line.strip()
+        
+        if "." not in line:
+            return None
+        
+        if " " in line or "<" in line or "/" in line:
+            return None
+        
+        if line in {"localhost", "127.0.0.1", "0.0.0.0"}:
+            return None
+        
+        if not re.match(r'^[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?)*$', line):
+            if not re.match(r'^[\w.-]+$', line):
+                return None
+        
+        return ParsedRule(
+            domain=line,
+            is_whitelist=is_whitelist,
+            modifiers=modifiers,
+            original_line=line,
+            source=source
+        )
+
+
+def download_file(url: str, friendly_name: str) -> Optional[str]:
     try:
         print(f"  正在下载: {friendly_name}")
         headers = {
@@ -73,75 +144,128 @@ def download_file(url: str, friendly_name: str):
         print(f"  下载失败: {url}, 错误: {e}")
         return None
 
-def process_line(line: str) -> str:
-    """清洗单行规则，提取域名"""
-    line = line.strip()
 
-    if not line or line.startswith(('!', '#', '/', '[')):
-        return ""
-
-    line = line.replace("@@", "").replace("||", "").replace("^", "")
-    if "$" in line:
-        line = line.split("$", 1)[0]
-
-    if line.startswith("*."):
-        line = line[2:]
-    if line.startswith("."):
-        line = line[1:]
-
-    if line.startswith("0.0.0.0 ") or line.startswith("127.0.0.1 "):
-        parts = line.split()
-        if len(parts) >= 2:
-            line = parts[1]
-
-    if "." not in line or " " in line or "<" in line or "/" in line:
-        return ""
-
-    if line in {"localhost", "127.0.0.1", "0.0.0.0"}:
-        return ""
-
-    return line.strip()
-
-def process_urls_to_dict(urls_dict: dict) -> dict:
-    """下载并处理 URL 字典，返回一个 {规则: 来源名称} 的字典"""
-    rules_dict: dict[str, str] = {}
-    for name, url in urls_dict.items():
-        content = download_file(url, name)
-        if not content:
+def process_source_to_rules(url: str, source_name: str) -> tuple[dict[str, str], dict[str, str]]:
+    """
+    处理单个规则源，返回 (黑名单字典, 白名单字典)
+    自动检测并分离混合的黑白名单规则
+    """
+    content = download_file(url, source_name)
+    if not content:
+        return {}, {}
+    
+    block_rules: dict[str, str] = {}
+    white_rules: dict[str, str] = {}
+    mixed_detected = False
+    
+    lines = content.splitlines()
+    for line in lines:
+        parsed = RuleParser.parse_line(line, source_name)
+        if not parsed:
             continue
+        
+        if parsed.is_whitelist:
+            white_rules[parsed.domain] = source_name
+            mixed_detected = True
+        else:
+            block_rules[parsed.domain] = source_name
+    
+    if mixed_detected:
+        print(f"  [混合规则检测] {source_name} 包含混合的黑白名单规则，已自动分离")
+    
+    print(f"  从 {source_name} 添加了 {len(block_rules)} 条黑名单规则, {len(white_rules)} 条白名单规则")
+    
+    return block_rules, white_rules
 
-        lines = content.splitlines()
-        count = 0
-        for line in lines:
-            processed_line = process_line(line)
-            if processed_line and processed_line not in rules_dict:
-                rules_dict[processed_line] = name
-                count += 1
-        print(f"  从 {name} 添加了 {count} 条新规则。")
+
+def process_all_sources(urls_dict: dict) -> tuple[dict[str, str], dict[str, str]]:
+    """
+    处理所有规则源，自动分离混合规则
+    返回 (合并后的黑名单字典, 合并后的白名单字典)
+    """
+    all_block_rules: dict[str, str] = {}
+    all_white_rules: dict[str, str] = {}
+    
+    for name, url in urls_dict.items():
+        block_rules, white_rules = process_source_to_rules(url, name)
+        
+        for rule, source in block_rules.items():
+            if rule not in all_block_rules:
+                all_block_rules[rule] = source
+        
+        for rule, source in white_rules.items():
+            if rule not in all_white_rules:
+                all_white_rules[rule] = source
+        
         time.sleep(1)
-    return rules_dict
+    
+    return all_block_rules, all_white_rules
 
-def process_local_file(filename: str, source_name: str) -> dict:
-    """读取并处理本地规则文件，如果文件不存在则跳过"""
+
+def process_local_file(filename: str, source_name: str, is_whitelist_file: bool = False) -> tuple[dict[str, str], dict[str, str]]:
+    """
+    处理本地规则文件
+    is_whitelist_file: 标识该文件是否为白名单文件（用于默认分类）
+    返回 (黑名单字典, 白名单字典)
+    """
     full_path = os.path.join(script_dir, filename)
     if not os.path.exists(full_path):
         print(f"\n  本地文件 {filename} 不存在，跳过。")
-        return {}
-
+        return {}, {}
+    
     print(f"\n  正在处理本地文件: {filename}")
-    rules_dict: dict[str, str] = {}
-    count = 0
+    
+    block_rules: dict[str, str] = {}
+    white_rules: dict[str, str] = {}
+    
     with open(full_path, "r", encoding="utf-8") as f:
         for line in f:
-            processed_line = process_line(line)
-            if processed_line and processed_line not in rules_dict:
-                rules_dict[processed_line] = source_name
-                count += 1
-    print(f"  从 {filename} 添加了 {count} 条自定义规则。")
-    return rules_dict
+            parsed = RuleParser.parse_line(line, source_name)
+            if not parsed:
+                continue
+            
+            if parsed.is_whitelist:
+                white_rules[parsed.domain] = source_name
+            elif is_whitelist_file:
+                white_rules[parsed.domain] = source_name
+            else:
+                block_rules[parsed.domain] = source_name
+    
+    print(f"  从 {filename} 添加了 {len(block_rules)} 条黑名单规则, {len(white_rules)} 条白名单规则")
+    
+    return block_rules, white_rules
+
+
+def merge_rules(*rule_dicts: dict[str, str]) -> dict[str, str]:
+    """
+    合并多个规则字典，后出现的规则会保留第一次出现的来源
+    """
+    merged: dict[str, str] = {}
+    for rules_dict in rule_dicts:
+        for rule, source in rules_dict.items():
+            if rule not in merged:
+                merged[rule] = source
+    return merged
+
+
+def apply_whitelist_exclusions(block_rules: dict[str, str], white_rules: dict[str, str]) -> dict[str, str]:
+    """
+    从黑名单中排除白名单规则
+    """
+    excluded_count = 0
+    final_block_rules: dict[str, str] = {}
+    
+    for rule, source in block_rules.items():
+        if rule in white_rules:
+            excluded_count += 1
+        else:
+            final_block_rules[rule] = source
+    
+    print(f"  从黑名单中移除了 {excluded_count} 条白名单规则")
+    return final_block_rules
+
 
 def write_rules_to_file(filename: str, rules_dict: dict, title: str, description: str, author: str):
-    """将规则字典写入文件，并添加作者与更新时间等头信息"""
     print(f"\n正在将规则写入到 {os.path.basename(filename)}...")
     sorted_rules = sorted(rules_dict.keys())
     try:
@@ -164,8 +288,8 @@ def write_rules_to_file(filename: str, rules_dict: dict, title: str, description
     except IOError as e:
         print(f"写入文件失败: {filename}, 错误: {e}")
 
+
 def update_readme(block_rules_dict: dict, white_rules_dict: dict):
-    """生成并更新 README.md 文件（链接指向 Release 资源）"""
     print("\n正在更新 README.md...")
     repo_name = os.environ.get("GITHUB_REPOSITORY", "your_username/your_repo")
     branch_name = os.environ.get("GITHUB_REF_NAME") or "main"
@@ -198,6 +322,7 @@ def update_readme(block_rules_dict: dict, white_rules_dict: dict):
 项目作者: zhuanshenlikaini
 
 本项目通过 GitHub Actions 自动合并、去重多个来源的 AdGuard Home 规则，并排除白名单。
+支持自动检测并分离上游规则中的混合黑白名单。
 
 最后更新时间: {now_beijing.strftime('%Y-%m-%d %H:%M:%S')} (UTC+8)
 
@@ -238,49 +363,68 @@ def update_readme(block_rules_dict: dict, white_rules_dict: dict):
     except IOError as e:
         print(f"写入 README.md 失败: {e}")
 
+
 def main():
-    """主执行函数"""
-    print("--- 开始处理白名单 ---")
-    white_rules_dict = process_urls_to_dict(white_source_urls)
-    white_rules_dict.update(process_local_file(custom_white_file, "Custom Whitelist"))
-
-    print("\n--- 开始处理黑名单 ---")
-    block_rules_dict = process_urls_to_dict(block_source_urls)
-    block_rules_dict.update(process_local_file(custom_block_file, "Custom Blocklist"))
-
-    print("\n--- 最终处理 ---")
-    initial_block_count = len(block_rules_dict)
-    print(f"合并后黑名单共: {initial_block_count} 条")
-    print(f"合并后白名单共: {len(white_rules_dict)} 条")
-
-    final_block_rules_dict = {
-        rule: source
-        for rule, source in block_rules_dict.items()
-        if rule not in white_rules_dict
-    }
-
-    final_block_count = len(final_block_rules_dict)
-    removed_count = initial_block_count - final_block_count
-
-    print(f"从黑名单中移除了 {removed_count} 条白名单规则。")
-    print(f"最终生效黑名单共: {final_block_count} 条。")
-
+    print("=" * 60)
+    print("AdGuard Home 规则处理脚本 (重构版)")
+    print("支持: 自动分离混合规则、规则去重、白名单排除")
+    print("=" * 60)
+    
+    print("\n--- 第一步: 处理白名单规则源 ---")
+    white_source_block, white_source_white = process_all_sources(white_source_urls)
+    
+    print("\n--- 第二步: 处理黑名单规则源 ---")
+    block_source_block, block_source_white = process_all_sources(block_source_urls)
+    
+    print("\n--- 第三步: 处理本地自定义规则 ---")
+    local_block, local_white = process_local_file(custom_block_file, "Custom Blocklist", is_whitelist_file=False)
+    local_white_file_rules, _ = process_local_file(custom_white_file, "Custom Whitelist", is_whitelist_file=True)
+    
+    print("\n--- 第四步: 合并所有规则 ---")
+    all_white_rules = merge_rules(
+        white_source_white,
+        white_source_block,
+        block_source_white,
+        local_white,
+        local_white_file_rules
+    )
+    
+    all_block_rules = merge_rules(
+        block_source_block,
+        local_block
+    )
+    
+    print(f"  合并后黑名单共: {len(all_block_rules)} 条")
+    print(f"  合并后白名单共: {len(all_white_rules)} 条")
+    
+    print("\n--- 第五步: 应用白名单排除 ---")
+    final_block_rules = apply_whitelist_exclusions(all_block_rules, all_white_rules)
+    
+    print(f"\n最终统计:")
+    print(f"  最终生效黑名单: {len(final_block_rules)} 条")
+    print(f"  最终白名单: {len(all_white_rules)} 条")
+    
     write_rules_to_file(
         block_output_file,
-        final_block_rules_dict,
+        final_block_rules,
         "AdGuard Custom Blocklist",
-        "自动合并的广告拦截规则",
+        "自动合并的广告拦截规则（已排除白名单）",
         "zhuanshenlikaini",
     )
     write_rules_to_file(
         white_output_file,
-        white_rules_dict,
+        all_white_rules,
         "AdGuard Custom Whitelist",
         "自动合并的白名单规则",
         "zhuanshenlikaini",
     )
 
-    update_readme(final_block_rules_dict, white_rules_dict)
+    update_readme(final_block_rules, all_white_rules)
+    
+    print("\n" + "=" * 60)
+    print("规则处理完成！")
+    print("=" * 60)
+
 
 if __name__ == "__main__":
     main()
