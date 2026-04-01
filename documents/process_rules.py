@@ -1,4 +1,4 @@
-import requests
+ requests
 import datetime
 import time
 import os
@@ -15,6 +15,7 @@ block_source_urls = {
     "DD自用": "https://raw.githubusercontent.com/afwfv/DD-AD/main/rule/DD-AD.txt",
     "大萌主": "https://raw.githubusercontent.com/damengzhu/banad/main/jiekouAD.txt",
     "逆向涉猎": "https://raw.githubusercontent.com/790953214/qy-Ads-Rule/main/black.txt",
+"neodavhost": "https://raw.githubusercontent.com/neodevpro/neodevhost/master/adblocker",
     "下个ID见": "https://raw.githubusercontent.com/2Gardon/SM-Ad-FuckU-hosts/master/SMAdHosts",
     "那个谁520": "https://raw.githubusercontent.com/qq5460168/666/master/rules.txt",
     "1hosts": "https://raw.githubusercontent.com/badmojr/1Hosts/master/Lite/adblock.txt",
