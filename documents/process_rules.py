@@ -33,8 +33,7 @@ block_source_urls = {
     "Menghuibanxian": "https://raw.githubusercontent.com/Menghuibanxian/AdguardHome/refs/heads/main/Black.txt",
     "oisd/small": "https://small.oisd.nl/",
     "乘风广告规则": "https://raw.githubusercontent.com/xinggsf/Adblock-Plus-Rule/refs/heads/master/rule.txt",
-    "165反诈": "https://filter.futa.gg/TW165-redirect.txt",
-    "5why": "https://raw.githubusercontent.com/5whys-adblock/AdGuardHome-rules/main/rules/output_full.txt"
+    "165反诈": "https://filter.futa.gg/TW165-redirect.txt"
 }
 
 white_source_urls = {
