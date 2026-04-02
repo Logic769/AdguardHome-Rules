@@ -16,6 +16,7 @@ block_source_urls = {
     "DD自用": "https://raw.githubusercontent.com/afwfv/DD-AD/main/rule/DD-AD.txt",
 "smad": "https://raw.githubusercontent.com/2Gardon/SM-Ad-FuckU-hosts/refs/heads/master/SMAdHosts",
     "大萌主": "https://raw.githubusercontent.com/damengzhu/banad/main/jiekouAD.txt",
+"10007": "https://raw.githubusercontent.com/lingeringsound/10007_auto/master/adb.txt",
     "逆向涉猎": "https://raw.githubusercontent.com/790953214/qy-Ads-Rule/main/black.txt",
 "neodavhost": "https://raw.githubusercontent.com/neodevpro/neodevhost/master/adblocker",
     "下个ID见": "https://raw.githubusercontent.com/2Gardon/SM-Ad-FuckU-hosts/master/SMAdHosts",
