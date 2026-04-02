@@ -11,16 +11,16 @@ root_dir = os.path.dirname(script_dir)
 
 block_source_urls = {
     "秋风的规则": "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/AWAvenue-Ads-Rule.txt",
-"秋风的规则补充": "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Replenish.txt",
-"hululu": "https://raw.githubusercontent.com/hululu1068/AdGuard-Rule/main/rule/adgh.txt",
+    "秋风的规则补充": "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Replenish.txt",
+    "hululu": "https://raw.githubusercontent.com/hululu1068/AdGuard-Rule/main/rule/adgh.txt",
     "DD自用": "https://raw.githubusercontent.com/afwfv/DD-AD/main/rule/DD-AD.txt",
-"smad": "https://raw.githubusercontent.com/2Gardon/SM-Ad-FuckU-hosts/refs/heads/master/SMAdHosts",
+    "smad": "https://raw.githubusercontent.com/2Gardon/SM-Ad-FuckU-hosts/refs/heads/master/SMAdHosts",
     "大萌主": "https://raw.githubusercontent.com/damengzhu/banad/main/jiekouAD.txt",
-"10007": "https://raw.githubusercontent.com/lingeringsound/10007_auto/master/adb.txt",
+    "10007": "https://raw.githubusercontent.com/lingeringsound/10007_auto/master/adb.txt",
     "逆向涉猎": "https://raw.githubusercontent.com/790953214/qy-Ads-Rule/main/black.txt",
-"neodavhost": "https://raw.githubusercontent.com/neodevpro/neodevhost/master/adblocker",
+    "neodavhost": "https://raw.githubusercontent.com/neodevpro/neodevhost/master/adblocker",
     "下个ID见": "https://raw.githubusercontent.com/2Gardon/SM-Ad-FuckU-hosts/master/SMAdHosts",
-"adsethost": "https://raw.githubusercontent.com/rentianyu/Ad-set-hosts/master/adguard",
+    "adsethost": "https://raw.githubusercontent.com/rentianyu/Ad-set-hosts/master/adguard",
     "那个谁520": "https://raw.githubusercontent.com/qq5460168/666/master/rules.txt",
     "1hosts": "https://raw.githubusercontent.com/badmojr/1Hosts/master/Lite/adblock.txt",
     "茯苓的广告规则": "https://raw.githubusercontent.com/Kuroba-Sayuki/FuLing-AdRules/main/FuLingRules/FuLingBlockList.txt",
@@ -34,7 +34,6 @@ block_source_urls = {
 }
 
 white_source_urls = {
-    "茯苓允许列表": "https://raw.githubusercontent.com/Kuroba-Sayuki/FuLing-AdRules/main/FuLingRules/FuLingAllowList.txt",
     "666": "https://raw.githubusercontent.com/qq5460168/666/master/allow.txt",
     "个人自用白名单": "https://raw.githubusercontent.com/qq5460168/dangchu/main/white.txt",
     "BlueSkyXN": "https://raw.githubusercontent.com/BlueSkyXN/AdGuardHomeRules/master/ok.txt",
