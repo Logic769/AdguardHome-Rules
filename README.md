@@ -8,13 +8,13 @@
 支持自动检测并分离上游规则中的混合黑白名单。
 黑白名单完全独立，同时存在的规则会单独列在冲突规则中。
 
-最后更新时间: 2026-04-02 11:50:03 (UTC+8)
+最后更新时间: 2026-04-02 11:59:02 (UTC+8)
 
-最终黑名单规则数: 512241
+最终黑名单规则数: 512281
 
-最终白名单规则数: 7661
+最终白名单规则数: 7738
 
-冲突规则数: 1235
+冲突规则数: 1299
 
 订阅链接
 
@@ -60,6 +60,7 @@ https://github.com/Logic769/AdguardHome-Rules/releases/download/stable-latest/Co
 - anti-AD
 - AdBlock DNS Filters
 - ABP
+- Menghuibanxian
 - Custom Blocklist (本地)
 
 白名单来源 (Whitelist Sources)
