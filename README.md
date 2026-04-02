@@ -8,7 +8,7 @@
 支持自动检测并分离上游规则中的混合黑白名单。
 黑白名单完全独立，同时存在的规则会单独列在冲突规则中。
 
-最后更新时间: 2026-04-02 07:45:38 (UTC+8)
+最后更新时间: 2026-04-02 08:32:34 (UTC+8)
 
 最终黑名单规则数: 437137
 
@@ -43,6 +43,7 @@ https://github.com/Logic769/AdguardHome-Rules/releases/download/stable-latest/Co
 - 秋风的规则
 - 秋风的规则补充
 - DD自用
+- smad
 - 大萌主
 - 逆向涉猎
 - neodavhost
