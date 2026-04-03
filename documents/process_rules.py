@@ -37,9 +37,6 @@ block_source_urls = {
 }
 
 white_source_urls = {
-    "666": "https://raw.githubusercontent.com/qq5460168/666/master/allow.txt",
-    "个人自用白名单": "https://raw.githubusercontent.com/qq5460168/dangchu/main/white.txt",
-    "BlueSkyXN": "https://raw.githubusercontent.com/BlueSkyXN/AdGuardHomeRules/master/ok.txt",
     "GOODBYEADS": "https://raw.githubusercontent.com/8680/GOODBYEADS/master/data/rules/allow.txt"
 }
 
