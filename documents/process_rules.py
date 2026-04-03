@@ -252,13 +252,16 @@ def find_conflict_rules(block_rules: dict[str, str], white_rules: dict[str, str]
     """
     查找同时存在于黑名单和白名单中的规则
     返回 {规则: (黑名单来源, 白名单来源)} 的字典
+    忽略本地自定义规则的冲突
     """
     conflict_rules: dict[str, tuple[str, str]] = {}
     
     for rule, block_source in block_rules.items():
         if rule in white_rules:
             white_source = white_rules[rule]
-            conflict_rules[rule] = (block_source, white_source)
+            # 忽略本地自定义规则的冲突
+            if block_source not in ["Custom Blocklist", "Custom Whitelist"] and white_source not in ["Custom Blocklist", "Custom Whitelist"]:
+                conflict_rules[rule] = (block_source, white_source)
     
     return conflict_rules
 

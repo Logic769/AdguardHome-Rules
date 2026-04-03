@@ -1,9 +1,9 @@
 ! Title: AdGuard Conflict Rules
 ! Description: 同时存在于黑名单和白名单的规则
 ! Author: logic769
-! Version: 20260403171408
-! Last Updated: 2026-04-03 17:14:08 (UTC+8)
-! Total Rules: 388
+! Version: 20260403172926
+! Last Updated: 2026-04-03 17:29:26 (UTC+8)
+! Total Rules: 385
 !
 -728x90. # Block from: ABP, White from: GOODBYEADS
 07c225f3.online # Block from: 1hosts, White from: GOODBYEADS
@@ -105,7 +105,6 @@ boobausauhipsa.net # Block from: hululu, White from: GOODBYEADS
 bootcss.com # Block from: hululu, White from: GOODBYEADS
 brfiles.com # Block from: hululu, White from: GOODBYEADS
 browser-intake-datadoghq.com # Block from: hululu, White from: GOODBYEADS
-browser.sentry-cdn.com # Block from: Custom Blocklist, White from: GOODBYEADS
 bugsnag.com # Block from: hululu, White from: GOODBYEADS
 c.adsco.re # Block from: 10007, White from: GOODBYEADS
 canyoublockit.com # Block from: ABP, White from: GOODBYEADS
@@ -163,7 +162,6 @@ dood.watch # Block from: hululu, White from: GOODBYEADS
 dood.yt # Block from: adsethost, White from: GOODBYEADS
 dooood.com # Block from: adsethost, White from: GOODBYEADS
 dotomi.com # Block from: hululu, White from: GOODBYEADS
-doubleclick.net # Block from: Custom Blocklist, White from: GOODBYEADS
 dpbolvw.net # Block from: hululu, White from: GOODBYEADS
 dpm.demdex.net # Block from: adsethost, White from: GOODBYEADS
 dvdgayonline.com # Block from: hululu, White from: GOODBYEADS
@@ -231,7 +229,6 @@ jpush.cn # Block from: 秋风的规则, White from: GOODBYEADS
 js-agent.newrelic.com # Block from: hululu, White from: GOODBYEADS
 js-sec.indexww.com # Block from: adsethost, White from: GOODBYEADS
 js.juicyads.com # Block from: 10007, White from: GOODBYEADS
-js.sentry-cdn.com # Block from: Custom Blocklist, White from: GOODBYEADS
 kiplinger.112.2o7.net # Block from: adsethost, White from: GOODBYEADS
 kqzyfj.com # Block from: hululu, White from: GOODBYEADS
 leanplum.com # Block from: hululu, White from: GOODBYEADS
