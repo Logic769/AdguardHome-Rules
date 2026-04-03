@@ -32,8 +32,7 @@ block_source_urls = {
     "ABP": "https://raw.githubusercontent.com/damengzhu/abpmerge/refs/heads/main/abpmerge.txt",
     "Menghuibanxian": "https://raw.githubusercontent.com/Menghuibanxian/AdguardHome/refs/heads/main/Black.txt",
     "oisd/small": "https://small.oisd.nl/",
-    "乘风广告规则": "https://raw.githubusercontent.com/xinggsf/Adblock-Plus-Rule/refs/heads/master/rule.txt",
-    "165反诈": "https://filter.futa.gg/TW165-redirect.txt"
+    "乘风广告规则": "https://raw.githubusercontent.com/xinggsf/Adblock-Plus-Rule/refs/heads/master/rule.txt"
 }
 
 white_source_urls = {
