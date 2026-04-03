@@ -11,33 +11,29 @@ root_dir = os.path.dirname(script_dir)
 
 block_source_urls = {
     "秋风的规则": "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/AWAvenue-Ads-Rule.txt",
-    "广告规则": "https://raw.githubusercontent.com/huantian233/HT-AD/main/AD.txt",
+    "秋风的规则补充": "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Replenish.txt",
+    "hululu": "https://raw.githubusercontent.com/hululu1068/AdGuard-Rule/main/rule/adgh.txt",
     "DD自用": "https://raw.githubusercontent.com/afwfv/DD-AD/main/rule/DD-AD.txt",
+    "smad": "https://raw.githubusercontent.com/2Gardon/SM-Ad-FuckU-hosts/refs/heads/master/SMAdHosts",
     "大萌主": "https://raw.githubusercontent.com/damengzhu/banad/main/jiekouAD.txt",
+    "10007": "https://raw.githubusercontent.com/lingeringsound/10007_auto/master/adb.txt",
     "逆向涉猎": "https://raw.githubusercontent.com/790953214/qy-Ads-Rule/main/black.txt",
+    "neodavhost": "https://raw.githubusercontent.com/neodevpro/neodevhost/master/adblocker",
     "下个ID见": "https://raw.githubusercontent.com/2Gardon/SM-Ad-FuckU-hosts/master/SMAdHosts",
-    "那个谁520": "https://raw.githubusercontent.com/qq5460168/666/master/rules.txt",
+    "adsethost": "https://raw.githubusercontent.com/rentianyu/Ad-set-hosts/master/adguard",
     "1hosts": "https://raw.githubusercontent.com/badmojr/1Hosts/master/Lite/adblock.txt",
     "茯苓的广告规则": "https://raw.githubusercontent.com/Kuroba-Sayuki/FuLing-AdRules/main/FuLingRules/FuLingBlockList.txt",
-    "AdBlockDNSFilters1": "https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblockdnslite.txt",
-    "AdBlockDNSFilters2": "https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblockfilterslite.txt",
-    "Ad-set-hosts": "https://raw.githubusercontent.com/rentianyu/Ad-set-hosts/master/adguard",
     "GOODBYEADS": "https://raw.githubusercontent.com/8680/GOODBYEADS/master/data/rules/dns.txt",
-    "10007_auto": "https://raw.githubusercontent.com/lingeringsound/10007_auto/master/reward",
     "Malicious URL Blocklist": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_11.txt",
-    "xndeye adblock_list": "https://raw.githubusercontent.com/xndeye/adblock_list/refs/heads/release/easylist.txt",
-    "Menghuibanxian": "https://raw.githubusercontent.com/Menghuibanxian/AdguardHome/refs/heads/main/Black.txt",
+    "xndeye adblock_list": "https://raw.githubusercontent.com/xndeye/adblock_list/refs/heads/release/dns.txt",
     "anti-AD": "https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-easylist.txt",
     "AdBlock DNS Filters": "https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblockdns.txt",
     "ABP": "https://raw.githubusercontent.com/damengzhu/abpmerge/refs/heads/main/abpmerge.txt",
+    "oisd/small": "https://small.oisd.nl/",
     "乘风广告规则": "https://raw.githubusercontent.com/xinggsf/Adblock-Plus-Rule/refs/heads/master/rule.txt"
 }
 
 white_source_urls = {
-    "茯苓允许列表": "https://raw.githubusercontent.com/Kuroba-Sayuki/FuLing-AdRules/main/FuLingRules/FuLingAllowList.txt",
-    "666": "https://raw.githubusercontent.com/qq5460168/666/master/allow.txt",
-    "个人自用白名单": "https://raw.githubusercontent.com/qq5460168/dangchu/main/white.txt",
-    "BlueSkyXN": "https://raw.githubusercontent.com/BlueSkyXN/AdGuardHomeRules/master/ok.txt",
     "GOODBYEADS": "https://raw.githubusercontent.com/8680/GOODBYEADS/master/data/rules/allow.txt"
 }
 
@@ -51,7 +47,7 @@ block_output_file = os.path.join(root_dir, block_filename)
 white_output_file = os.path.join(root_dir, white_filename)
 conflict_output_file = os.path.join(root_dir, conflict_filename)
 
-readme_title = os.environ.get("README_TITLE", "平稳的规则")
+readme_title = os.environ.get("README_TITLE", "激进的规则")
 release_tag = os.environ.get("RELEASE_TAG")
 AUTHOR = "logic769"
 
@@ -121,7 +117,7 @@ class RuleParser:
         if line in {"localhost", "127.0.0.1", "0.0.0.0"}:
             return None
         
-        if not re.match(r'^[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?([a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?)*$', line):
+        if not re.match(r'^[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?)*$', line):
             if not re.match(r'^[\w.-]+$', line):
                 return None
         
@@ -149,12 +145,10 @@ def download_file(url: str, friendly_name: str) -> Optional[str]:
         return None
 
 
-def process_source_to_rules(url: str, source_name: str, is_whitelist_source: bool = False) -> tuple[dict[str, str], dict[str, str]]:
+def process_source_to_rules(url: str, source_name: str) -> tuple[dict[str, str], dict[str, str]]:
     """
     处理单个规则源，返回 (黑名单字典, 白名单字典)
-    is_whitelist_source: 标识该源是否为白名单源
-    - 白名单源只保留白名单规则
-    - 黑名单源只保留黑名单规则
+    自动检测并分离混合的黑白名单规则
     """
     content = download_file(url, source_name)
     if not content:
@@ -162,7 +156,7 @@ def process_source_to_rules(url: str, source_name: str, is_whitelist_source: boo
     
     block_rules: dict[str, str] = {}
     white_rules: dict[str, str] = {}
-    filtered_count = 0
+    mixed_detected = False
     
     lines = content.splitlines()
     for line in lines:
@@ -170,38 +164,30 @@ def process_source_to_rules(url: str, source_name: str, is_whitelist_source: boo
         if not parsed:
             continue
         
-        if is_whitelist_source:
-            if parsed.is_whitelist:
-                white_rules[parsed.domain] = source_name
-            else:
-                filtered_count += 1
+        if parsed.is_whitelist:
+            white_rules[parsed.domain] = source_name
+            mixed_detected = True
         else:
-            if not parsed.is_whitelist:
-                block_rules[parsed.domain] = source_name
-            else:
-                filtered_count += 1
+            block_rules[parsed.domain] = source_name
     
-    if filtered_count > 0:
-        print(f"  [规则过滤] 从 {source_name} 过滤掉 {filtered_count} 条不符合类型的规则")
+    if mixed_detected:
+        print(f"  [混合规则检测] {source_name} 包含混合的黑白名单规则，已自动分离")
     
     print(f"  从 {source_name} 添加了 {len(block_rules)} 条黑名单规则, {len(white_rules)} 条白名单规则")
     
     return block_rules, white_rules
 
 
-def process_all_sources(urls_dict: dict, is_whitelist_sources: bool = False) -> tuple[dict[str, str], dict[str, str]]:
+def process_all_sources(urls_dict: dict) -> tuple[dict[str, str], dict[str, str]]:
     """
-    处理所有规则源
-    is_whitelist_sources: 标识这些源是否为白名单源
-    - 白名单源只保留白名单规则
-    - 黑名单源只保留黑名单规则
+    处理所有规则源，自动分离混合规则
     返回 (合并后的黑名单字典, 合并后的白名单字典)
     """
     all_block_rules: dict[str, str] = {}
     all_white_rules: dict[str, str] = {}
     
     for name, url in urls_dict.items():
-        block_rules, white_rules = process_source_to_rules(url, name, is_whitelist_sources)
+        block_rules, white_rules = process_source_to_rules(url, name)
         
         for rule, source in block_rules.items():
             if rule not in all_block_rules:
@@ -340,7 +326,6 @@ def update_readme(block_rules_dict: dict, white_rules_dict: dict, conflict_rules
 本项目通过 GitHub Actions 自动合并、去重多个来源的 AdGuard Home 规则。
 支持自动检测并分离上游规则中的混合黑白名单。
 黑白名单完全独立，同时存在的规则会单独列在冲突规则中。
-本地自定义规则具有最高优先级，不参与冲突检测。
 
 最后更新时间: {now_beijing.strftime('%Y-%m-%d %H:%M:%S')} (UTC+8)
 
@@ -397,55 +382,51 @@ def main():
     print("=" * 60)
     
     print("\n--- 第一步: 处理白名单规则源 ---")
-    white_source_block, white_source_white = process_all_sources(white_source_urls, is_whitelist_sources=True)
+    white_source_block, white_source_white = process_all_sources(white_source_urls)
     
     print("\n--- 第二步: 处理黑名单规则源 ---")
-    block_source_block, block_source_white = process_all_sources(block_source_urls, is_whitelist_sources=False)
+    block_source_block, block_source_white = process_all_sources(block_source_urls)
     
     print("\n--- 第三步: 处理本地自定义规则 ---")
     local_block, local_white = process_local_file(custom_block_file, "Custom Blocklist", is_whitelist_file=False)
     local_white_file_rules, _ = process_local_file(custom_white_file, "Custom Whitelist", is_whitelist_file=True)
     
-    print("\n--- 第四步: 合并上游规则 ---")
-    upstream_white_rules = merge_rules(
-        white_source_white
+    print("\n--- 第四步: 合并所有规则 ---")
+    all_white_rules = merge_rules(
+        local_white_file_rules,
+        local_white,
+        white_source_white,
+        white_source_block,
+        block_source_white
     )
     
-    upstream_block_rules = merge_rules(
+    all_block_rules = merge_rules(
+        local_block,
         block_source_block
     )
     
-    print("\n--- 第五步: 检测上游规则冲突 ---")
-    conflict_rules = find_conflict_rules(upstream_block_rules, upstream_white_rules)
-    print(f"  检测到 {len(conflict_rules)} 条冲突规则（同时存在于上游黑白名单）")
+    print(f"  合并后黑名单共: {len(all_block_rules)} 条")
+    print(f"  合并后白名单共: {len(all_white_rules)} 条")
     
-    print("\n--- 第六步: 添加本地规则（优先级最高） ---")
-    final_white_rules = merge_rules(
-        local_white_file_rules,
-        local_white,
-        upstream_white_rules
-    )
-    
-    final_block_rules = merge_rules(
-        local_block,
-        upstream_block_rules
-    )
+    print("\n--- 第五步: 检测冲突规则 ---")
+    conflict_rules = find_conflict_rules(all_block_rules, all_white_rules)
+    print(f"  检测到 {len(conflict_rules)} 条冲突规则（同时存在于黑名单和白名单）")
     
     print(f"\n最终统计:")
-    print(f"  最终黑名单: {len(final_block_rules)} 条")
-    print(f"  最终白名单: {len(final_white_rules)} 条")
+    print(f"  最终黑名单: {len(all_block_rules)} 条")
+    print(f"  最终白名单: {len(all_white_rules)} 条")
     print(f"  冲突规则: {len(conflict_rules)} 条")
     
     write_rules_to_file(
         block_output_file,
-        final_block_rules,
+        all_block_rules,
         "AdGuard Custom Blocklist",
         "自动合并的广告拦截规则（与白名单完全独立）",
         AUTHOR,
     )
     write_rules_to_file(
         white_output_file,
-        final_white_rules,
+        all_white_rules,
         "AdGuard Custom Whitelist",
         "自动合并的白名单规则（与黑名单完全独立）",
         AUTHOR,
@@ -454,11 +435,11 @@ def main():
         conflict_output_file,
         conflict_rules,
         "AdGuard Conflict Rules",
-        "同时存在于上游黑名单和白名单的规则（本地规则不参与冲突检测）",
+        "同时存在于黑名单和白名单的规则",
         AUTHOR,
     )
 
-    update_readme(final_block_rules, final_white_rules, conflict_rules)
+    update_readme(all_block_rules, all_white_rules, conflict_rules)
     
     print("\n" + "=" * 60)
     print("规则处理完成！")
