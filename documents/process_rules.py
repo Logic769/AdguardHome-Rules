@@ -149,10 +149,12 @@ def download_file(url: str, friendly_name: str) -> Optional[str]:
         return None
 
 
-def process_source_to_rules(url: str, source_name: str) -> tuple[dict[str, str], dict[str, str]]:
+def process_source_to_rules(url: str, source_name: str, is_whitelist_source: bool = False) -> tuple[dict[str, str], dict[str, str]]:
     """
     处理单个规则源，返回 (黑名单字典, 白名单字典)
-    自动检测并分离混合的黑白名单规则
+    is_whitelist_source: 标识该源是否为白名单源
+    - 白名单源只保留白名单规则
+    - 黑名单源只保留黑名单规则
     """
     content = download_file(url, source_name)
     if not content:
@@ -160,7 +162,7 @@ def process_source_to_rules(url: str, source_name: str) -> tuple[dict[str, str],
     
     block_rules: dict[str, str] = {}
     white_rules: dict[str, str] = {}
-    mixed_detected = False
+    filtered_count = 0
     
     lines = content.splitlines()
     for line in lines:
@@ -168,30 +170,38 @@ def process_source_to_rules(url: str, source_name: str) -> tuple[dict[str, str],
         if not parsed:
             continue
         
-        if parsed.is_whitelist:
-            white_rules[parsed.domain] = source_name
-            mixed_detected = True
+        if is_whitelist_source:
+            if parsed.is_whitelist:
+                white_rules[parsed.domain] = source_name
+            else:
+                filtered_count += 1
         else:
-            block_rules[parsed.domain] = source_name
+            if not parsed.is_whitelist:
+                block_rules[parsed.domain] = source_name
+            else:
+                filtered_count += 1
     
-    if mixed_detected:
-        print(f"  [混合规则检测] {source_name} 包含混合的黑白名单规则，已自动分离")
+    if filtered_count > 0:
+        print(f"  [规则过滤] 从 {source_name} 过滤掉 {filtered_count} 条不符合类型的规则")
     
     print(f"  从 {source_name} 添加了 {len(block_rules)} 条黑名单规则, {len(white_rules)} 条白名单规则")
     
     return block_rules, white_rules
 
 
-def process_all_sources(urls_dict: dict) -> tuple[dict[str, str], dict[str, str]]:
+def process_all_sources(urls_dict: dict, is_whitelist_sources: bool = False) -> tuple[dict[str, str], dict[str, str]]:
     """
-    处理所有规则源，自动分离混合规则
+    处理所有规则源
+    is_whitelist_sources: 标识这些源是否为白名单源
+    - 白名单源只保留白名单规则
+    - 黑名单源只保留黑名单规则
     返回 (合并后的黑名单字典, 合并后的白名单字典)
     """
     all_block_rules: dict[str, str] = {}
     all_white_rules: dict[str, str] = {}
     
     for name, url in urls_dict.items():
-        block_rules, white_rules = process_source_to_rules(url, name)
+        block_rules, white_rules = process_source_to_rules(url, name, is_whitelist_sources)
         
         for rule, source in block_rules.items():
             if rule not in all_block_rules:
@@ -331,7 +341,6 @@ def update_readme(block_rules_dict: dict, white_rules_dict: dict, conflict_rules
 支持自动检测并分离上游规则中的混合黑白名单。
 黑白名单完全独立，同时存在的规则会单独列在冲突规则中。
 本地自定义规则具有最高优先级，不参与冲突检测。
-忽略从上游黑名单列表里出现的白名单规则和上游白名单列表里出现的黑名单规则。
 
 最后更新时间: {now_beijing.strftime('%Y-%m-%d %H:%M:%S')} (UTC+8)
 
@@ -388,16 +397,16 @@ def main():
     print("=" * 60)
     
     print("\n--- 第一步: 处理白名单规则源 ---")
-    white_source_block, white_source_white = process_all_sources(white_source_urls)
+    white_source_block, white_source_white = process_all_sources(white_source_urls, is_whitelist_sources=True)
     
     print("\n--- 第二步: 处理黑名单规则源 ---")
-    block_source_block, block_source_white = process_all_sources(block_source_urls)
+    block_source_block, block_source_white = process_all_sources(block_source_urls, is_whitelist_sources=False)
     
     print("\n--- 第三步: 处理本地自定义规则 ---")
     local_block, local_white = process_local_file(custom_block_file, "Custom Blocklist", is_whitelist_file=False)
     local_white_file_rules, _ = process_local_file(custom_white_file, "Custom Whitelist", is_whitelist_file=True)
     
-    print("\n--- 第四步: 合并上游规则（只保留各自类型的规则） ---")
+    print("\n--- 第四步: 合并上游规则 ---")
     upstream_white_rules = merge_rules(
         white_source_white
     )
