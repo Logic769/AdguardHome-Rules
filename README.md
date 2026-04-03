@@ -8,13 +8,13 @@
 支持自动检测并分离上游规则中的混合黑白名单。
 黑白名单完全独立，同时存在的规则会单独列在冲突规则中。
 
-最后更新时间: 2026-04-03 10:48:26 (UTC+8)
+最后更新时间: 2026-04-03 11:45:33 (UTC+8)
 
-最终黑名单规则数: 532622
+最终黑名单规则数: 532612
 
-最终白名单规则数: 7739
+最终白名单规则数: 7245
 
-冲突规则数: 1297
+冲突规则数: 1233
 
 订阅链接
 
@@ -68,9 +68,6 @@ https://github.com/Logic769/AdguardHome-Rules/releases/download/stable-latest/Co
 
 白名单来源 (Whitelist Sources)
 
-- 666
-- 个人自用白名单
-- BlueSkyXN
 - GOODBYEADS
 - Custom Whitelist (本地)
 
