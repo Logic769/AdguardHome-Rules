@@ -90,4 +90,8 @@
 @@||dig.bdurl.net^$important
 @@||img.ssl.msdk.qq.com^$important
 @@||xn--osvr71goa.com^$important
+@@||github.githubassets.com^$important
+@@||catalog.gamepass.com^$important
+@@||displaycatalog.mp.microsoft.com^$important
+@@||lf3-data.volccdn.com^$important
 
