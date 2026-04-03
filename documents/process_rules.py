@@ -395,9 +395,7 @@ def main():
     all_white_rules = merge_rules(
         local_white_file_rules,
         local_white,
-        white_source_white,
-        white_source_block,
-        block_source_white
+        white_source_white
     )
     
     all_block_rules = merge_rules(
