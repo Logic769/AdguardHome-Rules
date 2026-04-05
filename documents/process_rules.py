@@ -38,8 +38,7 @@ white_source_urls = {
     "GOODBYEADS": "https://raw.githubusercontent.com/8680/GOODBYEADS/master/data/rules/allow.txt"
 }
 
-custom_block_file = "my-blocklist.txt"
-custom_white_file = "my-whitelist.txt"
+
 
 block_filename = os.environ.get("OUTPUT_BLOCK_FILENAME", "Black.txt")
 white_filename = os.environ.get("OUTPUT_WHITE_FILENAME", "White.txt")
@@ -203,38 +202,7 @@ def process_all_sources(urls_dict: dict) -> tuple[dict[str, str], dict[str, str]
     return all_block_rules, all_white_rules
 
 
-def process_local_file(filename: str, source_name: str, is_whitelist_file: bool = False) -> tuple[dict[str, str], dict[str, str]]:
-    """
-    处理本地规则文件
-    is_whitelist_file: 标识该文件是否为白名单文件（用于默认分类）
-    返回 (黑名单字典, 白名单字典)
-    """
-    full_path = os.path.join(script_dir, filename)
-    if not os.path.exists(full_path):
-        print(f"\n  本地文件 {filename} 不存在，跳过。")
-        return {}, {}
-    
-    print(f"\n  正在处理本地文件: {filename}")
-    
-    block_rules: dict[str, str] = {}
-    white_rules: dict[str, str] = {}
-    
-    with open(full_path, "r", encoding="utf-8") as f:
-        for line in f:
-            parsed = RuleParser.parse_line(line, source_name)
-            if not parsed:
-                continue
-            
-            if parsed.is_whitelist:
-                white_rules[parsed.domain] = source_name
-            elif is_whitelist_file:
-                white_rules[parsed.domain] = source_name
-            else:
-                block_rules[parsed.domain] = source_name
-    
-    print(f"  从 {filename} 添加了 {len(block_rules)} 条黑名单规则, {len(white_rules)} 条白名单规则")
-    
-    return block_rules, white_rules
+
 
 
 def merge_rules(*rule_dicts: dict[str, str]) -> dict[str, str]:
@@ -253,16 +221,13 @@ def find_conflict_rules(block_rules: dict[str, str], white_rules: dict[str, str]
     """
     查找同时存在于黑名单和白名单中的规则
     返回 {规则: (黑名单来源, 白名单来源)} 的字典
-    忽略本地自定义规则的冲突
     """
     conflict_rules: dict[str, tuple[str, str]] = {}
     
     for rule, block_source in block_rules.items():
         if rule in white_rules:
             white_source = white_rules[rule]
-            # 忽略本地自定义规则的冲突
-            if block_source not in ["Custom Blocklist", "Custom Whitelist"] and white_source not in ["Custom Blocklist", "Custom Whitelist"]:
-                conflict_rules[rule] = (block_source, white_source)
+            conflict_rules[rule] = (block_source, white_source)
     
     return conflict_rules
 
@@ -309,12 +274,7 @@ def update_readme(block_rules_dict: dict, white_rules_dict: dict, conflict_rules
     now_beijing = datetime.datetime.now(beijing_tz)
 
     all_block_sources = list(block_source_urls.keys())
-    if os.path.exists(os.path.join(script_dir, custom_block_file)):
-        all_block_sources.append("Custom Blocklist (本地)")
-
     all_white_sources = list(white_source_urls.keys())
-    if os.path.exists(os.path.join(script_dir, custom_white_file)):
-        all_white_sources.append("Custom Whitelist (本地)")
 
     block_sources_md = "\n".join([f"- {name}" for name in all_block_sources])
     white_sources_md = "\n".join([f"- {name}" for name in all_white_sources])
@@ -391,19 +351,12 @@ def main():
     print("\n--- 第二步: 处理黑名单规则源 ---")
     block_source_block, block_source_white = process_all_sources(block_source_urls)
     
-    print("\n--- 第三步: 处理本地自定义规则 ---")
-    local_block, local_white = process_local_file(custom_block_file, "Custom Blocklist", is_whitelist_file=False)
-    local_white_file_rules, _ = process_local_file(custom_white_file, "Custom Whitelist", is_whitelist_file=True)
-    
-    print("\n--- 第四步: 合并所有规则 ---")
+    print("\n--- 第三步: 合并所有规则 ---")
     all_white_rules = merge_rules(
-        local_white_file_rules,
-        local_white,
         white_source_white
     )
     
     all_block_rules = merge_rules(
-        local_block,
         block_source_block
     )
     

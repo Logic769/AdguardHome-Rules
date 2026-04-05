@@ -8,32 +8,32 @@
 支持自动检测并分离上游规则中的混合黑白名单。
 黑白名单完全独立，同时存在的规则会单独列在冲突规则中。
 
-最后更新时间: 2026-04-05 10:56:12 (UTC+8)
+最后更新时间: 2026-04-05 12:31:44 (UTC+8)
 
-最终黑名单规则数: 511606
+最终黑名单规则数: 444225
 
-最终白名单规则数: 3871
+最终白名单规则数: 0
 
-冲突规则数: 392
+冲突规则数: 0
 
 订阅链接
 
 拦截规则 (Blocklist)
 
 ```
-https://github.com/Logic769/AdguardHome-Rules/releases/download/stable-latest/Black.txt
+https://raw.githubusercontent.com/your_username/your_repo/main/Black.txt
 ```
 
 允许规则 (Whitelist)
 
 ```
-https://github.com/Logic769/AdguardHome-Rules/releases/download/stable-latest/White.txt
+https://raw.githubusercontent.com/your_username/your_repo/main/White.txt
 ```
 
 冲突规则 (Conflict)
 
 ```
-https://github.com/Logic769/AdguardHome-Rules/releases/download/stable-latest/Conflict.txt
+https://raw.githubusercontent.com/your_username/your_repo/main/Conflict.txt
 ```
 
 规则来源
@@ -62,11 +62,9 @@ https://github.com/Logic769/AdguardHome-Rules/releases/download/stable-latest/Co
 - 那个谁520
 - oisd/small
 - 乘风广告规则
-- Custom Blocklist (本地)
 
 白名单来源 (Whitelist Sources)
 
 - GOODBYEADS
-- Custom Whitelist (本地)
 
 由 GitHub Actions 自动构建。
