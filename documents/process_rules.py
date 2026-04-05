@@ -31,11 +31,13 @@ block_source_urls = {
     "ABP": "https://raw.githubusercontent.com/damengzhu/abpmerge/refs/heads/main/abpmerge.txt",
     "那个谁520": "https://raw.githubusercontent.com/qq5460168/666/master/rules.txt",
     "oisd/small": "https://small.oisd.nl/",
-    "乘风广告规则": "https://raw.githubusercontent.com/xinggsf/Adblock-Plus-Rule/refs/heads/master/rule.txt"
+    "乘风广告规则": "https://raw.githubusercontent.com/xinggsf/Adblock-Plus-Rule/refs/heads/master/rule.txt",
+    "本地规则": "https://github.com/Logic769/Adguardhome-local-rules/releases/latest/download/blacklist.txt"
 }
 
 white_source_urls = {
-    "GOODBYEADS": "https://raw.githubusercontent.com/8680/GOODBYEADS/master/data/rules/allow.txt"
+    "GOODBYEADS": "https://raw.githubusercontent.com/8680/GOODBYEADS/master/data/rules/allow.txt",
+    "本地规则": "https://github.com/Logic769/Adguardhome-local-rules/releases/latest/download/whitelist.txt"
 }
 
 
