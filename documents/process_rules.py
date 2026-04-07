@@ -36,7 +36,6 @@ block_source_urls = {
 }
 
 white_source_urls = {
-    "GOODBYEADS": "https://raw.githubusercontent.com/8680/GOODBYEADS/master/data/rules/allow.txt",
     "本地规则": "https://github.com/Logic769/Adguardhome-local-rules/releases/latest/download/whitelist.txt"
 }
 
