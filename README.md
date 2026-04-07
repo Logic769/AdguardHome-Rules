@@ -8,13 +8,13 @@
 支持自动检测并分离上游规则中的混合黑白名单。
 黑白名单完全独立，同时存在的规则会单独列在冲突规则中。
 
-最后更新时间: 2026-04-07 15:26:54 (UTC+8)
+最后更新时间: 2026-04-07 18:53:30 (UTC+8)
 
-最终黑名单规则数: 515833
+最终黑名单规则数: 514831
 
-最终白名单规则数: 3872
+最终白名单规则数: 0
 
-冲突规则数: 395
+冲突规则数: 0
 
 订阅链接
 
@@ -66,7 +66,6 @@ https://github.com/Logic769/AdguardHome-Rules/releases/download/stable-latest/Co
 
 白名单来源 (Whitelist Sources)
 
-- GOODBYEADS
 - 本地规则
 
 由 GitHub Actions 自动构建。
