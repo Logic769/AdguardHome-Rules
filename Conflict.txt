@@ -1,0 +1,17 @@
+! Title: AdGuard Conflict Rules
+! Description: 同时存在于黑名单和白名单的规则
+! Author: logic769
+! Version: 20260408183823
+! Last Updated: 2026-04-08 18:38:23 (UTC+8)
+! Total Rules: 10
+!
+amdc.m.taobao.com # Block from: hululu, White from: 本地规则
+api-cn.store.heytapmobi.com # Block from: 那个谁520, White from: 本地规则
+catalog.gamepass.com # Block from: DD自用, White from: 本地规则
+displaycatalog.mp.microsoft.com # Block from: 那个谁520, White from: 本地规则
+juejin.cn # Block from: hululu, White from: 本地规则
+lf3-data.volccdn.com # Block from: smad, White from: 本地规则
+msgacs.m.taobao.com # Block from: 那个谁520, White from: 本地规则
+px.ucweb.com # Block from: hululu, White from: 本地规则
+ywtb.mps.gov.cn # Block from: smad, White from: 本地规则
+zconfig.alibabausercontent.com # Block from: hululu, White from: 本地规则

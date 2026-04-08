@@ -267,7 +267,8 @@ def update_readme(block_rules_dict: dict, white_rules_dict: dict, conflict_rules
     branch_name = os.environ.get("GITHUB_REF_NAME") or "main"
 
     if release_tag:
-        base_url = f"https://github.com/{repo_name}/releases/download/{release_tag}"
+        # 始终使用 latest 版本的发布链接，确保订阅链接指向最新版本
+        base_url = f"https://github.com/{repo_name}/releases/latest/download"
     else:
         base_url = f"https://raw.githubusercontent.com/{repo_name}/{branch_name}"
 

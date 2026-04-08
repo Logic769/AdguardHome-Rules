@@ -1,0 +1,18 @@
+! Title: AdGuard Custom Whitelist
+! Description: 自动合并的白名单规则（与黑名单完全独立）
+! Author: logic769
+! Version: 20260408183823
+! Last Updated: 2026-04-08 18:38:23 (UTC+8)
+! Total Rules: 11
+!
+amdc.m.taobao.com # From: 本地规则
+api-cn.store.heytapmobi.com # From: 本地规则
+catalog.gamepass.com # From: 本地规则
+displaycatalog.mp.microsoft.com # From: 本地规则
+github.githubassets.com # From: 本地规则
+juejin.cn # From: 本地规则
+lf3-data.volccdn.com # From: 本地规则
+msgacs.m.taobao.com # From: 本地规则
+px.ucweb.com # From: 本地规则
+ywtb.mps.gov.cn # From: 本地规则
+zconfig.alibabausercontent.com # From: 本地规则
