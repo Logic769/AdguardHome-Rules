@@ -66,15 +66,20 @@ jobs:
             echo "- 冲突规则: ${CONFLICT_COUNT} 条"
           } > release_body_main.md
 
+      - name: Generate release tag
+        id: generate_tag
+        run: |
+          echo "tag=stable-$(date +'%Y%m%d%H%M%S')" >> $GITHUB_OUTPUT
+
       - name: Upload lists to GitHub Release (main)
         uses: ncipollo/release-action@v1
         with:
-          tag: stable-latest
+          tag: ${{ steps.generate_tag.outputs.tag }}
           name: "激进的规则 ${{ steps.time_main.outputs.cn_time }}"
           bodyFile: release_body_main.md
           makeLatest: true
-          allowUpdates: true
-          replacesArtifacts: true
+          allowUpdates: false
+          replacesArtifacts: false
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: "Black.txt,White.txt,Conflict.txt"
 
