@@ -11,6 +11,8 @@ root_dir = os.path.dirname(script_dir)
 
 block_source_urls = {
     "秋风的规则": "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/AWAvenue-Ads-Rule.txt",
+"晴雅":"https://raw.githubusercontent.com/3316134332/qy-Ads-Rule/refs/heads/main/black.txt",
+"困了想睡觉":"https://raw.githubusercontent.com/Kuner-mw/DNS-Kuner/main/FilterRules/blacklist.txt",
 "海哥":"https://raw.githubusercontent.com/2771936993/HG/main/hg1.txt",
     "秋风的规则补充": "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Replenish.txt",
 "natsuki":"https://raw.githubusercontent.com/Natsuki-Kaede/Natsuki-List/refs/heads/main/adguardhome.txt",
