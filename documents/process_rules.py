@@ -419,6 +419,17 @@ def parse_line(line: str, source: str = "") -> Optional[ParsedRule]:
     if line.startswith('['):
         return None
 
+    # 行内注释：`||example.com^$important  # 说明`、`0.0.0.0 example.com  # 说明`
+    # 必须在这里剥掉。否则 `# 说明` 会混进修饰符里（变成 "important # 说明"
+    # 这种未知修饰符），整条规则被静默丢弃——实测有 8 条白名单因此失效，
+    # 而构建日志完全看不出问题。
+    if "#" in line:
+        cut = re.split(r"\s+#", line, 1)[0].strip()
+        if not cut:
+            stats["comment_skipped"] += 1
+            return None
+        line = cut
+
     is_whitelist = line.startswith('@@')
     if is_whitelist:
         line = line[2:]
@@ -892,7 +903,10 @@ https://gh-proxy.org/{block_url}
 - 每个源失败会重试 3 次（退避 3s/6s），**仍失败则构建失败、不发布新版**——
   宁可停更一次，也不发布「悄悄少了一个源」的残缺名单；
 - 同一份名单被配成两个源时按源文件去重，避免「多源共识」判定被重复计数放大；
-- 中文域名（IDN）按 IDNA 转成 punycode 再输出。
+- 中文域名（IDN）按 IDNA 转成 punycode 再输出；
+- **行内注释会被剥离**：`||example.com^$important  # 说明` 只取规则本身。不剥离的话
+  注释会混进修饰符，整条规则被当成「未知修饰符」静默丢弃——实测有 8 条白名单
+  因此失效，而构建日志完全看不出问题。
 
 ### 6. 本次构建统计
 
