@@ -239,6 +239,9 @@ class ParsedRule:
 # 解析过程中收集到的「通配规则」还原结果（全局收集，主流程最后统一使用）
 WILDCARD_SPACE_FOUND: set = set()   # 来自 `||*.X^`：父域整段拦截
 WILDCARD_ALLOW_FOUND: set = set()   # 来自 `@@||前缀*X^`：把后缀整段放行
+# 用户本地黑名单里的域名：优先于一切上游私人白名单
+# （实测 alistgo.com / i.meituan.com / www.bytedance.com 曾被「那个谁520」的白名单挤掉）
+LOCAL_BLOCK_SET: set = set()
 # 抓取失败的源（任何一个源失败都会让构建失败，避免"静默少一个源"）
 FAILED_SOURCES: list = []
 
@@ -347,6 +350,14 @@ def extract_domain(raw: str) -> Optional[str]:
         return None
     if IPV4_RE.match(s) or ':' in s:
         return None
+    # 中文域名等 IDN：DNS 查询里只会是 punycode 形式，这里做等价转换
+    # （例如 `广告.tmall.com` -> `xn--hoq60d.tmall.com`）
+    if any(ord(c) > 127 for c in s):
+        try:
+            s = s.encode("idna").decode("ascii")
+        except (UnicodeError, ValueError):
+            stats["invalid"] += 1
+            return None
     # 注意：AdGuard Home 的域名校验不允许下划线（urlfilter/internal/ufnet hasValidChars
     # 只接受字母/数字/连字符），含下划线的行会被当成 URL 子串规则并连带行尾注释一起
     # 解析，等于永不生效，所以这里直接剔除（例如 recommend_list.baidu.com）。
@@ -499,6 +510,8 @@ def process_source_to_rules(url: str, source_name: str, psl: set,
                 mixed_detected = True
         else:
             block_rules[parsed.domain] = source_name
+            if source_name == LOCAL_SOURCE_NAME:
+                LOCAL_BLOCK_SET.add(parsed.domain)
 
     if mixed_detected:
         print(f"  [混合规则检测] {source_name} 含 @@ 例外，已分离到白名单")
@@ -683,6 +696,10 @@ def update_readme(block_rules_dict: dict, white_rules_dict: dict, conflict_rules
   规则并连带行尾注释一起解析，纯属死规则（实测清掉 16 条，如 `azvjflj.cn1`）。
 - 抓取失败（重试 3 次后仍失败）时**构建直接失败、不发布新版**：以前只打印一行日志，
   「悄悄少了一个源」的名单照样发布，上游偶发 429/503 就会造成静默缩水。
+- **本地黑名单优先**：你写在本地名单里的拦截目标，不允许被上游别人的私人白名单
+  （如 `@@||alistgo.com^`）挤掉；只有核心服务保护名单仍然优先于它。
+- 中文等 IDN 域名按 IDNA 转成 punycode 再输出（`广告.tmall.com` → `xn--4rr70v.tmall.com`），
+  以前这类规则会被当成非法域名整条丢弃。
 - **通配规则还原**：上游 `||*.X^` 的原意是「拦 X 的全部子域」，纯域名格式以前会把它
   降级成「只拦 X 本身」，子域全漏。现在还原为域名空间规则（`||X^`），本次 298 条。
   用户自己白名单里「只有一个 `*`」的放行（如 `@@||storage*360buyimg.com^`）还原为
@@ -772,6 +789,18 @@ def main():
     stats["exc_ad_ignored"] = len(ad_exceptions)
     print(f"  被忽略的上游例外(广告特征或≥{EXCEPTION_MAX_BLOCK_SOURCES}源共识): "
           f"{len(ad_exceptions)} 条")
+
+    # 你自己黑名单里明确要拦的域名，不允许被别人的私人白名单挤掉
+    user_priority = sorted(
+        d for d in all_white_rules
+        if d in LOCAL_BLOCK_SET
+        and all_white_rules[d] != LOCAL_SOURCE_NAME
+        and d not in NEVER_BLOCK)
+    for d in user_priority:
+        del all_white_rules[d]
+    if user_priority:
+        print(f"  本地黑名单优先，撤销了 {len(user_priority)} 条上游白名单: "
+              f"{user_priority[:8]}{'…' if len(user_priority) > 8 else ''}")
 
     print("\n--- 第五步: 检测冲突规则 ---")
     conflict_rules = find_conflict_rules(all_block_rules, all_white_rules)
