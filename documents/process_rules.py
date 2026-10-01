@@ -212,6 +212,20 @@ BLOCK_DOMAIN_SPACES = [
     "giocdn.com",                 # GrowingIO 统计 CDN（7 个源拦）
 ]
 
+# 「自动升级为域名空间」的禁止名单：
+# 上游偶尔会写 `||*.pddpic.com^` 这种把**整个平台内容 CDN**一起拦的规则，
+# 照做会让 App 没图没视频（实测海哥名单里就有一句 `||*.pddpic.com^`，
+# 而「那个谁520」正在放行 img./static./funimg.pddpic.com）。
+# 这些域名空间只允许通过上面的手工清单加入，不允许被 ||*.X^ 自动放大。
+SPACE_NEVER_PROMOTE = {
+    "pddpic.com", "hdslb.com", "alicdn.com", "qhimg.com", "360buyimg.com",
+    "douyinpic.com", "xhscdn.com", "sinaimg.com", "gtimg.cn", "qpic.cn",
+    "bdstatic.com", "himg.com", "yximgs.com", "pstatp.com", "byteimg.com",
+    "bytegoofy.com", "bytescm.com", "volccdn.com", "tbcache.com", "taobaocdn.com",
+    "alikunlun.com", "myqcloud.com", "jdimg.com", "bytecdntp.com", "ksapisrv.com",
+    "dbankcdn.com", "hicloud.com", "bytegeckoext.com", "bytedance.com",
+}
+
 # 常见多级公共后缀（兜底用；优先使用在线 PSL）
 PSL_FALLBACK = {
     "com.cn", "net.cn", "org.cn", "gov.cn", "edu.cn", "ac.cn", "co.jp", "ne.jp",
@@ -792,6 +806,25 @@ def main():
     print(f"  合并后白名单共: {len(all_white_rules)} 条")
 
     print("\n--- 第四步: 应用核心服务保护名单与白名单 ---")
+
+    # 先把 `||*.X^` 还原出来的父域做安全过滤，再进保护名单逻辑：
+    #   ① 在 SPACE_NEVER_PROMOTE 里的（平台内容 CDN）不升级
+    #   ② 任何来源的白名单里出现了它的子域（说明这段里有功能主机）不升级
+    promoted_spaces: set = set()
+    skipped_promote: dict = {}
+    for p in sorted(WILDCARD_SPACE_FOUND):
+        if p in SPACE_NEVER_PROMOTE:
+            skipped_promote[p] = "内容CDN保护名单"
+            continue
+        if any(w == p or w.endswith("." + p) for w in all_white_rules):
+            skipped_promote[p] = "有子域被上游放行"
+            continue
+        promoted_spaces.add(p)
+    if skipped_promote:
+        print(f"  ||*.X^ 还原的父域中，{len(skipped_promote)} 个因风险被跳过: "
+              f"{list(skipped_promote.items())[:6]}")
+    print(f"  确认升级为域名空间拦截: {len(promoted_spaces)} 个父域")
+
     protected_in_black = sorted(d for d in all_block_rules if d in NEVER_BLOCK)
     for d in protected_in_black:
         all_white_rules.setdefault(d, "核心服务保护名单")
@@ -847,9 +880,8 @@ def main():
     all_white_rules = effective_white
     print(f"  白名单裁剪掉不产生效果的条目: {trimmed} 条")
 
-    # 域名空间拦截 = 手工核实过的清单 ∪ 从 `||*.X^` 还原出来的父域
-    # （去掉保护名单里的、以及已经被整体放行的）
-    domain_spaces = sorted((set(BLOCK_DOMAIN_SPACES) | WILDCARD_SPACE_FOUND)
+    # 域名空间拦截 = 手工核实过的清单 ∪ 通过安全过滤的 `||*.X^` 还原父域
+    domain_spaces = sorted((set(BLOCK_DOMAIN_SPACES) | promoted_spaces)
                            - NEVER_BLOCK - set(white_source_white))
     # 通配放行规则（@@||前缀*X^）还原成 `@@||X^`，否则这些放行在 DNS 层等于没写
     allow_spaces = sorted(WILDCARD_ALLOW_FOUND - set(domain_spaces))
@@ -857,7 +889,7 @@ def main():
     print("\n最终统计:")
     print(f"  最终黑名单: {len(all_block_rules)} 条 "
           f"(另有 {len(domain_spaces)} 条域名空间拦截，其中来自 ||*.X^ 还原的 "
-          f"{len(WILDCARD_SPACE_FOUND)} 条)")
+          f"{len(promoted_spaces)} 条，跳过 {len(skipped_promote)} 条)")
     print(f"  最终白名单: {len(all_white_rules)} 条 "
           f"(另有 {len(allow_spaces)} 条域名空间放行)")
     print(f"  冲突规则: {len(conflict_rules)} 条")
