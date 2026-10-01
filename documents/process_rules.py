@@ -134,7 +134,9 @@ NEVER_BLOCK = {
     "xjp-jmacs.m.taobao.com", "xjp-msgacs.m.taobao.com",
     "youku-acs.m.taobao.com", "youku-jmacs.m.taobao.com",
     "umengacs.m.taobao.com", "umengjmacs.m.taobao.com", "unitacs.m.taobao.com",
-    "gw.tmall.com", "mapi.m.taobao.com", "mtop.taobao.com", "w.m.taobao.com",
+    # 注意：不要放行 w.m.taobao.com —— 它的 CNAME 指向
+    # adsz.wagbridge.taobao.alimama.com（阿里妈妈广告投放网关），拦截是正确的
+    "gw.tmall.com", "mapi.m.taobao.com", "mtop.taobao.com",
     # 支付 / 账号关键接口
     "paydns.wechatpay.cn", "api-unionid.meituan.com",
 }
