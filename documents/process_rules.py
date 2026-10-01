@@ -163,6 +163,29 @@ NEVER_BLOCK = {
     "e.weather.com.cn", "dl.zuimeitianqi.com",
 }
 
+# 「整个域名空间拦截」名单：以 AdGuard 网络语法 `||域名^` 输出，连**所有子域**一起拦。
+#
+# 为什么需要它：部分广告/追踪域名用「随机哈希子域」轮换（例如
+# 9e59f633….rdt.tfogc.com、4848fd4d….jomoxc.com），纯域名的精确匹配永远追不上；
+# 上游名单也只能拦到当时那一批哈希值。
+# `||example.com^` 在 AdGuard 里本身就覆盖 example.com 及其全部子域，
+# 所以这里只写父域名即可。这些行**不能带行尾注释**（网络规则不剥离 `#` 注释），
+# 因此单独成段输出。
+BLOCK_DOMAIN_SPACES = [
+    # 贴吧/百度信息流广告：随机哈希子域轮换（上游只拦到具体哈希）
+    "rdt.tfogc.com",
+    "jomoxc.com",
+    # general.starrydyn.com 的 CNAME 指向 x.starrydyn.11101.baidu-itm.com（百度流量/广告基建）
+    "starrydyn.com",
+    # 广告 SDK 商（避免其后续新增子域再次漏拦）
+    "litemob.net",
+    "lingjuad.com",
+    "luckas.cn",
+    "8ziben.com",
+    # YY 广告联盟
+    "union-dracoapi.yy.com",
+]
+
 # 常见多级公共后缀（兜底用；优先使用在线 PSL）
 PSL_FALLBACK = {
     "com.cn", "net.cn", "org.cn", "gov.cn", "edu.cn", "ac.cn", "co.jp", "ne.jp",
@@ -424,8 +447,9 @@ def find_conflict_rules(block_rules: dict, white_rules: dict) -> dict:
 
 
 def write_rules_to_file(filename: str, rules_dict: dict, title: str,
-                        description: str, author: str):
+                        description: str, author: str, domain_spaces=None):
     print(f"\n正在将规则写入到 {os.path.basename(filename)}...")
+    domain_spaces = domain_spaces or []
     try:
         with open(filename, "w", encoding="utf-8") as f:
             beijing_tz = datetime.timezone(datetime.timedelta(hours=8))
@@ -436,8 +460,16 @@ def write_rules_to_file(filename: str, rules_dict: dict, title: str,
             f.write(f"! Author: {author}\n")
             f.write(f"! Version: {now_beijing.strftime('%Y%m%d%H%M%S')}\n")
             f.write(f"! Last Updated: {now_beijing.strftime('%Y-%m-%d %H:%M:%S')} (UTC+8)\n")
-            f.write(f"! Total Rules: {len(rules_dict)}\n")
+            f.write(f"! Total Rules: {len(rules_dict) + len(domain_spaces)}\n")
             f.write("!\n")
+
+            # 域名空间规则（含子域）必须写在最前面，且**不能带行尾注释**：
+            # AdGuard 的网络规则不会剥离行尾 `#`，带了注释整条就失效了。
+            if domain_spaces:
+                f.write("!\n! ==== 域名空间拦截（含全部子域，AdGuard 网络语法）====\n")
+                for d in sorted(domain_spaces):
+                    f.write(f"||{d}^\n")
+                f.write("!\n")
 
             for rule in sorted(rules_dict):
                 if isinstance(rules_dict[rule], tuple):
@@ -445,7 +477,8 @@ def write_rules_to_file(filename: str, rules_dict: dict, title: str,
                     f.write(f"{rule} # Block from: {block_source}, White from: {white_source}\n")
                 else:
                     f.write(f"{rule} # From: {rules_dict[rule]}\n")
-        print(f"文件 {os.path.basename(filename)} 写入成功！")
+        print(f"文件 {os.path.basename(filename)} 写入成功！"
+              f"（含 {len(domain_spaces)} 条域名空间规则）")
     except IOError as e:
         print(f"写入文件失败: {filename}, 错误: {e}")
 
@@ -525,6 +558,10 @@ def update_readme(block_rules_dict: dict, white_rules_dict: dict, conflict_rules
 - **核心服务保护名单**：系统更新、连通性检测（被拦会显示「无网络」）、推送通道、
   加密 DNS、证书吊销、NTP，以及阿里系 App 的 ACS/JMACS/MSGACS 网络与风控接口，
   无论上游怎么写都永不拦截。
+- **域名空间拦截**（文件开头 `==== 域名空间拦截 ====` 段）：以 AdGuard 网络语法
+  `||域名^` 输出，连**全部子域**一起拦。用于对付「随机哈希子域轮换」的广告域
+  （如 `9e59f633….rdt.tfogc.com`、`4848fd4d….jomoxc.com`），纯域名的精确匹配追不上。
+  这些行**不带行尾注释**——AdGuard 的网络规则不会剥离 `#` 注释，带了整条就失效。
 
 本次构建统计：保留 {stats['kept']} 条（其中带上下文修饰符但目标本身是广告域的 {stats['kept_scoped_ad']} 条），
 丢弃上下文规则 {stats['dropped_context']} 条，丢弃 badfilter {stats['dropped_badfilter']} 条，
@@ -621,7 +658,8 @@ def main():
     print(f"  白名单裁剪掉不产生效果的条目: {trimmed} 条")
 
     print("\n最终统计:")
-    print(f"  最终黑名单: {len(all_block_rules)} 条")
+    print(f"  最终黑名单: {len(all_block_rules)} 条 "
+          f"(另有 {len(BLOCK_DOMAIN_SPACES)} 条域名空间规则)")
     print(f"  最终白名单: {len(all_white_rules)} 条")
     print(f"  冲突规则: {len(conflict_rules)} 条")
     print(f"  解析统计: {stats}")
@@ -629,7 +667,8 @@ def main():
     write_rules_to_file(
         block_output_file, all_block_rules,
         "AdGuard Custom Blocklist",
-        "自动合并的广告拦截规则（与白名单完全独立）", AUTHOR)
+        "自动合并的广告拦截规则（与白名单完全独立）", AUTHOR,
+        domain_spaces=BLOCK_DOMAIN_SPACES)
     write_rules_to_file(
         white_output_file, all_white_rules,
         "AdGuard Custom Whitelist",
