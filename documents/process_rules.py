@@ -9,6 +9,40 @@ from typing import Optional
 script_dir = os.path.dirname(os.path.abspath(__file__))
 root_dir = os.path.dirname(script_dir)
 
+# ============================================================================
+# 规则语义与本脚本的忠实化处理
+# ----------------------------------------------------------------------------
+# AdGuard Home 会把「不带 || 和 ^ 的纯域名行」当作 hosts 型规则，匹配方式是
+# 「精确主机名相等」（urlfilter/dnsengine.go: ruleIndex[hostname]），
+# 因此本脚本只输出域名本身。为了让输出不偏离上游规则的原意，做如下处理：
+#
+#  1. 带「上下文修饰符」的规则一律丢弃，例如：
+#       ||example.com^$domain=a.com|b.com      （只在 a.com/b.com 上生效）
+#       ||example.com^$third-party             （只拦第三方请求）
+#       ||example.com^$script,$image           （只拦特定资源类型）
+#       ||example.com^$path=/union/            （只拦特定路径）
+#     这些条件在 DNS 层无法表达。若保留域名、丢掉条件，就会把「只在某站点生效」
+#     的规则放大成「全局拦截」——这是本仓库历史上最主要的误杀来源
+#     （例如 ||gw.tmall.com^$path=/union/ 被放大成整个天猫网关被拦）。
+#
+#  2. $badfilter 是「取消规则」的否定语义，直接丢弃，绝不能当拦截执行。
+#
+#  3. $important / $dnsrewrite 不改变「拦不拦」，保留为普通拦截规则
+#     （纯域名输出无法携带修饰符；$dnsrewrite=NOERROR;; 等空回答规则，
+#      在 DNS 世界的实际效果同样是「该域名解析不到」，拦截强度不降低）。
+#
+#  4. 上游 @@ 例外（黑名单源里混着的白名单）只采纳「无修饰符的全局例外」，
+#     且目标域名不能带广告/追踪特征——避免把别人的私人白名单
+#     （例如 @@||ad.doubleclick.net^）引入，造成漏拦。
+#
+#  5. 域名规范化：统一小写、严格校验，剔除裸 IP、下划线、首尾点、通配符、
+#     公共后缀（com.cn 之类）等永远匹配不到的垃圾规则。
+#
+#  6. 核心服务保护名单（NEVER_BLOCK）：系统更新、连通性检测、推送通道、
+#     加密 DNS、证书吊销、NTP、阿里系 App 网络/风控（ACS）等，
+#     无论上游怎么写都永不拦截。
+# ============================================================================
+
 block_source_urls = {
     "秋风的规则": "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/AWAvenue-Ads-Rule.txt",
 "晴雅":"https://raw.githubusercontent.com/3316134332/qy-Ads-Rule/refs/heads/main/black.txt",
@@ -42,7 +76,77 @@ white_source_urls = {
     "本地规则": "https://raw.githubusercontent.com/Logic769/Adguardhome-local-rules/main/whitelist.txt"
 }
 
+# 保留「拦截语义」的修饰符：带这些修饰符的规则仍然拦截，只是修饰符本身无法写进纯域名输出
+KEEP_MODIFIERS = {'important', 'dnsrewrite'}
+# 否定语义修饰符：出现即丢弃整条规则
+DROP_MODIFIERS = {'badfilter'}
 
+# 广告 / 追踪特征词：用于判断上游 @@ 例外是否值得采纳
+AD_MARKERS = re.compile(
+    r'(^|[.\-_])(ad|ads|adx|adnxs|adsystem|adservice|adserver|advert|advertis\w*|adv|adz|'
+    r'adclick|adlog|adtrack|adtech|adview|admaster|adpop|adpush|'
+    r'doubleclick|googlesyndication|googleadservices|google-analytics|googletagmanager|'
+    r'analytics|analytic\w*|analysis|stat|stats|statistic\w*|cnzz|umeng|talkingdata|'
+    r'mmstat|alimama|tanx|simba|miaozhen|ipinyou|admaster|'
+    r'adjust|appsflyer|kochava|singular|tenjin|countly|flurry|bugly|crashlytics|'
+    r'track|tracker|tracking|click|clk|beacon|pixel|metric\w*|monitor\w*|collect|collector|telemetry|'
+    r'promo|promotion|sponsor|affiliate|aff|dsp|ssp|rtb|'
+    r'mopub|inmobi|unityads|applovin|vungle|chartboost|ironsrc|mintegral|pangle|gdt|mobads|'
+    r'log|logs|logger)([.\-_]|$)', re.I)
+
+# 核心服务保护名单：无论上游怎么写都永不拦截
+NEVER_BLOCK = {
+    # Apple 系统更新 / 证书
+    "mesu.apple.com", "swscan.apple.com", "swcdn.apple.com", "gdmf.apple.com",
+    "appldnld.apple.com", "ocsp.apple.com", "ocsp2.apple.com", "crl.apple.com",
+    "doh.dns.apple.com", "captive.apple.com",
+    # Windows / 微软
+    "dns.msftncsi.com", "msftconnecttest.com", "www.msftconnecttest.com",
+    "crl.microsoft.com", "www.microsoft.com", "update.microsoft.com",
+    "windowsupdate.microsoft.com", "licensing.mp.microsoft.com",
+    # Android / Google 推送与基础服务
+    "mtalk.google.com", "alt1-mtalk.google.com", "alt2-mtalk.google.com",
+    "alt3-mtalk.google.com", "alt4-mtalk.google.com", "alt5-mtalk.google.com",
+    "alt6-mtalk.google.com", "alt7-mtalk.google.com", "alt8-mtalk.google.com",
+    # 公共加密 DNS
+    "doh.pub", "dot.pub", "dns.qq.com", "doh.alidns.com", "dns.alidns.com",
+    "mozilla.cloudflare-dns.com", "cloudflare-dns.com", "dns.google",
+    "one.one.one.one", "dns.quad9.net",
+    # NTP 对时
+    "pool.ntp.org", "cn.pool.ntp.org", "0.android.pool.ntp.org",
+    "1.android.pool.ntp.org", "2.android.pool.ntp.org", "3.android.pool.ntp.org",
+    "time.windows.com", "time.apple.com", "ntp.aliyun.com", "ntp.tencent.com",
+    # 连通性检测（被拦后系统/App 会显示「无网络」）
+    "connectivitycheck.gstatic.com", "connectivitycheck.android.com",
+    "connectivitycheck.platform.hicloud.com", "connectivitycheck.platform.dbankcloud.com",
+    "connectivitycheck.cbg-app.huawei.com.cn", "connectivitycheck.vivo.com.cn",
+    # 证书吊销检查
+    "crl.edge.digicert.com", "ocsp.godaddy.com", "ocsp.crlocsp.cn",
+    "crl.globalsign.com", "ocsp.sectigo.com",
+    # 阿里系 App 网络/风控（ACS/JMACS/MSGACS/AMDC）：被拦后淘宝、天猫、天猫校园等
+    # 系 App 会判定为「无网络」，且这些接口不承载广告
+    "acs.m.taobao.com", "acs.wapa.taobao.com", "acs4baichuan.m.taobao.com",
+    "acs4public.m.taobao.com", "openacs.m.taobao.com", "openacs4uc.m.taobao.com",
+    "openjmacs.m.taobao.com", "openjmacs4uc.m.taobao.com",
+    "accscdn.m.taobao.com", "accscdn4public.m.taobao.com",
+    "amdcopen.m.taobao.com", "amdc.alipay.com",
+    "gaode-acs.m.taobao.com", "gaode-jmacs.m.taobao.com",
+    "xjp-jmacs.m.taobao.com", "xjp-msgacs.m.taobao.com",
+    "youku-acs.m.taobao.com", "youku-jmacs.m.taobao.com",
+    "umengacs.m.taobao.com", "umengjmacs.m.taobao.com", "unitacs.m.taobao.com",
+    "gw.tmall.com", "mapi.m.taobao.com", "mtop.taobao.com", "w.m.taobao.com",
+    # 支付 / 账号关键接口
+    "paydns.wechatpay.cn", "api-unionid.meituan.com",
+}
+
+# 常见多级公共后缀（兜底用；优先使用在线 PSL）
+PSL_FALLBACK = {
+    "com.cn", "net.cn", "org.cn", "gov.cn", "edu.cn", "ac.cn", "co.jp", "ne.jp",
+    "or.jp", "ac.jp", "go.jp", "co.uk", "org.uk", "ac.uk", "gov.uk", "me.uk",
+    "com.hk", "org.hk", "edu.hk", "gov.hk", "com.tw", "org.tw", "edu.tw",
+    "com.au", "net.au", "org.au", "edu.au", "gov.au", "co.kr", "or.kr", "com.br",
+    "com.mx", "com.sg", "com.my", "com.tr", "com.ru", "co.in", "co.nz", "com.ua",
+}
 
 block_filename = os.environ.get("OUTPUT_BLOCK_FILENAME", "Black.txt")
 white_filename = os.environ.get("OUTPUT_WHITE_FILENAME", "White.txt")
@@ -55,83 +159,146 @@ readme_title = os.environ.get("README_TITLE", "激进的规则")
 release_tag = os.environ.get("RELEASE_TAG")
 AUTHOR = "logic769"
 
+DOMAIN_RE = re.compile(
+    r'^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)+$')
+IPV4_RE = re.compile(r'^\d{1,3}(\.\d{1,3}){3}$')
+
+stats = {
+    "kept": 0, "kept_scoped_ad": 0, "dropped_context": 0, "dropped_badfilter": 0,
+    "exc_global": 0, "exc_scoped_dropped": 0, "exc_ad_ignored": 0,
+    "invalid": 0, "regex_skipped": 0, "cosmetic_skipped": 0, "comment_skipped": 0,
+}
+
 
 @dataclass
 class ParsedRule:
     domain: str
     is_whitelist: bool
-    modifiers: list[str]
+    modifiers: list
     original_line: str
     source: str
 
 
-class RuleParser:
-    SUPPORTED_MODIFIERS = {'important', 'dnsrewrite', 'client', 'badfilter'}
-    
-    @staticmethod
-    def parse_line(line: str, source: str = "") -> Optional[ParsedRule]:
-        line = line.strip()
-        
-        if not line:
+def load_public_suffixes() -> set:
+    """拉取公共后缀列表；失败则用内置兜底集合。"""
+    try:
+        resp = requests.get(
+            "https://publicsuffix.org/list/public_suffix_list.dat",
+            headers={"User-Agent": "Mozilla/5.0 (GitHub Actions)"}, timeout=60)
+        resp.raise_for_status()
+        suffixes = set()
+        for line in resp.text.splitlines():
+            line = line.strip()
+            if not line or line.startswith("//"):
+                continue
+            if line.startswith("!"):
+                suffixes.add(line[1:].lower())
+            else:
+                suffixes.add(line.lower())
+        if suffixes:
+            print(f"  已加载公共后缀 {len(suffixes)} 条")
+            return suffixes
+    except requests.exceptions.RequestException as e:
+        print(f"  公共后缀列表下载失败({e})，使用内置兜底集合")
+    return set(PSL_FALLBACK)
+
+
+def extract_domain(raw: str) -> Optional[str]:
+    """从规则文本中提取域名，无法忠实表达时返回 None。"""
+    s = raw.strip()
+    if not s:
+        return None
+
+    # hosts 语法：0.0.0.0 example.com / 127.0.0.1 example.com
+    parts = s.split()
+    if len(parts) >= 2 and (parts[0] in {"0.0.0.0", "127.0.0.1", "::", "::1"}
+                            or IPV4_RE.match(parts[0])):
+        s = parts[1]
+    elif len(parts) > 1:
+        # 含空格的其它形式无法忠实表达
+        return None
+
+    if s.startswith("||"):
+        s = s[2:]
+    elif s.startswith("|"):
+        s = s[1:]
+    if s.endswith("^"):
+        s = s[:-1]
+
+    if s.startswith("*."):
+        s = s[2:]
+    if s.startswith("."):
+        s = s[1:]
+
+    if '/' in s or '<' in s or '>' in s or '~' in s or '|' in s or '^' in s or '*' in s:
+        return None
+
+    s = s.strip().strip('.').lower()
+    if not s or '.' not in s:
+        return None
+    if IPV4_RE.match(s) or ':' in s or '_' in s:
+        return None
+    if not DOMAIN_RE.match(s):
+        return None
+    return s
+
+
+def parse_line(line: str, source: str = "") -> Optional[ParsedRule]:
+    line = line.strip()
+
+    if not line:
+        return None
+    if line.startswith(('!', '#')):
+        stats["comment_skipped"] += 1
+        return None
+    if '##' in line or line.startswith(('#@#', '#?#')):
+        stats["cosmetic_skipped"] += 1
+        return None
+    if line.startswith('/'):
+        stats["regex_skipped"] += 1
+        return None
+    if line.startswith('['):
+        return None
+
+    is_whitelist = line.startswith('@@')
+    if is_whitelist:
+        line = line[2:]
+
+    modifiers = []
+    if '$' in line:
+        line, modifier_str = line.split('$', 1)
+        for mod in modifier_str.split(','):
+            mod = mod.strip()
+            if mod:
+                modifiers.append(mod)
+
+    names = [m.split('=')[0].lstrip('~').lower() for m in modifiers]
+
+    # 否定语义：绝不能当拦截执行
+    if any(n in DROP_MODIFIERS for n in names):
+        stats["dropped_badfilter"] += 1
+        return None
+
+    domain = extract_domain(line)
+    if not domain:
+        stats["invalid"] += 1
+        return None
+
+    # 上下文修饰符（$domain= / $third-party / $script / $path= ...）在 DNS 层无法表达。
+    # 但如果规则的目标域名本身就是广告/追踪端点，保留它作为全局拦截是符合本名单目的的
+    # （也维持了修复前的拦截强度）；否则必须丢弃，否则会把「只在某站点生效」的规则
+    # 放大成全局拦截——这正是历史上最主要的误杀来源。
+    unknown = [n for n in names if n not in KEEP_MODIFIERS]
+    if unknown:
+        if not is_whitelist and AD_MARKERS.search(domain):
+            stats["kept_scoped_ad"] += 1
+        else:
+            stats["dropped_context"] += 1
             return None
-        
-        if line.startswith(('!', '#', '/', '[')):
-            return None
-        
-        is_whitelist = line.startswith('@@')
-        if is_whitelist:
-            line = line[2:]
-        
-        modifiers = []
-        if '$' in line:
-            parts = line.split('$', 1)
-            line = parts[0]
-            modifier_str = parts[1] if len(parts) > 1 else ""
-            
-            if modifier_str:
-                raw_modifiers = [m.strip() for m in modifier_str.split(',')]
-                for mod in raw_modifiers:
-                    mod_lower = mod.lower().split('=')[0].lstrip('~')
-                    if mod_lower in RuleParser.SUPPORTED_MODIFIERS:
-                        modifiers.append(mod)
-        
-        line = line.replace("||", "").replace("^", "")
-        
-        if line.startswith("*." ):
-            line = line[2:]
-        if line.startswith("."):
-            line = line[1:]
-        
-        if line.startswith("0.0.0.0 ") or line.startswith("127.0.0.1 "):
-            parts = line.split()
-            if len(parts) >= 2:
-                line = parts[1]
-        
-        if "~" in line:
-            line = line.split("~")[0]
-        
-        line = line.strip()
-        
-        if "." not in line:
-            return None
-        
-        if " " in line or "<" in line or "/" in line:
-            return None
-        
-        if line in {"localhost", "127.0.0.1", "0.0.0.0"}:
-            return None
-        
-        if not re.match(r'^[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?)*$', line):
-            if not re.match(r'^[\w.-]+$', line):
-                return None
-        
-        return ParsedRule(
-            domain=line,
-            is_whitelist=is_whitelist,
-            modifiers=modifiers,
-            original_line=line,
-            source=source
-        )
+
+    stats["exc_global" if is_whitelist else "kept"] += 1
+    return ParsedRule(domain=domain, is_whitelist=is_whitelist,
+                      modifiers=modifiers, original_line=line, source=source)
 
 
 def download_file(url: str, friendly_name: str) -> Optional[str]:
@@ -149,71 +316,67 @@ def download_file(url: str, friendly_name: str) -> Optional[str]:
         return None
 
 
-def process_source_to_rules(url: str, source_name: str) -> tuple[dict[str, str], dict[str, str]]:
-    """
-    处理单个规则源，返回 (黑名单字典, 白名单字典)
-    自动检测并分离混合的黑白名单规则
+def process_source_to_rules(url: str, source_name: str, psl: set,
+                            force_whitelist: bool = False):
+    """处理单个规则源，返回 (黑名单字典, 白名单字典)。
+
+    force_whitelist=True 时（白名单源），该源的所有条目都按白名单处理，
+    避免白名单源里写成纯域名的条目被误当成拦截规则。
     """
     content = download_file(url, source_name)
     if not content:
         return {}, {}
-    
-    block_rules: dict[str, str] = {}
-    white_rules: dict[str, str] = {}
+
+    block_rules: dict = {}
+    white_rules: dict = {}
     mixed_detected = False
-    
-    lines = content.splitlines()
-    for line in lines:
-        parsed = RuleParser.parse_line(line, source_name)
+
+    for line in content.splitlines():
+        parsed = parse_line(line, source_name)
         if not parsed:
             continue
-        
-        if parsed.is_whitelist:
+        # 公共后缀（com.cn 之类）永远匹配不到具体主机，直接丢弃
+        if parsed.domain in psl:
+            stats["invalid"] += 1
+            continue
+
+        if parsed.is_whitelist or force_whitelist:
             white_rules[parsed.domain] = source_name
-            mixed_detected = True
+            if parsed.is_whitelist:
+                mixed_detected = True
         else:
             block_rules[parsed.domain] = source_name
-    
+
     if mixed_detected:
-        print(f"  [混合规则检测] {source_name} 包含混合的黑白名单规则，已自动分离")
-    
-    print(f"  从 {source_name} 添加了 {len(block_rules)} 条黑名单规则, {len(white_rules)} 条白名单规则")
-    
+        print(f"  [混合规则检测] {source_name} 含 @@ 例外，已分离到白名单")
+
+    print(f"  从 {source_name} 添加了 {len(block_rules)} 条黑名单, {len(white_rules)} 条白名单")
     return block_rules, white_rules
 
 
-def process_all_sources(urls_dict: dict) -> tuple[dict[str, str], dict[str, str]]:
-    """
-    处理所有规则源，自动分离混合规则
-    返回 (合并后的黑名单字典, 合并后的白名单字典)
-    """
-    all_block_rules: dict[str, str] = {}
-    all_white_rules: dict[str, str] = {}
-    
+def process_all_sources(urls_dict: dict, psl: set, force_whitelist: bool = False):
+    all_block_rules: dict = {}
+    all_white_rules: dict = {}
+
     for name, url in urls_dict.items():
-        block_rules, white_rules = process_source_to_rules(url, name)
-        
+        block_rules, white_rules = process_source_to_rules(
+            url, name, psl, force_whitelist=force_whitelist)
+
         for rule, source in block_rules.items():
             if rule not in all_block_rules:
                 all_block_rules[rule] = source
-        
+
         for rule, source in white_rules.items():
             if rule not in all_white_rules:
                 all_white_rules[rule] = source
-        
+
         time.sleep(1)
-    
+
     return all_block_rules, all_white_rules
 
 
-
-
-
-def merge_rules(*rule_dicts: dict[str, str]) -> dict[str, str]:
-    """
-    合并多个规则字典，后出现的规则会保留第一次出现的来源
-    """
-    merged: dict[str, str] = {}
+def merge_rules(*rule_dicts: dict) -> dict:
+    merged: dict = {}
     for rules_dict in rule_dicts:
         for rule, source in rules_dict.items():
             if rule not in merged:
@@ -221,24 +384,17 @@ def merge_rules(*rule_dicts: dict[str, str]) -> dict[str, str]:
     return merged
 
 
-def find_conflict_rules(block_rules: dict[str, str], white_rules: dict[str, str]) -> dict[str, tuple[str, str]]:
-    """
-    查找同时存在于黑名单和白名单中的规则
-    返回 {规则: (黑名单来源, 白名单来源)} 的字典
-    """
-    conflict_rules: dict[str, tuple[str, str]] = {}
-    
+def find_conflict_rules(block_rules: dict, white_rules: dict) -> dict:
+    conflict_rules = {}
     for rule, block_source in block_rules.items():
         if rule in white_rules:
-            white_source = white_rules[rule]
-            conflict_rules[rule] = (block_source, white_source)
-    
+            conflict_rules[rule] = (block_source, white_rules[rule])
     return conflict_rules
 
 
-def write_rules_to_file(filename: str, rules_dict: dict, title: str, description: str, author: str):
+def write_rules_to_file(filename: str, rules_dict: dict, title: str,
+                        description: str, author: str):
     print(f"\n正在将规则写入到 {os.path.basename(filename)}...")
-    sorted_rules = sorted(rules_dict.keys())
     try:
         with open(filename, "w", encoding="utf-8") as f:
             beijing_tz = datetime.timezone(datetime.timedelta(hours=8))
@@ -249,16 +405,15 @@ def write_rules_to_file(filename: str, rules_dict: dict, title: str, description
             f.write(f"! Author: {author}\n")
             f.write(f"! Version: {now_beijing.strftime('%Y%m%d%H%M%S')}\n")
             f.write(f"! Last Updated: {now_beijing.strftime('%Y-%m-%d %H:%M:%S')} (UTC+8)\n")
-            f.write(f"! Total Rules: {len(sorted_rules)}\n")
+            f.write(f"! Total Rules: {len(rules_dict)}\n")
             f.write("!\n")
 
-            for rule in sorted_rules:
+            for rule in sorted(rules_dict):
                 if isinstance(rules_dict[rule], tuple):
                     block_source, white_source = rules_dict[rule]
                     f.write(f"{rule} # Block from: {block_source}, White from: {white_source}\n")
                 else:
-                    source = rules_dict[rule]
-                    f.write(f"{rule} # From: {source}\n")
+                    f.write(f"{rule} # From: {rules_dict[rule]}\n")
         print(f"文件 {os.path.basename(filename)} 写入成功！")
     except IOError as e:
         print(f"写入文件失败: {filename}, 错误: {e}")
@@ -270,7 +425,6 @@ def update_readme(block_rules_dict: dict, white_rules_dict: dict, conflict_rules
     branch_name = os.environ.get("GITHUB_REF_NAME") or "main"
 
     if release_tag:
-        # 始终使用 latest 版本的发布链接，确保订阅链接指向最新版本
         base_url = f"https://github.com/{repo_name}/releases/latest/download"
     else:
         base_url = f"https://raw.githubusercontent.com/{repo_name}/{branch_name}"
@@ -324,6 +478,28 @@ def update_readme(block_rules_dict: dict, white_rules_dict: dict, conflict_rules
 {base_url}/{os.path.basename(conflict_output_file)}
 {code_fence}
 
+## 规则语义（重要）
+
+本仓库输出的规则是**纯域名行**，AdGuard Home 会按 hosts 型规则处理，
+匹配方式是**精确主机名相等**（`urlfilter/dnsengine.go` 中的 `ruleIndex[hostname]`）。
+也就是说 `example.com` 只会拦截对 `example.com` 本身的查询，不会拦截子域。
+
+为避免误杀，构建时对上游规则做了**忠实化处理**（详见 `documents/process_rules.py` 文件头）：
+
+- 丢弃带上下文修饰符的规则（`$domain=`、`$third-party`、`$script`、`$path=` 等）：
+  这些条件在 DNS 层无法表达，保留域名会让「只在某站点生效」的规则变成全局拦截。
+- 丢弃 `$badfilter`（取消规则）——它是否定语义，不能当作拦截执行。
+- 只采纳上游**无修饰符的全局例外**，且目标域名不带广告特征，避免引入他人私人白名单。
+- 域名统一小写并严格校验，剔除裸 IP、下划线、首尾点、通配符与公共后缀。
+- **核心服务保护名单**：系统更新、连通性检测（被拦会显示「无网络」）、推送通道、
+  加密 DNS、证书吊销、NTP，以及阿里系 App 的 ACS/JMACS/MSGACS 网络与风控接口，
+  无论上游怎么写都永不拦截。
+
+本次构建统计：保留 {stats['kept']} 条（其中带上下文修饰符但目标本身是广告域的 {stats['kept_scoped_ad']} 条），
+丢弃上下文规则 {stats['dropped_context']} 条，丢弃 badfilter {stats['dropped_badfilter']} 条，
+采纳全局例外 {stats['exc_global']} 条，忽略带广告特征的上游例外 {stats['exc_ad_ignored']} 条，
+剔除无效域名 {stats['invalid']} 条。
+
 规则来源
 
 黑名单来源 (Blocklist Sources)
@@ -346,61 +522,90 @@ def update_readme(block_rules_dict: dict, white_rules_dict: dict, conflict_rules
 
 def main():
     print("=" * 60)
-    print("AdGuard Home 规则处理脚本 (重构版)")
-    print("支持: 自动分离混合规则、规则去重、黑白名单独立、冲突规则检测")
+    print("AdGuard Home 规则处理脚本（忠实化版）")
     print("=" * 60)
-    
+
+    psl = load_public_suffixes()
+
     print("\n--- 第一步: 处理白名单规则源 ---")
-    white_source_block, white_source_white = process_all_sources(white_source_urls)
-    
+    white_source_block, white_source_white = process_all_sources(
+        white_source_urls, psl, force_whitelist=True)
+
     print("\n--- 第二步: 处理黑名单规则源 ---")
-    block_source_block, block_source_white = process_all_sources(block_source_urls)
-    
+    block_source_block, block_source_white = process_all_sources(block_source_urls, psl)
+
     print("\n--- 第三步: 合并所有规则 ---")
-    all_white_rules = merge_rules(
-        white_source_white
-    )
-    
-    all_block_rules = merge_rules(
-        block_source_block
-    )
-    
+    # 白名单 = 白名单源 + 黑名单源里混着的 @@ 例外（后者本仓库以前是丢弃的）
+    all_white_rules = merge_rules(white_source_white, block_source_white)
+    # 白名单源里不会产出拦截规则；这里仅合并黑名单源
+    all_block_rules = merge_rules(block_source_block)
+    assert not white_source_block, "白名单源不应产出拦截规则"
+
     print(f"  合并后黑名单共: {len(all_block_rules)} 条")
     print(f"  合并后白名单共: {len(all_white_rules)} 条")
-    
+
+    print("\n--- 第四步: 应用核心服务保护名单与白名单 ---")
+    protected_in_black = sorted(d for d in all_block_rules if d in NEVER_BLOCK)
+    for d in protected_in_black:
+        all_white_rules.setdefault(d, "核心服务保护名单")
+        del all_block_rules[d]
+    print(f"  核心服务保护名单命中并放行: {len(protected_in_black)} 条")
+
+    ad_exceptions = sorted(
+        d for d in all_white_rules
+        if AD_MARKERS.search(d)
+        and all_white_rules[d] != "本地规则"   # 用户自己的白名单永远优先
+        and d not in NEVER_BLOCK)
+    for d in ad_exceptions:
+        del all_white_rules[d]
+    stats["exc_ad_ignored"] = len(ad_exceptions)
+    print(f"  含广告特征的上游例外已忽略(避免漏拦): {len(ad_exceptions)} 条")
+
     print("\n--- 第五步: 检测冲突规则 ---")
     conflict_rules = find_conflict_rules(all_block_rules, all_white_rules)
     print(f"  检测到 {len(conflict_rules)} 条冲突规则（同时存在于黑名单和白名单）")
-    
-    print(f"\n最终统计:")
+
+    # 白名单优先：冲突条目从黑名单中剔除，避免只订阅黑名单时仍然误杀
+    for rule in conflict_rules:
+        all_block_rules.pop(rule, None)
+    print(f"  冲突条目已从黑名单移除，剩余黑名单: {len(all_block_rules)} 条")
+
+    # 白名单只保留真正起作用的条目：
+    #   ① 用户本地白名单（always 发布）
+    #   ② 核心服务保护名单里确实被上游拦过的
+    #   ③ 与黑名单冲突、需要放行的
+    # 其余「上游全局例外」如果本来就没被任何黑名单命中，放进来也没有任何效果，只会撑大文件。
+    effective_white: dict = dict(white_source_white)
+    for d in protected_in_black:
+        effective_white.setdefault(d, "核心服务保护名单")
+    for d, src in all_white_rules.items():
+        if d in conflict_rules:
+            effective_white.setdefault(d, src)
+    trimmed = len(all_white_rules) - len(effective_white)
+    all_white_rules = effective_white
+    print(f"  白名单裁剪掉不产生效果的条目: {trimmed} 条")
+
+    print("\n最终统计:")
     print(f"  最终黑名单: {len(all_block_rules)} 条")
     print(f"  最终白名单: {len(all_white_rules)} 条")
     print(f"  冲突规则: {len(conflict_rules)} 条")
-    
+    print(f"  解析统计: {stats}")
+
     write_rules_to_file(
-        block_output_file,
-        all_block_rules,
+        block_output_file, all_block_rules,
         "AdGuard Custom Blocklist",
-        "自动合并的广告拦截规则（与白名单完全独立）",
-        AUTHOR,
-    )
+        "自动合并的广告拦截规则（与白名单完全独立）", AUTHOR)
     write_rules_to_file(
-        white_output_file,
-        all_white_rules,
+        white_output_file, all_white_rules,
         "AdGuard Custom Whitelist",
-        "自动合并的白名单规则（与黑名单完全独立）",
-        AUTHOR,
-    )
+        "自动合并的白名单规则（与黑名单完全独立）", AUTHOR)
     write_rules_to_file(
-        conflict_output_file,
-        conflict_rules,
+        conflict_output_file, conflict_rules,
         "AdGuard Conflict Rules",
-        "同时存在于黑名单和白名单的规则",
-        AUTHOR,
-    )
+        "同时存在于黑名单和白名单的规则", AUTHOR)
 
     update_readme(all_block_rules, all_white_rules, conflict_rules)
-    
+
     print("\n" + "=" * 60)
     print("规则处理完成！")
     print("=" * 60)
