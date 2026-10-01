@@ -110,7 +110,8 @@ NEVER_BLOCK = {
     # Apple 系统更新 / 证书
     "mesu.apple.com", "swscan.apple.com", "swcdn.apple.com", "gdmf.apple.com",
     "appldnld.apple.com", "ocsp.apple.com", "ocsp2.apple.com", "crl.apple.com",
-    "doh.dns.apple.com", "captive.apple.com",
+    # 注：doh.dns.apple.com 不在保护名单里 —— 用户本地黑名单明确要拦它（防 DoH 绕过过滤）
+    "captive.apple.com",
     # Windows / 微软
     "dns.msftncsi.com", "msftconnecttest.com", "www.msftconnecttest.com",
     "crl.microsoft.com", "www.microsoft.com", "update.microsoft.com",
@@ -120,7 +121,8 @@ NEVER_BLOCK = {
     "alt3-mtalk.google.com", "alt4-mtalk.google.com", "alt5-mtalk.google.com",
     "alt6-mtalk.google.com", "alt7-mtalk.google.com", "alt8-mtalk.google.com",
     # 公共加密 DNS
-    "doh.pub", "dot.pub", "dns.qq.com", "doh.alidns.com", "dns.alidns.com",
+    # 注：dns.qq.com 不在保护名单里 —— 用户本地黑名单明确要拦它（DoH 会绕过本 DNS 过滤）
+    "doh.pub", "dot.pub", "doh.alidns.com", "dns.alidns.com",
     "mozilla.cloudflare-dns.com", "cloudflare-dns.com", "dns.google",
     "one.one.one.one", "dns.quad9.net",
     # NTP 对时
@@ -161,8 +163,10 @@ NEVER_BLOCK = {
     # 推送通道
     "api.tuisong.baidu.com", "push.m.youku.com", "sdk.open.talk.gepush.com",
     # 贴吧/百度 静态资源（拦了会让 App 缺图少样式）
+    # 注：staticsns.cdn.bcebos.com 已移出保护名单 —— 它是一个 BCE 存储桶，
+    # 你自己在本地黑名单里明确要拦、且有 6 个上游源共同拦截，按你的规则执行
     "tieba-ares.cdn.bcebos.com", "static.tieba.baidu.com",
-    "staticsns.cdn.bcebos.com", "pic.rmb.bdstatic.com",
+    "pic.rmb.bdstatic.com",
     # 其它常见静态资源 / 工具
     "bbs-static.miyoushe.com", "static-res.qq.com", "cdn.yyb.gtimg.com",
     "s.img.mix.sina.com.cn", "bucket-ynote-online-cdn.note.youdao.com",
@@ -194,6 +198,18 @@ BLOCK_DOMAIN_SPACES = [
     "8ziben.com",
     # YY 广告联盟
     "union-dracoapi.yy.com",
+    # 2026-10-01 复查后逐个核实加入：这些父域已被上游列为拦截，但其子域因
+    # 「精确主机名匹配」全部漏网（实测 154 条）；已确认整段都是广告/追踪端点。
+    # 注意：像 snssdk.com（字节 API）、pddpic.com（拼多多图床）、voicecloud.cn（讯飞登录）、
+    # static.yximgs.com（快手图床）、browser.miui.com（小米浏览器 API）、sms.mob.com（短信验证）
+    # 这类「父域被拦但子域是功能接口」的**一律不升级**，否则会重演天猫校园式故障。
+    "pangolin-sdk-toutiao.com",   # 穿山甲广告 SDK（13 个源拦）
+    "we-stats.com",               # 数据统计/上报，54 个子域（3 个源拦）
+    "bloblohub.com",              # 追踪聚合，49 个子域（10 个源拦）
+    "irs03.com",                  # 广告/跳转，20 个子域（12 个源拦）
+    "112.2o7.net",                # Adobe Analytics（Omniture）埋点，1295 个子域
+    "net.daraz.com",              # -access-logs-*.net.daraz.com 埋点（6 个源拦）
+    "giocdn.com",                 # GrowingIO 统计 CDN（7 个源拦）
 ]
 
 # 常见多级公共后缀（兜底用；优先使用在线 PSL）
@@ -709,6 +725,11 @@ def update_readme(block_rules_dict: dict, white_rules_dict: dict, conflict_rules
 - **核心服务保护名单**：系统更新、连通性检测（被拦会显示「无网络」）、推送通道、
   加密 DNS、证书吊销、NTP，以及阿里系 App 的 ACS/JMACS/MSGACS 网络与风控接口，
   无论上游怎么写都永不拦截。
+  例外（2026-10-01 按你的决定调整）：`dns.qq.com`、`doh.dns.apple.com` 移出保护名单
+  （DoH 会绕过本 DNS 过滤，你的本地黑名单明确要拦）；`staticsns.cdn.bcebos.com`
+  （百度 BCE 存储桶，6 个源共同拦截）也按你的本地规则执行拦截。
+  `paydns.wechatpay.cn`（支付）、`acs4baichuan.m.taobao.com`（阿里风控）、
+  `gw.tmall.com` 继续保持放行，避免再现「App 显示无网络」。
 - **域名空间拦截**（文件开头 `==== 域名空间拦截（含全部子域）====` 段，
   当前 {len(domain_spaces)} 条）：以 AdGuard 网络语法 `||域名^` 输出，
   连**全部子域**一起拦。纯域名是精确主机名匹配，父域拦不住子域——实测
