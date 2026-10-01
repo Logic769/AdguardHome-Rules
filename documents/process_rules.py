@@ -177,6 +177,10 @@ BLOCK_DOMAIN_SPACES = [
     "jomoxc.com",
     # general.starrydyn.com 的 CNAME 指向 x.starrydyn.11101.baidu-itm.com（百度流量/广告基建）
     "starrydyn.com",
+    # 百度广告资源域：纯域名只拦得到 sofire.baidu.com 本身，
+    # App 实际请求的是 factors.sofire.baidu.com 这类子域（实测漏拦）
+    "sofire.baidu.com",
+    "sofire.bdstatic.com",
     # 广告 SDK 商（避免其后续新增子域再次漏拦）
     "litemob.net",
     "lingjuad.com",
@@ -516,7 +520,7 @@ def update_readme(block_rules_dict: dict, white_rules_dict: dict, conflict_rules
 
 最后更新时间: {now_beijing.strftime('%Y-%m-%d %H:%M:%S')} (UTC+8)
 
-最终黑名单规则数: {len(block_rules_dict)}
+最终黑名单规则数: {len(block_rules_dict)}（另有 {len(BLOCK_DOMAIN_SPACES)} 条域名空间规则，含全部子域）
 
 最终白名单规则数: {len(white_rules_dict)}
 
@@ -553,15 +557,21 @@ def update_readme(block_rules_dict: dict, white_rules_dict: dict, conflict_rules
 - 丢弃带上下文修饰符的规则（`$domain=`、`$third-party`、`$script`、`$path=` 等）：
   这些条件在 DNS 层无法表达，保留域名会让「只在某站点生效」的规则变成全局拦截。
 - 丢弃 `$badfilter`（取消规则）——它是否定语义，不能当作拦截执行。
-- 只采纳上游**无修饰符的全局例外**，且目标域名不带广告特征，避免引入他人私人白名单。
-- 域名统一小写并严格校验，剔除裸 IP、下划线、首尾点、通配符与公共后缀。
+- 采纳上游**无修饰符的全局例外**时要求该域名「有争议」：被 3 个以上独立名单共同
+  拦截的域名不采纳任何单个名单的例外（部分名单自带近 3000 条私人白名单，
+  照单全收会把 `als.baidu.com`（17 个源拦）、`nsclick.baidu.com`（16 个源拦）
+  这类公认广告域放行，实测导致贴吧广告回流）。
+- 域名统一小写并严格校验，剔除裸 IP、下划线、首尾点、通配符与公共后缀
+  （下划线在 AdGuard 的域名校验里非法，此类规则在 AGH 中永远不会生效）。
 - **核心服务保护名单**：系统更新、连通性检测（被拦会显示「无网络」）、推送通道、
   加密 DNS、证书吊销、NTP，以及阿里系 App 的 ACS/JMACS/MSGACS 网络与风控接口，
   无论上游怎么写都永不拦截。
-- **域名空间拦截**（文件开头 `==== 域名空间拦截 ====` 段）：以 AdGuard 网络语法
-  `||域名^` 输出，连**全部子域**一起拦。用于对付「随机哈希子域轮换」的广告域
-  （如 `9e59f633….rdt.tfogc.com`、`4848fd4d….jomoxc.com`），纯域名的精确匹配追不上。
-  这些行**不带行尾注释**——AdGuard 的网络规则不会剥离 `#` 注释，带了整条就失效。
+- **域名空间拦截**（文件开头 `==== 域名空间拦截（含全部子域）====` 段，
+  当前 {len(BLOCK_DOMAIN_SPACES)} 条）：以 AdGuard 网络语法 `||域名^` 输出，
+  连**全部子域**一起拦。纯域名是精确主机名匹配，父域拦不住子域——实测
+  `sofire.baidu.com` 拦住了，但 App 请求的是 `factors.sofire.baidu.com`；
+  轮换哈希域（`9e59f633….rdt.tfogc.com`）更是永远追不上。这些行**不带行尾注释**：
+  AdGuard 的网络规则不剥离 `#`，带了注释整条就失效。
 
 本次构建统计：保留 {stats['kept']} 条（其中带上下文修饰符但目标本身是广告域的 {stats['kept_scoped_ad']} 条），
 丢弃上下文规则 {stats['dropped_context']} 条，丢弃 badfilter {stats['dropped_badfilter']} 条，
