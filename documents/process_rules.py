@@ -32,10 +32,13 @@ root_dir = os.path.dirname(script_dir)
 #      在 DNS 世界的实际效果同样是「该域名解析不到」，拦截强度不降低）。
 #
 #  4. 上游 @@ 例外（黑名单源里混着的白名单）只采纳「无修饰符的全局例外」，
-#     且目标域名不能带广告/追踪特征——避免把别人的私人白名单
-#     （例如 @@||ad.doubleclick.net^）引入，造成漏拦。
+#     并且必须是「有争议」的域名：被拦截的上游源少于 EXCEPTION_MAX_BLOCK_SOURCES 个。
+#     原因：部分名单自带很长的私人白名单（如「那个谁520」近 3000 条 @@），
+#     照单全收会把公认的广告/追踪域名放行——实测被 17 个源共同拦截的
+#     als.baidu.com、被 16 个源拦截的 nsclick.baidu.com 都因一句 @@ 而漏拦。
+#     被 3 个以上独立名单共同认定为拦截目标的域名，不采纳单个名单的例外。
 #
-#  5. 域名规范化：统一小写、严格校验，剔除裸 IP、下划线、首尾点、通配符、
+#  5. 域名规范化：统一小写、严格校验，剔除裸 IP、首尾点、通配符、
 #     公共后缀（com.cn 之类）等永远匹配不到的垃圾规则。
 #
 #  6. 核心服务保护名单（NEVER_BLOCK）：系统更新、连通性检测、推送通道、
@@ -80,6 +83,8 @@ white_source_urls = {
 KEEP_MODIFIERS = {'important', 'dnsrewrite'}
 # 否定语义修饰符：出现即丢弃整条规则
 DROP_MODIFIERS = {'badfilter'}
+# 采纳上游例外的上限：被拦截的上游源数达到此值即视为「公认拦截目标」，不采纳例外
+EXCEPTION_MAX_BLOCK_SOURCES = 3
 
 # 广告 / 追踪特征词：用于判断上游 @@ 例外是否值得采纳
 AD_MARKERS = re.compile(
@@ -139,6 +144,23 @@ NEVER_BLOCK = {
     "gw.tmall.com", "mapi.m.taobao.com", "mtop.taobao.com",
     # 支付 / 账号关键接口
     "paydns.wechatpay.cn", "api-unionid.meituan.com",
+    # 手机厂商系统接口（安全/账号/游戏中心，被拦会导致 App 功能异常）
+    "api.miui.security.xiaomi.com", "api.sec.miui.com", "api.sec.intl.miui.com",
+    "api.developer.xiaomi.com", "api.comm.miui.com", "sec-cdn.static.xiaomi.net",
+    "api-cn.cdo.heytapmobi.com",
+    "api-push.meizu.com", "api-game.meizu.com", "aider-res.meizu.com",
+    "game.res.meizu.com", "gateway.kugou.com",
+    # 短信验证码（被拦会导致登录/注册收不到码）
+    "auth.wosms.cn", "code.sms.mob.com", "sdkapi.sms.mob.com",
+    # 推送通道
+    "api.tuisong.baidu.com", "push.m.youku.com", "sdk.open.talk.gepush.com",
+    # 贴吧/百度 静态资源（拦了会让 App 缺图少样式）
+    "tieba-ares.cdn.bcebos.com", "static.tieba.baidu.com",
+    "staticsns.cdn.bcebos.com", "pic.rmb.bdstatic.com",
+    # 其它常见静态资源 / 工具
+    "bbs-static.miyoushe.com", "static-res.qq.com", "cdn.yyb.gtimg.com",
+    "s.img.mix.sina.com.cn", "bucket-ynote-online-cdn.note.youdao.com",
+    "e.weather.com.cn", "dl.zuimeitianqi.com",
 }
 
 # 常见多级公共后缀（兜底用；优先使用在线 PSL）
@@ -238,7 +260,12 @@ def extract_domain(raw: str) -> Optional[str]:
     s = s.strip().strip('.').lower()
     if not s or '.' not in s:
         return None
-    if IPV4_RE.match(s) or ':' in s or '_' in s:
+    if IPV4_RE.match(s) or ':' in s:
+        return None
+    # 注意：AdGuard Home 的域名校验不允许下划线（urlfilter/internal/ufnet hasValidChars
+    # 只接受字母/数字/连字符），含下划线的行会被当成 URL 子串规则并连带行尾注释一起
+    # 解析，等于永不生效，所以这里直接剔除（例如 recommend_list.baidu.com）。
+    if '_' in s:
         return None
     if not DOMAIN_RE.match(s):
         return None
@@ -359,12 +386,14 @@ def process_source_to_rules(url: str, source_name: str, psl: set,
 def process_all_sources(urls_dict: dict, psl: set, force_whitelist: bool = False):
     all_block_rules: dict = {}
     all_white_rules: dict = {}
+    block_source_counts: dict = {}   # 域名 -> 有多少个源把它列为拦截
 
     for name, url in urls_dict.items():
         block_rules, white_rules = process_source_to_rules(
             url, name, psl, force_whitelist=force_whitelist)
 
         for rule, source in block_rules.items():
+            block_source_counts[rule] = block_source_counts.get(rule, 0) + 1
             if rule not in all_block_rules:
                 all_block_rules[rule] = source
 
@@ -374,7 +403,7 @@ def process_all_sources(urls_dict: dict, psl: set, force_whitelist: bool = False
 
         time.sleep(1)
 
-    return all_block_rules, all_white_rules
+    return all_block_rules, all_white_rules, block_source_counts
 
 
 def merge_rules(*rule_dicts: dict) -> dict:
@@ -530,18 +559,19 @@ def main():
     psl = load_public_suffixes()
 
     print("\n--- 第一步: 处理白名单规则源 ---")
-    white_source_block, white_source_white = process_all_sources(
+    _wsb, white_source_white, _ = process_all_sources(
         white_source_urls, psl, force_whitelist=True)
 
     print("\n--- 第二步: 处理黑名单规则源 ---")
-    block_source_block, block_source_white = process_all_sources(block_source_urls, psl)
+    block_source_block, block_source_white, block_counts = process_all_sources(
+        block_source_urls, psl)
 
     print("\n--- 第三步: 合并所有规则 ---")
     # 白名单 = 白名单源 + 黑名单源里混着的 @@ 例外（后者本仓库以前是丢弃的）
     all_white_rules = merge_rules(white_source_white, block_source_white)
     # 白名单源里不会产出拦截规则；这里仅合并黑名单源
     all_block_rules = merge_rules(block_source_block)
-    assert not white_source_block, "白名单源不应产出拦截规则"
+    assert not _wsb, "白名单源不应产出拦截规则"
 
     print(f"  合并后黑名单共: {len(all_block_rules)} 条")
     print(f"  合并后白名单共: {len(all_white_rules)} 条")
@@ -555,13 +585,16 @@ def main():
 
     ad_exceptions = sorted(
         d for d in all_white_rules
-        if AD_MARKERS.search(d)
-        and all_white_rules[d] != "本地规则"   # 用户自己的白名单永远优先
-        and d not in NEVER_BLOCK)
+        if all_white_rules[d] != "本地规则"       # 用户自己的白名单永远优先
+        and d not in NEVER_BLOCK
+        and (AD_MARKERS.search(d)                # 名字就是广告/追踪特征
+             # 或：被 3 个以上独立名单共同拦截 => 公认拦截目标，不采纳单个名单的例外
+             or block_counts.get(d, 0) >= EXCEPTION_MAX_BLOCK_SOURCES))
     for d in ad_exceptions:
         del all_white_rules[d]
     stats["exc_ad_ignored"] = len(ad_exceptions)
-    print(f"  含广告特征的上游例外已忽略(避免漏拦): {len(ad_exceptions)} 条")
+    print(f"  被忽略的上游例外(广告特征或≥{EXCEPTION_MAX_BLOCK_SOURCES}源共识): "
+          f"{len(ad_exceptions)} 条")
 
     print("\n--- 第五步: 检测冲突规则 ---")
     conflict_rules = find_conflict_rules(all_block_rules, all_white_rules)
