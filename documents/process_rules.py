@@ -1,8 +1,9 @@
 import requests
 import datetime
-import time
 import os
 import re
+import sys
+import time
 from dataclasses import dataclass
 from typing import Optional
 
@@ -83,6 +84,8 @@ white_source_urls = {
 KEEP_MODIFIERS = {'important', 'dnsrewrite'}
 # 否定语义修饰符：出现即丢弃整条规则
 DROP_MODIFIERS = {'badfilter'}
+# 用户本地名单在源表里的名字（本地黑名单、本地白名单都用它）
+LOCAL_SOURCE_NAME = "本地规则"
 # 采纳上游例外的上限：被拦截的上游源数达到此值即视为「公认拦截目标」，不采纳例外
 EXCEPTION_MAX_BLOCK_SOURCES = 3
 
@@ -96,6 +99,9 @@ AD_MARKERS = re.compile(
     r'adjust|appsflyer|kochava|singular|tenjin|countly|flurry|bugly|crashlytics|'
     r'track|tracker|tracking|click|clk|beacon|pixel|metric\w*|monitor\w*|collect|collector|telemetry|'
     r'promo|promotion|sponsor|affiliate|aff|dsp|ssp|rtb|'
+    # 广告 SDK：以前漏了 sdk，导致 sdk-api.beizi.biz、pangolin-sdk-toutiao.com
+    # 这类明确的广告 SDK 域既不被识别为广告、其上游例外还会被采纳
+    r'sdk|sdkapi|bid|union|report\w*|impression\w*|'
     r'mopub|inmobi|unityads|applovin|vungle|chartboost|ironsrc|mintegral|pangle|gdt|mobads|'
     r'log|logs|logger)([.\-_]|$)', re.I)
 
@@ -230,6 +236,13 @@ class ParsedRule:
     source: str
 
 
+# 解析过程中收集到的「通配规则」还原结果（全局收集，主流程最后统一使用）
+WILDCARD_SPACE_FOUND: set = set()   # 来自 `||*.X^`：父域整段拦截
+WILDCARD_ALLOW_FOUND: set = set()   # 来自 `@@||前缀*X^`：把后缀整段放行
+# 抓取失败的源（任何一个源失败都会让构建失败，避免"静默少一个源"）
+FAILED_SOURCES: list = []
+
+
 def load_public_suffixes() -> set:
     """拉取公共后缀列表；失败则用内置兜底集合。"""
     try:
@@ -254,6 +267,48 @@ def load_public_suffixes() -> set:
     return set(PSL_FALLBACK)
 
 
+def agh_valid_domain(name: str) -> bool:
+    """严格复刻 AdGuard Home urlfilter/internal/ufnet 的域名校验。
+
+    只有通过这里的域名，写成 hosts 型规则才会被 AGH 真正解析成 HostRule；
+    否则 AGH 会退化成 URL 子串规则，并连带行尾的 ` # From: xxx` 注释一起解析，
+    等于永远不生效（实测产物里有 16 条这样的死规则）。
+    TLD 额外要求：长度 ≥2 且首尾都是字母（isValidTLDLabel）。
+    """
+    if not name or len(name) > 253 or "." not in name:
+        return False
+    labels = name.split(".")
+    for lb in labels[:-1]:
+        if not (1 <= len(lb) <= 63) or lb[0] == "-" or lb[-1] == "-":
+            return False
+        if any(c not in "abcdefghijklmnopqrstuvwxyz0123456789-" for c in lb):
+            return False
+    tld = labels[-1]
+    if len(tld) < 2 or not tld[0].isalpha() or not tld[-1].isalpha():
+        return False
+    if any(c not in "abcdefghijklmnopqrstuvwxyz0123456789-" for c in tld):
+        return False
+    return True
+
+
+def wildcard_suffix(pattern: str) -> Optional[str]:
+    """把「只带一个 * 的通配规则」还原成可用的域名后缀。
+
+    例：`||*.07879.com^` -> 07879.com ；`||storage*360buyimg.com^` -> 360buyimg.com
+    含多个 `*`（如 `tnc*-aliec*.zijieapi.com`）无法还原，返回 None。
+    """
+    if pattern.count("*") != 1:
+        return None
+    suffix = pattern.split("*", 1)[1]
+    if suffix.startswith("."):
+        suffix = suffix[1:]
+    suffix = suffix.rstrip("^").strip().strip(".")
+    suffix = suffix.lower()
+    if not suffix or "." not in suffix or "*" in suffix:
+        return None
+    return suffix if agh_valid_domain(suffix) else None
+
+
 def extract_domain(raw: str) -> Optional[str]:
     """从规则文本中提取域名，无法忠实表达时返回 None。"""
     s = raw.strip()
@@ -275,6 +330,9 @@ def extract_domain(raw: str) -> Optional[str]:
         s = s[1:]
     if s.endswith("^"):
         s = s[:-1]
+    # 上游手工维护的名单里偶有行尾中文标点（如 `||x.com^、`），
+    # 这类规则以前会整条被丢弃
+    s = s.rstrip("、，。；;,·． \t")
 
     if s.startswith("*."):
         s = s[2:]
@@ -295,6 +353,8 @@ def extract_domain(raw: str) -> Optional[str]:
     if '_' in s:
         return None
     if not DOMAIN_RE.match(s):
+        return None
+    if not agh_valid_domain(s):
         return None
     return s
 
@@ -336,6 +396,26 @@ def parse_line(line: str, source: str = "") -> Optional[ParsedRule]:
         return None
 
     domain = extract_domain(line)
+    reclassified = False
+
+    # 通配规则还原（必须在「extract_domain 失败即丢弃」之前处理）：
+    #  ① 上游 `||*.X^`：原意是拦 X 的全部子域，纯域名格式会降级成「只拦 X 本身」，
+    #     子域全漏 -> 还原成域名空间拦截 `||X^`（实测 298 个父域）
+    #  ② 用户自己白名单里「只含一个 *」的放行（@@||storage*360buyimg.com^）
+    #     在 DNS 层等于没写 -> 还原成域名空间放行 `@@||360buyimg.com^`
+    #     只处理用户自己的名单：上游常见的 `@@||*.4399.com^` 是别人的「整站放行」，
+    #     照搬会让广告域跟着放行。
+    if not is_whitelist and line.startswith("||*."):
+        parent = wildcard_suffix(line)
+        if parent:
+            WILDCARD_SPACE_FOUND.add(parent)
+            domain = domain or parent
+    elif is_whitelist and "*" in line and source == LOCAL_SOURCE_NAME:
+        suffix = wildcard_suffix(line)
+        if suffix:
+            WILDCARD_ALLOW_FOUND.add(suffix)
+            domain = domain or suffix
+
     if not domain:
         stats["invalid"] += 1
         return None
@@ -358,18 +438,35 @@ def parse_line(line: str, source: str = "") -> Optional[ParsedRule]:
 
 
 def download_file(url: str, friendly_name: str) -> Optional[str]:
-    try:
-        print(f"  正在下载: {friendly_name}")
-        headers = {
-            "User-Agent": "Mozilla/5.0 (GitHub Actions; +https://github.com)",
-            "Accept": "*/*",
-        }
-        resp = requests.get(url, headers=headers, timeout=60)
-        resp.raise_for_status()
-        return resp.text
-    except requests.exceptions.RequestException as e:
-        print(f"  下载失败: {url}, 错误: {e}")
-        return None
+    """下载规则源；失败会重试 3 次并记入 FAILED_SOURCES（主流程据此让构建失败）。
+
+    以前这里失败只打印一行，主流程继续把「少了整个源」的结果当成功发布——
+    上游偶发 429/503 会静默造成名单缩水且没有任何告警。
+    """
+    headers = {
+        "User-Agent": "Mozilla/5.0 (GitHub Actions; +https://github.com)",
+        "Accept": "*/*",
+    }
+    last_err = None
+    for attempt in range(1, 4):
+        try:
+            print(f"  正在下载: {friendly_name}" + (f"（第 {attempt} 次）" if attempt > 1 else ""))
+            resp = requests.get(url, headers=headers, timeout=60)
+            resp.raise_for_status()
+            # 规则文件全部是 UTF-8；不显式指定时 requests 会按响应头猜，
+            # 缺 charset 时可能落到 ISO-8859-1，把中文注释变成乱码
+            resp.encoding = resp.encoding or "utf-8"
+            if resp.encoding.lower() in ("iso-8859-1", "latin-1"):
+                resp.encoding = "utf-8"
+            return resp.text
+        except requests.exceptions.RequestException as e:
+            last_err = e
+            if attempt < 3:
+                time.sleep(3 * attempt)
+    print(f"  !! 下载失败(已重试 3 次): {friendly_name} {url} 错误: {last_err}")
+    if friendly_name not in FAILED_SOURCES:
+        FAILED_SOURCES.append(friendly_name)
+    return None
 
 
 def process_source_to_rules(url: str, source_name: str, psl: set,
@@ -413,14 +510,24 @@ def process_source_to_rules(url: str, source_name: str, psl: set,
 def process_all_sources(urls_dict: dict, psl: set, force_whitelist: bool = False):
     all_block_rules: dict = {}
     all_white_rules: dict = {}
-    block_source_counts: dict = {}   # 域名 -> 有多少个源把它列为拦截
+    block_source_counts: dict = {}   # 域名 -> 有多少个「不同的源文件」把它列为拦截
+    seen_urls: dict = {}             # 域名 -> {规范化 URL}
+
+    def norm_url(u: str) -> str:
+        # smad 与「下个ID见」配的是同一份 SMAdHosts（只差 /refs/heads/），
+        # 直接按 URL 计数会把同一份名单算两次，让「≥3 源共识」判定失真
+        return re.sub(r"/refs/heads/", "/", u)
 
     for name, url in urls_dict.items():
         block_rules, white_rules = process_source_to_rules(
             url, name, psl, force_whitelist=force_whitelist)
 
+        nu = norm_url(url)
         for rule, source in block_rules.items():
-            block_source_counts[rule] = block_source_counts.get(rule, 0) + 1
+            s = seen_urls.setdefault(rule, set())
+            if nu not in s:
+                s.add(nu)
+                block_source_counts[rule] = block_source_counts.get(rule, 0) + 1
             if rule not in all_block_rules:
                 all_block_rules[rule] = source
 
@@ -451,9 +558,11 @@ def find_conflict_rules(block_rules: dict, white_rules: dict) -> dict:
 
 
 def write_rules_to_file(filename: str, rules_dict: dict, title: str,
-                        description: str, author: str, domain_spaces=None):
+                        description: str, author: str, domain_spaces=None,
+                        allow_spaces=None):
     print(f"\n正在将规则写入到 {os.path.basename(filename)}...")
     domain_spaces = domain_spaces or []
+    allow_spaces = allow_spaces or []
     try:
         with open(filename, "w", encoding="utf-8") as f:
             beijing_tz = datetime.timezone(datetime.timedelta(hours=8))
@@ -464,7 +573,7 @@ def write_rules_to_file(filename: str, rules_dict: dict, title: str,
             f.write(f"! Author: {author}\n")
             f.write(f"! Version: {now_beijing.strftime('%Y%m%d%H%M%S')}\n")
             f.write(f"! Last Updated: {now_beijing.strftime('%Y-%m-%d %H:%M:%S')} (UTC+8)\n")
-            f.write(f"! Total Rules: {len(rules_dict) + len(domain_spaces)}\n")
+            f.write(f"! Total Rules: {len(rules_dict) + len(domain_spaces) + len(allow_spaces)}\n")
             f.write("!\n")
 
             # 域名空间规则（含子域）必须写在最前面，且**不能带行尾注释**：
@@ -474,6 +583,11 @@ def write_rules_to_file(filename: str, rules_dict: dict, title: str,
                 for d in sorted(domain_spaces):
                     f.write(f"||{d}^\n")
                 f.write("!\n")
+            if allow_spaces:
+                f.write("!\n! ==== 域名空间放行（含全部子域，AdGuard 网络语法）====\n")
+                for d in sorted(allow_spaces):
+                    f.write(f"@@||{d}^\n")
+                f.write("!\n")
 
             for rule in sorted(rules_dict):
                 if isinstance(rules_dict[rule], tuple):
@@ -482,12 +596,15 @@ def write_rules_to_file(filename: str, rules_dict: dict, title: str,
                 else:
                     f.write(f"{rule} # From: {rules_dict[rule]}\n")
         print(f"文件 {os.path.basename(filename)} 写入成功！"
-              f"（含 {len(domain_spaces)} 条域名空间规则）")
+              f"（含 {len(domain_spaces)} 条空间拦截 / {len(allow_spaces)} 条空间放行）")
     except IOError as e:
         print(f"写入文件失败: {filename}, 错误: {e}")
 
 
-def update_readme(block_rules_dict: dict, white_rules_dict: dict, conflict_rules_dict: dict):
+def update_readme(block_rules_dict: dict, white_rules_dict: dict, conflict_rules_dict: dict,
+                  domain_spaces=None, allow_spaces=None):
+    domain_spaces = domain_spaces or []
+    allow_spaces = allow_spaces or []
     print("\n正在更新 README.md...")
     repo_name = os.environ.get("GITHUB_REPOSITORY", "your_username/your_repo")
     branch_name = os.environ.get("GITHUB_REF_NAME") or "main"
@@ -520,9 +637,9 @@ def update_readme(block_rules_dict: dict, white_rules_dict: dict, conflict_rules
 
 最后更新时间: {now_beijing.strftime('%Y-%m-%d %H:%M:%S')} (UTC+8)
 
-最终黑名单规则数: {len(block_rules_dict)}（另有 {len(BLOCK_DOMAIN_SPACES)} 条域名空间规则，含全部子域）
+最终黑名单规则数: {len(block_rules_dict)}（另有 {len(domain_spaces)} 条域名空间拦截，含全部子域）
 
-最终白名单规则数: {len(white_rules_dict)}
+最终白名单规则数: {len(white_rules_dict)}（另有 {len(allow_spaces)} 条域名空间放行）
 
 冲突规则数: {len(conflict_rules_dict)}
 
@@ -561,17 +678,30 @@ def update_readme(block_rules_dict: dict, white_rules_dict: dict, conflict_rules
   拦截的域名不采纳任何单个名单的例外（部分名单自带近 3000 条私人白名单，
   照单全收会把 `als.baidu.com`（17 个源拦）、`nsclick.baidu.com`（16 个源拦）
   这类公认广告域放行，实测导致贴吧广告回流）。
-- 域名统一小写并严格校验，剔除裸 IP、下划线、首尾点、通配符与公共后缀
-  （下划线在 AdGuard 的域名校验里非法，此类规则在 AGH 中永远不会生效）。
+- 域名统一小写并严格校验：裸 IP、下划线、首尾点、公共后缀、以及 **TLD 不是「长度≥2
+  且首尾为字母」** 的域名全部剔除——这类行在 AGH 里通不过域名校验，会退化成 URL 子串
+  规则并连带行尾注释一起解析，纯属死规则（实测清掉 16 条，如 `azvjflj.cn1`）。
+- 抓取失败（重试 3 次后仍失败）时**构建直接失败、不发布新版**：以前只打印一行日志，
+  「悄悄少了一个源」的名单照样发布，上游偶发 429/503 就会造成静默缩水。
+- **通配规则还原**：上游 `||*.X^` 的原意是「拦 X 的全部子域」，纯域名格式以前会把它
+  降级成「只拦 X 本身」，子域全漏。现在还原为域名空间规则（`||X^`），本次 298 条。
+  用户自己白名单里「只有一个 `*`」的放行（如 `@@||storage*360buyimg.com^`）还原为
+  `@@||360buyimg.com^`；上游的 `@@||*.X^` 一概不还原，避免把别人的「整站放行」搬进来。
+- 同一份名单被配成两个源（`smad` 与「下个ID见」是同一份 SMAdHosts）时按源文件去重计数，
+  否则「≥3 源共识」的判定会被重复计数放大。
 - **核心服务保护名单**：系统更新、连通性检测（被拦会显示「无网络」）、推送通道、
   加密 DNS、证书吊销、NTP，以及阿里系 App 的 ACS/JMACS/MSGACS 网络与风控接口，
   无论上游怎么写都永不拦截。
 - **域名空间拦截**（文件开头 `==== 域名空间拦截（含全部子域）====` 段，
-  当前 {len(BLOCK_DOMAIN_SPACES)} 条）：以 AdGuard 网络语法 `||域名^` 输出，
+  当前 {len(domain_spaces)} 条）：以 AdGuard 网络语法 `||域名^` 输出，
   连**全部子域**一起拦。纯域名是精确主机名匹配，父域拦不住子域——实测
   `sofire.baidu.com` 拦住了，但 App 请求的是 `factors.sofire.baidu.com`；
   轮换哈希域（`9e59f633….rdt.tfogc.com`）更是永远追不上。这些行**不带行尾注释**：
   AdGuard 的网络规则不剥离 `#`，带了注释整条就失效。
+  其中大部分来自上游 `||*.X^` 通配规则的还原，少数是逐个核实后手工加入的广告域。
+- **域名空间放行**（白名单文件里 `==== 域名空间放行 ====` 段，当前 {len(allow_spaces)} 条）：
+  你自己白名单里「只含一个 `*`」的放行规则还原成 `@@||域名^`，
+  否则它们在 DNS 层等于没写（例如曾让 `sdk*faceid.qq.com`、`storage*360buyimg.com` 失效）。
 
 本次构建统计：保留 {stats['kept']} 条（其中带上下文修饰符但目标本身是广告域的 {stats['kept_scoped_ad']} 条），
 丢弃上下文规则 {stats['dropped_context']} 条，丢弃 badfilter {stats['dropped_badfilter']} 条，
@@ -632,7 +762,7 @@ def main():
 
     ad_exceptions = sorted(
         d for d in all_white_rules
-        if all_white_rules[d] != "本地规则"       # 用户自己的白名单永远优先
+        if all_white_rules[d] != LOCAL_SOURCE_NAME   # 用户自己的白名单永远优先
         and d not in NEVER_BLOCK
         and (AD_MARKERS.search(d)                # 名字就是广告/追踪特征
              # 或：被 3 个以上独立名单共同拦截 => 公认拦截目标，不采纳单个名单的例外
@@ -667,28 +797,47 @@ def main():
     all_white_rules = effective_white
     print(f"  白名单裁剪掉不产生效果的条目: {trimmed} 条")
 
+    # 域名空间拦截 = 手工核实过的清单 ∪ 从 `||*.X^` 还原出来的父域
+    # （去掉保护名单里的、以及已经被整体放行的）
+    domain_spaces = sorted((set(BLOCK_DOMAIN_SPACES) | WILDCARD_SPACE_FOUND)
+                           - NEVER_BLOCK - set(white_source_white))
+    # 通配放行规则（@@||前缀*X^）还原成 `@@||X^`，否则这些放行在 DNS 层等于没写
+    allow_spaces = sorted(WILDCARD_ALLOW_FOUND - set(domain_spaces))
+
     print("\n最终统计:")
     print(f"  最终黑名单: {len(all_block_rules)} 条 "
-          f"(另有 {len(BLOCK_DOMAIN_SPACES)} 条域名空间规则)")
-    print(f"  最终白名单: {len(all_white_rules)} 条")
+          f"(另有 {len(domain_spaces)} 条域名空间拦截，其中来自 ||*.X^ 还原的 "
+          f"{len(WILDCARD_SPACE_FOUND)} 条)")
+    print(f"  最终白名单: {len(all_white_rules)} 条 "
+          f"(另有 {len(allow_spaces)} 条域名空间放行)")
     print(f"  冲突规则: {len(conflict_rules)} 条")
     print(f"  解析统计: {stats}")
+
+    if FAILED_SOURCES:
+        print("\n" + "!" * 60)
+        print(f"构建失败：以下 {len(FAILED_SOURCES)} 个上游源抓取失败（已重试 3 次）："
+              f"{FAILED_SOURCES}")
+        print("宁可不出新版，也不发布一份「悄悄少了几个源」的名单。")
+        print("!" * 60)
+        sys.exit(1)
 
     write_rules_to_file(
         block_output_file, all_block_rules,
         "AdGuard Custom Blocklist",
         "自动合并的广告拦截规则（与白名单完全独立）", AUTHOR,
-        domain_spaces=BLOCK_DOMAIN_SPACES)
+        domain_spaces=domain_spaces)
     write_rules_to_file(
         white_output_file, all_white_rules,
         "AdGuard Custom Whitelist",
-        "自动合并的白名单规则（与黑名单完全独立）", AUTHOR)
+        "自动合并的白名单规则（与黑名单完全独立）", AUTHOR,
+        allow_spaces=allow_spaces)
     write_rules_to_file(
         conflict_output_file, conflict_rules,
         "AdGuard Conflict Rules",
         "同时存在于黑名单和白名单的规则", AUTHOR)
 
-    update_readme(all_block_rules, all_white_rules, conflict_rules)
+    update_readme(all_block_rules, all_white_rules, conflict_rules,
+              domain_spaces=domain_spaces, allow_spaces=allow_spaces)
 
     print("\n" + "=" * 60)
     print("规则处理完成！")
