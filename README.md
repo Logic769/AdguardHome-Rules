@@ -5,10 +5,10 @@
 
 | 项目 | 当前状态 |
 | --- | --- |
-| 最后构建时间 | **2026-10-01 20:48:23 (UTC+8)** |
-| 拦截规则 | **399,047** 条 + 309 条「域名空间」（连全部子域一起拦） |
-| 允许规则 | **474** 条 + 3 条「域名空间放行」 |
-| 冲突规则（同时被拦又被放行） | 360 条 |
+| 最后构建时间 | **2026-10-01 21:28:42 (UTC+8)** |
+| 拦截规则 | **399,013** 条 + 309 条「域名空间」（连全部子域一起拦） |
+| 允许规则 | **480** 条 + 3 条「域名空间放行」 |
+| 冲突规则（同时被拦又被放行） | 366 条 |
 | 上游来源 | 26 个黑名单源 + 1 个白名单源（明细见下方表格） |
 | 构建方式 | GitHub Actions 自动构建，也可在 Actions 页面手动触发 |
 
@@ -111,9 +111,9 @@ https://gh-proxy.org/https://github.com/Logic769/AdguardHome-Rules/releases/late
 
 | 文件 | 作用 | 条数 | 订阅地址（推荐） | 备用地址（分支直链） |
 | --- | --- | --- | --- | --- |
-| `Black.txt` | **拦截**：广告、追踪、统计、恶意域名 | 399,356 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black.txt> | <https://raw.githubusercontent.com/Logic769/AdguardHome-Rules/main/Black.txt> |
-| `White.txt` | **允许**：保护名单 + 你自己的白名单，用来纠正误杀 | 477 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/White.txt> | <https://raw.githubusercontent.com/Logic769/AdguardHome-Rules/main/White.txt> |
-| `Conflict.txt` | **冲突**：同时出现在黑名单和白名单里的域名（仅供排查，一般不用订阅） | 360 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Conflict.txt> | <https://raw.githubusercontent.com/Logic769/AdguardHome-Rules/main/Conflict.txt> |
+| `Black.txt` | **拦截**：广告、追踪、统计、恶意域名 | 399,322 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black.txt> | <https://raw.githubusercontent.com/Logic769/AdguardHome-Rules/main/Black.txt> |
+| `White.txt` | **允许**：保护名单 + 你自己的白名单，用来纠正误杀 | 483 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/White.txt> | <https://raw.githubusercontent.com/Logic769/AdguardHome-Rules/main/White.txt> |
+| `Conflict.txt` | **冲突**：同时出现在黑名单和白名单里的域名（仅供排查，一般不用订阅） | 366 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Conflict.txt> | <https://raw.githubusercontent.com/Logic769/AdguardHome-Rules/main/Conflict.txt> |
 
 > 两个地址内容一样：**推荐地址**指向最新 Release（每次构建更新同名文件，永久有效）；
 > **备用地址**直接读仓库分支文件（Release 还没发布完时可临时用）。
@@ -150,8 +150,8 @@ https://gh-proxy.org/https://github.com/Logic769/AdguardHome-Rules/releases/late
 | smad | 4,959 | <https://raw.githubusercontent.com/2Gardon/SM-Ad-FuckU-hosts/refs/heads/master/SMAdHosts> |
 | 下个ID见 | 4,959 | <https://raw.githubusercontent.com/2Gardon/SM-Ad-FuckU-hosts/master/SMAdHosts> |
 | 大萌主 | 4,510（另含 4 条例外） | <https://raw.githubusercontent.com/damengzhu/banad/main/jiekouAD.txt> |
-| Malicious URL Blocklist | 3,347 | <https://adguardteam.github.io/HostlistsRegistry/assets/filter_11.txt> |
-| 本地规则（你自己的名单） | 1,004 | <https://raw.githubusercontent.com/Logic769/Adguardhome-local-rules/main/blacklist.txt> |
+| Malicious URL Blocklist | 3,314 | <https://adguardteam.github.io/HostlistsRegistry/assets/filter_11.txt> |
+| 本地规则（你自己的名单） | 1,010 | <https://raw.githubusercontent.com/Logic769/Adguardhome-local-rules/main/blacklist.txt> |
 | 秋风的规则 | 958 | <https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/AWAvenue-Ads-Rule.txt> |
 | 茯苓的广告规则 | 663 | <https://raw.githubusercontent.com/Kuroba-Sayuki/FuLing-AdRules/main/FuLingRules/FuLingBlockList.txt> |
 | 逆向涉猎 | 547 | <https://raw.githubusercontent.com/790953214/qy-Ads-Rule/main/black.txt> |
@@ -165,7 +165,7 @@ https://gh-proxy.org/https://github.com/Logic769/AdguardHome-Rules/releases/late
 
 | 来源 | 本次贡献条数 | 仓库 / 地址 |
 | --- | --- | --- |
-| 本地规则（白名单） | 114 | <https://raw.githubusercontent.com/Logic769/Adguardhome-local-rules/main/whitelist.txt> |
+| 本地规则（白名单） | 120 | <https://raw.githubusercontent.com/Logic769/Adguardhome-local-rules/main/whitelist.txt> |
 
 > 统计的是「本次构建从该源解析出的条数」，同一域名被多个源收录时会去重，
 > 所以各源之和会大于最终条数。
@@ -222,9 +222,9 @@ https://gh-proxy.org/https://github.com/Logic769/AdguardHome-Rules/releases/late
 
 ### 6. 本次构建统计
 
-保留 1,444,088 条（其中带上下文修饰符但目标本身是广告域的 158 条），
+保留 1,444,061 条（其中带上下文修饰符但目标本身是广告域的 158 条），
 丢弃上下文规则 6,347 条，丢弃 badfilter 11 条，
-采纳全局例外 3,781 条，忽略不可信的上游例外 536 条，
+采纳全局例外 3,787 条，忽略不可信的上游例外 536 条，
 剔除无效域名 17,825 条。
 
 ---
@@ -263,6 +263,6 @@ AdGuard Home 的查询日志里 `Result.Rules` 会给出命中的规则来源，
 
 ---
 
-构建时间：2026-10-01 20:48:23 (UTC+8) · 项目作者：logic769 ·
+构建时间：2026-10-01 21:28:42 (UTC+8) · 项目作者：logic769 ·
 本 README 由 `documents/process_rules.py` 的 `update_readme()` 在每次构建时自动生成，
 请勿手工修改（会被下一次构建覆盖）。
