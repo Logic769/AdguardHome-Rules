@@ -5,8 +5,8 @@
 
 | 项目 | 当前状态 |
 | --- | --- |
-| 最后构建时间 | **2026-10-08 13:24:11 (UTC+8)** |
-| 拦截规则 | **404,256** 条 + 309 条「域名空间」（连全部子域一起拦） |
+| 最后构建时间 | **2026-10-08 21:07:19 (UTC+8)** |
+| 拦截规则 | **404,274** 条 + 309 条「域名空间」（连全部子域一起拦） |
 | 允许规则 | **521** 条 + 3 条「域名空间放行」 |
 | 冲突规则（同时被拦又被放行） | 387 条 |
 | 上游来源 | 26 个黑名单源 + 1 个白名单源（明细见下方表格） |
@@ -111,7 +111,7 @@ https://gh-proxy.org/https://github.com/Logic769/AdguardHome-Rules/releases/late
 
 | 文件 | 作用 | 条数 | 订阅地址（推荐） | 备用地址（分支直链） |
 | --- | --- | --- | --- | --- |
-| `Black.txt` | **拦截**：广告、追踪、统计、恶意域名 | 404,565 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black.txt> | <https://raw.githubusercontent.com/Logic769/AdguardHome-Rules/main/Black.txt> |
+| `Black.txt` | **拦截**：广告、追踪、统计、恶意域名 | 404,583 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black.txt> | <https://raw.githubusercontent.com/Logic769/AdguardHome-Rules/main/Black.txt> |
 | `White.txt` | **允许**：保护名单 + 你自己的白名单，用来纠正误杀 | 524 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/White.txt> | <https://raw.githubusercontent.com/Logic769/AdguardHome-Rules/main/White.txt> |
 | `Conflict.txt` | **冲突**：同时出现在黑名单和白名单里的域名（仅供排查，一般不用订阅） | 387 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Conflict.txt> | <https://raw.githubusercontent.com/Logic769/AdguardHome-Rules/main/Conflict.txt> |
 
@@ -134,11 +134,11 @@ https://gh-proxy.org/https://github.com/Logic769/AdguardHome-Rules/releases/late
 
 | 来源 | 本次贡献条数 | 仓库 / 地址 |
 | --- | --- | --- |
-| AdBlock DNS Filters | 225,750（另含 197 条例外） | <https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblockdns.txt> |
+| AdBlock DNS Filters | 225,851（另含 197 条例外） | <https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblockdns.txt> |
 | xndeye adblock_list | 224,748（另含 30 条例外） | <https://raw.githubusercontent.com/xndeye/adblock_list/refs/heads/release/dns.txt> |
-| natsuki | 198,249 | <https://raw.githubusercontent.com/Natsuki-Kaede/Natsuki-List/refs/heads/main/adguardhome.txt> |
-| adsethost | 198,135 | <https://raw.githubusercontent.com/rentianyu/Ad-set-hosts/master/adguard> |
-| GOODBYEADS | 115,534 | <https://raw.githubusercontent.com/8680/GOODBYEADS/master/data/rules/dns.txt> |
+| adsethost | 198,672 | <https://raw.githubusercontent.com/rentianyu/Ad-set-hosts/master/adguard> |
+| natsuki | 198,438 | <https://raw.githubusercontent.com/Natsuki-Kaede/Natsuki-List/refs/heads/main/adguardhome.txt> |
+| GOODBYEADS | 115,664 | <https://raw.githubusercontent.com/8680/GOODBYEADS/master/data/rules/dns.txt> |
 | neodavhost | 111,996 | <https://raw.githubusercontent.com/neodevpro/neodevhost/master/adblocker> |
 | 1hosts | 102,241 | <https://raw.githubusercontent.com/badmojr/1Hosts/master/Lite/adblock.txt> |
 | anti-AD | 94,921（另含 107 条例外） | <https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-easylist.txt> |
@@ -222,7 +222,7 @@ https://gh-proxy.org/https://github.com/Logic769/AdguardHome-Rules/releases/late
 
 ### 6. 本次构建统计
 
-保留 1,464,565 条（其中带上下文修饰符但目标本身是广告域的 158 条），
+保留 1,465,522 条（其中带上下文修饰符但目标本身是广告域的 158 条），
 丢弃上下文规则 6,349 条，丢弃 badfilter 11 条，
 采纳全局例外 3,836 条，忽略不可信的上游例外 535 条，
 剔除无效域名 17,765 条。
@@ -263,6 +263,6 @@ AdGuard Home 的查询日志里 `Result.Rules` 会给出命中的规则来源，
 
 ---
 
-构建时间：2026-10-08 13:24:11 (UTC+8) · 项目作者：logic769 ·
+构建时间：2026-10-08 21:07:19 (UTC+8) · 项目作者：logic769 ·
 本 README 由 `documents/process_rules.py` 的 `update_readme()` 在每次构建时自动生成，
 请勿手工修改（会被下一次构建覆盖）。
