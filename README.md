@@ -1,15 +1,15 @@
 # 激进的规则 · 自动更新的 AdGuard Home 规则
 
-> **一句话说明**：把 25 个开源广告拦截名单合并、去重、纠错，自动生成两个可以直接订阅的
+> **一句话说明**：把 24 个开源广告拦截名单合并、去重、纠错，自动生成两个可以直接订阅的
 > AdGuard Home 规则文件（拦截 + 允许）。每 6 小时自动重建一次，本页面上的数字和名单同步刷新。
 
 | 项目 | 当前状态 |
 | --- | --- |
-| 最后构建时间 | **2026-10-26 01:16:29 (UTC+8)** |
+| 最后构建时间 | **2026-10-26 01:22:56 (UTC+8)** |
 | 拦截规则 | **630,396** 条 + 309 条「域名空间」（连全部子域一起拦） |
 | 允许规则 | **535** 条 + 3 条「域名空间放行」 |
 | 冲突规则（同时被拦又被放行） | 400 条 |
-| 上游来源 | 25 个黑名单源 + 1 个白名单源（明细见下方表格） |
+| 上游来源 | 24 个黑名单源 + 1 个白名单源（明细见下方表格） |
 | 构建方式 | GitHub Actions 自动构建，也可在 Actions 页面手动触发 |
 
 ---
@@ -146,7 +146,6 @@ https://gh-proxy.org/https://github.com/Logic769/AdguardHome-Rules/releases/late
 | 1hosts | 102,241 | <https://raw.githubusercontent.com/badmojr/1Hosts/master/Lite/adblock.txt> |
 | anti-AD | 98,085（另含 107 条例外） | <https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-easylist.txt> |
 | ABP | 64,822（另含 26 条例外） | <https://raw.githubusercontent.com/damengzhu/abpmerge/refs/heads/main/abpmerge.txt> |
-| oisd/small | 58,802 | <https://small.oisd.nl/> |
 | 那个谁520 | 21,689（另含 2,985 条例外） | <https://raw.githubusercontent.com/qq5460168/666/master/rules.txt> |
 | 10007 | 12,480（另含 9 条例外） | <https://raw.githubusercontent.com/lingeringsound/10007_auto/master/adb.txt> |
 | 海哥 | 12,001（另含 1 条例外） | <https://raw.githubusercontent.com/2771936993/HG/main/hg1.txt> |
@@ -221,10 +220,10 @@ https://gh-proxy.org/https://github.com/Logic769/AdguardHome-Rules/releases/late
 
 ### 6. 本次构建统计
 
-保留 2,153,996 条（其中带上下文修饰符但目标本身是广告域的 159 条），
+保留 2,095,192 条（其中带上下文修饰符但目标本身是广告域的 159 条），
 丢弃上下文规则 6,297 条，丢弃 badfilter 16 条，
 采纳全局例外 3,846 条，忽略不可信的上游例外 558 条，
-剔除无效域名 16,951 条。
+剔除无效域名 16,949 条。
 
 ---
 
@@ -262,6 +261,6 @@ AdGuard Home 的查询日志里 `Result.Rules` 会给出命中的规则来源，
 
 ---
 
-构建时间：2026-10-26 01:16:29 (UTC+8) · 项目作者：logic769 ·
+构建时间：2026-10-26 01:22:56 (UTC+8) · 项目作者：logic769 ·
 本 README 由 `documents/process_rules.py` 的 `update_readme()` 在每次构建时自动生成，
 请勿手工修改（会被下一次构建覆盖）。
