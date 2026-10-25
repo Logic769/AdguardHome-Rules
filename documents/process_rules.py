@@ -70,7 +70,6 @@ block_source_urls = {
     "hagezi Pro": "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/pro.txt",
     "ABP": "https://raw.githubusercontent.com/damengzhu/abpmerge/refs/heads/main/abpmerge.txt",
     "那个谁520": "https://raw.githubusercontent.com/qq5460168/666/master/rules.txt",
-    "oisd/small": "https://small.oisd.nl/",
     "oisd/big": "https://big.oisd.nl/",
     "本地规则": "https://raw.githubusercontent.com/Logic769/Adguardhome-local-rules/main/blacklist.txt"
 }
