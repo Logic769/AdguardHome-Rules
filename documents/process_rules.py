@@ -49,30 +49,29 @@ root_dir = os.path.dirname(script_dir)
 
 block_source_urls = {
     "秋风的规则": "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/AWAvenue-Ads-Rule.txt",
-"晴雅":"https://raw.githubusercontent.com/3316134332/qy-Ads-Rule/refs/heads/main/black.txt",
 "困了想睡觉":"https://raw.githubusercontent.com/Kuner-mw/DNS-Kuner/main/FilterRules/blacklist.txt",
 "海哥":"https://raw.githubusercontent.com/2771936993/HG/main/hg1.txt",
-    "秋风的规则补充": "https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Replenish.txt",
 "natsuki":"https://raw.githubusercontent.com/Natsuki-Kaede/Natsuki-List/refs/heads/main/adguardhome.txt",
     "DD自用": "https://raw.githubusercontent.com/afwfv/DD-AD/main/rule/DD-AD.txt",
     "smad": "https://raw.githubusercontent.com/2Gardon/SM-Ad-FuckU-hosts/refs/heads/master/SMAdHosts",
     "大萌主": "https://raw.githubusercontent.com/damengzhu/banad/main/jiekouAD.txt",
     "10007": "https://raw.githubusercontent.com/lingeringsound/10007_auto/master/adb.txt",
-    "逆向涉猎": "https://raw.githubusercontent.com/790953214/qy-Ads-Rule/main/black.txt",
+    "逆向涉猎": "https://raw.githubusercontent.com/rssvcn/qy-Ads-Rule/main/black.txt",
     "neodavhost": "https://raw.githubusercontent.com/neodevpro/neodevhost/master/adblocker",
-    "下个ID见": "https://raw.githubusercontent.com/2Gardon/SM-Ad-FuckU-hosts/master/SMAdHosts",
     "adsethost": "https://raw.githubusercontent.com/rentianyu/Ad-set-hosts/master/adguard",
     "1hosts": "https://raw.githubusercontent.com/badmojr/1Hosts/master/Lite/adblock.txt",
     "茯苓的广告规则": "https://raw.githubusercontent.com/Kuroba-Sayuki/FuLing-AdRules/main/FuLingRules/FuLingBlockList.txt",
     "GOODBYEADS": "https://raw.githubusercontent.com/8680/GOODBYEADS/master/data/rules/dns.txt",
+    "AdGuard DNS filter": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt",
     "Malicious URL Blocklist": "https://adguardteam.github.io/HostlistsRegistry/assets/filter_11.txt",
     "xndeye adblock_list": "https://raw.githubusercontent.com/xndeye/adblock_list/refs/heads/release/dns.txt",
     "anti-AD": "https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-easylist.txt",
     "AdBlock DNS Filters": "https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblockdns.txt",
+    "hagezi Pro": "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/pro.txt",
     "ABP": "https://raw.githubusercontent.com/damengzhu/abpmerge/refs/heads/main/abpmerge.txt",
     "那个谁520": "https://raw.githubusercontent.com/qq5460168/666/master/rules.txt",
     "oisd/small": "https://small.oisd.nl/",
-    "乘风广告规则": "https://raw.githubusercontent.com/xinggsf/Adblock-Plus-Rule/refs/heads/master/rule.txt",
+    "oisd/big": "https://big.oisd.nl/",
     "本地规则": "https://raw.githubusercontent.com/Logic769/Adguardhome-local-rules/main/blacklist.txt"
 }
 
@@ -579,7 +578,7 @@ def process_all_sources(urls_dict: dict, psl: set, force_whitelist: bool = False
     seen_urls: dict = {}             # 域名 -> {规范化 URL}
 
     def norm_url(u: str) -> str:
-        # smad 与「下个ID见」配的是同一份 SMAdHosts（只差 /refs/heads/），
+        # 同一份名单常被不同写法引用（/refs/heads/ 与直链、大小写差异），
         # 直接按 URL 计数会把同一份名单算两次，让「≥3 源共识」判定失真
         return re.sub(r"/refs/heads/", "/", u)
 
