@@ -71,6 +71,16 @@ block_source_urls = {
     "ABP": "https://raw.githubusercontent.com/damengzhu/abpmerge/refs/heads/main/abpmerge.txt",
     "那个谁520": "https://raw.githubusercontent.com/qq5460168/666/master/rules.txt",
     "oisd/big": "https://big.oisd.nl/",
+    # 2026-10 新增 5 源：全部是「更新快 + 与上面 24 源重叠低」的增量源
+    #   Phishing Army        每 4 小时重建（聚合 9 家钓鱼库）
+    #   ShadowWhisperer      Malware / Tracking 两类，Tracking 是广告类增量最大的一支
+    #   BlocklistProject     Scam（诈骗站）
+    #   HaGeZi Encrypted DNS 专门收录 DoH/DoT 端点，用于防客户端绕过本机过滤
+    "Phishing Army": "https://phishing.army/download/phishing_army_blocklist_extended.txt",
+    "ShadowWhisperer Malware": "https://raw.githubusercontent.com/ShadowWhisperer/BlockLists/master/Lists/Malware",
+    "ShadowWhisperer Tracking": "https://raw.githubusercontent.com/ShadowWhisperer/BlockLists/master/Lists/Tracking",
+    "BlocklistProject Scam": "https://blocklistproject.github.io/Lists/scam.txt",
+    "HaGeZi Encrypted DNS": "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/doh.txt",
     "本地规则": "https://raw.githubusercontent.com/Logic769/Adguardhome-local-rules/main/blacklist.txt"
 }
 
@@ -86,6 +96,29 @@ DROP_MODIFIERS = {'badfilter'}
 LOCAL_SOURCE_NAME = "本地规则"
 # 采纳上游例外的上限：被拦截的上游源数达到此值即视为「公认拦截目标」，不采纳例外
 EXCEPTION_MAX_BLOCK_SOURCES = 3
+
+# ============================================================================
+# 「知名站点护栏」：只作用于下面 TOP_GUARD_SOURCES 里的新源
+# ----------------------------------------------------------------------------
+# 背景：Phishing Army / ShadowWhisperer / BlocklistProject 这类**聚合型**名单会把
+# 整个二级主域写进去（例如 amap.com、hao123.com、t.cn、bitly.com、tinyurl.com）。
+# 对纯拦截器来说这没问题，但本仓库是给「全家在用」的公共 DNS 服务的：
+# 拦掉 amap.com 就是高德地图不能定位，拦掉 t.cn/tinyurl 就是别人发来的短链全废。
+#
+# 实测：不设护栏时 5 个新源会额外拦掉 OpenDNS top10000 里的 244 个真实站点。
+# 护栏口径 = 精确命中 top10000 任意一条就不收录（含 google.co.in 这类多级后缀）。
+# 注意：只保护**域名本身**，不保护其子域——ads.google.com 这类广告子域照常拦。
+# 老源不套用护栏，避免改变既有输出。
+# ============================================================================
+TOP_GUARD_SOURCES = {
+    "Phishing Army",
+    "ShadowWhisperer Malware",
+    "ShadowWhisperer Tracking",
+    "BlocklistProject Scam",
+    "HaGeZi Encrypted DNS",
+}
+TOP_DOMAINS_FILE = os.path.join(script_dir, "top-domains.txt")
+TOP_DOMAINS: set = set()
 
 # 广告 / 追踪特征词：用于判断上游 @@ 例外是否值得采纳
 AD_MARKERS = re.compile(
@@ -175,6 +208,12 @@ NEVER_BLOCK = {
     # 你自己在本地黑名单里明确要拦、且有 6 个上游源共同拦截，按你的规则执行
     "tieba-ares.cdn.bcebos.com", "static.tieba.baidu.com",
     "pic.rmb.bdstatic.com",
+    # 2026-10-26 新增 5 个聚合源后的真实查询重放发现：ShadowWhisperer Tracking
+    # 把这两个「名字里带 config / chat 的**配置与站点主机**」当埋点整条拦了。
+    # chat.z.ai 是智谱 Z.ai 官网（z.ai 307 -> chat.z.ai，HTTP 200），
+    # config.edge.skype.com 是 Skype/Teams 的配置下发端点（返回 JSON 配置）。
+    # 两者都不是追踪端点，拦掉是纯误杀。
+    "chat.z.ai", "config.edge.skype.com",
     # 其它常见静态资源 / 工具
     "bbs-static.miyoushe.com", "static-res.qq.com", "cdn.yyb.gtimg.com",
     "s.img.mix.sina.com.cn", "bucket-ynote-online-cdn.note.youdao.com",
@@ -551,6 +590,30 @@ def download_file(url: str, friendly_name: str) -> Optional[str]:
     return None
 
 
+def load_top_domains() -> set:
+    """读取 top-domains.txt（知名站点护栏清单），缺失时返回空集并告警。
+
+    这张表是「不要为了拦广告把真实站点拦死」的底线：只要命中，就走
+    TOP_GUARD_SOURCES 的源一律不收录（见文件顶部 TOP_GUARD_SOURCES 注释）。
+    文件不存在时**不**让构建失败——护栏是保护措施，缺它构建也该照常跑完。
+    """
+    if not os.path.exists(TOP_DOMAINS_FILE):
+        print(f"  [护栏] 未找到 {TOP_DOMAINS_FILE}，本次不启用知名站点护栏")
+        return set()
+    try:
+        with open(TOP_DOMAINS_FILE, "r", encoding="utf-8") as fh:
+            doms = {
+                ln.strip().lower().lstrip(".")
+                for ln in fh
+                if ln.strip() and not ln.strip().startswith("#")
+            }
+        print(f"  [护栏] 已加载 {len(doms)} 条知名站点")
+        return doms
+    except OSError as e:
+        print(f"  [护栏] 读取失败 {e}，本次不启用护栏")
+        return set()
+
+
 def process_source_to_rules(url: str, source_name: str, psl: set,
                             force_whitelist: bool = False):
     """处理单个规则源，返回 (黑名单字典, 白名单字典)。
@@ -565,6 +628,15 @@ def process_source_to_rules(url: str, source_name: str, psl: set,
     block_rules: dict = {}
     white_rules: dict = {}
     mixed_detected = False
+    guarded = 0
+    demoted = 0
+    # 只有「新源」套用护栏：老源直接不套，免得无意改变既有输出
+    use_guard = source_name in TOP_GUARD_SOURCES and bool(TOP_DOMAINS)
+    # HaGeZi Encrypted DNS 只收多级子域：二级主域里混着大量真实 DoH 服务商官网
+    # （alidns.com / dnspod.com / dns.sb / cleanbrowsing.org …），拦掉伤的是
+    # 正常使用这些解析器的人，而真正要防的「客户端偷偷切 DoH」用的是子域端点。
+    # 另外整段排除 dnscrypt-cert.*：DNSCrypt 的证书查询靠它，拦了直接打挂 dnscrypt-proxy。
+    doh_mode = source_name == "HaGeZi Encrypted DNS"
 
     for line in content.splitlines():
         parsed = parse_line(line, source_name)
@@ -574,6 +646,18 @@ def process_source_to_rules(url: str, source_name: str, psl: set,
         if parsed.domain in psl:
             stats["invalid"] += 1
             continue
+
+        if not parsed.is_whitelist:
+            if doh_mode:
+                if "dnscrypt-cert" in parsed.domain:
+                    demoted += 1
+                    continue
+                if parsed.domain.count(".") < 2:
+                    demoted += 1
+                    continue
+            if use_guard and parsed.domain in TOP_DOMAINS:
+                guarded += 1
+                continue
 
         if parsed.is_whitelist or force_whitelist:
             white_rules[parsed.domain] = source_name
@@ -594,9 +678,16 @@ def process_source_to_rules(url: str, source_name: str, psl: set,
         "blocks": len(block_rules),
         "white": len(white_rules),
         "role": "白名单源" if force_whitelist else "黑名单源",
+        "guarded": guarded,
+        "demoted": demoted,
     })
 
-    print(f"  从 {source_name} 添加了 {len(block_rules)} 条黑名单, {len(white_rules)} 条白名单")
+    extra = ""
+    if guarded:
+        extra += f", 知名站点护栏挡掉 {guarded} 条"
+    if demoted:
+        extra += f", 非多级子域/证书域剔除 {demoted} 条"
+    print(f"  从 {source_name} 添加了 {len(block_rules)} 条黑名单, {len(white_rules)} 条白名单{extra}")
     return block_rules, white_rules
 
 
@@ -948,9 +1039,10 @@ https://gh-proxy.org/{block_url}
 ## 六、自动构建做了什么
 
 {code_fence}text
-拉取上游名单（26 个黑名单源 + 本地黑白名单）
+拉取上游名单（{n_block_src} 个黑名单源 + 本地黑白名单）
    ↓  解析 adblock / hosts 两种语法，剔除上下文修饰符、$badfilter、死规则
    ↓  分离上游的 @@ 例外，只采纳「有争议」的
+   ↓  新源套用知名站点护栏（top-domains.txt：命中就不收，避免拦死真实站点）
    ↓  合并去重 + 冲突消解（保护名单 > 你的本地名单 > 上游）
    ↓  还原 ||*.X^ 为域名空间规则（含平台 CDN 安全过滤）
    ↓  输出 Black.txt / White.txt / Conflict.txt
@@ -997,6 +1089,10 @@ def main():
     print("=" * 60)
 
     psl = load_public_suffixes()
+
+    # 护栏清单必须在处理黑名单源之前加载（process_source_to_rules 会读全局 TOP_DOMAINS）
+    global TOP_DOMAINS
+    TOP_DOMAINS = load_top_domains()
 
     print("\n--- 第一步: 处理白名单规则源 ---")
     _wsb, white_source_white, _ = process_all_sources(
