@@ -208,6 +208,26 @@ BLOCK_DOMAIN_SPACES = [
     "112.2o7.net",                # Adobe Analytics（Omniture）埋点，1295 个子域
     "net.daraz.com",              # -access-logs-*.net.daraz.com 埋点（6 个源拦）
     "giocdn.com",                 # GrowingIO 统计 CDN（7 个源拦）
+    # 2026-10-26 复查后加入：以下父域都已被上游按「精确主机名」拦进黑名单，
+    # 但它们的子域全部漏拦（实测数据来自生产 querylog，已剔除自造测试查询）。
+    # 加入前逐个 dig 探活：**子域里没有功能性服务**，整段都是埋点/遥测端点，才写进这里。
+    #
+    # 反面教训（务必保留）：broadcast.chat.bilibili.com 原本也被列入，
+    # 它确实被「海哥」以精确主机名拦着，但真机 dig 显示父域 CNAME 到
+    # broadcast.chat.biliapi.com → 122.248.50.173，是 B 站直播弹幕的长连接入口，
+    # 升级成 ||broadcast.chat.bilibili.com^ 会直接断弹幕。已剔除。
+    # 同理以下父域虽被上游精确拦着、但子域含真实功能，**一律不升级**：
+    #   umeng.com / umengcloud.com / getui.com / cnzz.com / wosms.cn / hpplay.cn /
+    #   zlink.toutiao.com / pardot.com / adriver.ru / viayoo.com / cdnjtzy.com /
+    #   ksapisrv.com / bilibili.cn / bytedance.com / broadcast.chat.bilibili.com
+    "clarity.ms",                     # 微软 Clarity：s./t./j./i. 全是 vmss-clarity-ingest 埋点
+    "metric.gstatic.com",             # Google DoT 探测遥测：<uuid>-dnsotls-ds.metric.gstatic.com
+    "ctobsnssdk.com",                 # 字节 CTO 观测 SDK：toblog./tobapplog./toapplog. 纯日志上报
+    "sdk-log.partner.sm.cn",          # 神马搜索 SDK 日志上报
+    "log.mmstat.com",                 # 阿里妈妈埋点（gm.mmstat.com 在父域 mmstat.com 下，不受影响）
+    "i.posthog.com",                  # PostHog 摄入端点（app.posthog.com 控制台在父域 posthog.com 下，不受影响）
+    "nexusedgeio.com",                # 广告跳转，父域 A 记录为空，仅随机子域（aeci*.）有应答
+    "dm.gg",                          # 广告跳转，父域与 ad. 子域均无应答
 ]
 
 # 「自动升级为域名空间」的禁止名单：
