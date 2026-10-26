@@ -164,6 +164,33 @@ NEVER_BLOCK = {
     "connectivitycheck.gstatic.com", "connectivitycheck.android.com",
     "connectivitycheck.platform.hicloud.com", "connectivitycheck.platform.dbankcloud.com",
     "connectivitycheck.cbg-app.huawei.com.cn", "connectivitycheck.vivo.com.cn",
+    # 2026-10-26 新增 5 个聚合源后的回归：ShadowWhisperer Tracking 把
+    # Google 安全浏览（Safe Browsing）整族当追踪端点拦了。Safe Browsing 是
+    # Chrome / Android / Safari 判断「这个网址是不是钓鱼/挂马」的安全能力，
+    # 拦掉之后浏览器失去恶意站点告警 —— 这是安全降级，不是去广告。
+    "safebrowsing.google.com", "alt1-safebrowsing.google.com",
+    "alt2-safebrowsing.google.com", "android-safebrowsing.google.com",
+    "safebrowsing-cache.google.com", "safebrowsing.cache.l.google.com",
+    "sb-ssl.google.com", "safebrowsingohttpgateway.googleapis.com",
+    "google-ohttp-relay-safebrowsing.fastly-edge.com",
+    "ohttp-relay-safebrowsing-android.google.fastly-edge.com",
+    "ohttp-relay-safebrowsing-chrome.google.fastly-edge.com",
+    # A-GPS 辅助定位（拦了会导致 Android 冷启动定位变慢／失败）
+    "supl.google.com",
+    # Apple 定位服务 / 地图 / 图片 CDN（2026-10-27 实探 CNAME 确认是功能性主机，
+    # 不是埋点：gsp*-ssl -> gsp*.ls-apple.com.akadns.net（定位服务），
+    # cl1/cl2/cl3 -> applemaps.qtlcdn.com（地图切片/内容），
+    # iphone-ld -> gsp*.aaplimg.com（图片资源）。
+    # 注：同批被拦的 Apple 反馈/诊断类（cstat、iphonediags、cssubmissions、
+    # radarsubmissions、littlebuddy、appleseed、feedback 等）**故意不保护**，
+    # 那些是「向 Apple 回传」的通道，拦掉正是想要的。
+    "gsp1-ssl.apple.com", "gsp2-ssl.apple.com", "gsp3-ssl.apple.com",
+    "gsp8-ssl.apple.com", "gsp9-ssl.apple.com", "gsp10-ssl.apple.com",
+    "cl1.apple.com", "cl2.apple.com", "cl3.apple.com",
+    "iphone-ld.apple.com",
+    # 公共 DNS 的等价别名：上面保护 dns.google，这里补上它的同义域名，
+    # 否则会出现「dns.google 放行但 dns.google.com 被拦」的不一致
+    "dns.google.com", "google-public-dns-a.google.com", "google-public-dns-b.google.com",
     # 证书吊销检查
     "crl.edge.digicert.com", "ocsp.godaddy.com", "ocsp.crlocsp.cn",
     "crl.globalsign.com", "ocsp.sectigo.com",
