@@ -160,6 +160,16 @@ NEVER_BLOCK = {
     "auth.wosms.cn", "code.sms.mob.com", "sdkapi.sms.mob.com",
     # 推送通道
     "api.tuisong.baidu.com", "push.m.youku.com", "sdk.open.talk.gepush.com",
+    # 哔哩哔哩直播弹幕 / 核心接口（2026-10-26 实测：这些主机被上游源当埋点拦掉，
+    # 结果弹幕长连接直接断。注意它们名字里带 chat / broadcast，很容易被误认成埋点，
+    # 实际是长连接入口 —— chat.bilibili.com CNAME -> broadcastlv-sh.chat.biliapi.com）
+    "chat.bilibili.com", "broadcast.chat.bilibili.com",
+    "broadcast.chat.biliapi.com", "broadcastlv.chat.bilibili.com",
+    "broadcastlv-sh.chat.biliapi.com",
+    # interface.bilibili.com 是 API 网关别名（301 -> www.bilibili.com）
+    "interface.bilibili.com",
+    # boss.hdslb.com 是 B 站对象存储桶（实测返回 401 UnauthorizedAccess 而非 NoSuchBucket）
+    "boss.hdslb.com",
     # 贴吧/百度 静态资源（拦了会让 App 缺图少样式）
     # 注：staticsns.cdn.bcebos.com 已移出保护名单 —— 它是一个 BCE 存储桶，
     # 你自己在本地黑名单里明确要拦、且有 6 个上游源共同拦截，按你的规则执行
