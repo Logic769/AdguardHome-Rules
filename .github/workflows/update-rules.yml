@@ -169,6 +169,22 @@ jobs:
           echo "输入: $(wc -l < dedup-all.txt) 条"
           echo "输出: $(wc -l < Black-domains-dedup.txt) 条 / $(ls -lh Black-domains-dedup.txt | awk '{print $5}')"
 
+      # 热门域小型版（Black-domains-small.txt）
+      # 从去冗余全量中筛出 top-domains.txt（1 万热门域）命中的条目，
+      # 命中主流广告/追踪域，体积小，适合内存极小的路由器（mosdns adblock_set）
+      - name: 派生热门域小型版（Black-domains-small.txt）
+        run: |
+          cp documents/top-domains.txt dedup-top.tmp
+          {
+            echo '! Title: 热门域小型版（路由器 mosdns）'
+            echo '! Description: 从全量去冗余规则中提取 top-domains.txt（1 万热门域）命中的条目，体积小，适合内存受限设备'
+            echo '! Homepage: https://github.com/$GITHUB_REPOSITORY'
+            echo "! Version: $(TZ=Asia/Shanghai date +%Y%m%d%H%M%S)"
+            echo '!'
+            grep -F -f dedup-top.tmp Black-domains-dedup.txt | LC_ALL=C sort -u
+          } > Black-domains-small.txt
+          echo "===== 热门域小型版 ====="
+          echo "输出: $(wc -l < Black-domains-small.txt) 条 / $(ls -lh Black-domains-small.txt | awk '{print $5}')"
       - name: Compute Beijing time for release title (main)
         id: time_main
         run: |
@@ -182,6 +198,7 @@ jobs:
           CONFLICT_COUNT=$(grep -v -c '^!' Conflict.txt || echo 0)
           CN_COUNT=$(wc -l < Black-domains-cn-final.txt || echo 0)
           DEDUP_COUNT=$(wc -l < Black-domains-dedup.txt || echo 0)
+          SMALL_COUNT=$(wc -l < Black-domains-small.txt || echo 0)
           {
             echo "激进的规则（main 分支）本次构建统计"
             echo
@@ -198,6 +215,7 @@ jobs:
             echo
             echo "- **Black-domains-cn-final.txt**: 中文源纯域名子集 ${CN_COUNT} 条，给内存受限的路由器（mosdns adblock_set）。"
             echo "- **Black-domains-dedup.txt**: 全量纯域名并做父域吸收后 ${DEDUP_COUNT} 条，语义与未去冗余版完全等价，体积更小，给内存紧张的路由器用。"
+            echo "- **Black-domains-small.txt**: 热门域小型版 ${SMALL_COUNT} 条，从 top-domains.txt（1 万热门域）筛出，体积小、误杀低，给内存极小的路由器（mosdns adblock_set）。"
           } > release_body_main.md
 
       - name: Generate release tag
@@ -215,7 +233,7 @@ jobs:
           allowUpdates: false
           replacesArtifacts: false
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: "Black.txt,Black-adblock.txt,White.txt,Conflict.txt,Black-domains-cn-final.txt,Black-domains-dedup.txt"
+          artifacts: "Black.txt,Black-adblock.txt,White.txt,Conflict.txt,Black-domains-cn-final.txt,Black-domains-dedup.txt,Black-domains-small.txt"
 
       - name: Commit and push README only to main (safe rebase)
         run: |
