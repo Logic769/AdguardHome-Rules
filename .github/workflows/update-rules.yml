@@ -48,62 +48,81 @@ jobs:
           RELEASE_TAG: stable-latest
         run: python documents/process_rules.py
 
-      # ==========================================================================
-      # 派生「非 AdGuard 解析器」可直接消费的清单。
-      # 为什么需要：Black.txt 的「精确域名」段每行都以 "# From: 源名" 结尾。
-      # ABP 规范里只有以 ! 开头的才是注释，行尾 # 不是；严格解析器（如 mosdns 的
-      # adblock_set）会把整行当无效规则丢弃，等于 80 万条主体白白失效。
-      # 本步骤不改 process_rules.py，只在 CI 侧做文本派生，AGH 侧行为完全不变。
-      # ==========================================================================
-      - name: 派生 mosdns/mihomo 可用清单
+      # ======================================================================
+      # 派生 adblock 版（Black-adblock.txt）
+      #
+      # Black.txt 是「AdGuard Home 一键导入」格式，它混合了两种语法：
+      #   · ||d^            走 ABP 解析，域名空间（含全部子域）
+      #   · d # From: 源名  走 hosts 解析，精确匹配单主机，行尾 # 是 hosts 注释
+      #
+      # 通用 adblock 引擎（uBlock Origin / AdGuard / mihomo）不吃第二种写法：
+      # ABP 规范里只有行首 ! 才是注释，行尾 # 不是，严格解析器会把整行丢弃。
+      # 故本步骤把两种写法统一成纯 ABP：裸域名补成 ||d^，并去掉所有行尾注释。
+      # process_rules.py 一行未改，AGH 侧的 Black.txt 行为完全不变。
+      # ======================================================================
+      - name: 派生 adblock 版（Black-adblock.txt）
         run: |
-          # ① 干净 ABP：剔除 ! 注释行与行尾注释，并排除「拦公共 DoH」的来源。
-          #    HaGeZi Encrypted DNS 专门收录 doh.pub / dns.alidns.com 这类端点，
-          #    自建解析链一旦加载就是自断上游。
-          awk '/# From: HaGeZi Encrypted DNS/ {next} {sub(/[[:space:]]*#.*$/,"")} NF' \
-            Black.txt | grep -v '^!' > Black-clean.txt || true
+          {
+            echo '! Title: 激进的规则（adblock 版）'
+            echo '! Description: 与 Black.txt 同源，统一为 ABP 语法，可直接导入 uBlock Origin / AdGuard / mihomo'
+            echo "! Homepage: https://github.com/${GITHUB_REPOSITORY}"
+            echo "! Version: $(TZ=Asia/Shanghai date +%Y%m%d%H%M%S)"
+            echo "! Last Updated: $(TZ=Asia/Shanghai date '+%Y-%m-%d %H:%M:%S') (UTC+8)"
+            echo '!'
+            echo '! ===== 拦截：域名空间（含全部子域）====='
+            {
+              grep '^[|][|]' Black.txt || true
+              grep -v '^!' Black.txt \
+                | grep -v '^[|][|]' \
+                | sed -e 's/[[:space:]]*#.*$//' \
+                | grep -v '^[[:space:]]*$' \
+                | sed -e 's/^/||/' -e 's/$/^/'
+            } | LC_ALL=C sort -u
+            echo '!'
+            echo '! ===== 放行：域名空间（例外优先于拦截）====='
+            {
+              grep '^@@[|][|]' White.txt || true
+              grep -v '^!' White.txt \
+                | grep -v '^@@[|][|]' \
+                | sed -e 's/[[:space:]]*#.*$//' \
+                | grep -v '^[[:space:]]*$' \
+                | sed -e 's/^/@@||/' -e 's/$/^/'
+            } | LC_ALL=C sort -u
+          } > Black-adblock.txt
 
-          # ② 纯域名版：||d^ 还原为裸域名，只保留合法域名，排序去重
-          awk '{sub(/^[|][|]/,""); sub(/\^$/,""); print}' Black-clean.txt \
-            | grep -E '^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)+$' \
-            | sort -u > Black-domains.txt || true
+          echo '===== 两个版本 ====='
+          echo "Black.txt（AGH 版）    : $(grep -v -c '^!' Black.txt || echo 0) 条 / $(ls -lh Black.txt | awk '{print $5}')"
+          echo "Black-adblock.txt（adblock 版）: $(grep -v -c '^!' Black-adblock.txt || echo 0) 条 / $(ls -lh Black-adblock.txt | awk '{print $5}')"
 
-          # ③ 白名单纯域名（@@||d^ → d）
+      # ======================================================================
+      # 路由器小体积版（可选产物，不属于上面两个版本）
+      # 给内存受限设备（如 512MB 路由器上的 mosdns adblock_set）用。
+      # 只取中文/本地源，输出纯域名；白名单与自建解析链上游在生成阶段物理剔除。
+      # ======================================================================
+      - name: 派生路由器小体积版（可选）
+        run: |
           grep -v '^!' White.txt \
-            | awk '{sub(/[[:space:]]*#.*$/,""); if ($0=="") next; sub(/^@@[|][|]/,""); sub(/\^$/,""); print}' \
-            | grep -E '^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)+$' \
-            | sort -u > White-domains.txt || true
+            | sed -e 's/[[:space:]]*#.*$//' \
+            | grep -v '^[[:space:]]*$' \
+            | sed -e 's/^@@[|][|]//' -e 's/^[|][|]//' -e 's/\^$//' \
+            | LC_ALL=C sort -u > White-domains.tmp || true
 
-          # ④ mosdns 的 adblock_set 只有 qname 匹配、没有 @@ 例外语义，
-          #    所以白名单必须在生成阶段物理剔除，否则 587 条保护域名会被一并拦死
-          grep -vxF -f White-domains.txt Black-domains.txt > Black-domains-safe.txt || true
-
-          # ⑤ 自建解析链的上游域名强行放行，防「拦到自己」
-          printf '%s\n' logic769.xyz doh.pub dns.alidns.com > upstream-allow.txt
-          grep -vxF -f upstream-allow.txt Black-domains-safe.txt > Black-domains-final.txt || true
-
-          # ⑥ 中文/本地源子集：给内存受限的路由器（512MB）用，量级小得多。
-          #    域名空间拦截段（||d^）没有来源标注，整段保留；精确域名段按来源筛选。
           CN='anti-AD|那个谁520|10007|海哥|大萌主|秋风的规则|茯苓的广告规则|逆向涉猎|DD自用|困了想睡觉|本地规则'
-          grep '^[|][|]' Black.txt > spaces.tmp || true
-          grep -E "^[^!#]+ # From: (${CN})$" Black.txt \
-            | sed -e 's/[[:space:]]*#.*$//' > cn.tmp || true
-          cat spaces.tmp cn.tmp \
-            | awk '{sub(/^[|][|]/,""); sub(/\^$/,""); print}' \
+          {
+            grep '^[|][|]' Black.txt || true
+            grep -E "^[^!#]+ # From: (${CN})$" Black.txt || true
+          } \
+            | sed -e 's/[[:space:]]*#.*$//' \
+            | grep -v '^[[:space:]]*$' \
+            | sed -e 's/^[|][|]//' -e 's/\^$//' \
             | grep -E '^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)+$' \
-            | sort -u > Black-domains-cn.txt || true
-          grep -vxF -f White-domains.txt Black-domains-cn.txt \
-            | grep -vxF -f upstream-allow.txt > Black-domains-cn-final.txt || true
+            | LC_ALL=C sort -u > routers.tmp || true
 
-          echo "===== 派生清单统计 ====="
-          echo "Black.txt 原始条数        : $(grep -v -c '^!' Black.txt || echo 0)"
-          echo "Black-clean.txt（干净ABP）: $(wc -l < Black-clean.txt)"
-          echo "Black-domains.txt（纯域名）: $(wc -l < Black-domains.txt)"
-          echo "White-domains.txt（放行）  : $(wc -l < White-domains.txt)"
-          echo "Black-domains-final.txt    : $(wc -l < Black-domains-final.txt)"
-          echo "Black-domains-cn-final.txt : $(wc -l < Black-domains-cn-final.txt)"
-          echo "===== 文件大小 ====="
-          ls -lh Black-clean.txt Black-domains-final.txt Black-domains-cn-final.txt
+          printf '%s\n' logic769.xyz doh.pub dns.alidns.com > upstream-allow.tmp
+          grep -vxF -f White-domains.tmp routers.tmp \
+            | grep -vxF -f upstream-allow.tmp > Black-domains-cn-final.txt || true
+
+          echo "Black-domains-cn-final.txt: $(wc -l < Black-domains-cn-final.txt) 条 / $(ls -lh Black-domains-cn-final.txt | awk '{print $5}')"
 
       - name: Compute Beijing time for release title (main)
         id: time_main
@@ -113,9 +132,9 @@ jobs:
       - name: Prepare release body (main)
         run: |
           BLOCK_COUNT=$(grep -v -c '^!' Black.txt || echo 0)
+          ADBLOCK_COUNT=$(grep -v -c '^!' Black-adblock.txt || echo 0)
           WHITE_COUNT=$(grep -v -c '^!' White.txt || echo 0)
           CONFLICT_COUNT=$(grep -v -c '^!' Conflict.txt || echo 0)
-          DOMAIN_COUNT=$(wc -l < Black-domains-final.txt || echo 0)
           CN_COUNT=$(wc -l < Black-domains-cn-final.txt || echo 0)
           {
             echo "激进的规则（main 分支）本次构建统计"
@@ -124,12 +143,14 @@ jobs:
             echo "- 白名单规则: ${WHITE_COUNT} 条"
             echo "- 冲突规则: ${CONFLICT_COUNT} 条"
             echo
-            echo "## 派生物（给 mosdns / mihomo 等非 AdGuard 解析器）"
+            echo "## 两个版本"
             echo
-            echo "- Black-clean.txt: 去掉行尾注释的 ABP 语法"
-            echo "- Black-domains-final.txt: 纯域名 ${DOMAIN_COUNT} 条（已剔除白名单与自建解析链上游，已排除拦 DoH 的来源）"
-            echo "- Black-domains-cn-final.txt: 中文/本地源子集 ${CN_COUNT} 条（给内存受限设备）"
-            echo "- White-domains.txt / upstream-allow.txt: 放行清单"
+            echo "- **Black.txt**（AGH 版）: ${BLOCK_COUNT} 条。AdGuard Home 一键导入，精确域名段带来源注释。"
+            echo "- **Black-adblock.txt**（adblock 版）: ${ADBLOCK_COUNT} 条。统一 ABP 语法、无行尾注释，uBlock Origin / AdGuard / mihomo 可直接导入。"
+            echo
+            echo "## 可选"
+            echo
+            echo "- **Black-domains-cn-final.txt**: 中文源纯域名子集 ${CN_COUNT} 条，给内存受限的路由器（mosdns adblock_set）。"
           } > release_body_main.md
 
       - name: Generate release tag
@@ -147,7 +168,7 @@ jobs:
           allowUpdates: false
           replacesArtifacts: false
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: "Black.txt,White.txt,Conflict.txt,Black-clean.txt,Black-domains.txt,Black-domains-final.txt,Black-domains-cn-final.txt,White-domains.txt,upstream-allow.txt"
+          artifacts: "Black.txt,Black-adblock.txt,White.txt,Conflict.txt,Black-domains-cn-final.txt"
 
       - name: Commit and push README only to main (safe rebase)
         run: |
