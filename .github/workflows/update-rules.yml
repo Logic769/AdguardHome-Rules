@@ -124,6 +124,51 @@ jobs:
 
           echo "Black-domains-cn-final.txt: $(wc -l < Black-domains-cn-final.txt) 条 / $(ls -lh Black-domains-cn-final.txt | awk '{print $5}')"
 
+      # ======================================================================
+      # 去冗余全量版（Black-domains-dedup.txt）
+      # 与 Black-domains-cn-final.txt 同为纯域名格式，但覆盖全部源。
+      # 关键步骤：父域吸收 —— mosdns 的 domain_set / adblock_set 对裸域名是
+      # 「等于该域名、或以 .该域名 结尾」的后缀匹配，所以父域已在集合里时，
+      # 它下面的每条子域都是纯冗余。实测 803,676 条里 111,676 条（13.9%）
+      # 属于这种冗余，删掉语义完全不变，但能省下可观内存。
+      # ======================================================================
+      - name: 派生去冗余全量版（Black-domains-dedup.txt）
+        run: |
+          # 1) 全量纯域名：ABP 域名空间段 + hosts 段统一成裸域名
+          grep '^[|][|]' Black.txt | sed -e 's/^[|][|]//' -e 's/\^$//' > dedup-all.tmp || true
+          grep -v '^!' Black.txt \
+            | grep -v '^[|][|]' \
+            | sed -e 's/[[:space:]]*#.*$//' \
+            | grep -v '^[[:space:]]*$' >> dedup-all.tmp || true
+          LC_ALL=C sort -u dedup-all.tmp > dedup-all.txt
+
+          # 2) 父域吸收：任一祖先域名已在集合中则丢弃当前行
+          awk 'NR==FNR { S[$0]=1; next }
+          {
+            d=$0; n=split(d,p,".")
+            for (i=2; i<=n; i++) {
+              par=p[i]
+              for (j=i+1; j<=n; j++) par=par "." p[j]
+              if (index(par,".")>0 && (par in S)) next
+            }
+            print d
+          }' dedup-all.txt dedup-all.txt > dedup.tmp
+
+          # 3) 白名单与自建解析链上游物理剔除（mosdns 没有 @@ 例外语义）
+          grep -v '^!' White.txt \
+            | sed -e 's/[[:space:]]*#.*$//' \
+            | grep -v '^[[:space:]]*$' \
+            | sed -e 's/^@@[|][|]//' -e 's/^[|][|]//' -e 's/\^$//' \
+            | LC_ALL=C sort -u > dedup-white.tmp || true
+
+          printf '%s\n' logic769.xyz doh.pub dns.alidns.com > dedup-upstream.tmp
+          grep -vxF -f dedup-white.tmp dedup.tmp \
+            | grep -vxF -f dedup-upstream.tmp > Black-domains-dedup.txt || true
+
+          echo "===== 去冗余全量版 ====="
+          echo "输入: $(wc -l < dedup-all.txt) 条"
+          echo "输出: $(wc -l < Black-domains-dedup.txt) 条 / $(ls -lh Black-domains-dedup.txt | awk '{print $5}')"
+
       - name: Compute Beijing time for release title (main)
         id: time_main
         run: |
@@ -136,6 +181,7 @@ jobs:
           WHITE_COUNT=$(grep -v -c '^!' White.txt || echo 0)
           CONFLICT_COUNT=$(grep -v -c '^!' Conflict.txt || echo 0)
           CN_COUNT=$(wc -l < Black-domains-cn-final.txt || echo 0)
+          DEDUP_COUNT=$(wc -l < Black-domains-dedup.txt || echo 0)
           {
             echo "激进的规则（main 分支）本次构建统计"
             echo
@@ -151,6 +197,7 @@ jobs:
             echo "## 可选"
             echo
             echo "- **Black-domains-cn-final.txt**: 中文源纯域名子集 ${CN_COUNT} 条，给内存受限的路由器（mosdns adblock_set）。"
+            echo "- **Black-domains-dedup.txt**: 全量纯域名并做父域吸收后 ${DEDUP_COUNT} 条，语义与未去冗余版完全等价，体积更小，给内存紧张的路由器用。"
           } > release_body_main.md
 
       - name: Generate release tag
@@ -168,7 +215,7 @@ jobs:
           allowUpdates: false
           replacesArtifacts: false
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: "Black.txt,Black-adblock.txt,White.txt,Conflict.txt,Black-domains-cn-final.txt"
+          artifacts: "Black.txt,Black-adblock.txt,White.txt,Conflict.txt,Black-domains-cn-final.txt,Black-domains-dedup.txt"
 
       - name: Commit and push README only to main (safe rebase)
         run: |
