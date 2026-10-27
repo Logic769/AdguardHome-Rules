@@ -90,6 +90,25 @@ jobs:
             } | LC_ALL=C sort -u
           } > Black-adblock.txt
 
+          # 拦截段父域吸收：ABP 的 ||d^ 匹配 d 及其全部子域，
+          # 祖先域名已在拦截集合里时该行冗余，物理删除。
+          # 放行段（@@||）绝不做吸收——放行父域会放大放行范围。
+          awk '
+            NR==FNR {
+              if ($0 ~ /^\|\|/) { d=substr($0,3); sub(/\^$/,"",d); S[d]=1 }
+              next
+            }
+            {
+              if ($0 ~ /^\|\|/) {
+                d=substr($0,3); sub(/\^$/,"",d);
+                t=d; red=0;
+                while ((i=index(t,"."))>0) { t=substr(t,i+1); if (t in S) { red=1; break } }
+                if (red) next
+              }
+              print
+            }' Black-adblock.txt Black-adblock.txt > Black-adblock-absorb.tmp
+          mv Black-adblock-absorb.tmp Black-adblock.txt
+
           echo '===== 两个版本 ====='
           echo "Black.txt（AGH 版）    : $(grep -v -c '^!' Black.txt || echo 0) 条 / $(ls -lh Black.txt | awk '{print $5}')"
           echo "Black-adblock.txt（adblock 版）: $(grep -v -c '^!' Black-adblock.txt || echo 0) 条 / $(ls -lh Black-adblock.txt | awk '{print $5}')"
@@ -121,6 +140,17 @@ jobs:
           printf '%s\n' logic769.xyz doh.pub dns.alidns.com > upstream-allow.tmp
           grep -vxF -f White-domains.tmp routers.tmp \
             | grep -vxF -f upstream-allow.tmp > Black-domains-cn-final.txt || true
+
+          # 父域吸收：mosdns 的 domain_set/adblock_set 对裸域名是后缀匹配，
+          # 祖先域名已在集合中时子域冗余，物理删除以压低内存。
+          awk '
+            NR==FNR { S[$0]=1; next }
+            {
+              d=$0; t=d; red=0;
+              while ((i=index(t,"."))>0) { t=substr(t,i+1); if (t in S) { red=1; break } }
+              if (!red) print
+            }' Black-domains-cn-final.txt Black-domains-cn-final.txt > cn-absorb.tmp
+          cp cn-absorb.tmp Black-domains-cn-final.txt
 
           echo "Black-domains-cn-final.txt: $(wc -l < Black-domains-cn-final.txt) 条 / $(ls -lh Black-domains-cn-final.txt | awk '{print $5}')"
 
