@@ -5,7 +5,7 @@
 
 | 项目 | 当前状态 |
 | --- | --- |
-| 最后构建时间 | **2026-10-27 13:32:05 (UTC+8)** |
+| 最后构建时间 | **2026-10-27 13:36:30 (UTC+8)** |
 | 拦截规则 | **806,338** 条 + 317 条「域名空间」（连全部子域一起拦） |
 | 允许规则 | **584** 条 + 3 条「域名空间放行」 |
 | 冲突规则（同时被拦又被放行） | 415 条 |
@@ -107,17 +107,13 @@ https://gh-proxy.org/https://github.com/Logic769/AdguardHome-Rules/releases/late
 
 ---
 
-## 三、六个文件分别是干什么的
+## 三、三个文件分别是干什么的
 
 | 文件 | 作用 | 条数 | 订阅地址（推荐） | 备用地址（分支直链） |
 | --- | --- | --- | --- | --- |
 | `Black.txt` | **拦截**：广告、追踪、统计、恶意域名 | 806,655 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black.txt> | <https://raw.githubusercontent.com/Logic769/AdguardHome-Rules/main/Black.txt> |
 | `White.txt` | **允许**：保护名单 + 你自己的白名单，用来纠正误杀 | 587 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/White.txt> | <https://raw.githubusercontent.com/Logic769/AdguardHome-Rules/main/White.txt> |
 | `Conflict.txt` | **冲突**：同时出现在黑名单和白名单里的域名（仅供排查，一般不用订阅） | 415 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Conflict.txt> | <https://raw.githubusercontent.com/Logic769/AdguardHome-Rules/main/Conflict.txt> |
-| `Black-adblock.txt` | **adblock 版**：与 Black.txt 同源，统一 ABP 语法、无行尾注释，uBlock Origin / AdGuard / mihomo 可直接导入 | 806,933 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-adblock.txt> | — |
-| `Black-domains-cn-final.txt` | **中文源纯域名子集**：给内存受限的路由器（mosdns adblock_set） | 25,429 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-domains-cn-final.txt> | — |
-| `Black-domains-dedup.txt` | **全量去冗余版**：父域吸收后的纯域名全集，语义等价、体积更小，给内存紧张的路由器 | 694,716 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-domains-dedup.txt> | — |
-| `Black-domains-small.txt` | **热门域小型版**：从 1 万热门域命中项中筛出，体积小、误杀低，给内存极小的路由器（mosdns adblock_set） | 113,572 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-domains-small.txt> | — |
 
 > 两个地址内容一样：**推荐地址**指向最新 Release（每次构建更新同名文件，永久有效）；
 > **备用地址**直接读仓库分支文件（Release 还没发布完时可临时用）。
@@ -271,6 +267,6 @@ AdGuard Home 的查询日志里 `Result.Rules` 会给出命中的规则来源，
 
 ---
 
-构建时间：2026-10-27 13:32:05 (UTC+8) · 项目作者：logic769 ·
+构建时间：2026-10-27 13:36:30 (UTC+8) · 项目作者：logic769 ·
 本 README 由 `documents/process_rules.py` 的 `update_readme()` 在每次构建时自动生成，
 请勿手工修改（会被下一次构建覆盖）。
