@@ -332,9 +332,12 @@ PSL_FALLBACK = {
 block_filename = os.environ.get("OUTPUT_BLOCK_FILENAME", "Black.txt")
 white_filename = os.environ.get("OUTPUT_WHITE_FILENAME", "White.txt")
 conflict_filename = os.environ.get("OUTPUT_CONFLICT_FILENAME", "Conflict.txt")
+annotated_filename = os.environ.get("OUTPUT_ANNOTATED_FILENAME")
 block_output_file = os.path.join(root_dir, block_filename)
 white_output_file = os.path.join(root_dir, white_filename)
 conflict_output_file = os.path.join(root_dir, conflict_filename)
+annotated_output_file = (os.path.join(root_dir, annotated_filename)
+                         if annotated_filename else None)
 
 readme_title = os.environ.get("README_TITLE", "激进的规则")
 release_tag = os.environ.get("RELEASE_TAG")
@@ -770,7 +773,7 @@ def find_conflict_rules(block_rules: dict, white_rules: dict) -> dict:
 
 def write_rules_to_file(filename: str, rules_dict: dict, title: str,
                         description: str, author: str, domain_spaces=None,
-                        allow_spaces=None):
+                        allow_spaces=None, include_comments: bool = True):
     print(f"\n正在将规则写入到 {os.path.basename(filename)}...")
     domain_spaces = domain_spaces or []
     allow_spaces = allow_spaces or []
@@ -804,8 +807,10 @@ def write_rules_to_file(filename: str, rules_dict: dict, title: str,
                 if isinstance(rules_dict[rule], tuple):
                     block_source, white_source = rules_dict[rule]
                     f.write(f"{rule} # Block from: {block_source}, White from: {white_source}\n")
-                else:
+                elif include_comments:
                     f.write(f"{rule} # From: {rules_dict[rule]}\n")
+                else:
+                    f.write(f"{rule}\n")
         print(f"文件 {os.path.basename(filename)} 写入成功！"
               f"（含 {len(domain_spaces)} 条空间拦截 / {len(allow_spaces)} 条空间放行）")
     except IOError as e:
@@ -985,7 +990,7 @@ https://gh-proxy.org/{block_url}
 
 **1. `Black.txt`（拦截 · 全量 · AdGuard 一键导入）**
 
-项目的主产物。混合两种语法：绝大多数行是 `域名 # From: 源名`（hosts 规则，精确匹配），
+项目的主产物。混合两种语法：绝大多数行是纯域名（hosts 规则，精确匹配，不携带 `# From:` 行尾注释），
 文件开头还有一段 `||域名^` 形式的域名空间规则（连全部子域一起拦，对付随机子域广告）。
 适合所有 AdGuard Home 用户直接订阅。
 
@@ -1037,8 +1042,8 @@ https://gh-proxy.org/{block_url}
 
 文件格式说明：
 
-- 绝大多数行是**纯域名 + 行尾注释**，例如 `example.com # From: 某名单`，
-  AdGuard Home 按 hosts 规则处理，**精确匹配该主机名**；
+- 绝大多数行是**纯域名**，例如 `example.com`，
+  AdGuard Home 按 hosts 规则处理，**精确匹配该主机名**；不携带 `# From:` 行尾注释，可减少内存占用；
 - 文件开头有一段以 `||域名^` 写法的**域名空间规则**（数量见上表），
   这类规则会**连全部子域一起拦**，用来对付「广告域用随机子域轮换」的情况；
   它们**不带行尾注释**——AdGuard 的网络规则不会剥离 `#`，带了注释整条就失效。
@@ -1299,7 +1304,13 @@ def main():
         block_output_file, all_block_rules,
         "AdGuard Custom Blocklist",
         "自动合并的广告拦截规则（与白名单完全独立）", AUTHOR,
-        domain_spaces=domain_spaces)
+        domain_spaces=domain_spaces, include_comments=False)
+    if annotated_output_file:
+        write_rules_to_file(
+            annotated_output_file, all_block_rules,
+            "AdGuard Custom Blocklist (with sources)",
+            "自动合并的广告拦截规则（仅构建时使用，供派生名单选择源）", AUTHOR,
+            domain_spaces=domain_spaces)
     write_rules_to_file(
         white_output_file, all_white_rules,
         "AdGuard Custom Whitelist",

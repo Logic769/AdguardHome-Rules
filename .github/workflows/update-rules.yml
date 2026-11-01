@@ -44,6 +44,7 @@ jobs:
           OUTPUT_BLOCK_FILENAME: Black.txt
           OUTPUT_WHITE_FILENAME: White.txt
           OUTPUT_CONFLICT_FILENAME: Conflict.txt
+          OUTPUT_ANNOTATED_FILENAME: Black-with-sources.txt
           README_TITLE: 激进的规则
           RELEASE_TAG: stable-latest
         run: python documents/process_rules.py
@@ -52,13 +53,11 @@ jobs:
       # 派生 adblock 版（Black-adblock.txt）
       #
       # Black.txt 是「AdGuard Home 一键导入」格式，它混合了两种语法：
-      #   · ||d^            走 ABP 解析，域名空间（含全部子域）
-      #   · d # From: 源名  走 hosts 解析，精确匹配单主机，行尾 # 是 hosts 注释
+      #   · ||d^  走 ABP 解析，域名空间（含全部子域）
+      #   · d     走 hosts 解析，精确匹配单主机
       #
-      # 通用 adblock 引擎（uBlock Origin / AdGuard / mihomo）不吃第二种写法：
-      # ABP 规范里只有行首 ! 才是注释，行尾 # 不是，严格解析器会把整行丢弃。
-      # 故本步骤把两种写法统一成纯 ABP：裸域名补成 ||d^，并去掉所有行尾注释。
-      # process_rules.py 一行未改，AGH 侧的 Black.txt 行为完全不变。
+      # Black.txt 为 AGH 生成时已去掉 # From 行尾注释；这里仍统一语法，
+      # 以兼容历史上带注释的产物并保证所有裸域名变成 ABP。
       # ======================================================================
       - name: 派生 adblock 版（Black-adblock.txt）
         run: |
@@ -129,7 +128,7 @@ jobs:
           CN='anti-AD|那个谁520|10007|海哥|大萌主|秋风的规则|茯苓的广告规则|逆向涉猎|DD自用|困了想睡觉|本地规则'
           {
             grep '^[|][|]' Black.txt || true
-            grep -E "^[^!#]+ # From: (${CN})$" Black.txt || true
+            grep -E "^[^!#]+ # From: (${CN})$" Black-with-sources.txt || true
           } \
             | sed -e 's/[[:space:]]*#.*$//' \
             | grep -v '^[[:space:]]*$' \
@@ -238,7 +237,7 @@ jobs:
             echo
             echo "## 两个版本"
             echo
-            echo "- **Black.txt**（AGH 版）: ${BLOCK_COUNT} 条。AdGuard Home 一键导入，精确域名段带来源注释。"
+            echo "- **Black.txt**（AGH 版）: ${BLOCK_COUNT} 条。AdGuard Home 一键导入，无行尾注释。"
             echo "- **Black-adblock.txt**（adblock 版）: ${ADBLOCK_COUNT} 条。统一 ABP 语法、无行尾注释，uBlock Origin / AdGuard / mihomo 可直接导入。"
             echo
             echo "## 可选"
