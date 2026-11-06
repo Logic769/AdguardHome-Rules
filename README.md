@@ -1,15 +1,15 @@
 # 激进的规则 · 自动更新的 AdGuard Home 规则
 
-> **一句话说明**：把 33 个开源广告拦截名单合并、去重、纠错，自动生成两个可以直接订阅的
+> **一句话说明**：把 32 个开源广告拦截名单合并、去重、纠错，自动生成两个可以直接订阅的
 > AdGuard Home 规则文件（拦截 + 允许）。每 6 小时自动重建一次，本页面上的数字和名单同步刷新。
 
 | 项目 | 当前状态 |
 | --- | --- |
-| 最后构建时间 | **2026-11-06 09:30:47 (UTC+8)** |
-| 拦截规则 | **1,012,508** 条 + 318 条「域名空间」（连全部子域一起拦） |
+| 最后构建时间 | **2026-11-06 09:37:25 (UTC+8)** |
+| 拦截规则 | **1,005,524** 条 + 318 条「域名空间」（连全部子域一起拦） |
 | 允许规则 | **588** 条 + 3 条「域名空间放行」 |
 | 冲突规则（同时被拦又被放行） | 418 条 |
-| 上游来源 | 33 个黑名单源 + 1 个白名单源（明细见下方表格） |
+| 上游来源 | 32 个黑名单源 + 1 个白名单源（明细见下方表格） |
 | 构建方式 | GitHub Actions 自动构建，也可在 Actions 页面手动触发 |
 
 ---
@@ -111,7 +111,7 @@ https://gh-proxy.org/https://github.com/Logic769/AdguardHome-Rules/releases/late
 
 | 文件 | 作用 | 条数 | 订阅地址（推荐） | 备用地址（分支直链） |
 | --- | --- | --- | --- | --- |
-| `Black.txt` | **拦截**：广告、追踪、统计、恶意域名 | 1,012,826 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black.txt> | <https://raw.githubusercontent.com/Logic769/AdguardHome-Rules/main/Black.txt> |
+| `Black.txt` | **拦截**：广告、追踪、统计、恶意域名 | 1,005,842 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black.txt> | <https://raw.githubusercontent.com/Logic769/AdguardHome-Rules/main/Black.txt> |
 | `White.txt` | **允许**：保护名单 + 你自己的白名单，用来纠正误杀 | 591 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/White.txt> | <https://raw.githubusercontent.com/Logic769/AdguardHome-Rules/main/White.txt> |
 | `Conflict.txt` | **冲突**：同时出现在黑名单和白名单里的域名（仅供排查，一般不用订阅） | 418 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Conflict.txt> | <https://raw.githubusercontent.com/Logic769/AdguardHome-Rules/main/Conflict.txt> |
 | `Black-adblock.txt` | **adblock 版**：与 Black.txt 同源，统一 ABP 语法、无行尾注释，uBlock Origin / AdGuard / mihomo 可直接导入 | 见 Release | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-adblock.txt> | — |
@@ -213,7 +213,6 @@ https://gh-proxy.org/https://github.com/Logic769/AdguardHome-Rules/releases/late
 | 那个谁520 | 21,689（另含 2,995 条例外） | <https://raw.githubusercontent.com/qq5460168/666/master/rules.txt> |
 | 10007 | 12,437（另含 9 条例外） | <https://raw.githubusercontent.com/lingeringsound/10007_auto/master/adb.txt> |
 | 海哥 | 12,035（另含 1 条例外） | <https://raw.githubusercontent.com/2771936993/HG/main/hg1.txt> |
-| BlocklistProject Scam | 8,522 | <https://blocklistproject.github.io/Lists/scam.txt> |
 | smad | 4,976 | <https://raw.githubusercontent.com/2Gardon/SM-Ad-FuckU-hosts/refs/heads/master/SMAdHosts> |
 | 大萌主 | 4,512（另含 4 条例外） | <https://raw.githubusercontent.com/damengzhu/banad/main/jiekouAD.txt> |
 | HaGeZi Encrypted DNS | 3,070 | <https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/doh.txt> |
@@ -287,7 +286,7 @@ https://gh-proxy.org/https://github.com/Logic769/AdguardHome-Rules/releases/late
 
 ### 6. 本次构建统计
 
-保留 3,641,907 条（其中带上下文修饰符但目标本身是广告域的 165 条），
+保留 3,633,380 条（其中带上下文修饰符但目标本身是广告域的 165 条），
 丢弃上下文规则 6,303 条，丢弃 badfilter 39 条，
 采纳全局例外 4,423 条，忽略不可信的上游例外 666 条，
 剔除无效域名 19,076 条。
@@ -297,7 +296,7 @@ https://gh-proxy.org/https://github.com/Logic769/AdguardHome-Rules/releases/late
 ## 六、自动构建做了什么
 
 ```text
-拉取上游名单（33 个黑名单源 + 本地黑白名单）
+拉取上游名单（32 个黑名单源 + 本地黑白名单）
    ↓  解析 adblock / hosts 两种语法，剔除上下文修饰符、$badfilter、死规则
    ↓  分离上游的 @@ 例外，只采纳「有争议」的
    ↓  新源套用知名站点护栏（top-domains.txt：命中就不收，避免拦死真实站点）
@@ -329,6 +328,6 @@ AdGuard Home 的查询日志里 `Result.Rules` 会给出命中的规则来源，
 
 ---
 
-构建时间：2026-11-06 09:30:47 (UTC+8) · 项目作者：logic769 ·
+构建时间：2026-11-06 09:37:25 (UTC+8) · 项目作者：logic769 ·
 本 README 由 `documents/process_rules.py` 的 `update_readme()` 在每次构建时自动生成，
 请勿手工修改（会被下一次构建覆盖）。
