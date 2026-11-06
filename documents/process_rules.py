@@ -81,6 +81,11 @@ block_source_urls = {
     "ShadowWhisperer Tracking": "https://raw.githubusercontent.com/ShadowWhisperer/BlockLists/master/Lists/Tracking",
     "BlocklistProject Scam": "https://blocklistproject.github.io/Lists/scam.txt",
     "HaGeZi Encrypted DNS": "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/doh.txt",
+    # 2026-11 新增 4 源（按用户指定并入，已排除 ppfeufer/StevenBlack）
+    "hululu1068": "https://raw.githubusercontent.com/hululu1068/AdGuard-Rule/main/rule/adgh.txt",
+    "关圣去广告DNS": "https://raw.githubusercontent.com/guandasheng/adguardhome/main/rule/dns.txt",
+    "home-dns-adblock": "https://raw.githubusercontent.com/abclq/home-dns-adblock/main/dist/adguard-dns-full.txt",
+    "Mullvad": "https://raw.githubusercontent.com/mullvad/dns-blocklists/main/output/doh/doh_adblock.txt",
     "本地规则": "https://raw.githubusercontent.com/Logic769/Adguardhome-local-rules/main/blacklist.txt"
 }
 
