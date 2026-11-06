@@ -71,15 +71,13 @@ block_source_urls = {
     "ABP": "https://raw.githubusercontent.com/damengzhu/abpmerge/refs/heads/main/abpmerge.txt",
     "那个谁520": "https://raw.githubusercontent.com/qq5460168/666/master/rules.txt",
     "oisd/big": "https://big.oisd.nl/",
-    # 2026-10 新增 5 源：全部是「更新快 + 与上面 24 源重叠低」的增量源
+    # 2026-10 新增 4 源：全部是「更新快 + 与上面 24 源重叠低」的增量源
     #   Phishing Army        每 4 小时重建（聚合 9 家钓鱼库）
     #   ShadowWhisperer      Malware / Tracking 两类，Tracking 是广告类增量最大的一支
-    #   BlocklistProject     Scam（诈骗站）
     #   HaGeZi Encrypted DNS 专门收录 DoH/DoT 端点，用于防客户端绕过本机过滤
     "Phishing Army": "https://phishing.army/download/phishing_army_blocklist_extended.txt",
     "ShadowWhisperer Malware": "https://raw.githubusercontent.com/ShadowWhisperer/BlockLists/master/Lists/Malware",
     "ShadowWhisperer Tracking": "https://raw.githubusercontent.com/ShadowWhisperer/BlockLists/master/Lists/Tracking",
-    "BlocklistProject Scam": "https://blocklistproject.github.io/Lists/scam.txt",
     "HaGeZi Encrypted DNS": "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/doh.txt",
     # 2026-11 新增 4 源（按用户指定并入，已排除 ppfeufer/StevenBlack）
     "hululu1068": "https://raw.githubusercontent.com/hululu1068/AdGuard-Rule/main/rule/adgh.txt",
@@ -119,7 +117,6 @@ TOP_GUARD_SOURCES = {
     "Phishing Army",
     "ShadowWhisperer Malware",
     "ShadowWhisperer Tracking",
-    "BlocklistProject Scam",
     "HaGeZi Encrypted DNS",
     # 2026-11 新增聚合源并入护栏（防误杀真实站点）
     "hululu1068",
