@@ -121,6 +121,11 @@ TOP_GUARD_SOURCES = {
     "ShadowWhisperer Tracking",
     "BlocklistProject Scam",
     "HaGeZi Encrypted DNS",
+    # 2026-11 新增聚合源并入护栏（防误杀真实站点）
+    "hululu1068",
+    "关圣去广告DNS",
+    "home-dns-adblock",
+    "Mullvad",
 }
 TOP_DOMAINS_FILE = os.path.join(script_dir, "top-domains.txt")
 TOP_DOMAINS: set = set()
