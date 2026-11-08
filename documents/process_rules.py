@@ -355,6 +355,7 @@ stats = {
     "kept": 0, "kept_scoped_ad": 0, "dropped_context": 0, "dropped_badfilter": 0,
     "exc_global": 0, "exc_scoped_dropped": 0, "exc_ad_ignored": 0,
     "invalid": 0, "regex_skipped": 0, "cosmetic_skipped": 0, "comment_skipped": 0,
+    "dropped_hosts_mapping": 0,
 }
 
 
@@ -451,14 +452,22 @@ def extract_domain(raw: str) -> Optional[str]:
     if not s:
         return None
 
-    # hosts 语法：0.0.0.0 example.com / 127.0.0.1 example.com
+    # hosts 语法：只有“黑洞/回环地址”才是拦截语义。
+    # 例如 0.0.0.0 example.com / 127.0.0.1 example.com。
+    # 而 142.251.178.110 example.com 这类“真实 IP + 域名”的 hosts 行
+    # 是加速/重定向，不是广告拦截；绝不能只取域名后当拦截规则，否则
+    # 会把 Google Play / Google API 等整段域名误杀成 0.0.0.0。
     parts = s.split()
-    if len(parts) >= 2 and (parts[0] in {"0.0.0.0", "127.0.0.1", "::", "::1"}
-                            or IPV4_RE.match(parts[0])):
-        s = parts[1]
-    elif len(parts) > 1:
-        # 含空格的其它形式无法忠实表达
-        return None
+    if len(parts) >= 2:
+        first = parts[0]
+        if first in {"0.0.0.0", "127.0.0.1", "::", "::1"}:
+            s = parts[1]
+        elif IPV4_RE.match(first) or ':' in first:
+            stats["dropped_hosts_mapping"] += 1
+            return None
+        else:
+            # 含空格的其它形式无法忠实表达
+            return None
 
     if s.startswith("||"):
         s = s[2:]
