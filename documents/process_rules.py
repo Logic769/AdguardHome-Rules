@@ -155,6 +155,12 @@ NEVER_BLOCK = {
     "mtalk.google.com", "alt1-mtalk.google.com", "alt2-mtalk.google.com",
     "alt3-mtalk.google.com", "alt4-mtalk.google.com", "alt5-mtalk.google.com",
     "alt6-mtalk.google.com", "alt7-mtalk.google.com", "alt8-mtalk.google.com",
+    # Google Play 商店 / 下载核心接口（2026-11-08：海哥把 play.googleapis.com
+    # 整条拦掉，手机会显示无网络/无法下载；以下均为功能性接口，不是广告/追踪）
+    "play.googleapis.com", "play-fe.googleapis.com",
+    "playstore.googleapis.com", "playstoregatewayadapter-pa.googleapis.com",
+    "play-lh.googleusercontent.com", "services.googleapis.cn",
+    "redirector.gvt1.com",
     # 公共加密 DNS
     # 注：dns.qq.com 不在保护名单里 —— 用户本地黑名单明确要拦它（DoH 会绕过本 DNS 过滤）
     "doh.pub", "dot.pub", "doh.alidns.com", "dns.alidns.com",
