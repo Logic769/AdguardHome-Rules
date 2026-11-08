@@ -125,7 +125,7 @@ jobs:
             | sed -e 's/^@@[|][|]//' -e 's/^[|][|]//' -e 's/\^$//' \
             | LC_ALL=C sort -u > White-domains.tmp || true
 
-          CN='anti-AD|那个谁520|10007|海哥|大萌主|秋风的规则|茯苓的广告规则|逆向涉猎|DD自用|困了想睡觉|本地规则'
+          CN='anti-AD|10007|海哥|大萌主|秋风的规则|茯苓的广告规则|逆向涉猎|DD自用|困了想睡觉|本地规则'
           {
             grep '^[|][|]' Black.txt || true
             grep -E "^[^!#]+ # From: (${CN})$" Black-with-sources.txt || true
@@ -225,6 +225,7 @@ jobs:
           ADBLOCK_COUNT=$(grep -v -c '^!' Black-adblock.txt || echo 0)
           WHITE_COUNT=$(grep -v -c '^!' White.txt || echo 0)
           CONFLICT_COUNT=$(grep -v -c '^!' Conflict.txt || echo 0)
+          ANNOTATED_COUNT=$(grep -v -c '^!' Black-with-sources.txt || echo 0)
           CN_COUNT=$(wc -l < Black-domains-cn-final.txt || echo 0)
           DEDUP_COUNT=$(wc -l < Black-domains-dedup.txt || echo 0)
           SMALL_COUNT=$(wc -l < Black-domains-small.txt || echo 0)
@@ -239,6 +240,7 @@ jobs:
             echo
             echo "- **Black.txt**（AGH 版）: ${BLOCK_COUNT} 条。AdGuard Home 一键导入，无行尾注释。"
             echo "- **Black-adblock.txt**（adblock 版）: ${ADBLOCK_COUNT} 条。统一 ABP 语法、无行尾注释，uBlock Origin / AdGuard / mihomo 可直接导入。"
+            echo "- **Black-with-sources.txt**（带上游来源版）: ${ANNOTATED_COUNT} 条。每条附 ` # From: 源名`，供追溯来源；体积更大，不建议日常设备直接订阅。"
             echo
             echo "## 可选"
             echo
@@ -262,7 +264,7 @@ jobs:
           allowUpdates: false
           replacesArtifacts: false
           token: ${{ secrets.GITHUB_TOKEN }}
-          artifacts: "Black.txt,Black-adblock.txt,White.txt,Conflict.txt,Black-domains-cn-final.txt,Black-domains-dedup.txt,Black-domains-small.txt"
+          artifacts: "Black.txt,Black-adblock.txt,Black-with-sources.txt,White.txt,Conflict.txt,Black-domains-cn-final.txt,Black-domains-dedup.txt,Black-domains-small.txt"
 
       - name: Commit and push README only to main (safe rebase)
         run: |

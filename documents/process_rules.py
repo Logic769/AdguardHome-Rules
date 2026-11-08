@@ -871,19 +871,17 @@ def update_readme(block_rules_dict: dict, white_rules_dict: dict, conflict_rules
     n_white_src = sum(1 for s in SOURCE_STATS if s["role"] == "白名单源")
 
     code_fence = "```"
-    raw_base = f"https://raw.githubusercontent.com/{repo_name}/{branch_name}"
     block_url = f"{base_url}/{os.path.basename(block_output_file)}"
     white_url = f"{base_url}/{os.path.basename(white_output_file)}"
     conflict_url = f"{base_url}/{os.path.basename(conflict_output_file)}"
-    block_raw = f"{raw_base}/{os.path.basename(block_output_file)}"
-    white_raw = f"{raw_base}/{os.path.basename(white_output_file)}"
-    conflict_raw = f"{raw_base}/{os.path.basename(conflict_output_file)}"
     total_block = len(block_rules_dict) + len(domain_spaces)
-    # 只有在「推荐地址」和「备用直链」确实不同的时候才提备用地址（本地试跑时两者相同）
-    note_block = (f"\n> 打不开就用备用直链：`{block_raw}`\n"
-                  if block_raw != block_url else "")
-    note_white = (f"\n> 打不开就用备用直链：`{white_raw}`\n"
-                  if white_raw != white_url else "")
+    annotated_filename = os.environ.get("OUTPUT_ANNOTATED_FILENAME")
+    annotated_url = f"{base_url}/{annotated_filename}" if annotated_filename else None
+    annotated_row = ""
+    if annotated_filename:
+        annotated_row = (
+            f"| `{annotated_filename}` | **带上游来源的拦截版**：每条规则附 ` # From: 源名`，"
+            f"用于追溯规则来自哪个上游；体积更大，不建议日常设备直接订阅 | 见 Release | <{annotated_url}> |")
 
     readme_content = f"""# {readme_title} · 自动更新的 AdGuard Home 规则
 
@@ -944,7 +942,6 @@ docker run -d --name adguardhome \\
 {code_fence}
 
 4. 点 **保存**
-{note_block}
 
 ### 第 2 步：添加「允许清单」（强烈建议，别跳过）
 
@@ -953,7 +950,6 @@ docker run -d --name adguardhome \\
 {code_fence}
 {white_url}
 {code_fence}
-{note_white}
 
 **为什么必须两个都加**：任何公共拦截名单都难免少量误杀（上游名单常把某些 App 的
 网关、风控、CDN 域名一起拦掉，表现就是「App 显示无网络」）。允许清单负责把这些放行。
@@ -990,20 +986,20 @@ https://gh-proxy.org/{block_url}
 
 ---
 
-## 三、六个文件分别是干什么的
+## 三、订阅文件分别是干什么的
 
-| 文件 | 作用 | 条数 | 订阅地址（推荐） | 备用地址（分支直链） |
-| --- | --- | --- | --- | --- |
-| `{os.path.basename(block_output_file)}` | **拦截**：广告、追踪、统计、恶意域名 | {total_block:,} | <{block_url}> | <{block_raw}> |
-| `{os.path.basename(white_output_file)}` | **允许**：保护名单 + 你自己的白名单，用来纠正误杀 | {len(white_rules_dict) + len(allow_spaces):,} | <{white_url}> | <{white_raw}> |
-| `{os.path.basename(conflict_output_file)}` | **冲突**：同时出现在黑名单和白名单里的域名（仅供排查，一般不用订阅） | {len(conflict_rules_dict):,} | <{conflict_url}> | <{conflict_raw}> |
-| `Black-adblock.txt` | **adblock 版**：与 Black.txt 同源，统一 ABP 语法、无行尾注释，uBlock Origin / AdGuard / mihomo 可直接导入 | 见 Release | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-adblock.txt> | — |
-| `Black-domains-cn-final.txt` | **中文源纯域名子集**：给内存受限的路由器（mosdns adblock_set） | 见 Release | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-domains-cn-final.txt> | — |
-| `Black-domains-dedup.txt` | **全量去冗余版**：父域吸收后的纯域名全集，语义等价、体积更小，给内存紧张的路由器 | 见 Release | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-domains-dedup.txt> | — |
-| `Black-domains-small.txt` | **热门域小型版**：从 1 万热门域命中项中筛出，体积小、误杀低，给内存极小的路由器（mosdns adblock_set） | 见 Release | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-domains-small.txt> | — |
+| 文件 | 作用 | 条数 | 订阅地址（推荐） |
+| --- | --- | --- | --- |
+| `{os.path.basename(block_output_file)}` | **拦截**：广告、追踪、统计、恶意域名 | {total_block:,} | <{block_url}> |
+| `{os.path.basename(white_output_file)}` | **允许**：保护名单 + 你自己的白名单，用来纠正误杀 | {len(white_rules_dict) + len(allow_spaces):,} | <{white_url}> |
+| `{os.path.basename(conflict_output_file)}` | **冲突**：同时出现在黑名单和白名单里的域名（仅供排查，一般不用订阅） | {len(conflict_rules_dict):,} | <{conflict_url}> |
+| `Black-adblock.txt` | **adblock 版**：与 Black.txt 同源，统一 ABP 语法、无行尾注释，uBlock Origin / AdGuard / mihomo 可直接导入 | 见 Release | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-adblock.txt> |
+{annotated_row}
+| `Black-domains-cn-final.txt` | **中文源纯域名子集**：给内存受限的路由器（mosdns adblock_set） | 见 Release | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-domains-cn-final.txt> |
+| `Black-domains-dedup.txt` | **全量去冗余版**：父域吸收后的纯域名全集，语义等价、体积更小，给内存紧张的路由器 | 见 Release | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-domains-dedup.txt> |
+| `Black-domains-small.txt` | **热门域小型版**：从 1 万热门域命中项中筛出，体积小、误杀低，给内存极小的路由器（mosdns adblock_set） | 见 Release | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-domains-small.txt> |
 
-> 两个地址内容一样：**推荐地址**指向最新 Release（每次构建更新同名文件，永久有效）；
-> **备用地址**直接读仓库分支文件（Release 还没发布完时可临时用）。
+> 推荐地址指向最新 Release（每次构建更新同名文件，永久有效）。
 
 ### 各文件详细说明
 
@@ -1058,6 +1054,14 @@ https://gh-proxy.org/{block_url}
 **不要订阅**，订阅它反而会放行这些域名。
 
 **父域吸收**：不适用（排查用，不参与订阅）。
+
+**8. `Black-with-sources.txt`（拦截 · 带来源标注 · 审计用）**
+
+与 Black.txt 同源，但每条规则行尾附带 ` # From: 源名`，用于追溯规则来自哪个上游。
+文件体积更大、行尾注释也会增加解析与内存开销，**不建议日常设备直接订阅**；
+如你的引擎支持行尾 `#` 注释，也可作为“带来源”的审查订阅。
+
+**父域吸收**：不做（与 Black.txt 一致）。
 
 文件格式说明：
 
@@ -1328,7 +1332,7 @@ def main():
         write_rules_to_file(
             annotated_output_file, all_block_rules,
             "AdGuard Custom Blocklist (with sources)",
-            "自动合并的广告拦截规则（仅构建时使用，供派生名单选择源）", AUTHOR,
+            "自动合并的广告拦截规则（带上游来源标注，供审计与追溯来源）", AUTHOR,
             domain_spaces=domain_spaces)
     write_rules_to_file(
         white_output_file, all_white_rules,
