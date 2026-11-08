@@ -69,7 +69,6 @@ block_source_urls = {
     "AdBlock DNS Filters": "https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblockdns.txt",
     "hagezi Pro": "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/pro.txt",
     "ABP": "https://raw.githubusercontent.com/damengzhu/abpmerge/refs/heads/main/abpmerge.txt",
-    "那个谁520": "https://raw.githubusercontent.com/qq5460168/666/master/rules.txt",
     "oisd/big": "https://big.oisd.nl/",
     # 2026-10 新增 4 源：全部是「更新快 + 与上面 24 源重叠低」的增量源
     #   Phishing Army        每 4 小时重建（聚合 9 家钓鱼库）
@@ -79,8 +78,7 @@ block_source_urls = {
     "ShadowWhisperer Malware": "https://raw.githubusercontent.com/ShadowWhisperer/BlockLists/master/Lists/Malware",
     "ShadowWhisperer Tracking": "https://raw.githubusercontent.com/ShadowWhisperer/BlockLists/master/Lists/Tracking",
     "HaGeZi Encrypted DNS": "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/doh.txt",
-    # 2026-11 新增 4 源（按用户指定并入，已排除 ppfeufer/StevenBlack）
-    "hululu1068": "https://raw.githubusercontent.com/hululu1068/AdGuard-Rule/main/rule/adgh.txt",
+    # 2026-11 新增 3 源（按用户指定并入，已排除 ppfeufer/StevenBlack、hululu1068；hululu1068 已按要求移出上游）
     "关圣去广告DNS": "https://raw.githubusercontent.com/guandasheng/adguardhome/main/rule/dns.txt",
     "home-dns-adblock": "https://raw.githubusercontent.com/abclq/home-dns-adblock/main/dist/adguard-dns-full.txt",
     "Mullvad": "https://raw.githubusercontent.com/mullvad/dns-blocklists/main/output/doh/doh_adblock.txt",
@@ -119,7 +117,6 @@ TOP_GUARD_SOURCES = {
     "ShadowWhisperer Tracking",
     "HaGeZi Encrypted DNS",
     # 2026-11 新增聚合源并入护栏（防误杀真实站点）
-    "hululu1068",
     "关圣去广告DNS",
     "home-dns-adblock",
     "Mullvad",
