@@ -240,7 +240,7 @@ jobs:
             echo
             echo "- **Black.txt**（AGH 版）: ${BLOCK_COUNT} 条。AdGuard Home 一键导入，无行尾注释。"
             echo "- **Black-adblock.txt**（adblock 版）: ${ADBLOCK_COUNT} 条。统一 ABP 语法、无行尾注释，uBlock Origin / AdGuard / mihomo 可直接导入。"
-            echo "- **Black-with-sources.txt**（带上游来源版）: ${ANNOTATED_COUNT} 条。每条附 ` # From: 源名`，供追溯来源；体积更大，不建议日常设备直接订阅。"
+            echo "- **Black-with-sources.txt**（带上游来源版）: ${ANNOTATED_COUNT} 条。每条附 \`# From: 源名\`，供追溯来源；体积更大，不建议日常设备直接订阅。"
             echo
             echo "## 可选"
             echo
