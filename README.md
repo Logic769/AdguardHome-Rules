@@ -5,8 +5,8 @@
 
 | 项目 | 当前状态 |
 | --- | --- |
-| 最后构建时间 | **2026-11-09 11:00:54 (UTC+8)** |
-| 拦截规则 | **936,670** 条 + 301 条「域名空间」（连全部子域一起拦） |
+| 最后构建时间 | **2026-11-09 11:15:19 (UTC+8)** |
+| 拦截规则 | **936,690** 条 + 301 条「域名空间」（连全部子域一起拦） |
 | 允许规则 | **279** 条 + 3 条「域名空间放行」 |
 | 冲突规则（同时被拦又被放行） | 115 条 |
 | 上游来源 | 30 个黑名单源 + 1 个白名单源（明细见下方表格） |
@@ -105,13 +105,13 @@ https://gh-proxy.org/https://github.com/Logic769/AdguardHome-Rules/releases/late
 
 | 文件 | 作用 | 条数 | 订阅地址（推荐） |
 | --- | --- | --- | --- |
-| `Black.txt` | **拦截**：广告、追踪、统计、恶意域名 | 936,971 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black.txt> |
+| `Black.txt` | **拦截**：广告、追踪、统计、恶意域名 | 936,991 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black.txt> |
 | `White.txt` | **允许**：保护名单 + 你自己的白名单，用来纠正误杀 | 282 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/White.txt> |
 | `Conflict.txt` | **冲突**：同时出现在黑名单和白名单里的域名（仅供排查，一般不用订阅） | 115 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Conflict.txt> |
-| `Black-adblock.txt` | **adblock 版**：与 Black.txt 同源，统一 ABP 语法、无行尾注释，uBlock Origin / AdGuard / mihomo 可直接导入 | 804,137 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-adblock.txt> |
-| `Black-with-sources.txt` | **带上游来源的拦截版**：每条规则附 ` # From: 源名`，用于追溯规则来自哪个上游；体积更大，不建议日常设备直接订阅 | 936,971 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-with-sources.txt> |
-| `Black-domains-cn-final.txt` | **中文源纯域名子集**：给内存受限的路由器（mosdns adblock_set） | 19,206 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-domains-cn-final.txt> |
-| `Black-domains-dedup.txt` | **全量去冗余版**：父域吸收后的纯域名全集，语义等价、体积更小，给内存紧张的路由器 | 803,858 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-domains-dedup.txt> |
+| `Black-adblock.txt` | **adblock 版**：与 Black.txt 同源，统一 ABP 语法、无行尾注释，uBlock Origin / AdGuard / mihomo 可直接导入 | 804,147 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-adblock.txt> |
+| `Black-with-sources.txt` | **带上游来源的拦截版**：每条规则附 ` # From: 源A; 源B`（多个上游用分号分隔），用于追溯规则来自哪些上游；体积更大，不建议日常设备直接订阅 | 936,991 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-with-sources.txt> |
+| `Black-domains-cn-final.txt` | **中文源纯域名子集**：给内存受限的路由器（mosdns adblock_set） | 117,275 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-domains-cn-final.txt> |
+| `Black-domains-dedup.txt` | **全量去冗余版**：父域吸收后的纯域名全集，语义等价、体积更小，给内存紧张的路由器 | 803,868 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-domains-dedup.txt> |
 | `Black-domains-small.txt` | **热门域小型版**：从 1 万热门域命中项中筛出，体积小、误杀低，给内存极小的路由器（mosdns adblock_set） | 131,908 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-domains-small.txt> |
 
 > 推荐地址指向最新 Release（每次构建更新同名文件，永久有效）。
@@ -172,7 +172,7 @@ https://gh-proxy.org/https://github.com/Logic769/AdguardHome-Rules/releases/late
 
 **8. `Black-with-sources.txt`（拦截 · 带来源标注 · 审计用）**
 
-与 Black.txt 同源，但每条规则行尾附带 ` # From: 源名`，用于追溯规则来自哪个上游。
+与 Black.txt 同源，但每条规则行尾附带 ` # From: 源A; 源B`（同一规则被多个上游收录时列出全部来源），用于追溯规则来自哪些上游。
 文件体积更大、行尾注释也会增加解析与内存开销，**不建议日常设备直接订阅**；
 如你的引擎支持行尾 `#` 注释，也可作为“带来源”的审查订阅。
 
@@ -196,7 +196,7 @@ https://gh-proxy.org/https://github.com/Logic769/AdguardHome-Rules/releases/late
 | --- | --- | --- |
 | 关圣去广告DNS | 606,539（另含 288 条例外） | <https://raw.githubusercontent.com/guandasheng/adguardhome/main/rule/dns.txt> |
 | AdBlock DNS Filters | 241,631（另含 197 条例外） | <https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblockdns.txt> |
-| oisd/big | 231,826 | <https://big.oisd.nl/> |
+| oisd/big | 231,835 | <https://big.oisd.nl/> |
 | Mullvad | 229,150 | <https://raw.githubusercontent.com/mullvad/dns-blocklists/main/output/doh/doh_adblock.txt> |
 | hagezi Pro | 225,284 | <https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/pro.txt> |
 | adsethost | 206,316 | <https://raw.githubusercontent.com/rentianyu/Ad-set-hosts/master/adguard> |
@@ -236,9 +236,9 @@ https://gh-proxy.org/https://github.com/Logic769/AdguardHome-Rules/releases/late
 
 ### 实际拦截贡献（AdGuard Home 查询日志）
 
-> 统计生成：2026-11-09 11:00:05 (UTC+8)；统计窗口：2026-11-08 03:59:19 (UTC+8) ~ 2026-11-09 09:19:55 (UTC+8)（约 29.3 小时）；共 39,764 次查询，20,304 次被拦截（51.06%）。
+> 统计生成：2026-11-09 11:15:06 (UTC+8)；统计窗口：2026-11-08 03:59:19 (UTC+8) ~ 2026-11-09 09:19:55 (UTC+8)（约 29.3 小时）；共 39,764 次查询，20,304 次被拦截（51.06%）。
 > 数据来自我的 AdGuard Home 查询日志，只统计聚合命中来源，不包含具体查询内容；服务器每 15 分钟更新，本页随每次构建刷新。
-> 注：「域名空间」规则以 `||父域^` 形式覆盖全部子域，无法对应单一上游源，单独统计。
+> 注：同一域名被多个上游同时收录时，实际拦截事件按来源数平均分摊（1/N）；「域名空间」规则以 `||父域^` 形式覆盖全部子域，无法对应单一上游源，单独统计。
 
 | 上游源 | 实际拦截事件 | 事件占比 | 命中唯一域名 | 规则条数 | 规则占比 |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -307,7 +307,7 @@ https://gh-proxy.org/https://github.com/Logic769/AdguardHome-Rules/releases/late
 
 ### 6. 本次构建统计
 
-保留 3,297,767 条（其中带上下文修饰符但目标本身是广告域的 157 条），
+保留 3,297,776 条（其中带上下文修饰符但目标本身是广告域的 157 条），
 丢弃上下文规则 6,256 条，丢弃 badfilter 16 条，
 采纳全局例外 1,141 条，忽略不可信的上游例外 174 条，
 剔除无效域名 18,702 条。
@@ -349,6 +349,6 @@ AdGuard Home 的查询日志里 `Result.Rules` 会给出命中的规则来源，
 
 ---
 
-构建时间：2026-11-09 11:00:54 (UTC+8) · 项目作者：logic769 ·
+构建时间：2026-11-09 11:15:19 (UTC+8) · 项目作者：logic769 ·
 本 README 由 `documents/process_rules.py` 的 `update_readme()` 在每次构建时自动生成，
 请勿手工修改（会被下一次构建覆盖）。
