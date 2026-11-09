@@ -214,6 +214,12 @@ jobs:
           } > Black-domains-small.txt
           echo "===== 热门域小型版 ====="
           echo "输出: $(wc -l < Black-domains-small.txt) 条 / $(ls -lh Black-domains-small.txt | awk '{print $5}')"
+
+      - name: Finalize README (subscription counts + AGH attribution)
+        env:
+          ATTRIBUTION_URL: https://www.logic769.xyz/api/adg-attribution.json
+        run: python documents/finalize_readme.py
+
       - name: Compute Beijing time for release title (main)
         id: time_main
         run: |
@@ -276,7 +282,7 @@ jobs:
           git config --global rebase.autoStash true
           git pull --rebase origin main || true
 
-          git add README.md
+          git add README.md documents/upstream-attribution.json
           if git diff --cached --quiet; then
             echo "No README changes to commit."
             exit 0
