@@ -1,6 +1,6 @@
 {
   "available": true,
-  "generated_at": "2026-11-09T02:47:19Z",
+  "generated_at": "2026-11-09T02:57:48Z",
   "source": "AdGuard Home querylog",
   "window_start": "2026-11-07T19:59:19.434658Z",
   "window_end": "2026-11-09T01:19:55.511556Z",
@@ -11,7 +11,7 @@
   "filter_id": 1775567760,
   "source_map": {
     "version": "20261109055240",
-    "rules": 936505
+    "rules": 936806
   },
   "sources": [
     {
@@ -20,7 +20,7 @@
       "share": 36.77,
       "unique_domains": 95,
       "rules": 205467,
-      "rule_share": 21.94
+      "rule_share": 21.93
     },
     {
       "name": "xndeye adblock_list",
@@ -28,7 +28,7 @@
       "share": 21.6,
       "unique_domains": 24,
       "rules": 51472,
-      "rule_share": 5.5
+      "rule_share": 5.49
     },
     {
       "name": "秋风的规则",
@@ -108,7 +108,7 @@
       "share": 0.22,
       "unique_domains": 10,
       "rules": 64961,
-      "rule_share": 6.94
+      "rule_share": 6.93
     },
     {
       "name": "neodavhost",
@@ -140,7 +140,7 @@
       "share": 0.03,
       "unique_domains": 2,
       "rules": 7914,
-      "rule_share": 0.85
+      "rule_share": 0.84
     },
     {
       "name": "关圣去广告DNS",
@@ -148,7 +148,7 @@
       "share": 0.01,
       "unique_domains": 2,
       "rules": 116100,
-      "rule_share": 12.4
+      "rule_share": 12.39
     },
     {
       "name": "oisd/big",
@@ -228,6 +228,14 @@
       "share": 0.0,
       "unique_domains": 0,
       "rules": 317,
+      "rule_share": 0.03
+    },
+    {
+      "name": "域名空间（含全部子域）",
+      "events": 0,
+      "share": 0.0,
+      "unique_domains": 0,
+      "rules": 301,
       "rule_share": 0.03
     },
     {

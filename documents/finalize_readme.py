@@ -144,7 +144,8 @@ def build_attribution_section(data):
         + number(data.get("total_queries")) + " 次查询，"
         + number(data.get("blocked_queries")) + " 次被拦截（" + percent(data.get("blocked_pct")) + "）。\n"
         + "> 数据来自我的 AdGuard Home 查询日志，只统计聚合命中来源，不包含具体查询内容；"
-        + "服务器每 15 分钟更新，本页随每次构建刷新。\n\n"
+        + "服务器每 15 分钟更新，本页随每次构建刷新。\n"
+        + "> 注：「域名空间」规则以 `||父域^` 形式覆盖全部子域，无法对应单一上游源，单独统计。\n\n"
         + "| 上游源 | 实际拦截事件 | 事件占比 | 命中唯一域名 | 规则条数 | 规则占比 |\n"
         + "| --- | ---: | ---: | ---: | ---: | ---: |\n"
         + table
@@ -155,6 +156,7 @@ def build_attribution_section(data):
 def merge_attribution(text: str, section: str) -> str:
     marker = "\n---\n\n## 五、规则为什么这么写？"
     if marker not in text:
+        text = re.sub(r"\n### 实际拦截贡献.*$", "", text, flags=re.S)
         return text.rstrip() + "\n\n" + section + "\n"
     head, tail = text.split(marker, 1)
     head = re.sub(r"\n### 实际拦截贡献.*$", "", head, flags=re.S)

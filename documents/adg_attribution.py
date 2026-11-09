@@ -34,6 +34,7 @@ OUT_FILE = os.environ.get(
 BLACK_FILTER_ID = int(os.environ.get("AGH_BLACK_FILTER_ID", "1775567760"))
 WHITE_FILTER_ID = int(os.environ.get("AGH_WHITE_FILTER_ID", "1775567761"))
 SOURCE_MAX_AGE = int(os.environ.get("AGH_SOURCE_MAX_AGE", str(6 * 3600)))
+DOMAIN_SPACE_LABEL = "域名空间（含全部子域）"
 
 
 def utc_now() -> str:
@@ -110,6 +111,7 @@ def refresh_source_cache() -> None:
 def load_source_map():
     mapping = {}
     rules_by_source = Counter()
+    domain_spaces = set()
     version = None
     with open(SOURCE_CACHE, encoding="utf-8", errors="replace") as handle:
         for raw in handle:
@@ -117,7 +119,15 @@ def load_source_map():
             if line.startswith("! Version:"):
                 version = line.split(":", 1)[1].strip()
                 continue
-            if not line or line.startswith("!") or " # From: " not in line:
+            if not line or line.startswith("!"):
+                continue
+            if line.startswith("||") and line.endswith("^") and " # From: " not in line:
+                domain = line[2:-1].strip().lower().strip(".")
+                if domain:
+                    domain_spaces.add(domain)
+                    rules_by_source[DOMAIN_SPACE_LABEL] += 1
+                continue
+            if " # From: " not in line:
                 continue
             left, source = line.rsplit(" # From: ", 1)
             domain = left.strip().lower().strip(".")
@@ -127,7 +137,7 @@ def load_source_map():
                 continue
             mapping[domain] = source.strip()
             rules_by_source[source.strip()] += 1
-    return mapping, rules_by_source, version
+    return mapping, rules_by_source, version, domain_spaces
 
 
 def normalize_rule(text: str) -> str:
@@ -139,7 +149,7 @@ def normalize_rule(text: str) -> str:
     return value.strip(".")
 
 
-def analyze_querylog(mapping):
+def analyze_querylog(mapping, domain_spaces):
     total = 0
     blocked = 0
     counts = Counter()
@@ -177,9 +187,15 @@ def analyze_querylog(mapping):
                     filter_id = None
                 if filter_id == WHITE_FILTER_ID:
                     continue
-                candidate = normalize_rule(rule.get("Text") or "")
+                rule_text = (rule.get("Text") or "").strip()
+                candidate = normalize_rule(rule_text)
                 if candidate in mapping:
                     chosen = mapping[candidate]
+                    break
+                # AGH 的域名空间规则是 `||父域^`，不带来源注释；
+                # 它覆盖全部子域，不能硬算到某个上游源，单独成桶。
+                if candidate in domain_spaces:
+                    chosen = DOMAIN_SPACE_LABEL
                     break
             if chosen:
                 counts[chosen] += 1
@@ -227,10 +243,10 @@ def write_json(payload) -> None:
 
 def build_payload():
     refresh_source_cache()
-    mapping, rules_by_source, version = load_source_map()
+    mapping, rules_by_source, version, domain_spaces = load_source_map()
     if not mapping:
         raise RuntimeError("Black-with-sources.txt 没有解析出任何来源映射")
-    data = analyze_querylog(mapping)
+    data = analyze_querylog(mapping, domain_spaces)
     total_rules = sum(rules_by_source.values())
     sources = []
     for name, rules in rules_by_source.items():
