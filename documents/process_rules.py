@@ -414,7 +414,7 @@ def agh_valid_domain(name: str) -> bool:
     """严格复刻 AdGuard Home urlfilter/internal/ufnet 的域名校验。
 
     只有通过这里的域名，写成 hosts 型规则才会被 AGH 真正解析成 HostRule；
-    否则 AGH 会退化成 URL 子串规则，并连带行尾的 ` # From: xxx` 注释一起解析，
+    否则 AGH 会退化成 URL 子串规则，并连带行尾的 ` # From: 源A; 源B` 注释一起解析，
     等于永远不生效（实测产物里有 16 条这样的死规则）。
     TLD 额外要求：长度 ≥2 且首尾都是字母（isValidTLDLabel）。
     """
@@ -744,6 +744,7 @@ def process_all_sources(urls_dict: dict, psl: set, force_whitelist: bool = False
     all_block_rules: dict = {}
     all_white_rules: dict = {}
     block_source_counts: dict = {}   # 域名 -> 有多少个「不同的源文件」把它列为拦截
+    block_source_names: dict = {}    # 域名 -> [源名, ...]（用于多源归属，不再只保留首源）
     seen_urls: dict = {}             # 域名 -> {规范化 URL}
 
     def norm_url(u: str) -> str:
@@ -761,6 +762,9 @@ def process_all_sources(urls_dict: dict, psl: set, force_whitelist: bool = False
             if nu not in s:
                 s.add(nu)
                 block_source_counts[rule] = block_source_counts.get(rule, 0) + 1
+                names = block_source_names.setdefault(rule, [])
+                if source not in names:
+                    names.append(source)
             if rule not in all_block_rules:
                 all_block_rules[rule] = source
 
@@ -770,7 +774,7 @@ def process_all_sources(urls_dict: dict, psl: set, force_whitelist: bool = False
 
         time.sleep(1)
 
-    return all_block_rules, all_white_rules, block_source_counts
+    return all_block_rules, all_white_rules, block_source_counts, block_source_names
 
 
 def merge_rules(*rule_dicts: dict) -> dict:
@@ -792,10 +796,12 @@ def find_conflict_rules(block_rules: dict, white_rules: dict) -> dict:
 
 def write_rules_to_file(filename: str, rules_dict: dict, title: str,
                         description: str, author: str, domain_spaces=None,
-                        allow_spaces=None, include_comments: bool = True):
+                        allow_spaces=None, include_comments: bool = True,
+                        rule_sources=None):
     print(f"\n正在将规则写入到 {os.path.basename(filename)}...")
     domain_spaces = domain_spaces or []
     allow_spaces = allow_spaces or []
+    rule_sources = rule_sources or {}
     try:
         with open(filename, "w", encoding="utf-8") as f:
             beijing_tz = datetime.timezone(datetime.timedelta(hours=8))
@@ -827,7 +833,13 @@ def write_rules_to_file(filename: str, rules_dict: dict, title: str,
                     block_source, white_source = rules_dict[rule]
                     f.write(f"{rule} # Block from: {block_source}, White from: {white_source}\n")
                 elif include_comments:
-                    f.write(f"{rule} # From: {rules_dict[rule]}\n")
+                    sources = rule_sources.get(rule)
+                    if isinstance(sources, str):
+                        sources = [sources]
+                    if sources:
+                        f.write(f"{rule} # From: {'; '.join(sources)}\n")
+                    else:
+                        f.write(f"{rule} # From: {rules_dict[rule]}\n")
                 else:
                     f.write(f"{rule}\n")
         print(f"文件 {os.path.basename(filename)} 写入成功！"
@@ -880,8 +892,8 @@ def update_readme(block_rules_dict: dict, white_rules_dict: dict, conflict_rules
     annotated_row = ""
     if annotated_filename:
         annotated_row = (
-            f"| `{annotated_filename}` | **带上游来源的拦截版**：每条规则附 ` # From: 源名`，"
-            f"用于追溯规则来自哪个上游；体积更大，不建议日常设备直接订阅 | 见 Release | <{annotated_url}> |")
+            f"| `{annotated_filename}` | **带上游来源的拦截版**：每条规则附 ` # From: 源A; 源B`"
+            f"（多个上游用分号分隔），用于追溯规则来自哪些上游；体积更大，不建议日常设备直接订阅 | 见 Release | <{annotated_url}> |")
 
     readme_content = f"""# {readme_title} · 自动更新的 AdGuard Home 规则
 
@@ -1057,7 +1069,7 @@ https://gh-proxy.org/{block_url}
 
 **8. `Black-with-sources.txt`（拦截 · 带来源标注 · 审计用）**
 
-与 Black.txt 同源，但每条规则行尾附带 ` # From: 源名`，用于追溯规则来自哪个上游。
+与 Black.txt 同源，但每条规则行尾附带 ` # From: 源A; 源B`（同一规则被多个上游收录时列出全部来源），用于追溯规则来自哪些上游。
 文件体积更大、行尾注释也会增加解析与内存开销，**不建议日常设备直接订阅**；
 如你的引擎支持行尾 `#` 注释，也可作为“带来源”的审查订阅。
 
@@ -1208,11 +1220,11 @@ def main():
     TOP_DOMAINS = load_top_domains()
 
     print("\n--- 第一步: 处理白名单规则源 ---")
-    _wsb, white_source_white, _ = process_all_sources(
+    _wsb, white_source_white, _, _ = process_all_sources(
         white_source_urls, psl, force_whitelist=True)
 
     print("\n--- 第二步: 处理黑名单规则源 ---")
-    block_source_block, block_source_white, block_counts = process_all_sources(
+    block_source_block, block_source_white, block_counts, block_source_names = process_all_sources(
         block_source_urls, psl)
 
     print("\n--- 第三步: 合并所有规则 ---")
@@ -1333,7 +1345,7 @@ def main():
             annotated_output_file, all_block_rules,
             "AdGuard Custom Blocklist (with sources)",
             "自动合并的广告拦截规则（带上游来源标注，供审计与追溯来源）", AUTHOR,
-            domain_spaces=domain_spaces)
+            domain_spaces=domain_spaces, rule_sources=block_source_names)
     write_rules_to_file(
         white_output_file, all_white_rules,
         "AdGuard Custom Whitelist",

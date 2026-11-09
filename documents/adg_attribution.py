@@ -129,14 +129,18 @@ def load_source_map():
                 continue
             if " # From: " not in line:
                 continue
-            left, source = line.rsplit(" # From: ", 1)
+            left, source_blob = line.rsplit(" # From: ", 1)
             domain = left.strip().lower().strip(".")
             if domain.startswith("||") and domain.endswith("^"):
                 domain = domain[2:-1]
             if not domain:
                 continue
-            mapping[domain] = source.strip()
-            rules_by_source[source.strip()] += 1
+            sources = [item.strip() for item in source_blob.split(";") if item.strip()]
+            if not sources:
+                continue
+            mapping[domain] = sources
+            for source in sources:
+                rules_by_source[source] += 1
     return mapping, rules_by_source, version, domain_spaces
 
 
@@ -177,7 +181,7 @@ def analyze_querylog(mapping, domain_spaces):
                 continue
             blocked += 1
             qh = (item.get("QH") or "").strip().lower().strip(".")
-            chosen = None
+            matched = False
             for rule in result.get("Rules") or []:
                 if not isinstance(rule, dict):
                     continue
@@ -189,19 +193,27 @@ def analyze_querylog(mapping, domain_spaces):
                     continue
                 rule_text = (rule.get("Text") or "").strip()
                 candidate = normalize_rule(rule_text)
-                if candidate in mapping:
-                    chosen = mapping[candidate]
+                sources = mapping.get(candidate)
+                if sources:
+                    if isinstance(sources, str):
+                        sources = [sources]
+                    # 同一拦截事件按来源数 1/N 分摊，避免重叠规则全部记给首源
+                    weight = 1.0 / len(sources)
+                    for source in sources:
+                        counts[source] += weight
+                        if qh:
+                            unique_domains[source].add(qh)
+                    matched = True
                     break
                 # AGH 的域名空间规则是 `||父域^`，不带来源注释；
                 # 它覆盖全部子域，不能硬算到某个上游源，单独成桶。
                 if candidate in domain_spaces:
-                    chosen = DOMAIN_SPACE_LABEL
+                    counts[DOMAIN_SPACE_LABEL] += 1
+                    if qh:
+                        unique_domains[DOMAIN_SPACE_LABEL].add(qh)
+                    matched = True
                     break
-            if chosen:
-                counts[chosen] += 1
-                if qh:
-                    unique_domains[chosen].add(qh)
-            else:
+            if not matched:
                 unmapped += 1
                 if qh:
                     unmapped_domains.add(qh)
@@ -247,10 +259,11 @@ def build_payload():
     if not mapping:
         raise RuntimeError("Black-with-sources.txt 没有解析出任何来源映射")
     data = analyze_querylog(mapping, domain_spaces)
-    total_rules = sum(rules_by_source.values())
+    total_rules = len(mapping) + len(domain_spaces)
+    total_rule_links = sum(rules_by_source.values())
     sources = []
     for name, rules in rules_by_source.items():
-        events = int(data["counts"].get(name, 0))
+        events = round(float(data["counts"].get(name, 0)), 2)
         sources.append(
             {
                 "name": name,
@@ -258,7 +271,7 @@ def build_payload():
                 "share": round(events * 100.0 / data["blocked"], 2) if data["blocked"] else 0.0,
                 "unique_domains": len(data["unique_domains"].get(name, set())),
                 "rules": int(rules),
-                "rule_share": round(rules * 100.0 / total_rules, 2) if total_rules else 0.0,
+                "rule_share": round(rules * 100.0 / total_rule_links, 2) if total_rule_links else 0.0,
             }
         )
     sources.sort(key=lambda row: (-row["events"], -row["rules"], row["name"]))
@@ -273,7 +286,12 @@ def build_payload():
         "blocked_queries": data["blocked"],
         "blocked_pct": round(data["blocked"] * 100.0 / data["total"], 2) if data["total"] else 0.0,
         "filter_id": BLACK_FILTER_ID,
-        "source_map": {"version": version, "rules": total_rules},
+        "source_map": {
+            "version": version,
+            "rules": total_rules,
+            "rule_links": total_rule_links,
+            "multi_source_rules": sum(1 for names in mapping.values() if len(names) > 1),
+        },
         "sources": sources,
         "unmapped_events": data["unmapped"],
         "unmapped_share": round(data["unmapped"] * 100.0 / data["blocked"], 2) if data["blocked"] else 0.0,
