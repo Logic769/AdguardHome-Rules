@@ -108,11 +108,19 @@ def refresh_source_cache() -> None:
         raise RuntimeError("无法下载 Black-with-sources.txt: " + str(last_error))
 
 
-def load_source_map():
+def load_source_map(needed_rules=None):
+    """加载来源映射。
+
+    needed_rules 非空时只保留查询日志中实际出现的规则，避免把 90 万条
+    域名及其来源列表全部放进内存（服务器 1.8G 内存会被 OOM kill）。
+    来源总数、规则链接数和多源规则数仍按完整文件统计。
+    """
     mapping = {}
     rules_by_source = Counter()
     domain_spaces = set()
     version = None
+    total_domains = 0
+    multi_source_rules = 0
     with open(SOURCE_CACHE, encoding="utf-8", errors="replace") as handle:
         for raw in handle:
             line = raw.rstrip("\r\n")
@@ -138,10 +146,14 @@ def load_source_map():
             sources = [item.strip() for item in source_blob.split(";") if item.strip()]
             if not sources:
                 continue
-            mapping[domain] = sources
+            total_domains += 1
+            if len(sources) > 1:
+                multi_source_rules += 1
             for source in sources:
                 rules_by_source[source] += 1
-    return mapping, rules_by_source, version, domain_spaces
+            if needed_rules is None or domain in needed_rules:
+                mapping[domain] = sources
+    return mapping, rules_by_source, version, domain_spaces, total_domains, multi_source_rules
 
 
 def normalize_rule(text: str) -> str:
@@ -151,6 +163,39 @@ def normalize_rule(text: str) -> str:
     if value.endswith("^"):
         value = value[:-1]
     return value.strip(".")
+
+
+def collect_needed_rules():
+    """只收集查询日志里实际出现的规则名，减少来源映射的内存占用。"""
+    needed = set()
+    try:
+        with open(QUERYLOG, encoding="utf-8", errors="replace") as handle:
+            for raw in handle:
+                try:
+                    item = json.loads(raw)
+                except json.JSONDecodeError:
+                    continue
+                result = item.get("Result") or {}
+                if not result.get("IsFiltered"):
+                    continue
+                reason = result.get("Reason")
+                if reason is not None and str(reason) != "3":
+                    continue
+                for rule in result.get("Rules") or []:
+                    if not isinstance(rule, dict):
+                        continue
+                    try:
+                        filter_id = int(rule.get("FilterListID"))
+                    except (TypeError, ValueError):
+                        filter_id = None
+                    if filter_id == WHITE_FILTER_ID:
+                        continue
+                    candidate = normalize_rule(rule.get("Text"))
+                    if candidate:
+                        needed.add(candidate)
+    except OSError:
+        pass
+    return needed
 
 
 def analyze_querylog(mapping, domain_spaces):
@@ -255,11 +300,12 @@ def write_json(payload) -> None:
 
 def build_payload():
     refresh_source_cache()
-    mapping, rules_by_source, version, domain_spaces = load_source_map()
-    if not mapping:
+    needed_rules = collect_needed_rules()
+    mapping, rules_by_source, version, domain_spaces, total_domains, multi_source_rules = load_source_map(needed_rules)
+    if not mapping and not domain_spaces:
         raise RuntimeError("Black-with-sources.txt 没有解析出任何来源映射")
     data = analyze_querylog(mapping, domain_spaces)
-    total_rules = len(mapping) + len(domain_spaces)
+    total_rules = total_domains + len(domain_spaces)
     total_rule_links = sum(rules_by_source.values())
     sources = []
     for name, rules in rules_by_source.items():
@@ -290,7 +336,7 @@ def build_payload():
             "version": version,
             "rules": total_rules,
             "rule_links": total_rule_links,
-            "multi_source_rules": sum(1 for names in mapping.values() if len(names) > 1),
+            "multi_source_rules": multi_source_rules,
         },
         "sources": sources,
         "unmapped_events": data["unmapped"],
