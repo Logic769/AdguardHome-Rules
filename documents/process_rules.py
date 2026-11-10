@@ -82,6 +82,9 @@ block_source_urls = {
     "关圣去广告DNS": "https://raw.githubusercontent.com/guandasheng/adguardhome/main/rule/dns.txt",
     "home-dns-adblock": "https://raw.githubusercontent.com/abclq/home-dns-adblock/main/dist/adguard-dns-full.txt",
     "Mullvad": "https://raw.githubusercontent.com/mullvad/dns-blocklists/main/output/doh/doh_adblock.txt",
+    # 2026-11 新增：中国区 DNS 规则（日更、0BSD、纯 ABP 无自带白名单）
+    #   实测与现有 30 源重叠 95.6%，净新增约 9.2k（多为现有父域的广告子域补充）
+    "AdRules": "https://raw.githubusercontent.com/Cats-Team/AdRules/main/dns.txt",
     "本地规则": "https://raw.githubusercontent.com/Logic769/Adguardhome-local-rules/main/blacklist.txt"
 }
 
@@ -120,6 +123,8 @@ TOP_GUARD_SOURCES = {
     "关圣去广告DNS",
     "home-dns-adblock",
     "Mullvad",
+    # AdRules 是聚合型中国区规则，同样套护栏（其净新增里含 llnw.net 这类多租户 CDN）
+    "AdRules",
 }
 TOP_DOMAINS_FILE = os.path.join(script_dir, "top-domains.txt")
 TOP_DOMAINS: set = set()
