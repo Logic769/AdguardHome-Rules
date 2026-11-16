@@ -5,10 +5,10 @@
 
 | 项目 | 当前状态 |
 | --- | --- |
-| 最后构建时间 | **2026-11-16 13:43:09 (UTC+8)** |
-| 拦截规则 | **952,213** 条 + 301 条「域名空间」（连全部子域一起拦） |
+| 最后构建时间 | **2026-11-16 23:18:45 (UTC+8)** |
+| 拦截规则 | **954,199** 条 + 301 条「域名空间」（连全部子域一起拦） |
 | 允许规则 | **300** 条 + 3 条「域名空间放行」 |
-| 冲突规则（同时被拦又被放行） | 136 条 |
+| 冲突规则（同时被拦又被放行） | 135 条 |
 | 上游来源 | 31 个黑名单源 + 1 个白名单源（明细见下方表格） |
 | 构建方式 | GitHub Actions 自动构建，也可在 Actions 页面手动触发 |
 
@@ -105,14 +105,14 @@ https://gh-proxy.org/https://github.com/Logic769/AdguardHome-Rules/releases/late
 
 | 文件 | 作用 | 条数 | 订阅地址（推荐） |
 | --- | --- | --- | --- |
-| `Black.txt` | **拦截**：广告、追踪、统计、恶意域名 | 952,514 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black.txt> |
+| `Black.txt` | **拦截**：广告、追踪、统计、恶意域名 | 954,500 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black.txt> |
 | `White.txt` | **允许**：保护名单 + 你自己的白名单，用来纠正误杀 | 303 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/White.txt> |
-| `Conflict.txt` | **冲突**：同时出现在黑名单和白名单里的域名（仅供排查，一般不用订阅） | 136 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Conflict.txt> |
-| `Black-adblock.txt` | **adblock 版**：与 Black.txt 同源，统一 ABP 语法、无行尾注释，uBlock Origin / AdGuard / mihomo 可直接导入 | 817,718 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-adblock.txt> |
-| `Black-with-sources.txt` | **带上游来源的拦截版**：每条规则附 ` # From: 源A; 源B`（多个上游用分号分隔），用于追溯规则来自哪些上游；体积更大，不建议日常设备直接订阅 | 952,514 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-with-sources.txt> |
-| `Black-domains-cn-final.txt` | **中文源纯域名子集**：给内存受限的路由器（mosdns adblock_set） | 116,862 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-domains-cn-final.txt> |
-| `Black-domains-dedup.txt` | **全量去冗余版**：父域吸收后的纯域名全集，语义等价、体积更小，给内存紧张的路由器 | 817,418 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-domains-dedup.txt> |
-| `Black-domains-small.txt` | **热门域小型版**：从 1 万热门域命中项中筛出，体积小、误杀低，给内存极小的路由器（mosdns adblock_set） | 132,934 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-domains-small.txt> |
+| `Conflict.txt` | **冲突**：同时出现在黑名单和白名单里的域名（仅供排查，一般不用订阅） | 135 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Conflict.txt> |
+| `Black-adblock.txt` | **adblock 版**：与 Black.txt 同源，统一 ABP 语法、无行尾注释，uBlock Origin / AdGuard / mihomo 可直接导入 | 819,497 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-adblock.txt> |
+| `Black-with-sources.txt` | **带上游来源的拦截版**：每条规则附 ` # From: 源A; 源B`（多个上游用分号分隔），用于追溯规则来自哪些上游；体积更大，不建议日常设备直接订阅 | 954,500 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-with-sources.txt> |
+| `Black-domains-cn-final.txt` | **中文源纯域名子集**：给内存受限的路由器（mosdns adblock_set） | 116,863 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-domains-cn-final.txt> |
+| `Black-domains-dedup.txt` | **全量去冗余版**：父域吸收后的纯域名全集，语义等价、体积更小，给内存紧张的路由器 | 819,197 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-domains-dedup.txt> |
+| `Black-domains-small.txt` | **热门域小型版**：从 1 万热门域命中项中筛出，体积小、误杀低，给内存极小的路由器（mosdns adblock_set） | 133,289 | <https://github.com/Logic769/AdguardHome-Rules/releases/latest/download/Black-domains-small.txt> |
 
 > 推荐地址指向最新 Release（每次构建更新同名文件，永久有效）。
 
@@ -194,21 +194,21 @@ https://gh-proxy.org/https://github.com/Logic769/AdguardHome-Rules/releases/late
 
 | 来源 | 本次贡献条数 | 仓库 / 地址 |
 | --- | --- | --- |
-| 关圣去广告DNS | 616,978（另含 261 条例外） | <https://raw.githubusercontent.com/guandasheng/adguardhome/main/rule/dns.txt> |
+| 关圣去广告DNS | 616,977（另含 261 条例外） | <https://raw.githubusercontent.com/guandasheng/adguardhome/main/rule/dns.txt> |
 | AdBlock DNS Filters | 241,631（另含 197 条例外） | <https://raw.githubusercontent.com/217heidai/adblockfilters/main/rules/adblockdns.txt> |
-| hagezi Pro | 238,125 | <https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/pro.txt> |
-| Mullvad | 229,942 | <https://raw.githubusercontent.com/mullvad/dns-blocklists/main/output/doh/doh_adblock.txt> |
-| oisd/big | 228,371 | <https://big.oisd.nl/> |
+| hagezi Pro | 241,120 | <https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/pro.txt> |
+| Mullvad | 232,117 | <https://raw.githubusercontent.com/mullvad/dns-blocklists/main/output/doh/doh_adblock.txt> |
+| oisd/big | 228,295 | <https://big.oisd.nl/> |
 | neodavhost | 220,977 | <https://raw.githubusercontent.com/neodevpro/neodevhost/master/adblocker> |
-| AdRules | 210,739 | <https://raw.githubusercontent.com/Cats-Team/AdRules/main/dns.txt> |
+| AdRules | 209,085 | <https://raw.githubusercontent.com/Cats-Team/AdRules/main/dns.txt> |
 | natsuki | 206,225 | <https://raw.githubusercontent.com/Natsuki-Kaede/Natsuki-List/refs/heads/main/adguardhome.txt> |
-| adsethost | 203,707 | <https://raw.githubusercontent.com/rentianyu/Ad-set-hosts/master/adguard> |
-| AdGuard DNS filter | 189,457（另含 11 条例外） | <https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt> |
-| Phishing Army | 144,045 | <https://phishing.army/download/phishing_army_blocklist_extended.txt> |
+| adsethost | 203,706 | <https://raw.githubusercontent.com/rentianyu/Ad-set-hosts/master/adguard> |
+| AdGuard DNS filter | 189,585（另含 11 条例外） | <https://adguardteam.github.io/HostlistsRegistry/assets/filter_1.txt> |
+| Phishing Army | 144,414 | <https://phishing.army/download/phishing_army_blocklist_extended.txt> |
 | ShadowWhisperer Tracking | 142,078 | <https://raw.githubusercontent.com/ShadowWhisperer/BlockLists/master/Lists/Tracking> |
 | xndeye adblock_list | 122,484（另含 29 条例外） | <https://raw.githubusercontent.com/xndeye/adblock_list/refs/heads/release/dns.txt> |
 | GOODBYEADS | 121,639 | <https://raw.githubusercontent.com/8680/GOODBYEADS/master/data/rules/dns.txt> |
-| 1hosts | 102,241 | <https://raw.githubusercontent.com/badmojr/1Hosts/master/Lite/adblock.txt> |
+| 1hosts | 102,240 | <https://raw.githubusercontent.com/badmojr/1Hosts/master/Lite/adblock.txt> |
 | anti-AD | 96,302（另含 107 条例外） | <https://raw.githubusercontent.com/privacy-protection-tools/anti-AD/master/anti-ad-easylist.txt> |
 | ABP | 57,706（另含 26 条例外） | <https://raw.githubusercontent.com/damengzhu/abpmerge/refs/heads/main/abpmerge.txt> |
 | ShadowWhisperer Malware | 47,709 | <https://raw.githubusercontent.com/ShadowWhisperer/BlockLists/master/Lists/Malware> |
@@ -220,7 +220,7 @@ https://gh-proxy.org/https://github.com/Logic769/AdguardHome-Rules/releases/late
 | Malicious URL Blocklist | 2,049 | <https://adguardteam.github.io/HostlistsRegistry/assets/filter_11.txt> |
 | 本地规则（你自己的名单） | 1,010 | <https://raw.githubusercontent.com/Logic769/Adguardhome-local-rules/main/blacklist.txt> |
 | home-dns-adblock | 997 | <https://raw.githubusercontent.com/abclq/home-dns-adblock/main/dist/adguard-dns-full.txt> |
-| 秋风的规则 | 964 | <https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/AWAvenue-Ads-Rule.txt> |
+| 秋风的规则 | 978 | <https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/AWAvenue-Ads-Rule.txt> |
 | 茯苓的广告规则 | 664 | <https://raw.githubusercontent.com/Kuroba-Sayuki/FuLing-AdRules/main/FuLingRules/FuLingBlockList.txt> |
 | 逆向涉猎 | 547 | <https://raw.githubusercontent.com/rssvcn/qy-Ads-Rule/main/black.txt> |
 | DD自用 | 464（另含 159 条例外） | <https://raw.githubusercontent.com/afwfv/DD-AD/main/rule/DD-AD.txt> |
@@ -237,24 +237,24 @@ https://gh-proxy.org/https://github.com/Logic769/AdguardHome-Rules/releases/late
 
 ### 实际拦截贡献（AdGuard Home 查询日志）
 
-> 统计生成：2026-11-16 13:30:07 (UTC+8)；统计窗口：2026-11-15 09:48:31 (UTC+8) ~ 2026-11-16 12:00:51 (UTC+8)（约 26.2 小时）；共 22,000 次查询，11,459 次被拦截（52.09%）。
+> 统计生成：2026-11-16 23:15:06 (UTC+8)；统计窗口：2026-11-15 09:48:31 (UTC+8) ~ 2026-11-16 22:44:11 (UTC+8)（约 36.9 小时）；共 31,000 次查询，15,677 次被拦截（50.57%）。
 > 数据来自我的 AdGuard Home 查询日志，只统计聚合命中来源，不包含具体查询内容；服务器每 15 分钟更新，本页随每次构建刷新。
 > 注：同一域名被多个上游同时收录时，实际拦截事件按来源数平均分摊（1/N）；「域名空间」规则以 `||父域^` 形式覆盖全部子域，无法对应单一上游源，单独统计。
 
 | 上游源 | 实际拦截事件 | 事件占比 | 命中唯一域名 | 规则条数 | 规则占比 |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| 关圣去广告DNS | 816.75 | 7.13% | 178 | 616,882 | 17.80% |
-| 本地规则 | 814.02 | 7.10% | 61 | 1,006 | 0.03% |
-| 1hosts | 804.78 | 7.02% | 242 | 102,185 | 2.95% |
-| xndeye adblock_list | 760.04 | 6.63% | 210 | 122,222 | 3.53% |
-| hagezi Pro | 645.35 | 5.63% | 179 | 237,130 | 6.84% |
-| 海哥 | 631.54 | 5.51% | 113 | 11,999 | 0.35% |
-| AdBlock DNS Filters | 628.53 | 5.49% | 165 | 241,578 | 6.97% |
-| adsethost | 520.40 | 4.54% | 151 | 204,923 | 5.91% |
-| oisd/big | 507.24 | 4.43% | 120 | 228,121 | 6.58% |
-| natsuki | 505.51 | 4.41% | 142 | 206,198 | 5.95% |
-| 其他 22 个源 | 4,682.84 | 40.86% | — | 1,493,016 | 43.11% |
-| 未映射（可能是自定义规则/新规则） | 142 | 1.24% | 3 | — | — |
+| 关圣去广告DNS | 950.22 | 6.06% | 154 | 429,830 | 18.29% |
+| 1hosts | 947.70 | 6.05% | 246 | 73,911 | 3.15% |
+| xndeye adblock_list | 813.54 | 5.19% | 178 | 88,786 | 3.78% |
+| 海哥 | 722.86 | 4.61% | 104 | 8,872 | 0.38% |
+| hagezi Pro | 676.69 | 4.32% | 144 | 170,759 | 7.27% |
+| AdBlock DNS Filters | 647.20 | 4.13% | 137 | 157,748 | 6.71% |
+| adsethost | 557.34 | 3.56% | 125 | 127,161 | 5.41% |
+| ShadowWhisperer Tracking | 526.16 | 3.36% | 142 | 89,735 | 3.82% |
+| natsuki | 524.83 | 3.35% | 119 | 131,243 | 5.59% |
+| anti-AD | 520.09 | 3.32% | 118 | 68,231 | 2.90% |
+| 其他 22 个源 | 4,915.38 | 31.35% | — | 1,003,467 | 42.70% |
+| 未映射（可能是自定义规则/新规则） | 3,875 | 24.72% | 100 | — | — |
 
 ---
 
@@ -308,10 +308,10 @@ https://gh-proxy.org/https://github.com/Logic769/AdguardHome-Rules/releases/late
 
 ### 6. 本次构建统计
 
-保留 3,635,646 条（其中带上下文修饰符但目标本身是广告域的 157 条），
+保留 3,642,491 条（其中带上下文修饰符但目标本身是广告域的 157 条），
 丢弃上下文规则 6,255 条，丢弃 badfilter 16 条，
 采纳全局例外 1,113 条，忽略不可信的上游例外 177 条，
-剔除无效域名 19,154 条。
+剔除无效域名 19,155 条。
 
 ---
 
@@ -350,6 +350,6 @@ AdGuard Home 的查询日志里 `Result.Rules` 会给出命中的规则来源，
 
 ---
 
-构建时间：2026-11-16 13:43:09 (UTC+8) · 项目作者：logic769 ·
+构建时间：2026-11-16 23:18:45 (UTC+8) · 项目作者：logic769 ·
 本 README 由 `documents/process_rules.py` 的 `update_readme()` 在每次构建时自动生成，
 请勿手工修改（会被下一次构建覆盖）。
