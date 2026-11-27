@@ -1,243 +1,243 @@
 {
   "available": true,
-  "generated_at": "2026-11-26T21:00:18Z",
+  "generated_at": "2026-11-27T07:30:19Z",
   "source": "AdGuard Home querylog",
   "window_start": "2026-11-21T16:25:46.079419Z",
-  "window_end": "2026-11-26T19:20:02.232081Z",
-  "window_hours": 122.9,
-  "total_queries": 245361,
-  "blocked_queries": 108376,
-  "blocked_pct": 44.17,
+  "window_end": "2026-11-27T06:20:22.666579Z",
+  "window_hours": 133.91,
+  "total_queries": 261361,
+  "blocked_queries": 116467,
+  "blocked_pct": 44.56,
   "filter_id": 1775567760,
   "source_map": {
-    "version": "20261126154032",
-    "rules": 935471,
-    "rule_links": 3466269,
-    "multi_source_rules": 554327
+    "version": "20261127051224",
+    "rules": 932388,
+    "rule_links": 3461017,
+    "multi_source_rules": 553541
   },
   "sources": [
     {
       "name": "海哥",
-      "events": 11753.09,
-      "share": 10.84,
-      "unique_domains": 210,
+      "events": 12164.04,
+      "share": 10.44,
+      "unique_domains": 214,
       "rules": 12076,
       "rule_share": 0.35
     },
     {
       "name": "ShadowWhisperer Tracking",
-      "events": 10509.88,
-      "share": 9.7,
-      "unique_domains": 533,
+      "events": 11845.81,
+      "share": 10.17,
+      "unique_domains": 555,
       "rules": 133632,
       "rule_share": 3.86
     },
     {
       "name": "xndeye adblock_list",
-      "events": 8197.82,
-      "share": 7.56,
-      "unique_domains": 544,
-      "rules": 124139,
-      "rule_share": 3.58
+      "events": 8716.43,
+      "share": 7.48,
+      "unique_domains": 550,
+      "rules": 121763,
+      "rule_share": 3.52
     },
     {
       "name": "关圣去广告DNS",
-      "events": 7388.95,
-      "share": 6.82,
-      "unique_domains": 480,
-      "rules": 616334,
-      "rule_share": 17.78
+      "events": 7792.26,
+      "share": 6.69,
+      "unique_domains": 486,
+      "rules": 616155,
+      "rule_share": 17.8
     },
     {
       "name": "hagezi Pro",
-      "events": 6273.8,
-      "share": 5.79,
-      "unique_domains": 405,
-      "rules": 241083,
-      "rule_share": 6.96
+      "events": 6664.08,
+      "share": 5.72,
+      "unique_domains": 411,
+      "rules": 236602,
+      "rule_share": 6.84
     },
     {
       "name": "AdBlock DNS Filters",
-      "events": 5822.6,
-      "share": 5.37,
-      "unique_domains": 368,
-      "rules": 241578,
-      "rule_share": 6.97
+      "events": 6237.26,
+      "share": 5.36,
+      "unique_domains": 374,
+      "rules": 241577,
+      "rule_share": 6.98
     },
     {
       "name": "natsuki",
-      "events": 5593.87,
-      "share": 5.16,
-      "unique_domains": 333,
+      "events": 5954.82,
+      "share": 5.11,
+      "unique_domains": 337,
       "rules": 206198,
-      "rule_share": 5.95
+      "rule_share": 5.96
     },
     {
       "name": "AdRules",
-      "events": 5531.49,
-      "share": 5.1,
-      "unique_domains": 287,
-      "rules": 213938,
-      "rule_share": 6.17
+      "events": 5850.11,
+      "share": 5.02,
+      "unique_domains": 291,
+      "rules": 214422,
+      "rule_share": 6.2
     },
     {
       "name": "本地规则",
-      "events": 5200.85,
-      "share": 4.8,
-      "unique_domains": 84,
+      "events": 5488.39,
+      "share": 4.71,
+      "unique_domains": 85,
       "rules": 1006,
       "rule_share": 0.03
     },
     {
-      "name": "GOODBYEADS",
-      "events": 5035.42,
-      "share": 4.65,
-      "unique_domains": 216,
-      "rules": 121620,
-      "rule_share": 3.51
-    },
-    {
       "name": "1hosts",
-      "events": 5023.01,
-      "share": 4.63,
-      "unique_domains": 771,
+      "events": 5446.96,
+      "share": 4.68,
+      "unique_domains": 795,
       "rules": 102183,
       "rule_share": 2.95
     },
     {
+      "name": "GOODBYEADS",
+      "events": 5354.69,
+      "share": 4.6,
+      "unique_domains": 220,
+      "rules": 121620,
+      "rule_share": 3.51
+    },
+    {
       "name": "oisd/big",
-      "events": 4893.2,
-      "share": 4.52,
-      "unique_domains": 246,
-      "rules": 221820,
-      "rule_share": 6.4
+      "events": 5317.12,
+      "share": 4.57,
+      "unique_domains": 251,
+      "rules": 222185,
+      "rule_share": 6.42
     },
     {
       "name": "adsethost",
-      "events": 3850.12,
-      "share": 3.55,
-      "unique_domains": 317,
-      "rules": 209891,
-      "rule_share": 6.06
+      "events": 4237.42,
+      "share": 3.64,
+      "unique_domains": 323,
+      "rules": 209186,
+      "rule_share": 6.04
     },
     {
       "name": "anti-AD",
-      "events": 3632.27,
-      "share": 3.35,
-      "unique_domains": 283,
+      "events": 4007.13,
+      "share": 3.44,
+      "unique_domains": 289,
       "rules": 96223,
       "rule_share": 2.78
     },
     {
       "name": "AdGuard DNS filter",
-      "events": 3234.12,
-      "share": 2.98,
-      "unique_domains": 209,
-      "rules": 194254,
-      "rule_share": 5.6
+      "events": 3541.42,
+      "share": 3.04,
+      "unique_domains": 213,
+      "rules": 194478,
+      "rule_share": 5.62
     },
     {
       "name": "Mullvad",
-      "events": 3075.43,
-      "share": 2.84,
-      "unique_domains": 199,
-      "rules": 226769,
-      "rule_share": 6.54
+      "events": 3501.67,
+      "share": 3.01,
+      "unique_domains": 204,
+      "rules": 227668,
+      "rule_share": 6.58
     },
     {
       "name": "ABP",
-      "events": 2521.58,
-      "share": 2.33,
-      "unique_domains": 157,
-      "rules": 57444,
+      "events": 2748.88,
+      "share": 2.36,
+      "unique_domains": 158,
+      "rules": 57577,
       "rule_share": 1.66
     },
     {
       "name": "大萌主",
-      "events": 2509.41,
-      "share": 2.32,
-      "unique_domains": 137,
+      "events": 2736.52,
+      "share": 2.35,
+      "unique_domains": 138,
       "rules": 4508,
       "rule_share": 0.13
     },
     {
       "name": "neodavhost",
-      "events": 2169.87,
-      "share": 2.0,
-      "unique_domains": 189,
-      "rules": 238768,
-      "rule_share": 6.89
+      "events": 2342.95,
+      "share": 2.01,
+      "unique_domains": 192,
+      "rules": 239027,
+      "rule_share": 6.91
     },
     {
       "name": "smad",
-      "events": 1461.68,
+      "events": 1567.4,
       "share": 1.35,
-      "unique_domains": 152,
+      "unique_domains": 155,
       "rules": 4897,
       "rule_share": 0.14
     },
     {
       "name": "困了想睡觉",
-      "events": 900.18,
-      "share": 0.83,
+      "events": 954.8,
+      "share": 0.82,
       "unique_domains": 52,
       "rules": 46,
       "rule_share": 0.0
     },
     {
       "name": "秋风的规则",
-      "events": 699.84,
+      "events": 759.43,
       "share": 0.65,
-      "unique_domains": 62,
+      "unique_domains": 63,
       "rules": 971,
       "rule_share": 0.03
     },
     {
       "name": "home-dns-adblock",
-      "events": 665.41,
-      "share": 0.61,
-      "unique_domains": 69,
+      "events": 722.5,
+      "share": 0.62,
+      "unique_domains": 70,
       "rules": 1002,
       "rule_share": 0.03
     },
     {
       "name": "逆向涉猎",
-      "events": 580.01,
-      "share": 0.54,
-      "unique_domains": 45,
+      "events": 635.43,
+      "share": 0.55,
+      "unique_domains": 46,
       "rules": 544,
       "rule_share": 0.02
     },
     {
       "name": "10007",
-      "events": 429.5,
-      "share": 0.4,
-      "unique_domains": 92,
+      "events": 449.13,
+      "share": 0.39,
+      "unique_domains": 93,
       "rules": 12837,
       "rule_share": 0.37
     },
     {
       "name": "DD自用",
-      "events": 351.74,
-      "share": 0.32,
-      "unique_domains": 19,
+      "events": 354.74,
+      "share": 0.3,
+      "unique_domains": 20,
       "rules": 462,
       "rule_share": 0.01
     },
     {
       "name": "ShadowWhisperer Malware",
-      "events": 290.5,
-      "share": 0.27,
+      "events": 291.5,
+      "share": 0.25,
       "unique_domains": 6,
       "rules": 29428,
       "rule_share": 0.85
     },
     {
       "name": "HaGeZi Encrypted DNS",
-      "events": 109.36,
+      "events": 113.09,
       "share": 0.1,
       "unique_domains": 6,
-      "rules": 3051,
+      "rules": 3050,
       "rule_share": 0.09
     },
     {
@@ -253,15 +253,15 @@
       "events": 0.0,
       "share": 0.0,
       "unique_domains": 0,
-      "rules": 146469,
-      "rule_share": 4.23
+      "rules": 146588,
+      "rule_share": 4.24
     },
     {
       "name": "Malicious URL Blocklist",
       "events": 0.0,
       "share": 0.0,
       "unique_domains": 0,
-      "rules": 2133,
+      "rules": 2141,
       "rule_share": 0.06
     },
     {
@@ -274,6 +274,6 @@
     }
   ],
   "unmapped_events": 670,
-  "unmapped_share": 0.62,
+  "unmapped_share": 0.58,
   "unmapped_domains": 2
 }
